@@ -1,13 +1,15 @@
-# MINDsmall Public Proxy Protocol
+# MIND-small Public Proxy Protocol
 
 The MINDsmall experiment is a portability probe, not a replication of the
 private stated-preference experiment.
 
 ## Evidence mapping
 
-- **P proxy:** candidate alignment with a profile derived from prior clicked news.
-- **E:** candidate membership and reciprocal rank in the logged impression.
-- **C:** candidate-aware similarities to prior clicked news.
+- **P proxy:** cosine alignment with the normalized mean history embedding, plus
+  category and subcategory affinity.
+- **E:** logged-slate membership, reciprocal rank, and rank percentile.
+- **C:** mean, maximum, top-three, and attention-weighted similarities to prior
+  clicked news.
 - **Controls:** training-derived popularity, history length, impression size,
   category/subcategory statistics, and article-length metadata.
 
@@ -28,3 +30,25 @@ Any public MIND release must state the exact data version, behavior-row limits,
 history window, encoder checkpoint, cache key, random seed, and selected model
 configuration.
 
+## Candidate construction
+
+Logged candidates retain their click labels. Each expanded query adds up to ten
+popular training articles occurring in neither its logged slate nor its history.
+These additions are weak negatives: they mean only that no positive was observed
+in the constructed pool, not dislike or verified non-exposure.
+
+Popularity statistics and the added pool come from training only. The first 85%
+of limited training behaviors select ExtraTrees hyperparameters; the remaining
+15% form validation, and labeled development is evaluated once. Defaults are
+30,000 training and 30,000 development impressions, a 50-item history window,
+ten added candidates, a 5,000-article popular pool, and random seed 42.
+
+## Encoders and comparisons
+
+- `sentence-transformers/all-MiniLM-L6-v2`
+- `BAAI/bge-base-en-v1.5`
+- `BAAI/bge-m3`
+
+Article text is `title [SEP] abstract` and embeddings are L2-normalized. Each
+encoder compares exposure-only, history-derived `P_proxy + C` without E, and the
+full `P_proxy + E + C` proxy.

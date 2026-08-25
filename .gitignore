@@ -9,8 +9,11 @@ dist/
 *.egg-info/
 cache/
 outputs/
+data/MINDsmall/
 data/private/
 data/raw/
+*.npy
+*.npz
 *.parquet
 *.feather
 *.pkl
@@ -19,4 +22,3 @@ data/raw/
 *.db
 .env
 .env.*
-

@@ -1,0 +1,15 @@
+{
+  "encoders": [
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "BAAI/bge-base-en-v1.5",
+    "BAAI/bge-m3"
+  ],
+  "seed": 42,
+  "train_limit": 30000,
+  "dev_limit": 30000,
+  "validation_fraction": 0.15,
+  "history_window": 50,
+  "unexposed_per_query": 10,
+  "popular_pool_size": 5000,
+  "ndcg_cutoff": 10
+}

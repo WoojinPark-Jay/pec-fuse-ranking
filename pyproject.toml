@@ -15,6 +15,11 @@ dependencies = [
   "scikit-learn>=1.4",
 ]
 
+[project.optional-dependencies]
+mind = [
+  "sentence-transformers>=3.0",
+  "torch>=2.1",
+]
+
 [tool.setuptools.packages.find]
 where = ["src"]
-
