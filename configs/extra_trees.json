@@ -1,0 +1,27 @@
+{
+  "recent_window": {
+    "strong_control": {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    "pec_fuse": {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    }
+  },
+  "popularity_hard": {
+    "strong_control": {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    "pec_fuse": {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    }
+  }
+}
+
