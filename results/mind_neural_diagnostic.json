@@ -1,0 +1,48 @@
+{
+  "scope": "Aggregate audit record for the bounded public MIND diagnostic; not a private-platform baseline.",
+  "dataset": "MINDsmall",
+  "candidate_protocol": "logged impression candidates plus 10 sampled popular weak negatives",
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "seed": 42,
+  "train_behavior_limit": 12000,
+  "dev_behavior_limit": 6000,
+  "validation_fraction": 0.15,
+  "history_window": 30,
+  "models": [
+    {
+      "name": "plm_nrms_style",
+      "queries": 6000,
+      "ndcg@10": 0.2530044428551868,
+      "recall@10": 0.4795139617327117,
+      "mrr": 0.22484308546036286
+    },
+    {
+      "name": "pec_fuse_proxy",
+      "queries": 6000,
+      "ndcg@10": 0.41417016036153853,
+      "recall@10": 0.6440775934713435,
+      "mrr": 0.3795209519469782
+    },
+    {
+      "name": "plm_nrms_plus_pec",
+      "queries": 6000,
+      "ndcg@10": 0.41417016036153853,
+      "recall@10": 0.6440775934713435,
+      "mrr": 0.3795209519469782
+    }
+  ],
+  "pec_minus_plm_nrms": {
+    "mean_delta_ndcg@10": 0.1612,
+    "user_clustered_ci_95": [0.1530, 0.1699]
+  },
+  "selected_neural_config": {
+    "hidden_dim": 128,
+    "heads": 4,
+    "dropout": 0.1,
+    "learning_rate": 0.0007,
+    "weight_decay": 0.0001,
+    "epochs": 4
+  },
+  "selected_neural_fusion_weight": 0.0,
+  "release_status": "aggregate record; standalone runner pending public dependency refactor"
+}

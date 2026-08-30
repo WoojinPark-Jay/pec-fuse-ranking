@@ -52,3 +52,16 @@ ten added candidates, a 5,000-article popular pool, and random seed 42.
 Article text is `title [SEP] abstract` and embeddings are L2-normalized. Each
 encoder compares exposure-only, history-derived `P_proxy + C` without E, and the
 full `P_proxy + E + C` proxy.
+
+## PLM-NRMS-style diagnostic
+
+A separate diagnostic holds the expanded MiniLM candidate pool fixed and
+compares a frozen-PLM, self-attentive history encoder with the
+validation-selected PEC proxy and their validation-selected percentile fusion.
+The committed outcome is documented in `MIND_NEURAL_DIAGNOSTIC.md` and
+`../results/mind_neural_diagnostic.json`.
+
+This comparison is not a private-platform baseline, a full NRMS reproduction,
+or evidence that neural recommenders are generally inferior. Its purpose is
+only to record whether that history-only neural score adds held-out signal on
+the same public partial-exposure proxy pool.

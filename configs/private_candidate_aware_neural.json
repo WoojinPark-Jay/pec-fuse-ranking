@@ -1,0 +1,28 @@
+{
+  "seed": 42,
+  "article_encoder": "BAAI/bge-m3",
+  "article_encoder_frozen": true,
+  "max_history": 50,
+  "history_filter": "click timestamp strictly before target day",
+  "history_encoder": "multi-head self-attention",
+  "candidate_pooling": "candidate-conditioned additive attention",
+  "record_terms": [
+    "candidate",
+    "candidate_conditioned_user",
+    "elementwise_product",
+    "absolute_difference",
+    "optional_side_features"
+  ],
+  "objective": "query-wise listwise cross-entropy",
+  "gradient_clip_norm": 5.0,
+  "validation_grid": {
+    "hidden_dim": [64, 96],
+    "num_heads": [2, 4],
+    "dropout": [0.05, 0.1],
+    "learning_rate": [0.0005, 0.001],
+    "weight_decay": [0.0001],
+    "max_epochs": 14,
+    "patience": 3,
+    "total_configurations": 16
+  }
+}

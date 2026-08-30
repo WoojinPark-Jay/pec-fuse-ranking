@@ -1,0 +1,38 @@
+{
+  "headline_candidate_seed": 42,
+  "headline_seed_fixed_before_held_out_scoring": true,
+  "candidate_seeds": [7, 13, 42, 101, 202],
+  "rebuild_scope": ["train", "validation", "test"],
+  "refit_scope": ["rebuilt train", "rebuilt validation"],
+  "fixed": [
+    "validation-selected ExtraTrees configurations",
+    "learner seed",
+    "feature schema",
+    "encoder",
+    "temporal split",
+    "evaluation metrics"
+  ],
+  "results": [
+    {
+      "regime": "recent_window",
+      "distinct_pools": 5,
+      "delta_mean": 0.141358,
+      "delta_std": 0.039273,
+      "delta_min": 0.072443,
+      "delta_max": 0.171042,
+      "positive_draws": 5,
+      "ci_excludes_zero_draws": 5
+    },
+    {
+      "regime": "popularity_matched",
+      "distinct_pools": 5,
+      "delta_mean": 0.042930,
+      "delta_std": 0.006848,
+      "delta_min": 0.038529,
+      "delta_max": 0.055057,
+      "positive_draws": 5,
+      "ci_excludes_zero_draws": 5
+    }
+  ],
+  "claim_boundary": "Directional robustness; effect magnitude remains candidate-pool sensitive"
+}

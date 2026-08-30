@@ -1,0 +1,33 @@
+{
+  "audit": "private_candidate_aware_plm_nrms_style",
+  "article_encoder": "BAAI/bge-m3",
+  "article_encoder_frozen": true,
+  "history_definition": "clicks strictly before target day",
+  "architecture": "history self-attention with candidate-conditioned pooling",
+  "objective": "query-wise listwise loss",
+  "selection": "validation only",
+  "test_evaluation": "single frozen temporal test window",
+  "results": [
+    {
+      "regime": "recent_window",
+      "queries": 1040,
+      "history_only_ndcg@10": 0.6046,
+      "history_plus_controls_ndcg@10": 0.7509,
+      "history_plus_pec_ndcg@10": 0.7231,
+      "best_neural_variant": "history_plus_controls",
+      "pec_fuse_ndcg@10": 0.7923,
+      "pec_fuse_minus_best_neural": 0.0415
+    },
+    {
+      "regime": "popularity_matched",
+      "queries": 1040,
+      "history_only_ndcg@10": 0.5562,
+      "history_plus_controls_ndcg@10": 0.7103,
+      "history_plus_pec_ndcg@10": 0.7308,
+      "best_neural_variant": "history_plus_pec",
+      "pec_fuse_ndcg@10": 0.7712,
+      "pec_fuse_minus_best_neural": 0.0404
+    }
+  ],
+  "claim_boundary": "Input- and protocol-matched diagnostic; learner family and objective are not matched; not universal neural superiority"
+}

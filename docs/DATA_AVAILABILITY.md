@@ -12,6 +12,22 @@ feature derivation, model configuration, evaluation implementation, and a
 non-private synthetic fixture. No private identifiers, article text, profile
 values, click histories, retained traces, or cached embeddings are included.
 
+Anonymous repository hosting protects author identity during review; it is not
+a privacy transformation for user data. Restricted rows must not be uploaded
+to an anonymous mirror.
+
+## Reproducibility layers
+
+1. **Executable public contract:** the 25-D schema, deterministic transforms,
+   ranking and evaluation code, synthetic fixture, and public MIND proxy.
+2. **Aggregate audit records:** paper tables and the bounded MIND neural
+   diagnostic, committed without user-level rows.
+3. **Restricted evidence:** private platform rows and resulting headline-score
+   regeneration, which remain unavailable for privacy and proprietary reasons.
+
+This separation lets reviewers inspect the method without implying that an
+anonymous host makes operational records safe to distribute.
+
 ## Temporal contract
 
 For a target user-day:
@@ -31,4 +47,3 @@ non-exposure.
 MINDsmall can support a bounded public proxy using impression rank and prior
 click history. It does not contain an independent stated-preference source and
 therefore cannot replicate the private P channel. See `MIND_PROXY_PROTOCOL.md`.
-
