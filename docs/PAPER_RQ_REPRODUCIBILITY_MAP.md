@@ -1,33 +1,14 @@
-# Paper RQ Reproducibility Map
+# Evidence and reproducibility map
 
-This map distinguishes executable public evidence from aggregate records that
-require restricted operational rows.
+- Broad-pool ranking: corrected Tables 1 and secondary metrics.
+- Compression: corrected collapsed, scalar early-fusion and no-E comparisons;
+  direct-separated comparisons without interactions are also recorded.
+- Diagnostic conditions: E=0, matched E removal, disagreement, profile removal,
+  mean-history, model seeds and the neural challenger.
+- Public boundary: unchanged MIND proxy; not a private P/C replication.
+- Unresolved: cache-coverage-controlled candidate-pool redraws and historical
+  hidden-latent alignment. Neither is current confirmatory evidence.
 
-| Research question | Paper evidence | Public artifact | Public status |
-|---|---|---|---|
-| RQ1: broad candidate ranking | Primary held-out control comparison | `results/paper_tables.json`, `scripts/render_paper_tables.py` | Aggregate audit record; metrics and ranking code executable |
-| RQ2: separation versus compression | Collapsed and no-E early-fusion comparisons | `results/paper_tables.json`, feature schema and model code | Aggregate audit record; representation contract executable |
-| RQ3: where and why separation helps | E=0, no-E, matched-E, joint-latent, and disagreement diagnostics | `results/paper_tables.json`, `results/paper_additional_diagnostics.json`, `docs/feature_dictionary.csv` | Reported aggregates; private slice regeneration unavailable |
-| RQ4: public boundary | MIND proxy and PLM-NRMS-style diagnostic | `scripts/run_mind_proxy.py`, `docs/MIND_PROXY_PROTOCOL.md`, `results/mind_neural_diagnostic.json` | ExtraTrees proxy executable; neural result recorded pending standalone refactor |
-
-## Interpretation boundary
-
-- Public MIND does not contain an independent stated-profile channel.
-- Synthetic rows demonstrate execution, not the paper's effect sizes.
-- Aggregate records let reviewers audit exact reported values but cannot
-  regenerate private-platform scores.
-- Anonymous hosting removes author identity; it does not de-identify user data.
-
-## RQ3: candidate-aware neural challenger
-
-- Method and claim boundary: `PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md`
-- Validation configuration: `../configs/private_candidate_aware_neural.json`
-- Aggregate held-out results: `../results/private_candidate_aware_neural_audit.json`
-- Scope: identical private candidate pools and temporal split; raw private rows are not released.
-
-## RQ3: candidate-pool sensitivity
-
-- Protocol and interpretation: `NEGATIVE_POOL_RESAMPLING_AUDIT.md`
-- Fixed and varied factors: `../configs/negative_pool_resampling.json`
-- Aggregate results: `../results/negative_pool_resampling_audit.json`
-- Claim boundary: directional robustness, not a pool-invariant effect size.
+See `CUTOFF_CORRECTION.md` for protocol distinctions and all result locations.
+Only the public contract, synthetic pipeline and MIND proxy are executable
+without private tables. Private diagnostics are aggregate audit records.

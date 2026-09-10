@@ -1,29 +1,21 @@
-# Private Candidate-Aware Neural Audit
+# Private candidate-aware neural audit
 
-## Question
+This is an input-and-protocol-matched diagnostic, not exact NRMS reproduction
+or exhaustive neural tuning. The encoder is frozen BGE-M3. History self-attention
+and candidate-conditioned pooling feed a query-wise listwise scorer.
 
-Can a candidate-aware neural history model absorb the ranking signal attributed to the source-separated PEC record?
+Selection uses January-March training and April validation with March-31
+popularity. The original grid is unchanged: widths 64/96, heads 2/4, dropout
+0.05/0.10 and learning rate 0.0005/0.001, with fixed weight decay 0.0001.
+There are 16 configurations per feature variant and regime, at most 14 epochs,
+patience 3. History-only, controls and full-PEC variants are all retained.
+The preferred variant is selected by validation, not by its test score.
 
-## Matched protocol
+Final models refit January-April with April-30 popularity and are evaluated
+on the previously inspected May-June pools. See `CUTOFF_CORRECTION.md`.
+Learner family and optimization objective differ from ExtraTrees.
 
-- The candidate pools and calendar-time train/validation/test split match the private-platform PEC-Fuse evaluation.
-- Candidate articles and clicked-history articles use the same frozen BGE-M3 vectors.
-- History contains clicks strictly before the target day.
-- A history self-attention layer is followed by candidate-conditioned pooling and query-wise listwise training.
-- Neural width, attention heads, dropout, learning rate, and training epoch are selected on validation only.
-- The held-out test window is evaluated once with query-averaged ranking metrics.
-
-The model is described as PLM-NRMS-style. It is an article-level neural history diagnostic, not a claim of exact NRMS reproduction or exhaustive neural tuning.
-
-## Aggregate held-out results
-
-| Regime | History only | + controls | + complete PEC | Final PEC-Fuse |
-|---|---:|---:|---:|---:|
-| Recent-window | 0.6046 | 0.7509 | 0.7231 | 0.7923 |
-| Popularity-hard | 0.5562 | 0.7103 | 0.7308 | 0.7712 |
-
-The validation grid contains 16 configurations: widths {64, 96}, heads {2, 4}, dropout {0.05, 0.10}, and learning rates {0.0005, 0.001}. The final PEC-Fuse scorer remains higher than the strongest neural variant in each regime by 0.0415 and 0.0404 NDCG@10. Complete PEC inputs do not improve the neural scorer in every regime, so the audit does not claim an automatic benefit from adding columns.
-
-## Release boundary
-
-This record releases the architecture definition, validation protocol, configuration, and aggregate results. Inputs, pools, temporal splits, and evaluation are matched; learner family and optimization objective are not. It does not release private candidate rows, article vectors, user profiles, or click histories. The anonymous artifact protects reviewer anonymity; it is not a mechanism for de-identifying user data.
+Exact aggregate scores and user-bootstrap comparisons are in
+`../results/private_candidate_aware_neural_audit.json` and `../results/corrected/`.
+Selected settings and epochs are in `../configs/corrected_neural_selection.json`.
+These are aggregate audit records, not a public private-data training pipeline.

@@ -1,20 +1,20 @@
-# Candidate-Pool Resampling Audit
+# Candidate-pool resampling status
 
-## Question
+The corrected five-seed audit is **not complete** and no corrected five-pool
+robustness claim is made. Seed 42 remains the original headline pool.
+The first alternate draw required uncached article vectors; the runner stopped
+before model scoring rather than silently substituting zeros. Existing
+supplemental caches do not cover all missing articles.
 
-Does the PEC-Fuse advantage survive alternative weak-negative candidate pools?
+A valid rerun must first establish embedding coverage for every required
+candidate and prior-history article with the same frozen encoder, then rebuild
+and refit all five pools under a documented coverage policy. Cache filling must
+not depend on test outcomes. The original seeds are 7, 13, 42, 101 and 202.
 
-## Protocol
+Same-day expansion uses day-t articles, with frozen click counts and source-file
+tie order. It is not a demonstrated popularity-hard negative pool. The recent
+window includes day t and the preceding three days.
 
-Seed 42 was fixed before held-out scoring and defines the headline candidate pool. Candidate seeds 7, 13, 42, 101, and 202 rebuild the training, validation, and held-out candidate frames. Validation-selected ExtraTrees configurations, the learner seed, feature schema, encoder, temporal boundaries, and evaluation metrics remain fixed; each model is refit on the rebuilt training-plus-validation rows. Complete sorted-row fingerprints confirm five distinct pools in each broad regime.
-
-Recent-window resamples eligible introduced recent articles and capped retained-trace negatives. Popularity-hard keeps its introduced top-popular weak set deterministic but resamples retained-trace negatives when their count exceeds the per-query cap.
-
-## Results
-
-| Regime | Distinct pools | Mean delta | SD | Range | Positive | CI above zero |
-|---|---:|---:|---:|---:|---:|---:|
-| Recent-window | 5 | +0.1414 | 0.0393 | [+0.0724, +0.1710] | 5/5 | 5/5 |
-| Popularity-hard | 5 | +0.0429 | 0.0068 | [+0.0385, +0.0551] | 5/5 | 5/5 |
-
-The direction is robust to candidate construction. The larger recent-window range also demonstrates that the absolute effect size is pool-sensitive; the main paper therefore retains the predefined seed-42 result as its headline and uses this audit only as directional robustness evidence.
+Seven learner-seed runs on a fixed pool answer a different question and cannot
+replace this audit. See `CUTOFF_CORRECTION.md` and
+`../results/negative_pool_resampling_audit.json`.

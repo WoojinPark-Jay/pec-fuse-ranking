@@ -36,7 +36,7 @@ For a target user-day:
 - prior consumption uses clicks strictly before the target day;
 - retained exposure uses only the target-day retained recommendation trace;
 - profile evidence is the exported snapshot available to the experiment; and
-- popularity and candidate construction use their designated training window.
+- popularity and same-day candidate selection use March-31 counts during model selection and April-30 counts for the January-April refit and May-June test; these are window aggregates, not within-training-day causal features.
 
 A weak negative means that no target-day positive was observed for that
 candidate in the evaluation pool. It does not mean dislike or verified
