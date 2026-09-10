@@ -1,33 +1,315 @@
 {
-  "audit": "private_candidate_aware_plm_nrms_style",
-  "article_encoder": "BAAI/bge-m3",
-  "article_encoder_frozen": true,
-  "history_definition": "clicks strictly before target day",
-  "architecture": "history self-attention with candidate-conditioned pooling",
-  "objective": "query-wise listwise loss",
-  "selection": "validation only",
-  "test_evaluation": "single frozen temporal test window",
+  "scope": "Corrected validation cutoff; previously inspected test window.",
   "results": [
     {
-      "regime": "recent_window",
+      "candidate_regime": "recent_window",
+      "feature_mode": "history_only",
+      "selected_mode_by_validation": false,
+      "selected_epoch": 1,
+      "config": "{\"hidden_dim\": 64, \"num_heads\": 2, \"dropout\": 0.05, \"learning_rate\": 0.0005, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
       "queries": 1040,
-      "history_only_ndcg@10": 0.6046,
-      "history_plus_controls_ndcg@10": 0.7509,
-      "history_plus_pec_ndcg@10": 0.7231,
-      "best_neural_variant": "history_plus_controls",
-      "pec_fuse_ndcg@10": 0.7923,
-      "pec_fuse_minus_best_neural": 0.0415
+      "ndcg@10": 0.6045596317,
+      "recall@10": 0.7956475931,
+      "mrr": 0.611343012
     },
     {
-      "regime": "popularity_matched",
+      "candidate_regime": "recent_window",
+      "feature_mode": "history_plus_controls",
+      "selected_mode_by_validation": false,
+      "selected_epoch": 3,
+      "config": "{\"hidden_dim\": 96, \"num_heads\": 4, \"dropout\": 0.05, \"learning_rate\": 0.0005, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
       "queries": 1040,
-      "history_only_ndcg@10": 0.5562,
-      "history_plus_controls_ndcg@10": 0.7103,
-      "history_plus_pec_ndcg@10": 0.7308,
-      "best_neural_variant": "history_plus_pec",
-      "pec_fuse_ndcg@10": 0.7712,
-      "pec_fuse_minus_best_neural": 0.0404
+      "ndcg@10": 0.7582582857,
+      "recall@10": 0.8951199208,
+      "mrr": 0.7710583416
+    },
+    {
+      "candidate_regime": "recent_window",
+      "feature_mode": "history_plus_pec",
+      "selected_mode_by_validation": true,
+      "selected_epoch": 1,
+      "config": "{\"hidden_dim\": 64, \"num_heads\": 2, \"dropout\": 0.05, \"learning_rate\": 0.001, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
+      "queries": 1040,
+      "ndcg@10": 0.7967391794,
+      "recall@10": 0.9068007941,
+      "mrr": 0.8123371064
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "feature_mode": "history_only",
+      "selected_mode_by_validation": false,
+      "selected_epoch": 1,
+      "config": "{\"hidden_dim\": 96, \"num_heads\": 4, \"dropout\": 0.1, \"learning_rate\": 0.0005, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
+      "queries": 1040,
+      "ndcg@10": 0.5618426134,
+      "recall@10": 0.7648615173,
+      "mrr": 0.557504858
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "feature_mode": "history_plus_controls",
+      "selected_mode_by_validation": false,
+      "selected_epoch": 2,
+      "config": "{\"hidden_dim\": 64, \"num_heads\": 4, \"dropout\": 0.1, \"learning_rate\": 0.0005, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
+      "queries": 1040,
+      "ndcg@10": 0.7080397115,
+      "recall@10": 0.8660828646,
+      "mrr": 0.7293971961
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "feature_mode": "history_plus_pec",
+      "selected_mode_by_validation": true,
+      "selected_epoch": 3,
+      "config": "{\"hidden_dim\": 96, \"num_heads\": 4, \"dropout\": 0.05, \"learning_rate\": 0.001, \"weight_decay\": 0.0001, \"max_epochs\": 14, \"patience\": 3, \"accumulation_steps\": 16}",
+      "queries": 1040,
+      "ndcg@10": 0.7568792545,
+      "recall@10": 0.8898621263,
+      "mrr": 0.7809328336
     }
   ],
-  "claim_boundary": "Input- and protocol-matched diagnostic; learner family and objective are not matched; not universal neural superiority"
+  "comparisons": [
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "ndcg@10",
+      "delta": 0.1925591805,
+      "ci_low": 0.1703712905,
+      "ci_high": 0.2152789637,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "recall@10",
+      "delta": 0.1127631447,
+      "ci_low": 0.092877256,
+      "ci_high": 0.1328061121,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "mrr",
+      "delta": 0.1999548416,
+      "ci_low": 0.1716201423,
+      "ci_high": 0.227360844,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "ndcg@10",
+      "delta": 0.0388605264,
+      "ci_low": 0.023310518,
+      "ci_high": 0.0533890807,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "recall@10",
+      "delta": 0.013290817,
+      "ci_low": 0.0044072599,
+      "ci_high": 0.0216199772,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "mrr",
+      "delta": 0.0402395121,
+      "ci_low": 0.0184338676,
+      "ci_high": 0.060842799,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "ndcg@10",
+      "delta": 0.0003796327,
+      "ci_low": -0.0114033517,
+      "ci_high": 0.0117969002,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "recall@10",
+      "delta": 0.0016099437,
+      "ci_low": -0.005476056,
+      "ci_high": 0.0088142496,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "mrr",
+      "delta": -0.0010392528,
+      "ci_low": -0.0202057516,
+      "ci_high": 0.0159872893,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "ndcg@10",
+      "delta": 0.0384808937,
+      "ci_low": 0.0287349693,
+      "ci_high": 0.0473061516,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "recall@10",
+      "delta": 0.0116808733,
+      "ci_low": 0.0049217083,
+      "ci_high": 0.0184412504,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "recent_window",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "mrr",
+      "delta": 0.0412787648,
+      "ci_low": 0.0270795573,
+      "ci_high": 0.0558432287,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "ndcg@10",
+      "delta": 0.2098726157,
+      "ci_low": 0.1809669842,
+      "ci_high": 0.2366914033,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "recall@10",
+      "delta": 0.1226181611,
+      "ci_low": 0.0979880261,
+      "ci_high": 0.147124787,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_only",
+      "metric": "mrr",
+      "delta": 0.2427001287,
+      "ci_low": 0.2082355195,
+      "ci_high": 0.2756714289,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "ndcg@10",
+      "delta": 0.0636755176,
+      "ci_low": 0.0481038343,
+      "ci_high": 0.0792714392,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "recall@10",
+      "delta": 0.0213968138,
+      "ci_low": 0.0098822129,
+      "ci_high": 0.0336595267,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_controls",
+      "metric": "mrr",
+      "delta": 0.0708077906,
+      "ci_low": 0.0491001048,
+      "ci_high": 0.0924932539,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "ndcg@10",
+      "delta": 0.0148359746,
+      "ci_low": 0.0020281739,
+      "ci_high": 0.0267867676,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "recall@10",
+      "delta": -0.0023824478,
+      "ci_low": -0.0097596181,
+      "ci_high": 0.0039927135,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "headline_full_minus_neural_history_plus_pec",
+      "metric": "mrr",
+      "delta": 0.0192721532,
+      "ci_low": 0.0015247725,
+      "ci_high": 0.0351776637,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "ndcg@10",
+      "delta": 0.048839543,
+      "ci_low": 0.0361498261,
+      "ci_high": 0.0609396814,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "recall@10",
+      "delta": 0.0237792617,
+      "ci_low": 0.0137631361,
+      "ci_high": 0.034449137,
+      "users": 369,
+      "queries": 1040
+    },
+    {
+      "candidate_regime": "popularity_matched",
+      "comparison": "neural_pec_minus_neural_controls",
+      "metric": "mrr",
+      "delta": 0.0515356375,
+      "ci_low": 0.0311420996,
+      "ci_high": 0.0711267095,
+      "users": 369,
+      "queries": 1040
+    }
+  ],
+  "selection": "Per-variant configurations and the preferred feature variant selected on validation, before final refits.",
+  "claim_boundary": "Frozen-encoder, input-and-protocol-matched diagnostic; learner and objective not matched."
 }

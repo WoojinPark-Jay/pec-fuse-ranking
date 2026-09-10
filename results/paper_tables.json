@@ -1,17 +1,81 @@
 {
-  "scope": "Committed aggregate values from the paper; not raw-data regeneration.",
+  "scope": "Cutoff-corrected private-platform aggregate audit records; not private-data regeneration.",
   "table_1": [
-    {"regime": "Recent-window", "control": 0.7200, "pec_fuse": 0.7923, "delta": 0.0724, "ci_low": 0.0581, "ci_high": 0.0862},
-    {"regime": "Popularity-hard", "control": 0.7299, "pec_fuse": 0.7712, "delta": 0.0413, "ci_low": 0.0265, "ci_high": 0.0549}
+    {
+      "regime": "Recent-window",
+      "control": 0.730923658691031,
+      "pec_fuse": 0.7971188121304137,
+      "delta": 0.0661951534,
+      "ci_low": 0.052343327,
+      "ci_high": 0.0792814776
+    },
+    {
+      "regime": "Same-day",
+      "control": 0.7499217192968993,
+      "pec_fuse": 0.7717152291433227,
+      "delta": 0.0217935098,
+      "ci_low": 0.0079576168,
+      "ci_high": 0.0363233078
+    }
   ],
   "table_2": [
-    {"protocol": "Collapsed", "regime": "Recent", "reference": 0.7696, "decomposed": 0.7875, "delta": 0.0179, "ci_low": 0.0070, "ci_high": 0.0290},
-    {"protocol": "Collapsed", "regime": "Pop-hard", "reference": 0.7683, "decomposed": 0.7710, "delta": 0.0027, "ci_low": -0.0088, "ci_high": 0.0138},
-    {"protocol": "No-E early", "regime": "Recent", "reference": 0.6811, "decomposed": 0.6860, "delta": 0.0048, "ci_low": -0.0038, "ci_high": 0.0127},
-    {"protocol": "No-E early", "regime": "Pop-hard", "reference": 0.5719, "decomposed": 0.6139, "delta": 0.0421, "ci_low": 0.0266, "ci_high": 0.0555}
+    {
+      "protocol": "Collapsed",
+      "regime": "Recent-window",
+      "reference": 0.7781951083015326,
+      "decomposed": 0.7914820575721176,
+      "delta": 0.0132869493,
+      "ci_low": 0.0047379529,
+      "ci_high": 0.021522075
+    },
+    {
+      "protocol": "No-E early",
+      "regime": "Recent-window",
+      "reference": 0.6800411806960669,
+      "decomposed": 0.6886344613725086,
+      "delta": 0.0085932807,
+      "ci_low": -0.0010359008,
+      "ci_high": 0.0179704879
+    },
+    {
+      "protocol": "Collapsed",
+      "regime": "Same-day",
+      "reference": 0.7602507352993914,
+      "decomposed": 0.7709530915898046,
+      "delta": 0.0107023563,
+      "ci_low": 0.0008511626,
+      "ci_high": 0.0205945691
+    },
+    {
+      "protocol": "No-E early",
+      "regime": "Same-day",
+      "reference": 0.6047323757443406,
+      "decomposed": 0.6334999937493208,
+      "delta": 0.028767618,
+      "ci_low": 0.0145874809,
+      "ci_high": 0.0423256615
+    }
   ],
   "table_3": [
-    {"regime": "Recent-window", "high_p_low_e": 0.0320, "other": -0.0113, "difference": 0.0433, "ci_low": 0.0204, "ci_high": 0.0673},
-    {"regime": "Popularity-hard", "high_p_low_e": 0.0247, "other": -0.0308, "difference": 0.0555, "ci_low": 0.0360, "ci_high": 0.0763}
+    {
+      "regime": "Recent-window",
+      "high_p_low_e": 0.0216128707,
+      "other": -0.0038546537,
+      "difference": 0.0254675245,
+      "ci_low": 0.0088235175,
+      "ci_high": 0.0437193644,
+      "high_queries": 700,
+      "other_queries": 340
+    },
+    {
+      "regime": "Same-day",
+      "high_p_low_e": 0.0260537077,
+      "other": -0.0148832294,
+      "difference": 0.040936937,
+      "ci_low": 0.0200710272,
+      "ci_high": 0.0611452703,
+      "high_queries": 650,
+      "other_queries": 390
+    }
   ]
 }
