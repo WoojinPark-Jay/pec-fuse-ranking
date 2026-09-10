@@ -1,3 +1,8 @@
+> **Corrected audit revision (2026-09-10).** The active aggregate tables and
+> configurations now use the corrected validation cutoff. See
+> [the correction record](docs/CUTOFF_CORRECTION.md) before comparing with an
+> older frozen manuscript. Five-pool robustness is not currently revalidated.
+
 # PEC-Fuse
 
 This repository provides the public implementation contract for PEC-Fuse, a
@@ -79,7 +84,7 @@ in `docs/feature_dictionary.csv`.
 
 The primary comparison uses the same candidate rows for both models:
 
-- **Strong control:** retained-trace exposure plus 11 non-semantic controls.
+- **Strong control:** the 11-feature operational control, including retained-trace and non-semantic context features.
 - **PEC-Fuse:** the full 25-dimensional source-separated record.
 
 Hyperparameters are selected on an earlier validation window and then fixed for
@@ -120,8 +125,12 @@ article-text, identifier, or row-level platform data belongs in this repository.
 
 ## Private candidate-aware neural audit
 
-The aggregate-only matched neural diagnostic is documented in `docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md`, with configuration in `configs/private_candidate_aware_neural.json` and results in `results/private_candidate_aware_neural_audit.json`. Private candidate rows, embeddings, profiles, and histories are not included.
+The aggregate-only matched neural diagnostic is documented in `docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md`, with the search grid in `configs/private_candidate_aware_neural.json`, corrected selected configurations in `configs/corrected_neural_selection.json`, and results in `results/private_candidate_aware_neural_audit.json`. Private candidate rows, embeddings, profiles, and histories are not included.
 
-## Candidate-pool resampling audit
+## Candidate-pool resampling status
 
-Seed 42 was fixed before held-out scoring and defines the headline pool. Seeds 7, 13, 42, 101, and 202 rebuild private training, validation, and test candidate frames; validation-selected configurations and the learner seed remain fixed, and each model is refit on the rebuilt training-plus-validation rows. See `docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md`, `configs/negative_pool_resampling.json`, and `results/negative_pool_resampling_audit.json`. Only aggregate results and protocol metadata are released.
+Seed 42 defines the headline pool. The corrected five-pool rerun is incomplete because required cached article embeddings are missing; no corrected five-pool robustness claim is made. Seven learner-seed runs on a fixed pool are a separate diagnostic. See `docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md`, `configs/negative_pool_resampling.json`, and `results/negative_pool_resampling_audit.json`.
+
+## Current manuscript alignment
+
+[Release alignment](docs/RELEASE_ALIGNMENT.md) maps the current WSDM short-paper claims to corrected aggregate records. Compression comparisons evaluate the complete source-preserving representation, including its interactions; they do not isolate source identity alone. Internal regime keys `popularity_matched` and `popularity_hard` mean **Same-day expansion**, not demonstrated hard negatives. Historical UMAP snapshots are not silently updated by this release.
