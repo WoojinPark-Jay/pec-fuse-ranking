@@ -1,12 +1,28 @@
 {
   "headline_candidate_seed": 42,
   "headline_seed_fixed_before_held_out_scoring": true,
-  "candidate_seeds": [7, 13, 42, 101, 202],
+  "candidate_seeds": [
+    7,
+    13,
+    42,
+    101,
+    202
+  ],
   "learner_seed_fixed": 42,
-  "model_configs": "validation-selected configurations from the primary clean-selection audit",
-  "rebuild_scope": ["train", "validation", "test"],
-  "refit_scope": ["rebuilt train", "rebuilt validation"],
+  "model_configs": "Historical design only; corrected rerun stopped before alternate-pool scoring because required embeddings were missing.",
+  "rebuild_scope": [
+    "train",
+    "validation",
+    "test"
+  ],
+  "refit_scope": [
+    "rebuilt train",
+    "rebuilt validation"
+  ],
   "pool_identity_check": "SHA-256 over sorted query/user/date/news/label/source rows",
   "primary_metric": "query-averaged NDCG@10",
-  "uncertainty": "paired user-clustered bootstrap within each candidate pool"
+  "uncertainty": "paired user-clustered bootstrap within each candidate pool",
+  "status": "corrected_rerun_incomplete",
+  "current_evidence": false,
+  "see": "docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md"
 }

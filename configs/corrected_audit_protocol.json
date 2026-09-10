@@ -1,0 +1,66 @@
+{
+  "revision": "cutoff-corrected-2026-09-10",
+  "scope": "WSDM corrected diagnostic update; previous UMAP manuscript remains a separately frozen historical version.",
+  "split": {
+    "train": "2026-01-01 through 2026-03-31",
+    "validation": "2026-04-01 through 2026-04-30",
+    "test": "2026-05-01 through 2026-06-30"
+  },
+  "selection_popularity_cutoff": "2026-03-31",
+  "final_refit_popularity_cutoff": "2026-04-30",
+  "final_refit": "January-April",
+  "test_status": "Post-hoc correction using an already inspected test window; not a fresh independent confirmation sample.",
+  "candidate_seed": 42,
+  "same_day": "Day-t articles ordered by frozen pre-test click counts; ties retain source-file order. This selects candidates, not model ranks.",
+  "regime_aliases": {
+    "popularity_matched": "Same-day expansion",
+    "popularity_hard": "Same-day expansion"
+  },
+  "headline_grid": {
+    "n_estimators": [
+      240,
+      260,
+      420,
+      640,
+      720
+    ],
+    "max_depth": [
+      null,
+      6,
+      10,
+      12,
+      16,
+      18
+    ],
+    "min_samples_leaf": [
+      1,
+      2,
+      3,
+      4,
+      6
+    ],
+    "total": 150
+  },
+  "compression_tree_grid": {
+    "n_estimators": [
+      240,
+      420
+    ],
+    "max_depth": [
+      null,
+      18
+    ],
+    "min_samples_leaf": [
+      2,
+      4
+    ],
+    "total": 8
+  },
+  "compression_scope": "Full 25-feature record versus 12-feature collapsed/early-fused records; not an equal-dimension or interaction-isolated experiment. Direct separation without interactions is additionally reported.",
+  "early_fusion": "Five scalar-output fusers, five-fold stratified row-level cross-fitting inside training; not user-grouped or forward-chained cross-fitting.",
+  "no_e": "Independent 150-setting selections for 9-feature control and 18-feature PEC. No-E early fusion uses the selected no-E PEC tree setting and selects among five fusers.",
+  "uncertainty": "2000 paired user-clustered bootstrap replicates; multinomial user multiplicities, query-weighted means; percentile intervals are exploratory, not multiplicity-adjusted.",
+  "candidate_pool_redraw_status": "Not completed: required article embeddings are absent from the fixed cache. Historical five-pool claims are not asserted for this revision.",
+  "joint_latent_status": "Not current evidence: historical cross-fitted hidden-coordinate alignment is unresolved.",
+  "privacy": "Aggregate metrics and configurations only; no source rows, per-query predictions, user IDs, text, embeddings, or fitted models."
+}
