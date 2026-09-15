@@ -1,3 +1,7 @@
+# Access update: 2026-09-15
+
+The Access extension is now organized in [access/README.md](access/README.md): multidimensional fusion, Direct comparison, all pool scores and intervals, three-encoder MIND results, feature schema and plot code. Existing WSDM results below are preserved.
+
 > **Corrected audit revision (2026-09-10).** The active aggregate tables and
 > configurations now use the corrected validation cutoff. See
 > [the correction record](docs/CUTOFF_CORRECTION.md) before comparing with an

@@ -1,0 +1,21 @@
+\begin{table*}[!t]
+\centering
+\caption{Implemented preprocessing and semantic inputs. Limits describe the recorded implementation, not additional tuning on the test set.}
+\label{tab:preprocessing_detail}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{p{0.16\textwidth}p{0.76\textwidth}}
+\toprule
+Stage & Operation \\
+\midrule
+Profiles & Drop missing user IDs; retain the first row per ID. Parse category/publisher weights and keyword lists. \\
+Clicks and traces & Keep matched article records, known profiled users, valid IDs, and parseable dates. \\
+Article catalog & Retain the first row per article ID; fill missing length and breaking-news indicator with zero. \\
+Article encoder text & Concatenate title, description, English summary, and tags, separated by periods; missing text fields become empty strings. \\
+Profile encoder text & Serialize names of up to 8 categories and 12 publishers ordered by weight, followed by up to 24 keywords. Numeric weights remain separate control features. \\
+Text encoding & Frozen BGE-M3; article string cap 1,400 characters; maximum sequence length 192; batch size 64; normalized float32 vectors. \\
+Semantic history & Use up to 50 most recent click events strictly before the query date. Repeated click events are retained. \\
+Empty history & Set the four consumption summaries to zero. \\
+\bottomrule
+\end{tabular}
+\end{table*}

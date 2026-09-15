@@ -1,3 +1,7 @@
+# Access extension
+
+See [the Access release guide](../access/README.md) for the newer shared-context multidimensional audit and Complete-minus-Direct results. The WSDM-specific description below is retained as a historical release record, not the full scope of the Access artifact.
+
 # Current WSDM release alignment
 
 The active WSDM short-paper release uses the cutoff-corrected aggregate records. The final wording describes the **complete source-preserving representation**, not an isolated effect of source identity. The 2026-09-15 revision adds a separate fixed-model same-day tie-order sensitivity audit; existing headline and diagnostic estimates are unchanged.

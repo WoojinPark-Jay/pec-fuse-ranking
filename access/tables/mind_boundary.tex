@@ -1,0 +1,16 @@
+\begin{table}[!htbp]
+\caption{MIND-small expanded-pool proxy NDCG@10 on 30,000 development impressions. P is history-derived, not independently stated. Deltas compare the full proxy with E-only and use unrounded scores. P+C has the highest point estimate for each encoder.}
+\label{tab:mind_boundary}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Encoder & E-only & P+C & P+E+C & $\Delta_{PEC-E}$ \\
+\midrule
+MiniLM-L6 & 0.3503 & 0.4199 & 0.3958 & +0.0455 \\
+BGE-base & 0.3503 & 0.4118 & 0.3941 & +0.0438 \\
+BGE-M3 & 0.3503 & 0.4078 & 0.3902 & +0.0398 \\
+\bottomrule
+\end{tabular}
+\end{table}

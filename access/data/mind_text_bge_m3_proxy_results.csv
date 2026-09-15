@@ -1,0 +1,6 @@
+encoder,family,feature_set,config,queries,ndcg@10,recall@10,mrr
+bge_m3,extra_trees,P_C,"{""family"": ""extra_trees"", ""max_depth"": 12, ""min_samples_leaf"": 3, ""n_estimators"": 420}",30000,0.4078448779214452,0.650416354520236,0.3671622551496558
+bge_m3,extra_trees,P_E_C,"{""family"": ""extra_trees"", ""max_depth"": null, ""min_samples_leaf"": 4, ""n_estimators"": 420}",30000,0.39015465686768974,0.6311551397301242,0.34874030591415733
+bge_m3,extra_trees,full_pec_proxy,"{""family"": ""extra_trees"", ""max_depth"": null, ""min_samples_leaf"": 4, ""n_estimators"": 420}",30000,0.39015465686768974,0.6311551397301242,0.34874030591415733
+bge_m3,extra_trees,E_only,"{""family"": ""extra_trees"", ""max_depth"": 12, ""min_samples_leaf"": 3, ""n_estimators"": 420}",30000,0.35030942710388735,0.5862054771704618,0.31435317734282386
+bge_m3,extra_trees,controls,"{""family"": ""extra_trees"", ""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",30000,0.34970885476451136,0.5691714325868776,0.3241850079807443

@@ -1,0 +1,20 @@
+\begin{table*}[!t]
+\centering
+\caption{Inputs and widths of the implemented comparisons. B denotes the 11-field operational control; H adds P-count, C-count, and the combined E score to B. Scalar-audit Direct and multidimensional-audit Direct are distinct variants.}
+\label{tab:comparison_design}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llr}
+\toprule
+Comparison & Scorer input & Width \\
+\midrule
+Operational control & B & 11 \\
+Scalar collapsed / learned early & B + one mixed semantic score & 12 \\
+Scalar-audit Direct & B + combined E + five P/C scores & 17 \\
+Multidimensional-audit Direct & H + five P/C scores & 19 \\
+Multidimensional fusion & H + learned hidden vector & $14+d$ \\
+Complete PEC & H + five P/C scores + six products & 25 \\
+No-E control / PEC / early & Their respective E-free inputs & 9 / 18 / 10 \\
+\bottomrule
+\end{tabular}
+\end{table*}

@@ -2,15 +2,15 @@ order,feature,block,construction,value_form
 1,pref_category_weight,Z,candidate category lookup in exported profile-category weights,bounded numeric
 2,pref_publisher_weight,Z,candidate publisher lookup in exported profile-publisher weights,bounded numeric
 3,same_day_recommended,E,1 if candidate is in retained trace otherwise 0,binary
-4,reciprocal_rank,E,same_day_recommended divided by retained rank,[0,1]
-5,hist_category_click_share,Z,prior-click share for candidate category,[0,1]
-6,hist_publisher_click_share,Z,prior-click share for candidate publisher,[0,1]
+4,reciprocal_rank,E,same_day_recommended divided by retained rank,"[0,1]"
+5,hist_category_click_share,Z,prior-click share for candidate category,"[0,1]"
+6,hist_publisher_click_share,Z,prior-click share for candidate publisher,"[0,1]"
 7,log_user_prior_clicks,Z,log of 1 plus prior-click count,nonnegative numeric
 8,P_semantic,P,cosine of profile and candidate article embeddings,cosine-like scalar
 9,C_semantic,C,candidate similarity to recency-weighted prior-click representation,cosine-like scalar
-10,P_count,Z,min of category plus publisher profile weight and 1,[0,1]
-11,C_count,Z,min of category plus publisher prior-click share and 1,[0,1]
-12,E_exposure,E,same_day_recommended plus reciprocal_rank,[0,2]
+10,P_count,Z,min of category plus publisher profile weight and 1,"[0,1]"
+11,C_count,Z,min of category plus publisher prior-click share and 1,"[0,1]"
+12,E_exposure,E,same_day_recommended plus reciprocal_rank,"[0,2]"
 13,P_semantic_x_E,psi_PEC,P_semantic times E_exposure,numeric interaction
 14,C_semantic_x_E,psi_PEC,C_semantic times E_exposure,numeric interaction
 15,P_semantic_x_C_semantic,psi_PEC,P_semantic times C_semantic,numeric interaction

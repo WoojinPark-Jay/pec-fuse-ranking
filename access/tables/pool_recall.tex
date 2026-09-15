@@ -1,0 +1,19 @@
+\begin{table}[H]
+\centering
+\caption{Candidate reselection: Recall@10. Models, queries, positives, trace candidates, and pool sizes are fixed. Intervals resample users within each pool.}
+\label{tab:pool_recall}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lrrrrrr}
+\toprule
+Pool & Control & PEC & Collapsed & Audit PEC & $\Delta$ headline [CI] & $\Delta$ audit [CI] \\
+\midrule
+Original & 0.8725 & 0.8875 & 0.8788 & 0.8855 & +0.0150 [0.0058, 0.0250] & +0.0066 [0.0008, 0.0125] \\
+7 & 0.8636 & 0.8890 & 0.8689 & 0.8816 & +0.0254 [0.0142, 0.0381] & +0.0127 [0.0069, 0.0183] \\
+13 & 0.8600 & 0.8898 & 0.8707 & 0.8811 & +0.0298 [0.0183, 0.0426] & +0.0103 [0.0044, 0.0168] \\
+42 & 0.8651 & 0.8886 & 0.8707 & 0.8805 & +0.0234 [0.0134, 0.0342] & +0.0098 [0.0028, 0.0163] \\
+101 & 0.8570 & 0.8878 & 0.8675 & 0.8774 & +0.0308 [0.0213, 0.0419] & +0.0100 [0.0049, 0.0150] \\
+202 & 0.8592 & 0.8873 & 0.8727 & 0.8788 & +0.0282 [0.0174, 0.0407] & +0.0061 [0.0001, 0.0127] \\
+\bottomrule
+\end{tabular}
+\end{table}

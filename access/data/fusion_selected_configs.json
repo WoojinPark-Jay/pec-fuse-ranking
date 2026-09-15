@@ -1,0 +1,164 @@
+{
+  "recent_window": {
+    "direct_pec": {
+      "config_id": 16,
+      "config": {
+        "n_estimators": 420,
+        "max_depth": 6,
+        "min_samples_leaf": 1
+      },
+      "validation": {
+        "ndcg@10": 0.7767322767936472,
+        "recall@10": 0.9071717606453035,
+        "mrr": 0.764492939199869
+      }
+    },
+    "full_pec": {
+      "config_id": 17,
+      "config": {
+        "n_estimators": 420,
+        "max_depth": 6,
+        "min_samples_leaf": 2
+      },
+      "validation": {
+        "ndcg@10": 0.7772312303695766,
+        "recall@10": 0.9071360199943941,
+        "mrr": 0.7653501590658438
+      }
+    },
+    "fusion_1d": {
+      "config_id": 18,
+      "config": {
+        "n_estimators": 420,
+        "max_depth": 6,
+        "min_samples_leaf": 4
+      },
+      "validation": {
+        "ndcg@10": 0.7661528738607905,
+        "recall@10": 0.9096169632767596,
+        "mrr": 0.7497489837347083
+      }
+    },
+    "fusion_2d": {
+      "config_id": 2,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 6,
+        "min_samples_leaf": 4
+      },
+      "validation": {
+        "ndcg@10": 0.7719642229816933,
+        "recall@10": 0.9087130469222409,
+        "mrr": 0.7557873363867147
+      }
+    },
+    "fusion_4d": {
+      "config_id": 0,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 6,
+        "min_samples_leaf": 1
+      },
+      "validation": {
+        "ndcg@10": 0.7757540433433467,
+        "recall@10": 0.909503531863876,
+        "mrr": 0.7626722257747959
+      }
+    },
+    "fusion_5d": {
+      "config_id": 1,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 6,
+        "min_samples_leaf": 2
+      },
+      "validation": {
+        "ndcg@10": 0.7771704559329864,
+        "recall@10": 0.9100989029647738,
+        "mrr": 0.7632302179364742
+      }
+    },
+    "best_multidimensional": "fusion_5d"
+  },
+  "popularity_matched": {
+    "direct_pec": {
+      "config_id": 11,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 18,
+        "min_samples_leaf": 6
+      },
+      "validation": {
+        "ndcg@10": 0.7470500608489264,
+        "recall@10": 0.8784185015421153,
+        "mrr": 0.7701118389258322
+      }
+    },
+    "full_pec": {
+      "config_id": 15,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": null,
+        "min_samples_leaf": 6
+      },
+      "validation": {
+        "ndcg@10": 0.749140079071314,
+        "recall@10": 0.8824896386279013,
+        "mrr": 0.767285278638966
+      }
+    },
+    "fusion_1d": {
+      "config_id": 6,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 12,
+        "min_samples_leaf": 4
+      },
+      "validation": {
+        "ndcg@10": 0.7489966725740475,
+        "recall@10": 0.8786309619042921,
+        "mrr": 0.7717336714855576
+      }
+    },
+    "fusion_2d": {
+      "config_id": 27,
+      "config": {
+        "n_estimators": 420,
+        "max_depth": 18,
+        "min_samples_leaf": 6
+      },
+      "validation": {
+        "ndcg@10": 0.7585160089994322,
+        "recall@10": 0.8796899660005936,
+        "mrr": 0.7852430411517443
+      }
+    },
+    "fusion_4d": {
+      "config_id": 11,
+      "config": {
+        "n_estimators": 240,
+        "max_depth": 18,
+        "min_samples_leaf": 6
+      },
+      "validation": {
+        "ndcg@10": 0.7514182656348285,
+        "recall@10": 0.8817513982579356,
+        "mrr": 0.7686944925667287
+      }
+    },
+    "fusion_5d": {
+      "config_id": 27,
+      "config": {
+        "n_estimators": 420,
+        "max_depth": 18,
+        "min_samples_leaf": 6
+      },
+      "validation": {
+        "ndcg@10": 0.7423187652740033,
+        "recall@10": 0.8795221656341378,
+        "mrr": 0.7605878305110387
+      }
+    },
+    "best_multidimensional": "fusion_2d"
+  }
+}
