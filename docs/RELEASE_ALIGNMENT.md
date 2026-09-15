@@ -1,6 +1,6 @@
 # Current WSDM release alignment
 
-The active WSDM short-paper release uses the cutoff-corrected aggregate records. The final wording describes the **complete source-preserving representation**, not an isolated effect of source identity. No empirical result changes in the wording revision.
+The active WSDM short-paper release uses the cutoff-corrected aggregate records. The final wording describes the **complete source-preserving representation**, not an isolated effect of source identity. The 2026-09-15 revision adds a separate fixed-model same-day tie-order sensitivity audit; existing headline and diagnostic estimates are unchanged.
 
 ## Headline and compression checks
 
@@ -30,6 +30,7 @@ Table 1 uses the headline-selected fits; Table 2 uses the separately selected di
 - Neural PEC minus neural controls: +.0385 / +.0488, with positive intervals in both regimes. See `../results/corrected/neural_user_bootstrap.csv`.
 - Seven learner seeds on fixed pools: 7/7 positive in Recent-window, 6/7 in Same-day. This is not five-pool robustness.
 - Corrected five-pool redraws are incomplete. Historical hidden-latent results are not current capacity-matched evidence.
+- A distinct fixed-model same-day tie-order audit is complete: PEC-over-control +.0638--.0758 and complete-PEC-over-collapsed +.0238--.0304 NDCG@10 across five permutations, with positive paired intervals in every pool. Absolute scores decline. See `SAME_DAY_TIE_ORDER.md`.
 - MIND remains a separate public proxy; P+C without E is stronger there.
 
 ## Protocol and release boundary

@@ -1,10 +1,10 @@
 {
-  "revision": "cutoff-corrected-2026-09-10",
+  "revision": "same-day-tie-order-2026-09-15",
   "files": {
     ".gitignore": "274cbe99b46ce5829df6330a61b85885b350530ca61126e796360e90a1f8e271",
     "LICENSE": "8f45362b3feddfedf4fe8133353137a3386110524948b2f3d83db767b67c501d",
     "Makefile": "20ea66776495197e298aff6a987726c8ee1251a1e2c6da05f202691fb4d68d4b",
-    "README.md": "4a7ebb38c6b477d783a2ffa86741bc67aca7ffaf2f653e5abdc8413e222e710b",
+    "README.md": "6a60e9ed784e1c3e7ba57f8e38cc2e4a96752b9524e367ab26c417d7bb0d6ad6",
     "configs/corrected_audit_protocol.json": "b791499a8df79842a1fe00df120253ee6c7d540c168d4180b2ad79deba4370d9",
     "configs/corrected_diagnostic_selection.json": "701944aa6dfd83a8894f2a61517fd64a8d47b413be0034acdd81a1812f2f2e72",
     "configs/corrected_neural_selection.json": "fd00ef9cb4be96feef68a42fd806757cb182ed749a14ab914b4a7a7791b7999a",
@@ -14,6 +14,7 @@
     "configs/mind_proxy.json": "41b536c1932cde018b2b75b3ec15b9c22d33fc93faec1119004d1c0d1156a097",
     "configs/negative_pool_resampling.json": "bb82b0364fcc454c253dcb88bc02480b0f53b190190aa533619547943c29a6b3",
     "configs/private_candidate_aware_neural.json": "ab2a920f602904391b348dce8efa343bdcc99e1bd3a25dee9498d2d478e2d0f2",
+    "configs/same_day_tie_order.json": "bd2712b9bd4a2e1eed47b4400eed52d78d6058815e2d8aa79acb12558972bc36",
     "docs/CUTOFF_CORRECTION.md": "50508fe80b5529877a45821bab7294abd58761fcffd8c101b624af4f1b52e4a5",
     "docs/DATA_AVAILABILITY.md": "775b5ab0351cfe17b26b092ddb9fab1b47e1406e04c5e4df8cecfaaa2a531ef9",
     "docs/MIND_NEURAL_DIAGNOSTIC.md": "3dbf8f97eced8a57445b27e4e84b5e06c411400713393849e6b75ac65c8af60f",
@@ -21,8 +22,9 @@
     "docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md": "e8597d0947e28b6e33ba94f4ef608fb8b50784b90783d4dc6c7af8159f99ef6f",
     "docs/PAPER_RQ_REPRODUCIBILITY_MAP.md": "62acf61d654095d4b0f20a0691c5bfb5f425200a074d8ddbfb941f6108a2904c",
     "docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md": "6e3c535c1290c3bf272222fadacb011bbd25c963715711f560cc5f99921627c0",
-    "docs/RELEASE_ALIGNMENT.md": "053b78929a4f76c7c13f434fbc9fd641cb6fd827926a9ec8e454996b5b1d264b",
+    "docs/RELEASE_ALIGNMENT.md": "dd8802e8c97cb0c79392738de3a11a1f1e2e123a28e692b50bd3c12d8a85b2d9",
     "docs/REPRODUCIBILITY.md": "2ba49e63ef166e4e4683c01154dfe2254c8b68bac74410dce705d9d3fdc7f75c",
+    "docs/SAME_DAY_TIE_ORDER.md": "bb5a72d12fe868a01bdcc702dc402c62266bbcaa303a3b367b765eec5c9cccb7",
     "docs/feature_dictionary.csv": "f69b50e998c9b5076abc52382f7a3540f715b924b82e5b1886864f831364f5ad",
     "examples/synthetic/candidate_inputs.csv": "8f11b715d46b9b8c1b675d3ce19ba0c41aa472495aaa978686ec5e40ddb8d0f0",
     "pyproject.toml": "94835c9a56aa3c1c114932d9ddeb82e9ff74eaefa8d1db056df6683568202067",
@@ -42,6 +44,8 @@
     "results/paper_additional_diagnostics.json": "60af949e8ce36ecc5c93eed42eaa680aaa2d1f1e103a3ad6cb439401dfaaa81c",
     "results/paper_tables.json": "5ee7970402c3c78e7fb416ae1c1edfd177bd21ff993fd9eff49825643a8db3fb",
     "results/private_candidate_aware_neural_audit.json": "e21dc8c31f1106a42493a368ac92349c798e2ac5ced57dcc6112734b81f6e2e2",
+    "results/same_day_tie_order/metrics.csv": "159e13a949d6fe0c5c0caa891b3a2867f5e7c954c27fd9a3d64c4910abba13ca",
+    "results/same_day_tie_order/paired_differences.csv": "2ed382d63879a437913cbcf21ce1bbd28ed1283caba9a08091e13239c1c726d4",
     "scripts/render_paper_tables.py": "5172deede23f5e345545db79e43ffa492d514837757771c3911c734cd1b0a55b",
     "scripts/run_mind_proxy.py": "b182c6218af91a413c6d9ad860833e73222ad73abff6c682391c8af96ecd424a",
     "scripts/run_synthetic_demo.py": "0fcbaf11f6aad2eb5e4a57f3a101ec5639995688558039ed58c80003f153b5ea",
@@ -50,6 +54,7 @@
     "src/pec_fuse/features.py": "b38ce2e5aef645c107888ae583bf2a086dc01488d95ccd11be0310a1a76bed07",
     "src/pec_fuse/mind.py": "5e386d35b072489e2cce356b5804e477ba793e2096c53ecb900c1d23cb8c1c4c",
     "src/pec_fuse/ranking.py": "5d20786bdf4d90e15381a3caef752e3b3c0d0ba910bcbbbccf911338230d9f7b",
-    "src/pec_fuse/schema.py": "e0916edd02ab87d97099a8cf95b7dbd11410085a1a40be088eee9220b94517a9"
+    "src/pec_fuse/schema.py": "e0916edd02ab87d97099a8cf95b7dbd11410085a1a40be088eee9220b94517a9",
+    "src/pec_fuse/tie_order.py": "418ead9cd0a80f2e8fc6e8411b0cf05184f34bb21197c62529e91c1f7be21b1a"
   }
 }

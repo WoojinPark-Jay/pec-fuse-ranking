@@ -1,7 +1,9 @@
 > **Corrected audit revision (2026-09-10).** The active aggregate tables and
 > configurations now use the corrected validation cutoff. See
 > [the correction record](docs/CUTOFF_CORRECTION.md) before comparing with an
-> older frozen manuscript. Five-pool robustness is not currently revalidated.
+> older frozen manuscript. The historical full pool-redraw audit remains
+> incomplete. A separate **fixed-model same-day tie-order audit (2026-09-15)**
+> is complete; see [its protocol and results](docs/SAME_DAY_TIE_ORDER.md).
 
 # PEC-Fuse
 
@@ -132,5 +134,12 @@ The aggregate-only matched neural diagnostic is documented in `docs/PRIVATE_CAND
 Seed 42 defines the headline pool. The corrected five-pool rerun is incomplete because required cached article embeddings are missing; no corrected five-pool robustness claim is made. Seven learner-seed runs on a fixed pool are a separate diagnostic. See `docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md`, `configs/negative_pool_resampling.json`, and `results/negative_pool_resampling_audit.json`.
 
 ## Current manuscript alignment
+
+The new fixed-model tie-order audit preserves both PEC-over-control and
+complete-PEC-over-collapsed NDCG@10 gains in five same-day test pools.
+It does not replace the headline estimates, the earlier incomplete redraw
+audit, or the seven learner-seed check. See `docs/SAME_DAY_TIE_ORDER.md`,
+`configs/same_day_tie_order.json`, `results/same_day_tie_order/`, and
+`src/pec_fuse/tie_order.py`. No private candidate rows or embeddings are released.
 
 [Release alignment](docs/RELEASE_ALIGNMENT.md) maps the current WSDM short-paper claims to corrected aggregate records. Compression comparisons evaluate the complete source-preserving representation, including its interactions; they do not isolate source identity alone. Internal regime keys `popularity_matched` and `popularity_hard` mean **Same-day expansion**, not demonstrated hard negatives. Historical UMAP snapshots are not silently updated by this release.
