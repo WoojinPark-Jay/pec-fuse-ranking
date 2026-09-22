@@ -1,0 +1,818 @@
+{
+  "question": "Do prior-consumption semantic features add predictive value with all profile and trace-derived scorer inputs removed?",
+  "features": {
+    "context_only_8d": [
+      "hist_category_click_share",
+      "hist_publisher_click_share",
+      "log_user_prior_clicks",
+      "C_count",
+      "popularity_score",
+      "recency_score",
+      "log_article_len",
+      "is_breaking"
+    ],
+    "context_plus_consumption_12d": [
+      "hist_category_click_share",
+      "hist_publisher_click_share",
+      "log_user_prior_clicks",
+      "C_semantic",
+      "C_count",
+      "popularity_score",
+      "recency_score",
+      "log_article_len",
+      "is_breaking",
+      "C_max",
+      "C_top3",
+      "C_attention"
+    ]
+  },
+  "shared_context": "Both models include C_count, controlling the count-summary difference.",
+  "removed": "All stated-profile fields, all retained-trace fields, and all six PEC products. Candidate_source, IDs and labels never enter scorer inputs.",
+  "regimes": [
+    "recent_window",
+    "popularity_matched"
+  ],
+  "grid": [
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 16,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 16,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 16,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 16,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": null,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 6,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 10,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 10,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 10,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 10,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 16,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 16,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 16,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 16,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 18,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 260,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 10,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 10,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 10,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 10,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 16,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 16,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 16,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 16,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": null,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 6,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 10,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 10,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 10,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 10,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 18,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 640,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": null,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 6,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 10,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 10,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 10,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 10,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 16,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 16,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 16,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 16,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 16,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 18,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 720,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    }
+  ],
+  "validation_seed": 42,
+  "final_seeds": [
+    7,
+    13,
+    42,
+    101,
+    202
+  ],
+  "primary_seed": 42,
+  "selection": "January-March fitting; April validation; NDCG@10, then Recall@10, then MRR, then original grid order.",
+  "refit": "January-April refit and May-June test on original corrected candidate pools.",
+  "selection_popularity_cutoff": "2026-03-31",
+  "final_popularity_cutoff": "2026-04-30",
+  "primary_inference": "Seed 42 paired differences, 2000 user-cluster bootstrap resamples, query-averaged.",
+  "supplementary_inference": "Five prespecified seed differences averaged within query, then user-cluster bootstrap conditional on these seeds. All seed results retained.",
+  "candidate_scope": "P/E are removed from model inputs, not from retrospective candidate-pool construction. Existing trace candidates and positives are preserved.",
+  "runtime": {
+    "python": "3.10.9 (main, Mar  1 2023, 12:20:14) [Clang 14.0.6 ]",
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "sklearn": "1.5.2"
+  },
+  "input_sha256": {
+    "reports/experiments/validation_popularity_cutoff_2026_09_10/PRIVATE_selection_recent_window.pkl": "81ab6f5947f1313e539e6eb7e65fef859e8081d95f598b8e39ffe9f27c610afd",
+    "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/PRIVATE_final_recent_window.pkl": "6912508bfd5ef90b8fa6a3cf8ffbce3541f9410db036432467ed981726f21868",
+    "reports/experiments/validation_popularity_cutoff_2026_09_10/PRIVATE_selection_popularity_matched.pkl": "315c352c11f416b0cde725139f0889b965568521cde591863e4cac2b424ed8d6",
+    "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/PRIVATE_final_popularity_matched.pkl": "1e423215cedc1122caee44666d8798c20f9ed1f7b965ea2539cd6a23935102ae"
+  },
+  "scope": "Separate exploratory audit on previously inspected test data; no manuscript edits or external uploads. All results retained regardless of sign.",
+  "warm_start": "Used only to evaluate nested tree counts efficiently on unchanged fitting rows; no early stopping or test-based selection.",
+  "artifact_scope": "Aggregate-only manuscript records; private candidate rows and per-query outputs are excluded."
+}

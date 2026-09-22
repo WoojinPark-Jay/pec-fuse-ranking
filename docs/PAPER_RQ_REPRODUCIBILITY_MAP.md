@@ -1,14 +1,12 @@
-# Evidence and reproducibility map
+# IEEE Access Question-to-Artifact Map
 
-- Broad-pool ranking: corrected Tables 1 and secondary metrics.
-- Compression: corrected collapsed, scalar early-fusion and no-E comparisons;
-  direct-separated comparisons without interactions are also recorded.
-- Diagnostic conditions: E=0, matched E removal, disagreement, profile removal,
-  mean-history, model seeds and the neural challenger.
-- Public boundary: unchanged MIND proxy; not a private P/C replication.
-- Unresolved: cache-coverage-controlled candidate-pool redraws and historical
-  hidden-latent alignment. Neither is current confirmatory evidence.
+| Manuscript question | Public implementation | Active aggregate evidence in `access/data/` |
+|---|---|---|
+| Does PEC improve the operational control? | `src/pec_fuse/{features,ranking,evaluation}.py` | `core_test_metrics.csv`, `core_user_bootstrap.csv` |
+| Is the result limited to scalar compression baselines? | ordered schema and ranking contract | `fusion_*`, `direct_complete_user_bootstrap.csv` |
+| Does consumption evidence remain useful without profile and trace inputs? | consumption transforms in `features.py` | `joint_pe_*` |
+| Is the result tied to one same-day tie ordering? | `src/pec_fuse/tie_order.py` | `pool_manifest.json`, `pool_metrics.csv`, `pool_paired_differences.csv` |
+| Is the input useful outside ExtraTrees? | model-independent feature contract | `neural_user_bootstrap.csv` |
+| Does the complete interface transfer unchanged to MIND? | `src/pec_fuse/mind.py`, `scripts/run_mind_proxy.py` | `mind_text_*_proxy_results.csv` |
 
-See `CUTOFF_CORRECTION.md` for protocol distinctions and all result locations.
-Only the public contract, synthetic pipeline and MIND proxy are executable
-without private tables. Private diagnostics are aggregate audit records.
+Private-platform experiments are represented by aggregate records rather than public row-level regeneration. Earlier short-paper records are historical provenance, not active Access evidence.

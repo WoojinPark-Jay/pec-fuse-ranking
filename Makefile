@@ -1,9 +1,12 @@
-.PHONY: demo tables mind
+.PHONY: demo tables legacy-tables mind
 
 demo:
 	PYTHONPATH=src python scripts/run_synthetic_demo.py
 
 tables:
+	python scripts/render_access_summary.py
+
+legacy-tables:
 	python scripts/render_paper_tables.py
 
 mind:

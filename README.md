@@ -1,39 +1,21 @@
-# Access update: 2026-09-15
+# PEC-Fuse: IEEE Access Artifact
 
-The Access extension is now organized in [access/README.md](access/README.md): multidimensional fusion, Direct comparison, all pool scores and intervals, three-encoder MIND results, feature schema and plot code. Existing WSDM results below are preserved.
+This repository is the review artifact for the IEEE Access manuscript **PEC-Fuse: Source-Separated Evidence Fusion for News Ranking with Partial Recommendation Traces**. It provides the public implementation contract, executable non-private demonstrations, manuscript-aligned aggregate results, generated table fragments, and feature/evaluation specifications.
 
-> **Corrected audit revision (2026-09-10).** The active aggregate tables and
-> configurations now use the corrected validation cutoff. See
-> [the correction record](docs/CUTOFF_CORRECTION.md) before comparing with an
-> older frozen manuscript. The historical full pool-redraw audit remains
-> incomplete. A separate **fixed-model same-day tie-order audit (2026-09-15)**
-> is complete; see [its protocol and results](docs/SAME_DAY_TIE_ORDER.md).
+## What this artifact supports
 
-# PEC-Fuse
-
-This repository provides the public implementation contract for PEC-Fuse, a
-candidate-level second-stage ranker that keeps preference, retained-trace
-exposure, prior consumption, structured controls, and selected interactions
-separate until learned fusion.
-
-## Release scope
-
-The package includes:
-
-- the exact ordered 25-dimensional candidate record;
-- deterministic derivation of exposure, count, and interaction features;
-- the validation-selected ExtraTrees configurations for the two broad regimes;
+- the ordered 25-field Complete PEC record and compact 19-field Direct record;
+- deterministic trace, count-summary, consumption, and interaction features;
 - within-query NDCG@10, Recall@10, and MRR;
 - paired user-clustered bootstrap intervals;
-- a fully synthetic end-to-end example;
-- an executable public MIND-small proxy protocol;
-- a documented PLM-NRMS-style diagnostic on the fixed public proxy pool.
-- aggregate records for the private-data diagnostics reported in the paper.
+- 1/2/4/5-dimensional learned-fusion audits;
+- Direct 19-D versus Complete 25-D comparisons;
+- joint profile/trace-removal audits;
+- fixed-model same-day candidate reselection;
+- neural-input and public MIND boundary analyses;
+- executable synthetic and MIND-small public pipelines.
 
-The private platform logs are not distributed. Consequently, this package
-reproduces the method and evaluation contract, not the private headline result
-rows. The synthetic example is for executable inspection and is not evidence
-for a performance claim.
+The private platform logs are not distributed. The artifact reproduces the method and evaluation contract and exposes aggregate evidence; it does not claim public regeneration of private row-level results.
 
 ## Quick start
 
@@ -42,19 +24,32 @@ python -m venv .venv
 source .venv/bin/activate
 pip install -e .
 python scripts/run_synthetic_demo.py
-python scripts/render_paper_tables.py
+python scripts/check_access_aggregates.py
+python scripts/render_access_summary.py
 ```
 
-The same commands are available as `make demo` and `make tables`.
+The synthetic run is an interface demonstration, not evidence for a performance claim.
 
-## Public MIND-small proxy
+## Active IEEE Access bundle
 
-MIND has no independent stated-profile fields or equivalent private source
-provenance. This experiment is therefore a narrower public proxy, not a
-reproduction of the private-data headline claim.
+The current manuscript-aligned records are under `access/data/`.
 
-After obtaining MIND-small from its official distributor, arrange it as
-`data/MINDsmall/{train,dev}/{news.tsv,behaviors.tsv}` and run:
+- `core_test_metrics.csv` and `core_user_bootstrap.csv`: headline scores and paired intervals;
+- `fusion_*`: multidimensional fusion protocols, selections, seed metrics, and paired intervals;
+- `direct_complete_user_bootstrap.csv`: 19-D Direct versus 25-D Complete;
+- `joint_pe_*`: joint profile/trace-removal protocol, selections, census, seed metrics, and paired intervals;
+- `pool_*`: fixed-model candidate-reselection manifests, scores, and paired differences;
+- `mind_text_*_proxy_results.csv`: encoder-specific public boundary results;
+- `neural_user_bootstrap.csv`: candidate-aware neural input audit;
+- `feature_dictionary.csv`: ordered estimator schema.
+
+Generated manuscript fragments are under `access/tables/`, and plot/protocol code is under `access/tools/`. See `access/README.md`, `docs/ACCESS_RESULT_FILES.md`, and `docs/ACCESS_ALIGNMENT.md` for detailed mappings.
+
+## Executable entry points
+
+`python scripts/run_synthetic_demo.py` constructs source-preserving records from supplied synthetic candidate inputs, fits control and PEC models, ranks within query, and reports NDCG@10, Recall@10, and MRR.
+
+After separately obtaining MIND-small, arrange it as `data/MINDsmall/{train,dev}/{news.tsv,behaviors.tsv}` and run:
 
 ```bash
 pip install -e '.[mind]'
@@ -63,87 +58,24 @@ python scripts/run_mind_proxy.py \
   --encoder sentence-transformers/all-MiniLM-L6-v2
 ```
 
-The other paper encoders are `BAAI/bge-base-en-v1.5` and `BAAI/bge-m3`.
-See `docs/MIND_PROXY_PROTOCOL.md` for exact candidate and feature definitions.
-
-## Paper-result records
-
-`results/paper_tables.json` stores the aggregate values reported in Tables 1--3,
-and `results/paper_additional_diagnostics.json` records the secondary metrics
-and private-data diagnostics reported in the text. `scripts/render_paper_tables.py`
-renders Tables 1--3 for auditing. These records do not regenerate private-data
-results because raw private rows are unavailable.
-
-## Candidate-row contract
-
-Each row represents one candidate article for one user-day query. Labels are
-used only for training and evaluation. Feature construction must not read the
-target label. Prior-consumption summaries use events strictly before the target
-day, while retained-trace exposure uses the target-day recommendation trace.
-Candidates outside that trace receive an exposure block of `[0, 0, 0]`; this
-does not imply no encounter or zero relevance.
-
-The exact feature order is defined in `pec_fuse.schema.FEATURES_25` and mirrored
-in `docs/feature_dictionary.csv`.
-
-## Model protocol
-
-The primary comparison uses the same candidate rows for both models:
-
-- **Strong control:** the 11-feature operational control, including retained-trace and non-semantic context features.
-- **PEC-Fuse:** the full 25-dimensional source-separated record.
-
-Hyperparameters are selected on an earlier validation window and then fixed for
-the held-out test window. Candidate scores are sorted only within each query.
+MIND does not contain independent stated-profile fields matching the private P block. This is a boundary study over available public evidence, not a replication of the private-platform setting.
 
 ## Repository map
 
 ```text
-configs/                 Frozen broad-regime and public-proxy settings
-docs/                    Feature and data-availability documentation
-examples/synthetic/      Non-private candidate-row fixture
-results/                 Committed paper-level aggregate records
-scripts/                 Synthetic, table-audit, and MIND entry points
-src/pec_fuse/            Feature, ranking, evaluation, and MIND library
+access/data/              Active IEEE Access aggregate records
+access/tables/            Generated manuscript table fragments
+access/tools/             Figure, protocol, and worked-example code
+configs/                  Public demo and proxy settings
+examples/synthetic/       Non-private candidate-row fixture
+scripts/                  Public executable entry points
+src/pec_fuse/             Feature, ranking, evaluation, MIND, and tie-order code
+docs/                     Active IEEE Access documentation
+docs/history/wsdm_v101/   Preserved prior short-paper materials
 ```
 
-The component-by-component boundary is documented in
-`docs/REPRODUCIBILITY.md`.
-
-For the paper review path, `docs/PAPER_RQ_REPRODUCIBILITY_MAP.md`
-maps RQ1--RQ4 to the corresponding public implementation, committed aggregate
-record, and stated limitation.
-
-## Public neural diagnostic
-
-`results/mind_neural_diagnostic.json` and
-`docs/MIND_NEURAL_DIAGNOSTIC.md` record the validation-selected
-PLM-NRMS-style comparison reported as a bounded MIND diagnostic. The clean
-snapshot does not claim one-command reproduction of this diagnostic yet:
-the original runner depends on internal cache-building helpers that must be
-refactored before public release. The executable ExtraTrees MIND proxy remains
-the public baseline contract.
+Historical materials are retained only for provenance and are not the active manuscript evidence.
 
 ## Data boundary
 
-See `docs/DATA_AVAILABILITY.md`. No private user profile, click, recommendation,
-article-text, identifier, or row-level platform data belongs in this repository.
-
-## Private candidate-aware neural audit
-
-The aggregate-only matched neural diagnostic is documented in `docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md`, with the search grid in `configs/private_candidate_aware_neural.json`, corrected selected configurations in `configs/corrected_neural_selection.json`, and results in `results/private_candidate_aware_neural_audit.json`. Private candidate rows, embeddings, profiles, and histories are not included.
-
-## Candidate-pool resampling status
-
-Seed 42 defines the headline pool. The corrected five-pool rerun is incomplete because required cached article embeddings are missing; no corrected five-pool robustness claim is made. Seven learner-seed runs on a fixed pool are a separate diagnostic. See `docs/NEGATIVE_POOL_RESAMPLING_AUDIT.md`, `configs/negative_pool_resampling.json`, and `results/negative_pool_resampling_audit.json`.
-
-## Current manuscript alignment
-
-The new fixed-model tie-order audit preserves both PEC-over-control and
-complete-PEC-over-collapsed NDCG@10 gains in five same-day test pools.
-It does not replace the headline estimates, the earlier incomplete redraw
-audit, or the seven learner-seed check. See `docs/SAME_DAY_TIE_ORDER.md`,
-`configs/same_day_tie_order.json`, `results/same_day_tie_order/`, and
-`src/pec_fuse/tie_order.py`. No private candidate rows or embeddings are released.
-
-[Release alignment](docs/RELEASE_ALIGNMENT.md) maps the current WSDM short-paper claims to corrected aggregate records. Compression comparisons evaluate the complete source-preserving representation, including its interactions; they do not isolate source identity alone. Internal regime keys `popularity_matched` and `popularity_hard` mean **Same-day expansion**, not demonstrated hard negatives. Historical UMAP snapshots are not silently updated by this release.
+No private user profile, click, recommendation, article text, identifier, candidate row, embedding, prediction row, credential, or fitted private model belongs in this repository. See `docs/DATA_AVAILABILITY.md` and `docs/REPRODUCIBILITY.md`.

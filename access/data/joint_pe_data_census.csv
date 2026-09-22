@@ -1,0 +1,9 @@
+candidate_regime,split,rows,queries,users,positives
+recent_window,train,24576,810,212,4722
+recent_window,validation,13152,586,275,1913
+recent_window,refit,37728,1396,431,6635
+recent_window,test,21207,1040,369,3283
+popularity_matched,train,24576,810,212,4722
+popularity_matched,validation,13152,586,275,1913
+popularity_matched,refit,37728,1396,431,6635
+popularity_matched,test,21207,1040,369,3283
