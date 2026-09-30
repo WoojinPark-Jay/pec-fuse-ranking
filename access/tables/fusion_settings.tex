@@ -1,0 +1,22 @@
+\begin{table*}[!t]
+\centering
+\caption{Recorded multidimensional-fusion settings, shared across tested widths. Validation selects the downstream configuration; final seeds are not additional test users.}
+\label{tab:fusion_settings}
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{p{0.18\textwidth}p{0.74\textwidth}}
+\toprule
+Component & Setting \\
+\midrule
+Semantic input & $[P,C_{\mathrm{mean}},C_{\max},C_{\mathrm{top3}},C_{\mathrm{att}}]$; training-split standardization \\
+Learned transform & $d\in\{1,2,4,5\}$ tanh units; sigmoid click output; binary cross-entropy \\
+Optimizer & Adam; learning rate $10^{-3}$; L2 coefficient $10^{-3}$; batch size 256 \\
+Stopping & Maximum 1,500 iterations; tolerance $10^{-5}$; 30 iterations without loss improvement; no held-out early-stopping split \\
+Downstream trees & 240 or 420 trees; depth 6, 12, 18, or unlimited; minimum leaf size 1, 2, 4, or 6 \\
+Selection & 32 tree settings per variant/regime, averaged over seeds 7, 42, 202; validation NDCG@10, then Recall@10 and MRR \\
+Final fit & Refit on January--April; seeds 7, 13, 42, 101, 202; score May--June \\
+Scorer training input & In-sample hidden activations of the fitted transform; apply that transform unchanged to scoring rows \\
+Recorded fit count & 1,152 validation tree fits and 60 final fits across the two regimes \\
+\bottomrule
+\end{tabular}
+\end{table*}

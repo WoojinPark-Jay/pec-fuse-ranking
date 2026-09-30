@@ -1,0 +1,23 @@
+\begin{table}[!htbp]
+\caption{Compression audits (NDCG@10 differences). Full includes interactions; Direct excludes them. Early denotes learned scalar fusion, without E in the last contrast. Each pair shares rows and uses audit-selected fits, not necessarily the headline fit.}
+\label{tab:compression}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Contrast & Regime & $\Delta$ [95\% CI] \\
+\midrule
+Full/collapsed & Recent & +0.0133 [0.0047,0.0215] \\
+Full/collapsed & Same-day & +0.0107 [0.0009,0.0206] \\
+Full/early & Recent & +0.0121 [0.0048,0.0198] \\
+Full/early & Same-day & +0.0125 [0.0011,0.0248] \\
+Direct/collapsed & Recent & +0.0044 [-0.0057,0.0153] \\
+Direct/collapsed & Same-day & +0.0115 [0.0038,0.0190] \\
+Direct/early & Recent & +0.0033 [-0.0047,0.0119] \\
+Direct/early & Same-day & +0.0133 [0.0046,0.0223] \\
+No-E/early & Recent & +0.0086 [-0.0010,0.0180] \\
+No-E/early & Same-day & +0.0288 [0.0146,0.0423] \\
+\bottomrule
+\end{tabular}
+\end{table}

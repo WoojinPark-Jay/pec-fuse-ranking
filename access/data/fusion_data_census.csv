@@ -1,0 +1,9 @@
+regime,phase,rows,queries,users,positives,date_min,date_max
+recent_window,train,24576,810,212,4722,2026-01-01,2026-03-31
+recent_window,validation,13152,586,275,1913,2026-04-01,2026-04-30
+recent_window,refit,37728,1396,431,6635,2026-01-01,2026-04-30
+recent_window,test,21207,1040,369,3283,2026-05-01,2026-06-30
+popularity_matched,train,24576,810,212,4722,2026-01-01,2026-03-31
+popularity_matched,validation,13152,586,275,1913,2026-04-01,2026-04-30
+popularity_matched,refit,37728,1396,431,6635,2026-01-01,2026-04-30
+popularity_matched,test,21207,1040,369,3283,2026-05-01,2026-06-30

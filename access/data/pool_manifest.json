@@ -1,0 +1,37 @@
+[
+  {
+    "seed": 7,
+    "rows": 21207,
+    "queries": 1040,
+    "fingerprint": "62046a9f8efe0178e152a4d8ab4ca33b7f57b065214b6c4349bb1bc3d367c835",
+    "new_candidate_rows": 10004
+  },
+  {
+    "seed": 13,
+    "rows": 21207,
+    "queries": 1040,
+    "fingerprint": "d31ca7cf6e56b1a31295b770fdbb24b2abbfe9502c0bb258de5fcfbff1e7bef8",
+    "new_candidate_rows": 10069
+  },
+  {
+    "seed": 42,
+    "rows": 21207,
+    "queries": 1040,
+    "fingerprint": "f32e788e5a3104e6543c8fc382490cff6f76c0a02695be3170cde87ee9094cbc",
+    "new_candidate_rows": 10019
+  },
+  {
+    "seed": 101,
+    "rows": 21207,
+    "queries": 1040,
+    "fingerprint": "6eb37765636a8b7b926d564eb8a31da240dbdc84fe591b9dd10f2d1fac17a1e0",
+    "new_candidate_rows": 10008
+  },
+  {
+    "seed": 202,
+    "rows": 21207,
+    "queries": 1040,
+    "fingerprint": "c7b441ec4fef9f74ecee67a68f5978a9bf23466bbf31c55995839916d02cc1f9",
+    "new_candidate_rows": 10053
+  }
+]

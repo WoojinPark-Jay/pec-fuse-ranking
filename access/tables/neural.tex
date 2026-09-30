@@ -1,0 +1,17 @@
+\begin{table}[!htbp]
+\caption{Neural checks (NDCG@10 differences). The first contrast holds neural design and search budget fixed. The second compares ExtraTrees PEC with neural PEC; their learning objectives differ.}
+\label{tab:neural}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Contrast & Regime & $\Delta$ [95\% CI] \\
+\midrule
+Neural PEC/control & Recent & +0.0385 [0.0287,0.0473] \\
+Neural PEC/control & Same-day & +0.0488 [0.0361,0.0609] \\
+Tree/neural PEC & Recent & +0.0004 [-0.0114,0.0118] \\
+Tree/neural PEC & Same-day & +0.0148 [0.0020,0.0268] \\
+\bottomrule
+\end{tabular}
+\end{table}

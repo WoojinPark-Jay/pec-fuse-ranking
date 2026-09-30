@@ -1,0 +1,290 @@
+{
+  "regimes": [
+    "recent_window",
+    "popularity_matched"
+  ],
+  "validation_seeds": [
+    7,
+    42,
+    202
+  ],
+  "final_seeds": [
+    7,
+    13,
+    42,
+    101,
+    202
+  ],
+  "models": [
+    "direct_pec",
+    "full_pec",
+    "fusion_1d",
+    "fusion_2d",
+    "fusion_4d",
+    "fusion_5d"
+  ],
+  "widths": [
+    1,
+    2,
+    4,
+    5
+  ],
+  "common_features": [
+    "pref_category_weight",
+    "pref_publisher_weight",
+    "same_day_recommended",
+    "reciprocal_rank",
+    "hist_category_click_share",
+    "hist_publisher_click_share",
+    "log_user_prior_clicks",
+    "P_count",
+    "C_count",
+    "E_exposure",
+    "popularity_score",
+    "recency_score",
+    "log_article_len",
+    "is_breaking"
+  ],
+  "direct_features": [
+    "pref_category_weight",
+    "pref_publisher_weight",
+    "same_day_recommended",
+    "reciprocal_rank",
+    "hist_category_click_share",
+    "hist_publisher_click_share",
+    "log_user_prior_clicks",
+    "P_count",
+    "C_count",
+    "E_exposure",
+    "popularity_score",
+    "recency_score",
+    "log_article_len",
+    "is_breaking",
+    "P_semantic",
+    "C_semantic",
+    "C_max",
+    "C_top3",
+    "C_attention"
+  ],
+  "full_features": [
+    "pref_category_weight",
+    "pref_publisher_weight",
+    "same_day_recommended",
+    "reciprocal_rank",
+    "hist_category_click_share",
+    "hist_publisher_click_share",
+    "log_user_prior_clicks",
+    "P_semantic",
+    "C_semantic",
+    "P_count",
+    "C_count",
+    "E_exposure",
+    "P_semantic_x_E",
+    "C_semantic_x_E",
+    "P_semantic_x_C_semantic",
+    "popularity_score",
+    "recency_score",
+    "log_article_len",
+    "is_breaking",
+    "C_max",
+    "C_top3",
+    "C_attention",
+    "C_attention_x_E",
+    "C_max_x_E",
+    "P_semantic_x_C_attention"
+  ],
+  "semantic_features": [
+    "P_semantic",
+    "C_semantic",
+    "C_max",
+    "C_top3",
+    "C_attention"
+  ],
+  "identical_tree_grid_per_model": [
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 6,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 18,
+      "min_samples_leaf": 6
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 1
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 6
+    }
+  ],
+  "fuser": {
+    "activation": "tanh",
+    "solver": "adam",
+    "alpha": 0.001,
+    "learning_rate_init": 0.001,
+    "batch_size": 256,
+    "max_iter": 1500,
+    "early_stopping": false,
+    "tol": 1e-05,
+    "n_iter_no_change": 30
+  },
+  "input_sha256": {
+    "reports/experiments/validation_popularity_cutoff_2026_09_10/PRIVATE_selection_recent_window.pkl": "81ab6f5947f1313e539e6eb7e65fef859e8081d95f598b8e39ffe9f27c610afd",
+    "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/PRIVATE_final_recent_window.pkl": "6912508bfd5ef90b8fa6a3cf8ffbce3541f9410db036432467ed981726f21868",
+    "reports/experiments/validation_popularity_cutoff_2026_09_10/PRIVATE_selection_popularity_matched.pkl": "315c352c11f416b0cde725139f0889b965568521cde591863e4cac2b424ed8d6",
+    "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/PRIVATE_final_popularity_matched.pkl": "1e423215cedc1122caee44666d8798c20f9ed1f7b965ea2539cd6a23935102ae"
+  },
+  "selection": "Mean April validation NDCG@10 across 3 seeds, then mean Recall@10 and MRR; stable grid tie break. Select multidimensional width among 2/4/5 by validation only.",
+  "counts": "32 tree configurations per model and regime, each evaluated at 3 seeds. 1152 validation tree fits, followed by 60 final fits. Every cached row is used.",
+  "convergence": "Higher cap and loss-based stopping fixed before rerun. Warnings reported, not silently retried.",
+  "matching": "Same per-variant downstream search, rows and source inputs. Fusion family has extra width choices; total family budget and parameter counts are not matched.",
+  "training": "Fuser uses training labels; one shared coordinate system for downstream train and score. Not OOF stacking. Refit Jan-Apr after selection.",
+  "inference": "Paired per-seed user-cluster bootstrap, seed-averaged user bootstrap, exploratory crossed user/seed bootstrap (2000 replicates). No multiple-comparison adjustment. Seeds are not additional users.",
+  "primary": "Direct PEC vs fixed 5D fusion; Full PEC vs validation-selected multidimensional fusion. All widths retained.",
+  "scope": "Expanded exploratory audit on previously inspected May-June data, not a new independent cohort. No manuscript changes or external uploads."
+}
