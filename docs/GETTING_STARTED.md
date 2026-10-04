@@ -4,6 +4,8 @@
 
 Follow the root [installation instructions](../README.md#quick-start), then run `python scripts/run_synthetic_demo.py` from the repository root.
 
+On GitHub, clone the repository or download its ZIP. On the anonymous artifact, choose **Download full repository as ZIP** in the file viewer, extract it, and open a terminal in the directory containing `pyproject.toml`, `README.md`, and `src/`. The archive's top-level folder name may differ from the GitHub repository name. You do not need to identify or access the original GitHub account. Never execute a clone command whose URL has become `XXXX`.
+
 | Stage | File | What happens |
 | --- | --- | --- |
 | Input | `examples/synthetic/candidate_inputs.csv` | One candidate per user-query-row; `split` selects train/test and `label` is the observed-click target. All values are synthetic. |
@@ -19,7 +21,16 @@ No notebook is required for these commands. The editable installation makes `pec
 
 ## 2. Separate demonstration results from paper results
 
-`python scripts/render_access_summary.py` reads stored CSVs without training models. `python scripts/check_access_aggregates.py` checks the release inventory and specified arithmetic relationships. Passing it validates those checks only, not private experiments or a comprehensive privacy audit.
+`python scripts/render_access_summary.py` reads stored CSVs without training models. The aggregate checker has two explicit scopes:
+
+| Download | Command | Meaning of success |
+| --- | --- | --- |
+| Unchanged GitHub checkout or GitHub ZIP | `python scripts/check_access_aggregates.py` | Release-file hashes and the implemented schema/arithmetic checks pass. |
+| Anonymous artifact ZIP | `python scripts/check_access_aggregates.py --data-only` | Schema/arithmetic checks pass; file hashes are not checked. |
+
+The original SHA-256 manifest describes original file bytes. Anonymization may alter names and links, so those hashes need not match the anonymized download. Data-only mode explicitly prints `file_hash_verification: skipped` and `hashed_files: 0`; it is not an authenticity check and does not claim the ZIP is identical to the GitHub release. Default mode remains strict and never automatically falls back. Do not regenerate a manifest merely to make a modified download pass as the original.
+
+Neither mode independently reproduces private experiments or provides a comprehensive privacy/security audit. Run the checker without Python's `-O` optimization flag, because its arithmetic checks use assertions.
 
 The small synthetic fixture should not match manuscript scores. To study a reported comparison, start with the [question-to-artifact map](PAPER_RQ_REPRODUCIBILITY_MAP.md), then inspect the named CSV and protocol. Variation across model seeds and user-bootstrap intervals describe different uncertainty sources.
 
@@ -45,5 +56,7 @@ CLI values control the MIND run; configuration documents are not automatically l
 | Missing TSV files | Check `news.tsv` and `behaviors.tsv` in both `train/` and `dev/` under `--mind-root`. |
 | Encoder download failure | Check network access and the selected model's availability/terms. |
 | Hash mismatch after editing | Compare with a clean checkout of the same release; a locally changed file is no longer the distributed file. |
+| Hash mismatch in an intentionally anonymized ZIP | Use `--data-only` for schema/arithmetic checks, without claiming original-file integrity. |
+| Clone or dataset URL appears as `XXXX` | Download the anonymous repository ZIP; obtain MIND-small training/validation from the official Microsoft News Dataset website separately. |
 
 Dependencies specify minimums, not a fully pinned historical environment. Library/model revisions may change numeric results. Keep downloaded data and local outputs in ignored directories; do not commit private rows.

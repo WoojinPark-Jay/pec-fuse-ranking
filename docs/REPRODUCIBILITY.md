@@ -13,3 +13,11 @@ The artifact does not release private source rows, individual predictions, embed
 The synthetic demonstration verifies implementation behavior but is not a performance reproduction. The MIND experiment changes the meaning of P and E to match available public fields and is therefore a boundary study rather than a replication of private stated-profile/behavioral provenance.
 
 Active manuscript alignment is documented in `ACCESS_ALIGNMENT.md`.
+
+## Original release versus anonymized download
+
+GitHub users can clone the repository or download its ZIP. Anonymous-artifact users should use **Download full repository as ZIP** in the file viewer and extract the archive before installing from its root. A masked clone URL is not executable and is not required for the ZIP route.
+
+`python scripts/check_access_aggregates.py` checks original release-file hashes and the implemented schema/arithmetic relationships. An anonymizing host can rewrite names or URLs, so its ZIP is not necessarily byte-identical to the original manifest. For that route, use `python scripts/check_access_aggregates.py --data-only`.
+
+Data-only mode skips all file-hash verification explicitly, reports that skipped scope, and still runs feature-order, aggregate-schema, and specified arithmetic checks. It does not authenticate files, establish equality to the original release, or recompute private-platform results. The default full check remains strict; a mismatch in an original GitHub download should be investigated rather than automatically bypassed.

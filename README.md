@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Start here:** [Quick start](#quick-start) | [Method](#method-at-a-glance) | [Results](#results-and-paper-mapping) | [MIND example](#public-data-example) | [Reproducibility](docs/REPRODUCIBILITY.md)
+**Start here:** [Quick start](README.md#quick-start) | [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Reproducibility](docs/REPRODUCIBILITY.md)
 
 ## Method at a glance
 
@@ -28,9 +28,21 @@ The operational control has 11 inputs but is **not** the same field set as the 1
 
 Python 3.10 or newer is required. The synthetic example runs on CPU and needs no private data, model download, or GPU.
 
+**Download using the route you are viewing.**
+
+- **GitHub:** clone the repository with the command below, or use GitHub's Code > Download ZIP.
+- **Anonymous artifact:** use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. No access to the original GitHub repository is required. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
+
+GitHub download only:
+
 ```bash
 git clone https://github.com/WoojinPark-Jay/pec-fuse-ranking.git
 cd pec-fuse-ranking
+```
+
+Then, for **either route**, run these commands from the downloaded repository root:
+
+```bash
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -42,14 +54,25 @@ On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` instead. Run s
 
 The example reads [synthetic candidate inputs](examples/synthetic/candidate_inputs.csv), constructs ordered features, fits the operational control and Complete PEC, and prints candidate IDs, labels, scores, ranks, and NDCG@10/Recall@10/MRR. Some semantic summaries are supplied in the fixture; this example does not encode raw article text. Its small illustrative scores are not manuscript results.
 
-To inspect the released experiments separately:
+To inspect released results without retraining, run `python scripts/render_access_summary.py`. Choose the appropriate check for your download:
+
+**Unchanged GitHub checkout or GitHub ZIP:**
 
 ```bash
 python scripts/check_access_aggregates.py
-python scripts/render_access_summary.py
 ```
 
-The checker verifies file hashes, feature order, and selected aggregate arithmetic, printing `"status": "passed"` on success. The summary prints stored experiment results; it does not retrain those experiments. See the [walkthrough](docs/GETTING_STARTED.md) for inputs, outputs, and file roles.
+This checks original release-file SHA-256 hashes, feature order, and selected aggregate arithmetic.
+
+**ZIP downloaded from the anonymous artifact:**
+
+```bash
+python scripts/check_access_aggregates.py --data-only
+```
+
+Anonymization can replace names and links, changing file bytes without changing the experiment. `--data-only` explicitly skips file hashes but retains the feature/schema and aggregate-arithmetic checks. Its output reports `verification_mode: data_only`, `file_hash_verification: skipped`, and `hashed_files: 0`. A passing data-only check does **not** establish file integrity or equality to the original release. Full mode never silently skips a hash mismatch; do not use this option to dismiss unexplained changes in an original GitHub download.
+
+Both modes report `status: passed` only for their stated scope. Neither re-runs private experiments. See the [walkthrough](docs/GETTING_STARTED.md) for inputs, outputs, and file roles.
 
 ## Results and paper mapping
 
@@ -78,6 +101,8 @@ The [artifact map](docs/PAPER_RQ_REPRODUCIBILITY_MAP.md), [result-file guide](do
 ## Public-data example
 
 Obtain MIND-small under its [dataset terms](https://msnews.github.io/) and arrange `news.tsv` and `behaviors.tsv` under both `data/MINDsmall/train/` and `data/MINDsmall/dev/`.
+
+If the anonymous viewer masks the external link, search for **Microsoft News Dataset (MIND)**, open the official Microsoft Research dataset website, and download the **MIND-small training and validation** archives under its terms. Extract the training files into `train/` and validation files into `dev/`. These third-party data are separate from the repository ZIP; do not try to open a masked `XXXX` link.
 
 ```bash
 python -m pip install -e '.[mind]'
@@ -121,3 +146,5 @@ The release includes executable synthetic and MIND examples, feature/evaluation 
 The repository code is released under the [MIT License](LICENSE). MIND and downloaded encoders retain their own licenses and terms. Please identify the repository URL and commit when referring to this software. A publication-specific citation will be added when final bibliographic details are available; the manuscript is not represented here as an accepted article.
 
 For questions or reproducibility issues, use [GitHub Issues](https://github.com/WoojinPark-Jay/pec-fuse-ranking/issues) and include the command, Python/package versions, and a non-private error example. Do not attach operational data or credentials.
+
+Anonymous reviewers should use the review venue's communication channel if the repository/contact links are masked. The anonymous hosting service's bug-report link is for hosting problems, not scientific questions about this manuscript.

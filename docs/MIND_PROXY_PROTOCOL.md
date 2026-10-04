@@ -4,7 +4,9 @@ This executable proxy maps the interface to public impression logs. It does not 
 
 ## Data and command
 
-Obtain MIND-small from the [dataset website](https://msnews.github.io/) under its terms. The runner expects:
+Obtain MIND-small from the [dataset website](https://msnews.github.io/) under its terms. If the anonymous viewer masks this link, search for **Microsoft News Dataset (MIND)** and use the official Microsoft Research dataset website. Download the **MIND-small training and validation** archives, not MIND-large or a test-only split. Extract training files into `train/` and validation files into `dev/`. These data are not bundled in the repository ZIP.
+
+For the code itself, anonymous readers should use **Download full repository as ZIP** in the artifact file viewer and extract it; no clone URL or original GitHub account access is required. The runner expects:
 
 ```text
 data/MINDsmall/

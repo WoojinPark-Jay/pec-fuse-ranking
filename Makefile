@@ -1,4 +1,4 @@
-.PHONY: demo check tables figures mind
+.PHONY: demo check check-data tables figures mind
 
 PYTHON ?= python
 MIND_ROOT ?= data/MINDsmall
@@ -9,6 +9,10 @@ demo:
 
 check:
 	$(PYTHON) scripts/check_access_aggregates.py
+
+# Anonymous ZIPs: schemas/arithmetic only, explicitly without file hashes.
+check-data:
+	$(PYTHON) scripts/check_access_aggregates.py --data-only
 
 tables:
 	$(PYTHON) scripts/render_access_summary.py

@@ -24,6 +24,8 @@ The `tables/` directory contains generated manuscript table fragments. Supportin
 
 Run `python scripts/check_access_aggregates.py` from the repository root to check the supplied Access records. Run `python scripts/render_access_summary.py` for a compact textual summary and `PYTHONPATH=src python scripts/run_synthetic_demo.py` for the public feature/ranking example. These checks do not recreate private experiments.
 
+For a ZIP from the anonymous artifact, use `python scripts/check_access_aggregates.py --data-only` instead. Anonymization can alter file bytes; this mode checks schemas/arithmetic but explicitly skips original-release SHA-256 verification. See the [download and verification guide](../docs/GETTING_STARTED.md).
+
 ## Interpretation and definitions
 
 - The legacy internal key `popularity_matched` means same-day candidate expansion, not guaranteed popular or hard negatives.
@@ -34,4 +36,4 @@ Run `python scripts/check_access_aggregates.py` from the repository root to chec
 
 ## Reproduction boundary
 
-This release contains aggregate records, configurations, public feature/evaluation code, generated table and figure code, and synthetic examples. It excludes private source rows, article text, embeddings, user/query-level predictions, credentials, and fitted private models. Recomputing private-platform intervals or retraining private experiments requires authorized private inputs. All distributed files are covered by the root `RELEASE_MANIFEST.json` SHA-256 inventory.
+This release contains aggregate records, configurations, public feature/evaluation code, generated table and figure code, and synthetic examples. It excludes private source rows, article text, embeddings, user/query-level predictions, credentials, and fitted private models. Recomputing private-platform intervals or retraining private experiments requires authorized private inputs. The root `RELEASE_MANIFEST.json` records original release-file SHA-256 hashes; rewritten files in an anonymous mirror may have different bytes.
