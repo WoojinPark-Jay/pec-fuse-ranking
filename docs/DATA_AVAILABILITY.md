@@ -20,8 +20,8 @@ public mirror.
 
 1. **Executable public contract:** the 25-D schema, deterministic transforms,
    ranking and evaluation code, synthetic fixture, and public MIND proxy.
-2. **Aggregate audit records:** paper tables and the bounded MIND neural
-   diagnostic, committed without user-level rows.
+2. **Aggregate audit records:** active paper tables, neural-input comparisons,
+   and encoder-specific MIND proxy summaries, without user-level rows.
 3. **Restricted evidence:** private platform rows and resulting headline-score
    regeneration, which remain unavailable for privacy and proprietary reasons.
 

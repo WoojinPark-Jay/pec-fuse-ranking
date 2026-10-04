@@ -16,6 +16,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+figures = [
+  "matplotlib>=3.8",
+  "fonttools>=4.0",
+]
 mind = [
   "sentence-transformers>=3.0",
   "torch>=2.1",

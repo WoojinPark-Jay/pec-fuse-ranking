@@ -1,13 +1,14 @@
 \begin{table*}[t]
-\caption{Shared-context source-preserving records. NDCG@10 means over five separately evaluated final seeds; paired 95\% intervals average query differences over those fixed seeds before 2,000 user-cluster resamples. Both variants share the same 14 context fields and five semantic inputs. Complete adds six products. These are multidimensional-audit fits, not headline fits.}
+\caption{Shared-context representation comparisons. Absolute NDCG@10 values are means of five seed-specific aggregate scores. For each contrast, per-query differences are first averaged across the five fixed seeds and then subjected to 2,000 user-clustered bootstrap resamples. Reported deltas are computed from unrounded values. All variants use the same 14 context fields and five semantic inputs. Complete adds six products; learned 5-D replaces the original semantic coordinates with five hidden activations. Direct and learned 5-D both contain 19 scorer inputs. These are multidimensional-audit fits, not headline fits.}
 \label{tab:direct_complete}
 \centering\small
-\begin{tabular}{lrrrr}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{lrrrrrr}
 \toprule
-Regime & Direct (19-D) & Complete (25-D) & Complete--Direct & Paired 95\% CI \\
+Regime & Direct & Complete & Complete--Direct [95\% CI] & Learned 5-D & Direct--5-D & Paired 95\% CI \\
 \midrule
-Recent-window & 0.7952 & 0.7962 & +0.0010 & [-0.0029, 0.0047] \\
-Same-day & 0.7704 & 0.7721 & +0.0016 & [-0.0025, 0.0053] \\
+Recent-window & 0.7952 & 0.7962 & +0.0010 [-0.0029,0.0047] & 0.7912 & \textbf{+0.0041} & \textbf{[0.0009,0.0068]} \\
+Same-day & 0.7704 & 0.7721 & +0.0016 [-0.0025,0.0053] & 0.7675 & +0.0030 & [-0.0028,0.0088] \\
 \bottomrule
 \end{tabular}
 \end{table*}

@@ -9,6 +9,9 @@ dist/
 *.egg-info/
 cache/
 outputs/
+access/figures/*.pdf
+access/figures/*.png
+access/figures/*.svg
 data/MINDsmall/
 data/private/
 data/raw/

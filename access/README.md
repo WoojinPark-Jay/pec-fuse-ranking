@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies IEEE Access manuscript revision v32 and is the active aggregate release for PEC-Fuse.
+This directory accompanies IEEE Access manuscript revision v35 and is the active aggregate release for PEC-Fuse. Existing aggregate values are preserved; tables and plot generators follow the current manuscript presentation.
 
 ## Contents and paper mapping
 
@@ -13,6 +13,7 @@ This directory accompanies IEEE Access manuscript revision v32 and is the active
 | `fusion_protocol.json`, `fusion_selected_configs.json` | Shared-context multidimensional audit and validation selections |
 | `fusion_seed_metrics.csv`, `fusion_test_summary.csv`, `fusion_paired_intervals.csv` | Final-seed metrics and interval variants |
 | `direct_complete_user_bootstrap.csv` | Complete 25-D minus Direct 19-D comparisons |
+| `tables/direct_complete.tex` (outside `data/`) | Added Direct-minus-learned-5-D intervals at manuscript precision; see [alignment notes](../docs/ACCESS_ALIGNMENT.md) |
 | `joint_pe_*` | Joint profile/trace-removal protocol, census, selected fits, seed metrics, and paired intervals |
 | `neural_user_bootstrap.csv`, `supplementary_user_bootstrap.csv` | Neural-input and supplementary comparisons |
 | `disagreement_user_bootstrap.csv`, `thresholds_*.json` | High-profile/trace-absence diagnostic |
