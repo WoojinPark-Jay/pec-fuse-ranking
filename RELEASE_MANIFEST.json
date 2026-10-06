@@ -1,13 +1,13 @@
 {
   "manifest_version": 2,
-  "revision": "ieee-access-v36-public-artifact-v7",
+  "revision": "ieee-access-v36-public-artifact-v8",
   "active_manuscript": "PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces",
   "file_count": 98,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "LICENSE": "8f45362b3feddfedf4fe8133353137a3386110524948b2f3d83db767b67c501d",
     "Makefile": "52d50105010b27ab12faafa170ddaecd871450df8dc6845dd93c8bbcd5cbfb43",
-    "README.md": "6ea1320cec271c8401a5c66f8288a321e3aa183c8623d9a1f4f6fb20dcb0c2db",
+    "README.md": "15877f10c065fe795085e7ad449422882868dac8d7fbee4a532ce4a700a6a6e0",
     "access/README.md": "a32f5d93c25a542be9907caed1e2a83fda6a1d136156d4589915a1715813db4c",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
     "access/data/core_test_metrics.csv": "46a6deed91d62880742fab06d208de1937a93ebcf9cc4b098d23a722d3e53eef",

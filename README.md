@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Try the live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo) | [Quick start](README.md#quick-start) | [Reproducibility](docs/REPRODUCIBILITY.md)
+**Explore PEC-Fuse:** [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Try the live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo) | [Anonymous review artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/) | [Quick start](README.md#quick-start) | [Reproducibility](docs/REPRODUCIBILITY.md)
 
 > [!TIP]
 > **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo).**
@@ -43,7 +43,7 @@ Python 3.10 or newer is required. The synthetic example runs on CPU and needs no
 **Download using the route you are viewing.**
 
 - **GitHub:** clone the repository with the command below, or use GitHub's Code > Download ZIP.
-- **Versioned review artifact:** use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
+- **Versioned review artifact:** [open the anonymous 4open snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/), then use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
 
 GitHub download only:
 
