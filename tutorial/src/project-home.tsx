@@ -47,9 +47,9 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="project-actions" aria-label="Project resources">
             <ExternalLink href={PAPER_URL} className="project-button">Paper</ExternalLink>
             <ExternalLink href={REPOSITORY_URL} className="project-button"><GitHubIcon />Code</ExternalLink>
-            <a className="project-button" href="?view=tutorial&lang=en">Tutorial</a>
             <ExternalLink href={ARTIFACT_URL} className="project-button">Reproducibility artifact</ExternalLink>
-            <a className="project-button" href="?view=tutorial&lang=en#live-demo">Live demo</a>
+            <a className="project-button project-button-accent" href="?view=tutorial&lang=en">Tutorial</a>
+            <a className="project-button project-button-accent" href="?view=tutorial&lang=en#live-demo">Live demo</a>
           </div>
         </section>
 
