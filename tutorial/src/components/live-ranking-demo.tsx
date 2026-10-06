@@ -532,7 +532,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             <i aria-hidden="true">→</i>
             <div className="prd-demo-phone">
               <header>
-                <div className="prd-demo-brand"><b>PEC</b><img src="./insightea-logo-white.png" alt="insightea" /></div>
+            <div className="prd-demo-brand"><b>PEC</b><img src="./insightea-logo-white-v2.png" alt="insightea" /></div>
                 <span>{ko ? "맞춤 뉴스" : "For you"}</span>
               </header>
               {ranked.slice(0, 3).map((item, index) => <div key={item.article.id} className={index === 0 ? "is-top" : ""}>
