@@ -171,6 +171,12 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div><span>3</span><b>{isKo ? "모델을 학습하고 후보를 점수화합니다" : "Fit the model and score candidates"}</b><p>{isKo ? "학습 데이터에서는 클릭 여부로 점수 규칙을 배웁니다. 평가할 때는 후보별 점수를 계산해 같은 질의 안에서 정렬합니다." : "Click labels supervise fitting. At evaluation time, the fitted model scores each candidate and ranks them within the query."}</p></div>
           <div><span>4</span><b>{isKo ? "한 조건씩 바꿔 비교합니다" : "Change one condition at a time"}</b><p>{isKo ? "후보와 평가 방법은 같게 유지하고, 입력 정보·표현 방식·학습기 중 비교할 요소만 바꿉니다." : "Keep the candidates and evaluation fixed while changing only the input, representation, or learner under study."}</p></div>
         </div>
+        <a className="ca-demo-bridge" href="#live-demo" aria-label={isKo ? "라이브 추천 데모로 이동" : "Jump to the live recommendation demo"}>
+          <span>LIVE</span>
+          <b>{isKo ? "먼저 데모로 확인하기" : "Preview the live demo first"}</b>
+          <small>{isKo ? "독자와 모델을 바꿔 보며 추천 순위가 달라지는 과정을 짧게 살펴봅니다." : "Change the reader and model to preview how the recommendation order responds."}</small>
+          <i aria-hidden="true">→</i>
+        </a>
         <div className="ca-term-strip" aria-label={isKo ? "핵심 용어" : "Core terms"}>
           <div><b>{isKo ? "질의" : "Query"}</b><span>q=(u,t)</span><p>{isKo ? "사용자 한 명의 특정 날짜에 대한 순위 문제" : "A ranking problem for one user on one date"}</p></div>
           <div><b>{isKo ? "후보 행" : "Candidate row"}</b><span>x<sub>q,i</sub></span><p>{isKo ? "후보 기사 한 개를 설명하는 숫자 묶음" : "The numeric description of one candidate article"}</p></div>
