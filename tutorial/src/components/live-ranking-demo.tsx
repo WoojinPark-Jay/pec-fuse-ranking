@@ -11,6 +11,7 @@ type Persona = {
   name: Localized;
   role: Localized;
   summary: Localized;
+  moment: Localized;
   interests: Localized[];
   recent: Localized[];
   profile: Record<Category, number>;
@@ -28,6 +29,9 @@ type Article = {
   popularity: number;
   recency: number;
   quality: number;
+  source: string;
+  published: string;
+  readTime: number;
 };
 
 type Signals = { P: number; E: number; C: number; Z: number };
@@ -42,6 +46,7 @@ const personas: Persona[] = [
       ko: "기후 정책을 꾸준히 읽고, 최근에는 배터리와 에너지 기술 기사를 자주 클릭했습니다.",
       en: "Regularly reads climate policy and has recently clicked battery and energy-technology stories."
     },
+    moment: { ko: "평일 아침 · 모바일에서 짧게 탐색", en: "Weekday morning · browsing briefly on mobile" },
     interests: [
       { ko: "기후 정책", en: "Climate policy" },
       { ko: "에너지", en: "Energy" },
@@ -65,6 +70,7 @@ const personas: Persona[] = [
       ko: "출퇴근 시간에는 지역 소식을, 저녁에는 경기 분석과 팀 뉴스를 주로 읽습니다.",
       en: "Reads local updates during the commute and follows match analysis and team news in the evening."
     },
+    moment: { ko: "퇴근 직후 · 경기 결과를 빠르게 확인", en: "After work · checking match results quickly" },
     interests: [
       { ko: "축구", en: "Football" },
       { ko: "지역 교통", en: "Local transit" },
@@ -88,6 +94,7 @@ const personas: Persona[] = [
       ko: "의학 연구와 검증된 과학 보도를 선호하며, 속보보다 설명이 충분한 기사를 오래 읽습니다.",
       en: "Prefers evidence-led medical and science reporting, with deeper reads rather than breaking news."
     },
+    moment: { ko: "주말 오후 · 긴 해설 기사를 정독", en: "Weekend afternoon · reading long-form explainers" },
     interests: [
       { ko: "공중보건", en: "Public health" },
       { ko: "임상 연구", en: "Clinical research" },
@@ -110,35 +117,35 @@ const articles: Article[] = [
     section: { ko: "기후 정책", en: "Climate policy" },
     title: { ko: "도시 탄소예산, 내년부터 달라지는 것", en: "How the city carbon budget changes next year" },
     dek: { ko: "새 감축 목표와 시민 생활의 변화를 설명합니다.", en: "A practical guide to new targets and their everyday effects." },
-    popularity: .66, recency: .86, quality: .83
+    popularity: .66, recency: .86, quality: .83, source: "Metro Desk", published: "2026.06.03", readTime: 5
   },
   {
     id: "battery", icon: "🔋", category: "science",
     section: { ko: "에너지 기술", en: "Energy technology" },
     title: { ko: "고체전지 수명, 새 실험이 보여준 결과", en: "What a new trial reveals about solid-state batteries" },
     dek: { ko: "연구진의 측정 방법과 한계를 함께 살펴봅니다.", en: "The measurements, the result, and the limits of the study." },
-    popularity: .74, recency: .72, quality: .91
+    popularity: .74, recency: .72, quality: .91, source: "Science Wire", published: "2026.06.02", readTime: 7
   },
   {
     id: "football", icon: "⚽", category: "sports",
     section: { ko: "스포츠", en: "Sports" },
     title: { ko: "후반 전술 변화가 결승전을 뒤집었다", en: "The second-half switch that changed the final" },
     dek: { ko: "패스 경로와 압박 위치로 승부처를 복기합니다.", en: "A tactical replay through passing lanes and pressing positions." },
-    popularity: .95, recency: .91, quality: .69
+    popularity: .95, recency: .91, quality: .69, source: "Match Review", published: "2026.06.03", readTime: 4
   },
   {
     id: "transit", icon: "🚇", category: "local",
     section: { ko: "지역", en: "Local" },
     title: { ko: "광역철도 개편안, 내 통근시간은 얼마나 줄까", en: "What the rail redesign could mean for your commute" },
     dek: { ko: "역별 예상 시간과 환승 변화를 비교했습니다.", en: "Station-level travel times and transfer changes compared." },
-    popularity: .81, recency: .79, quality: .76
+    popularity: .81, recency: .79, quality: .76, source: "City Journal", published: "2026.06.03", readTime: 3
   },
   {
     id: "health", icon: "🧬", category: "health",
     section: { ko: "의학 연구", en: "Medical research" },
     title: { ko: "유전자 치료 임상시험, 숫자 뒤의 의미", en: "Reading beyond the headline in a gene-therapy trial" },
     dek: { ko: "효과 크기와 부작용을 연구 설계와 함께 읽습니다.", en: "Effect size and adverse events, read alongside the trial design." },
-    popularity: .58, recency: .63, quality: .96
+    popularity: .58, recency: .63, quality: .96, source: "Evidence Lab", published: "2026.06.01", readTime: 8
   }
 ];
 
@@ -255,6 +262,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             <b>{t(persona.role)}</b>
           </div>
           <p>{t(persona.summary)}</p>
+          <div className="prd-reader-moment"><span aria-hidden="true">📱</span><div><small>{ko ? "현재 읽기 상황" : "Current reading context"}</small><b>{t(persona.moment)}</b></div></div>
           <div className="prd-interest-list">
             {persona.interests.map((item) => <span key={item.en}>{t(item)}</span>)}
           </div>
@@ -279,6 +287,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
               <span className="prd-news-visual" aria-hidden="true"><i>NEWS</i>{article.icon}</span>
               <span className="prd-news-copy">
                 <small>{t(article.section)}{inTrace ? ` · ${ko ? "추천 기록 있음" : "in retained trace"}` : ""}</small>
+                <span className="prd-news-meta">{article.source} · {article.published} · {article.readTime} min</span>
                 <b>{t(article.title)}</b>
                 <em>{t(article.dek)}</em>
               </span>
@@ -297,6 +306,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           {modelOrder.map((key) => <button key={key} type="button" aria-pressed={model === key} onClick={() => setModel(key)}>
             <b>{modelCopy[key].name}</b>
             <span>{t(modelCopy[key].label)}</span>
+            {key === "complete" && <em>{ko ? "기본 모델" : "DEFAULT"}</em>}
           </button>)}
         </div>
         <div className="prd-model-card">
@@ -312,12 +322,16 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
     </div>
 
     <section className="prd-output" aria-labelledby="prd-output-title">
+      <div className="prd-output-marker"><span aria-hidden="true">↓</span><b>RECOMMENDATION PREVIEW</b><em>{ko ? "선택한 독자와 모델로 만든 결과" : "The result for the selected reader and model"}</em></div>
       <header>
         <div className="prd-panel-heading">
           <span>04</span>
           <div><b id="prd-output-title">{ko ? `${t(persona.name)}를 위한 최종 순위` : `Final ranking for ${t(persona.name)}`}</b><small>{ko ? "모델 점수가 큰 기사부터 정렬" : "Sorted by descending model score"}</small></div>
         </div>
-        <div className="prd-winner"><span aria-hidden="true">{top.article.icon}</span><div><small>{ko ? "현재 1위" : "Currently ranked first"}</small><b>{t(top.article.title)}</b></div></div>
+        <div className="prd-output-summary">
+          <div className="prd-phone-preview" aria-hidden="true"><div><span>{persona.avatar}</span><i>PEC</i></div><p>{ranked.slice(0, 3).map((item) => <b key={item.article.id}>{item.article.icon}</b>)}</p></div>
+          <div className="prd-winner"><span aria-hidden="true">{top.article.icon}</span><div><small>{ko ? "현재 1위 추천" : "Top recommendation"}</small><b>{t(top.article.title)}</b></div></div>
+        </div>
       </header>
       <div className="prd-ranking">
         {ranked.map((item, index) => {
@@ -342,6 +356,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             <i><em style={{ width: `${Math.round(selected.signals[key] * 100)}%` }} /></i>
           </div>)}
         </div>
+        <div className="prd-total-score"><small>{ko ? "선택 기사 총점" : "Selected story score"}</small><output>{selected.score.toFixed(3)}</output><span>{ko ? `현재 ${ranked.findIndex((item) => item.article.id === selected.article.id) + 1}위 · 정렬용 점수` : `Rank ${ranked.findIndex((item) => item.article.id === selected.article.id) + 1} · ranking score`}</span></div>
         <p>{model === "control"
           ? (ko ? "이 모델은 P·E·C를 사용하지 않습니다. 인기와 최신성 같은 운영 정보가 순위를 주로 결정합니다." : "This model does not use P, E, or C. Operational signals such as popularity and recency drive the ranking.")
           : (ko ? `${t(persona.name)}의 프로필·이력과 이 기사의 관계가 후보별 입력이 됩니다. 네 값을 단순히 더한 것이 아니라, 선택한 모델의 규칙으로 점수 하나를 계산합니다.` : `The relationship between ${t(persona.name)} and this story becomes candidate-level input. The four values are not simply added; the selected model maps them to one ranking score.`)}</p>

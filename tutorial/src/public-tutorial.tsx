@@ -42,10 +42,21 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <a href="#equations">{t("수식", "Equations")}</a>
       <a href="#model-lab">{t("모델", "Models")}</a>
       <a href="#atlas">{t("실험", "Experiments")}</a>
-      <a href="#live-demo">{t("데모", "Live demo")}</a>
+      <a className="public-live-demo-link" href="#live-demo">{t("라이브 데모", "Live demo")}<i>TRY</i></a>
       <a href="#reproduce">{t("재현", "Reproduce")}</a>
       <a href="#cite">{t("인용", "Cite")}</a>
     </nav>
+
+    <aside className="public-demo-teaser" aria-label={t("라이브 랭킹 데모 안내", "Live ranking demo invitation")}>
+      <div className="public-demo-faces" aria-hidden="true"><span>👩🏻‍🔬</span><span>🧑🏽‍💼</span><span>👩🏻‍⚕️</span></div>
+      <div className="public-demo-phone" aria-hidden="true"><i>PEC</i><span>🌍</span><span>🔋</span><span>⚽</span></div>
+      <div>
+        <small>INTERACTIVE RECOMMENDATION DEMO</small>
+        <b>{t("독자와 모델을 바꾸며 뉴스 순위를 직접 확인하세요", "Switch readers and models, then watch the news ranking change")}</b>
+        <p>{t("세 가지 독자 성향과 네 가지 모델을 조합하고, 각 추천 점수가 어떤 입력에서 나왔는지 살펴볼 수 있습니다.", "Combine three reader profiles with four scoring models and inspect the evidence behind every recommendation score.")}</p>
+      </div>
+      <a href="#live-demo"><span>{t("라이브 데모 시작", "Open live demo")}</span><i aria-hidden="true">↓</i></a>
+    </aside>
 
     <div id="tutorial">
       <ComparisonAtlas lang={lang} />
