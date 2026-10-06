@@ -76,7 +76,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         <span>Version 0.1.0</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
         <span className="public-author-cluster">
-          <span>Woojin Park · PEC-Fuse author</span>
+          <span>{t("Woojin Park · 제1저자 제작", "Tutorial by Woojin Park · First author")}</span>
           <span className="public-social-icons">
             <a className="public-social-icon" href={githubProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park GitHub 프로필", "Woojin Park GitHub profile")} title="GitHub"><SocialIcon kind="github" /></a>
             <a className="public-social-icon" href={linkedinProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park LinkedIn 프로필", "Woojin Park LinkedIn profile")} title="LinkedIn"><SocialIcon kind="linkedin" /></a>
@@ -176,14 +176,24 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <section className="public-citation" id="cite">
       <div>
         <div className="public-section-label">CITE</div>
-        <h2>{t("인용할 때는 저장소와 사용한 버전을 함께 밝혀 주세요", "Cite the repository together with the version used")}</h2>
-        <p>{t("정식 서지 정보와 DOI는 논문 게재 후 추가할 예정입니다. 그전에는 저장소 주소와 사용한 릴리스 또는 커밋을 함께 표기해 주세요.", "Formal publication details and a DOI will be added after publication. Until then, cite the repository URL together with the release or commit used.")}</p>
-        <pre><code>{`PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking\nSoftware and interactive tutorial, version 0.1.0\n${repository}`}</code></pre>
+        <h2>{t("논문과 사용한 소프트웨어 버전을 함께 인용해 주세요", "Cite the paper together with the software version used")}</h2>
+        <p>{t("정식 DOI와 게재 정보는 출판 후 추가할 예정입니다. 그전에는 아래 논문 정보와 저장소의 릴리스 또는 커밋을 함께 표기해 주세요.", "The final DOI and publication metadata will be added after publication. Until then, cite the manuscript together with the repository release or commit used.")}</p>
+        <pre><code>{`@article{park2026pecfuse,
+  title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
+             News Ranking with Partial Recommendation Traces},
+  author  = {Park, Woojin and Cheong, Taesu},
+  journal = {IEEE Access},
+  year    = {2026}
+}
+
+Software: PEC-Fuse repository, version 0.1.0
+${repository}`}</code></pre>
+        <p className="public-paper-authors"><b>{t("논문 저자", "Paper authors")}</b><span>Woojin Park · Taesu Cheong</span></p>
       </div>
       <aside>
-        <span>{t("저자", "AUTHOR")}</span>
+        <span>{t("제1저자", "FIRST AUTHOR")}</span>
         <h3>Woojin Park</h3>
-        <p>{t("PEC-Fuse 저자", "PEC-Fuse author")}</p>
+        <p>{t("PEC-Fuse 제1저자 · 튜토리얼 제작", "PEC-Fuse first author · Tutorial author")}</p>
         <a className="public-profile-link" href={githubProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="github" /><span>GitHub profile</span></a>
         <a className="public-profile-link" href={linkedinProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="linkedin" /><span>LinkedIn profile</span></a>
         <a href={`${repository}/issues`}>{t("질문 및 재현 이슈", "Questions and reproducibility issues")}</a>
@@ -197,8 +207,8 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
 
     <footer className="public-footer">
       <div className="public-footer-copy">
-        <span>PEC-Fuse · Version 0.1.0</span>
-        <span>{t("모든 계산 예시는 교육용 합성 데이터입니다.", "All calculation examples use synthetic teaching data.")}</span>
+        <strong>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</strong>
+        <span>Woojin Park · Taesu Cheong</span>
       </div>
       <nav className="public-footer-links" aria-label={t("저자 및 프로젝트 링크", "Author and project links")}>
         <a href={repository} target="_blank" rel="noopener noreferrer" aria-label={t("PEC-Fuse GitHub 저장소", "PEC-Fuse GitHub repository")}><SocialIcon kind="github" /><span>{t("GitHub 저장소", "GitHub repository")}</span></a>
