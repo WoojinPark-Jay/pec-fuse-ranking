@@ -1,0 +1,19 @@
+#model-reading-guide.mrg .mrg-role-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:20px 0 14px}
+#model-reading-guide.mrg .mrg-role-map article{min-width:0;border:1px solid #9fb7c2;background:#f5f9fa;padding:18px}
+#model-reading-guide.mrg .mrg-role-map article.is-scorer{border-top:4px solid #267893}
+#model-reading-guide.mrg .mrg-role-map article.is-transform{grid-column:1/-1;border-top:4px solid #bd7427;background:#fff9f1}
+#model-reading-guide.mrg .mrg-role-map header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:14px}
+#model-reading-guide.mrg .mrg-role-map header span{color:#5f7783;font:700 11px/1.2 Consolas,monospace;letter-spacing:.08em;text-transform:uppercase}
+#model-reading-guide.mrg .mrg-role-map header b{color:#1d3d4c;font-size:18px;line-height:1.2}
+#model-reading-guide.mrg .mrg-role-flow{display:flex;align-items:center;gap:8px;min-width:0;padding:13px;background:#fff;border:1px solid #cad8de;overflow-x:auto}
+#model-reading-guide.mrg .mrg-role-flow span,#model-reading-guide.mrg .mrg-role-flow strong,#model-reading-guide.mrg .mrg-role-flow b{flex:0 0 auto;padding:7px 9px;color:#264957;background:#edf4f6;border:1px solid #b8cbd3;font-size:12px;line-height:1.2;white-space:nowrap}
+#model-reading-guide.mrg .mrg-role-flow strong{background:#dcecf1;border-color:#80a9b9}
+#model-reading-guide.mrg .mrg-role-flow b{color:#fff;background:#183f51;border-color:#183f51}
+#model-reading-guide.mrg .mrg-role-flow i{flex:0 0 auto;color:#6b818b;font-style:normal;font-weight:800}
+#model-reading-guide.mrg .mrg-role-map article>p{margin:12px 0 0!important;font-size:14px!important;line-height:1.6!important}
+#model-reading-guide.mrg .mrg-role-questions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;margin:14px 0 20px;background:#afc1c9;border:1px solid #afc1c9}
+#model-reading-guide.mrg .mrg-role-questions>div{background:#fff;padding:15px 17px}
+#model-reading-guide.mrg .mrg-role-questions span{display:block;color:#a25d1e;font:700 10px/1.3 Consolas,monospace;letter-spacing:.07em}
+#model-reading-guide.mrg .mrg-role-questions b{display:block;margin-top:6px;color:#203e4c;font-size:15px}
+#model-reading-guide.mrg .mrg-role-questions p{margin:3px 0 0!important;font-size:13px!important;line-height:1.5!important;color:#697c85!important}
+@media(max-width:760px){#model-reading-guide.mrg .mrg-role-map,#model-reading-guide.mrg .mrg-role-questions{grid-template-columns:minmax(0,1fr)}#model-reading-guide.mrg .mrg-role-map article.is-transform{grid-column:auto}#model-reading-guide.mrg .mrg-role-map header{display:block}#model-reading-guide.mrg .mrg-role-map header b{display:block;margin-top:6px}#model-reading-guide.mrg .mrg-role-flow{padding:10px}}
