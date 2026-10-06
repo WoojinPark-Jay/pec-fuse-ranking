@@ -531,7 +531,10 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             <div className="prd-reader-badge"><span aria-hidden="true">{persona.avatar}</span><b>{t(persona.name)}</b><small>{ko ? "선택한 독자" : "Selected reader"}</small></div>
             <i aria-hidden="true">→</i>
             <div className="prd-demo-phone">
-              <header><b>PEC</b><span>{ko ? "맞춤 뉴스" : "For you"}</span></header>
+              <header>
+                <div className="prd-demo-brand"><b>PEC</b><img src="./insightea-logo-white.png" alt="insightea" /></div>
+                <span>{ko ? "맞춤 뉴스" : "For you"}</span>
+              </header>
               {ranked.slice(0, 3).map((item, index) => <div key={item.article.id} className={index === 0 ? "is-top" : ""}>
                 <span aria-hidden="true">{item.article.icon}</span><p><small>#{index + 1} · {t(item.article.section)}</small><b>{t(item.article.title)}</b></p>
               </div>)}
