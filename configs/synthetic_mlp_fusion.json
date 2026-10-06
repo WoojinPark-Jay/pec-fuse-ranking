@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "train_queries": 60,
+  "test_queries": 16,
+  "candidates_per_query": 6,
+  "source_dim": 5,
+  "context_dim": 14,
+  "model": {
+    "input_dim": 5,
+    "hidden_dim": 8,
+    "latent_dim": 5
+  },
+  "training": {
+    "max_epochs": 80,
+    "learning_rate": 0.001,
+    "weight_decay": 0.001
+  },
+  "downstream": {
+    "n_estimators": 160,
+    "max_depth": 10,
+    "min_samples_leaf": 2
+  }
+}

@@ -6,6 +6,7 @@ The artifact separates three reproducibility levels.
 |---|---|---|
 | Executable public | `src/pec_fuse/`, `examples/synthetic/`, `scripts/run_synthetic_demo.py` | feature order, deterministic transforms, model fitting, within-query ranking, and metrics |
 | Executable neural reference | `src/pec_fuse/neural.py`, `scripts/run_synthetic_neural.py` | candidate-aware history encoding, side-feature variants, query-wise listwise loss, backpropagation, and scoring on generated inputs |
+| Executable fusion reference | `src/pec_fuse/fusion.py`, `scripts/run_synthetic_fusion.py` | supervised MLP transformation of five P/C coordinates, latent export, and downstream ranking on generated inputs |
 | Executable public proxy | `scripts/run_mind_proxy.py`, `docs/MIND_PROXY_PROTOCOL.md` | mapping of the interface to available MIND fields and public-data evaluation |
 | Aggregate private-platform evidence | `access/data/` | reported scores, selections, paired intervals, seed variation, candidate reselection, and data censuses |
 

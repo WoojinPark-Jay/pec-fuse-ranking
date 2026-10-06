@@ -75,6 +75,14 @@ python scripts/run_synthetic_neural.py
 
 This command trains matched neural-control and neural-PEC variants from scratch on synthetic embeddings and side features. It exercises history self-attention, candidate-conditioned pooling, the candidate/user interaction record, listwise loss, backpropagation, gradient clipping, scoring, and within-query evaluation. It does **not** download BGE-M3, expose operational rows, load a manuscript checkpoint, or reproduce the reported private-platform scores. See the [neural audit guide](docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md).
 
+The learned early-fusion MLP is separately executable so its representation-learning step is not hidden inside an unpublished pipeline:
+
+```bash
+python scripts/run_synthetic_fusion.py
+```
+
+The command learns a 5-D latent representation from five synthetic P/C coordinates, joins it to 14 shared context fields, and fits the downstream ExtraTrees scorer. It also fits the equal-width 19-D Direct path for orientation. These generated metrics illustrate the code path only and are not manuscript results.
+
 To inspect released results without retraining, run `python scripts/render_access_summary.py`. Choose the appropriate check for your download:
 
 **Unchanged GitHub checkout or GitHub ZIP:**

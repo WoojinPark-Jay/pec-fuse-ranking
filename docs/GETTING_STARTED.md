@@ -37,6 +37,16 @@ python scripts/run_synthetic_neural.py
 
 The command is a CPU-scale implementation check. It does not load operational records, BGE-M3 weights, private embeddings, or fitted manuscript parameters, and its metrics are not paper results.
 
+### Run the learned early-fusion MLP reference
+
+The same optional environment also exposes the learned fusion path:
+
+```bash
+python scripts/run_synthetic_fusion.py
+```
+
+`src/pec_fuse/fusion.py` trains an MLP prediction head from five P/C coordinates and exports its learned 5-D latent record. The example combines that record with 14 context fields before fitting the downstream ExtraTrees scorer, keeping representation learning distinct from final ranking. It compares the code path with an equal-width Direct record only as a synthetic implementation demonstration.
+
 ## 2. Separate demonstration results from paper results
 
 `python scripts/render_access_summary.py` reads stored CSVs without training models. The aggregate checker has two explicit scopes:
