@@ -13,8 +13,8 @@ export function GuidedModelLab(props: ComponentProps<typeof ModelLearningLab>) {
     <section className="mrg" id="model-reading-guide" aria-labelledby="mrg-title">
       <header>
         <span className="mrg-kicker">{t("모델 데모를 읽는 순서", "A reading guide to the model lab")}</span>
-        <h2 id="mrg-title">{t("숫자를 넣는 것과, 모델을 학습시키는 것은 다릅니다", "Changing an input is not the same as training a model")}</h2>
-        <p>{t("먼저 후보 기사 A 하나만 생각해 보세요. A를 설명하는 숫자들이 입력이고, 모델은 배워 둔 규칙으로 A의 점수 하나를 만듭니다. 다른 후보에도 같은 과정을 적용한 뒤 점수순으로 정렬합니다.", "Start with one candidate article, A. Numbers describing A are the input. The model applies previously learned rules to produce one score for A. Repeat for the other candidates, then sort their scores.")}</p>
+        <h2 id="mrg-title">{t("입력값을 바꾸는 것과 모델을 다시 학습하는 것은 다릅니다", "Changing an input is not the same as training a model")}</h2>
+        <p>{t("후보 기사 A 하나를 먼저 따라가 봅니다. A를 설명하는 숫자 한 행이 입력이고, 이미 학습된 모델은 그 행에서 A의 점수 하나를 계산합니다. 모든 후보에 같은 과정을 적용한 뒤 같은 질의 안에서 점수순으로 정렬합니다.", "Start with one candidate article, A. One numeric row describing A is the input. The fitted model produces one score for A. Repeat for the other candidates, then sort within the query.")}</p>
       </header>
 
       <div className="mrg-example">
@@ -36,8 +36,8 @@ export function GuidedModelLab(props: ComponentProps<typeof ModelLearningLab>) {
         <div className="mrg-equation"><strong>{learning ? t("학습 데이터 (X, y) → 모델 θ", "Training data (X, y) → model θ") : "sₐ = fθ(xₐ)"}</strong><span>{learning ? t("학습 방식은 모델마다 다릅니다. 아래에서 구분해 봅니다.", "How the model learns differs across the three cases below.") : t("읽는 법: ‘학습된 모델에 A의 입력 행을 넣어 A의 점수를 얻는다.’", "Read: apply the trained model to A’s input row to obtain A’s score.")}</span></div>
       </div>
 
-      <h3>{t("세 모델, 무엇이 다른가요?", "What differs between the three models?")}</h3>
-      <p>{t("ExtraTrees와 neural ranker는 최종 점수를 만드는 대안입니다. Learned fusion은 그 앞에서 입력을 바꾸는 비교 방법이라, 셋을 같은 종류의 순위 모델로 보면 헷갈립니다.", "ExtraTrees and the neural ranker are alternative final scorers. Learned fusion transforms inputs before the final scorer; it is not a third interchangeable ranking model.")}</p>
+      <h3>{t("세 경로는 어디에서 달라질까요?", "Where do the three paths differ?")}</h3>
+      <p>{t("ExtraTrees와 신경망 순위 모델은 후보의 최종 점수를 만드는 두 가지 대안입니다. Learned fusion은 점수 모델 앞에서 입력 좌표를 바꾸는 방법입니다. 따라서 셋을 같은 종류의 최종 순위 모델로 보면 안 됩니다.", "ExtraTrees and the neural ranker are alternative final scorers. Learned fusion transforms inputs before the final scorer; it is not a third interchangeable ranking model.")}</p>
       <div className="mrg-models">
         <details><summary><strong>ExtraTrees</strong><span>{t("여러 나무의 판단을 모아 점수를 만듭니다", "Combine the judgments of many trees")}</span></summary>
           <p>{t("숫자 한 행을 받아 ‘P가 이 기준보다 큰가?’ 같은 질문을 차례로 거칩니다. 마지막 말단에 도착하면 그곳의 학습 표본에서 얻은 클래스 1 비율을 사용합니다. 여러 나무가 내는 값을 평균한 것이 점수입니다.", "A feature row passes through questions such as ‘Is P above this threshold?’ At the reached leaf, a tree uses the class-1 proportion learned from training samples there. The forest averages the tree outputs.")}</p>
@@ -62,7 +62,7 @@ export function GuidedModelLab(props: ComponentProps<typeof ModelLearningLab>) {
         <dt>y / s</dt><dd>{t("y는 관측으로 만든 정답 레이블, s는 모델이 계산한 점수입니다. 모델이 y를 입력받아 그대로 s로 돌려주는 것이 아닙니다.", "y is the observed target label; s is the computed model score. The model is not given y to copy into s.")}</dd>
         <dt>θ / W / b</dt><dd>{t("θ는 학습된 모델 전체를 가리키는 기호입니다. 신경망의 W는 입력에 곱하는 가중치, b는 더하는 편향입니다. 특징값과 달리 학습 후에는 고정해 예측에 사용합니다.", "θ denotes the fitted model. In a neural network, W contains weights multiplying the input, and b is an added bias. Unlike candidate features, these are held fixed during prediction after training.")}</dd>
       </dl></details>
-      <a className="mrg-start" href="#model-lab">{t("이제 아래 데모에서 한 단계씩 따라가기", "Continue step by step in the model lab below")}</a>
+      <a className="mrg-start" href="#model-lab">{t("아래 데모에서 후보 A의 계산을 단계별로 보기", "Follow candidate A step by step in the model lab")}</a>
     </section>
     <ModelLearningLab {...props}/>
   </>;

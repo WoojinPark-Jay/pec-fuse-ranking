@@ -31,9 +31,9 @@ const koModels: Model[] = [
   { id: "collapsed12", name: "Scalar collapsed", width: 12, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "F", label: "수식 scalar", width: 1 }], note: "P/C를 사람이 정한 하나의 점수로 먼저 합친다." },
   { id: "early12", name: "Learned early fusion", width: 12, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "F", label: "학습 scalar", width: 1 }], note: "P/C를 logistic 또는 MLP가 학습한 하나의 값으로 먼저 합친다." },
   { id: "scalarDirect17", name: "Scalar-audit Direct", width: 17, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "E", label: "combined E", width: 1 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C summaries", width: 4 }], note: "운영 baseline 위에 combined E와 원래의 다섯 P/C 좌표를 직접 제공한다." },
-  { id: "direct19", name: "Direct", width: 19, blocks: [{ kind: "H", label: "H · 공통 context", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C summaries", width: 4 }], note: "상호작용 없이 source-preserving semantic 좌표를 그대로 둔다." },
-  { id: "fusion19", name: "Learned 5-D fusion", width: 19, blocks: [{ kind: "H", label: "H · 공통 context", width: 14 }, { kind: "F", label: "gθ(P,C)", width: 5 }], note: "동일한 다섯 입력을 학습 변환한 5차원 hidden vector로 바꾼다." },
-  { id: "complete25", name: "Complete PEC", width: 25, blocks: [{ kind: "H", label: "H · E+Z context", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C summaries", width: 4 }, { kind: "psi", label: "ψ products", width: 6 }], note: "Direct의 19개 필드에 여섯 deterministic product를 더한다." },
+  { id: "direct19", name: "Direct", width: 19, blocks: [{ kind: "H", label: "H · 공통 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }], note: "상호작용 항을 추가하지 않고 출처별 의미 좌표를 그대로 유지한다." },
+  { id: "fusion19", name: "Learned 5-D fusion", width: 19, blocks: [{ kind: "H", label: "H · 공통 맥락", width: 14 }, { kind: "F", label: "gθ(P,C)", width: 5 }], note: "동일한 다섯 입력을 학습된 변환을 거친 5차원 은닉 벡터로 바꾼다." },
+  { id: "complete25", name: "Complete PEC", width: 25, blocks: [{ kind: "H", label: "H · E+Z 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }, { kind: "psi", label: "ψ 곱셈 항", width: 6 }], note: "Direct의 19개 특성에 고정식으로 계산한 상호작용 항 여섯 개를 더한다." },
   { id: "noE9", name: "No-E control", width: 9, blocks: [{ kind: "B", label: "E-free control", width: 9 }], note: "trace 관련 control을 제거한 baseline." },
   { id: "noE18", name: "No-E PEC", width: 18, blocks: [{ kind: "Z", label: "E-free context", width: 9 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C", width: 4 }, { kind: "psi", label: "남은 P–C products", width: 4 }], note: "E와 E를 포함한 product를 제거하고 P/C 구조는 유지한다." },
   { id: "context8", name: "Context only", width: 8, blocks: [{ kind: "Z", label: "P/E-free context", width: 8 }], note: "프로필 유래 입력과 trace 입력을 함께 제거한다." },
@@ -59,7 +59,7 @@ const enModels: Model[] = koModels.map((model) => ({
 const koComparisons: Comparison[] = [
   { id: "headline", group: "핵심 성능", number: "01", title: "Complete PEC vs operational control", short: "전체 source-preserving record가 운영 baseline보다 나은가?", left: "control11", right: "complete25", same: "같은 query–candidate rows, 같은 라벨, 같은 temporal regime, ExtraTrees 계열 scorer.", change: "11-D 운영 입력 대신 P/E/C/Z와 interaction을 포함한 25-D record를 제공한다.", learned: "두 모델은 각각 별도로 선택·학습된다. P/E/C/ψ 계산 자체는 deterministic이다.", asks: "실제 구현된 complete interface 전체가 운영형 control보다 순위를 개선하는가?", limit: "25개 중 어느 필드가 원인인지, 온라인 CTR이 오르는지는 이 비교만으로 말하지 않는다.", result: "NDCG@10: recent +0.0662, same-day +0.0218; 두 paired CI 모두 0보다 큼.", resultTone: "positive" },
   { id: "collapsed", group: "압축 방식", number: "02", title: "Complete PEC vs scalar collapsed", short: "출처를 하나의 수식 점수로 일찍 합치면 무엇을 잃는가?", left: "collapsed12", right: "complete25", same: "같은 후보와 평가 지표. 양쪽 모두 context를 가지지만 context schema와 표현 폭은 다르다.", change: "P/C를 1개 scalar로 압축한 12-D 입력과 source별 좌표·products를 둔 25-D 입력을 비교한다.", learned: "Collapsed scalar는 고정 수식이며 학습되지 않는다. 최종 scorer만 fitted된다.", asks: "완전한 source-preserving 구성과 수동 scalar 구성 중 어느 구현이 더 유용한가?", limit: "차원, context feature, interactions도 함께 달라지는 feature-set 비교다. 순수한 압축 효과 하나로 분해하지 않는다.", result: "두 private regime에서 complete PEC가 collapsed보다 높음; headline과 audit fit은 구분해서 읽는다.", resultTone: "positive" },
-  { id: "early", group: "압축 방식", number: "03", title: "Direct vs learned early fusion", short: "같은 정보 폭에서 원래 좌표와 학습 변환을 직접 비교한다.", left: "fusion19", right: "direct19", same: "최종 입력은 모두 19-D: H 14개 + semantic 5개. interactions 없음.", change: "오른쪽은 P와 C 네 좌표를 그대로 유지하고, 왼쪽은 그 다섯 값을 5-D learned representation으로 치환한다.", learned: "왼쪽의 gθ가 validation 과정에서 학습된다. 양쪽 최종 scorer도 각각 fitted된다.", asks: "차원 수를 맞췄을 때 source별 원래 좌표를 유지하는 것이 시험한 learned transform보다 유리한가?", limit: "모든 가능한 fusion network보다 Direct가 우월하다는 검정은 아니다.", result: "Direct − fusion: recent +0.0041 [0.0009, 0.0068]; same-day +0.0030 [−0.0028, 0.0088].", resultTone: "mixed" },
+  { id: "early", group: "압축 방식", number: "03", title: "Direct vs learned early fusion", short: "입력 차원을 같게 맞춘 뒤 원래 좌표와 학습된 변환 좌표를 비교한다.", left: "fusion19", right: "direct19", same: "두 구성 모두 최종 입력은 19차원이다. 공통 맥락 14개와 의미 좌표 5개를 사용하며 명시적 상호작용 항은 없다.", change: "Direct는 P와 C의 원래 다섯 좌표를 유지하고, learned fusion은 그 다섯 값을 학습된 5차원 표현으로 바꾼다.", learned: "왼쪽의 gθ는 검증 단계에서 학습한다. 양쪽의 최종 점수 모델도 각각 별도로 학습한다.", asks: "차원을 같게 맞췄을 때 출처별 원래 좌표를 유지하는 편이 시험한 학습 변환보다 유리한가?", limit: "모든 가능한 융합 신경망보다 Direct가 우월하다는 검정은 아니다.", result: "Direct − fusion: recent +0.0041 [0.0009, 0.0068]; same-day +0.0030 [−0.0028, 0.0088].", resultTone: "mixed" },
   { id: "interactions", group: "표현 폭", number: "04", title: "Complete 25-D vs Direct 19-D", short: "여섯 interaction product가 실제로 필요한가?", left: "direct19", right: "complete25", same: "동일한 H 14개와 원래 P/C 다섯 좌표. 같은 source-preserving 의미.", change: "Complete 쪽에 P×E, C×E, P×C의 deterministic products 여섯 개만 추가한다.", learned: "추가 여섯 값은 학습된 embedding이 아니라 입력값들의 곱이다. scorer가 사용 여부를 학습한다.", asks: "명시적 interaction 여섯 개가 compact Direct보다 추가 이득을 주는가?", limit: "CI가 0을 포함하면 동등성이 입증된 것이 아니라 추가 차이를 구별하지 못한 것이다.", result: "Complete − Direct: recent +0.0010, same-day +0.0016; 두 CI 모두 0 포함.", resultTone: "mixed" },
   { id: "noe", group: "입력 제거", number: "05", title: "No-E PEC vs no-E control", short: "추천 trace 없이도 분리된 P/C 표현이 도움이 되는가?", left: "noE9", right: "noE18", same: "E 관련 필드와 E-containing products를 양쪽에서 제거한 독립적 모델 선택·학습.", change: "E-free control에 P, C와 남는 P–C products를 추가한다.", learned: "후처리 slice가 아니라 E를 빼고 처음부터 별도로 학습한 모델들이다.", asks: "이득이 retained recommendation trace 하나에만 의존하는가?", limit: "E=0 행만 골라 보는 slice와 다른 estimand이며 실제 비노출을 뜻하지 않는다.", result: "No-E PEC가 두 regime의 no-E control보다 높아 trace 외 신호의 유용성을 지지.", resultTone: "positive" },
   { id: "joint", group: "입력 제거", number: "06", title: "Context + C vs context only", short: "프로필과 trace를 함께 없애도 prior-click consumption이 남는가?", left: "context8", right: "contextC12", same: "P 유래 입력과 E 입력을 모두 제거한 동일한 8-D context.", change: "오른쪽에 쿼리 이전 클릭으로 계산한 C_mean, C_max, C_top3, C_attention 네 값만 더한다.", learned: "C 값은 frozen article vectors와 prior history에서 결정적으로 계산한다. 두 scorer는 별도 fitted된다.", asks: "시점 불확실성이 있는 P/E 없이도 C가 ranking signal을 제공하는가?", limit: "전체 PEC의 시간적 유효성이나 prospective deployment를 검증하는 실험은 아니다.", result: "C 추가: recent +0.0526, same-day +0.0244; seed-42 paired CI 모두 0보다 큼.", resultTone: "positive" },
@@ -172,47 +172,53 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div><span>3</span><b>{isKo ? "모델을 학습하고 후보를 점수화합니다" : "Fit the model and score candidates"}</b><p>{isKo ? "학습 데이터에서는 클릭 여부로 점수 규칙을 배웁니다. 평가할 때는 후보별 점수를 계산해 같은 질의 안에서 정렬합니다." : "Click labels supervise fitting. At evaluation time, the fitted model scores each candidate and ranks them within the query."}</p></div>
           <div><span>4</span><b>{isKo ? "한 조건씩 바꿔 비교합니다" : "Change one condition at a time"}</b><p>{isKo ? "후보와 평가 방법은 같게 유지하고, 입력 정보·표현 방식·학습기 중 비교할 요소만 바꿉니다." : "Keep the candidates and evaluation fixed while changing only the input, representation, or learner under study."}</p></div>
         </div>
+        <div className="ca-term-strip" aria-label={isKo ? "핵심 용어" : "Core terms"}>
+          <div><b>{isKo ? "질의" : "Query"}</b><span>q=(u,t)</span><p>{isKo ? "사용자 한 명의 특정 날짜에 대한 순위 문제" : "A ranking problem for one user on one date"}</p></div>
+          <div><b>{isKo ? "후보 행" : "Candidate row"}</b><span>x<sub>q,i</sub></span><p>{isKo ? "후보 기사 한 개를 설명하는 숫자 묶음" : "The numeric description of one candidate article"}</p></div>
+          <div><b>{isKo ? "정답 라벨" : "Target label"}</b><span>y<sub>q,i</sub></span><p>{isKo ? "학습과 평가에 쓰는 관측 클릭 여부" : "Observed click status used for fitting and evaluation"}</p></div>
+          <div><b>{isKo ? "모델 점수" : "Model score"}</b><span>s<sub>q,i</sub></span><p>{isKo ? "같은 질의 안에서 후보를 정렬하는 값" : "The value used to rank candidates within a query"}</p></div>
+        </div>
       </header>
 
       <DataMicroscope lang={lang} />
 
       <section className="ca-section" id="row">
-        <div className="ca-heading"><span>01 / QUERY TO ROWS</span><h2>{isKo ? "한 쿼리는 어떻게 학습 행이 되는가" : "How one query becomes training rows"}</h2><p>{isKo ? "후보 선택과 순위 학습은 서로 다른 단계입니다." : "Candidate admission and ranking are separate stages."}</p></div>
+        <div className="ca-heading"><span>01 / QUERY TO ROWS</span><h2>{isKo ? "하나의 질의에서 후보 행을 만드는 과정" : "How one query becomes candidate rows"}</h2><p>{isKo ? "먼저 평가할 기사를 정하고, 그다음 기사마다 모델 입력을 만듭니다. 후보 구성과 순위 학습은 서로 다른 단계입니다." : "First define the articles to evaluate, then build one model input per article. Candidate construction and ranking are separate stages."}</p></div>
         <div className="ca-pool-flow">
           <div className="ca-pool is-positive"><b>Y<sub>q</sub></b><strong>2</strong><span>{isKo ? "당일 클릭 기사" : "target-day clicks"}</span><small>label 1</small></div>
           <span className="ca-union">∪</span>
-          <div className="ca-pool is-trace"><b>R<sub>q</sub><sup>nc</sup></b><strong>5</strong><span>{isKo ? "양성을 뺀 retained items" : "retained items after positives"}</span><small>{isKo ? "weak label 0" : "weak label 0"}</small></div>
+          <div className="ca-pool is-trace"><b>R<sub>q</sub><sup>nc</sup></b><strong>5</strong><span>{isKo ? "클릭 기사를 뺀 보존 추천 기사" : "retained items after positives"}</span><small>{isKo ? "약한 음성 라벨 0" : "weak label 0"}</small></div>
           <span className="ca-union">∪</span>
-          <div className="ca-pool is-introduced"><b>N<sub>q</sub></b><strong>8</strong><span>{isKo ? "선택된 introduced items" : "selected introduced items"}</span><small>b<sub>q</sub>=min(24,max(4,4|Y<sub>q</sub>|))</small></div>
+          <div className="ca-pool is-introduced"><b>N<sub>q</sub></b><strong>8</strong><span>{isKo ? "새로 선택한 비교 기사" : "selected introduced items"}</span><small>b<sub>q</sub>=min(24,max(4,4|Y<sub>q</sub>|))</small></div>
           <span className="ca-arrow">→</span>
-          <div className="ca-pool is-final"><b>A<sub>q</sub></b><strong>15</strong><span>{isKo ? "중복 제거 후보 행" : "deduplicated rows"}</span><small>X<sub>q</sub> ∈ ℝ<sup>15×d</sup></small></div>
+          <div className="ca-pool is-final"><b>A<sub>q</sub></b><strong>15</strong><span>{isKo ? "중복을 제거한 최종 후보" : "deduplicated rows"}</span><small>X<sub>q</sub> ∈ ℝ<sup>15×d</sup></small></div>
         </div>
         <div className="ca-symbol-guide">
-          <div><b>q=(u,t)</b><p>{isKo ? "사용자 u의 날짜 t에 만든 순위 문제 하나입니다. 같은 사용자가 다른 날짜에 다시 등장하면 별도 query입니다." : "One ranking problem for user u on date t. The same user on another date forms another query."}</p></div>
-          <div><b>|Y<sub>q</sub>|=2</b><p>{isKo ? "그날 클릭된 고유 기사 수입니다. 이 예시에서는 positive가 2개라서 4|Yq|=8입니다." : "The number of unique articles clicked that day. Here two positives give 4|Yq|=8."}</p></div>
-          <div><b>b<sub>q</sub>=8</b><p>{isKo ? "introduced 후보의 최대 예산입니다. min(24,max(4,8))=8이며, 적격 기사가 6개뿐이면 실제 Nq는 6개입니다." : "The maximum introduced-candidate budget: min(24,max(4,8))=8. If only six articles are eligible, Nq contains six."}</p></div>
+          <div><b>q=(u,t)</b><p>{isKo ? "사용자 u의 날짜 t에 만든 순위 문제 하나입니다. 같은 사용자라도 날짜가 달라지면 별도 질의입니다." : "One ranking problem for user u on date t. The same user on another date forms another query."}</p></div>
+          <div><b>|Y<sub>q</sub>|=2</b><p>{isKo ? "그날 클릭된 고유 기사 수입니다. 이 예시에서는 클릭 정답이 2개이므로 4|Yq|=8입니다." : "The number of unique articles clicked that day. Here two positives give 4|Yq|=8."}</p></div>
+          <div><b>b<sub>q</sub>=8</b><p>{isKo ? "새 비교 기사를 추가할 수 있는 최대 수입니다. min(24,max(4,8))=8이며, 적격 기사가 6개뿐이면 실제 Nq는 6개입니다." : "The maximum introduced-candidate budget: min(24,max(4,8))=8. If only six articles are eligible, Nq contains six."}</p></div>
           <div><b>X<sub>q</sub>∈ℝ<sup>15×d</sup></b><p>{isKo ? "15는 후보 기사 수인 행 개수, d는 모델이 받는 특성 열 개수입니다. 모델 비교에서 주로 달라지는 것은 d입니다." : "Fifteen is the number of candidate rows; d is the number of feature columns. Most model comparisons change d."}</p></div>
         </div>
         <CandidateBudgetLab lang={lang} />
         <div className="ca-two-notes">
-          <p><b>{isKo ? "겹친 positive" : "Overlapping positive"}</b>{isKo ? "클릭 기사가 trace에도 있으면 한 행만 남고 label은 1이며 E 정보는 유지됩니다." : "If a click also appears in the trace, it remains one row with label 1 and keeps its E features."}</p>
-          <p><b>{isKo ? "0 라벨의 의미" : "Meaning of label 0"}</b>{isKo ? "관측된 클릭이 아니라는 뜻이지, 실제 dislike나 verified non-exposure라는 뜻은 아닙니다." : "It means no observed click in this query, not verified dislike or verified non-exposure."}</p>
+          <p><b>{isKo ? "클릭 기사와 추천 기록이 겹칠 때" : "Overlapping positive"}</b>{isKo ? "클릭 기사가 보존 추천 기록에도 있으면 한 행만 남깁니다. 정답 라벨은 1이고 E 정보도 유지합니다." : "If a click also appears in the trace, it remains one row with label 1 and keeps its E features."}</p>
+          <p><b>{isKo ? "라벨 0의 의미" : "Meaning of label 0"}</b>{isKo ? "해당 날짜에 클릭이 관측되지 않았다는 뜻입니다. 실제로 싫어했거나 노출되지 않았다고 확인된 것은 아닙니다." : "It means no observed click in this query, not verified dislike or verified non-exposure."}</p>
         </div>
       </section>
 
       <BeginnerGuide lang={lang} />
 
       <section className="ca-section" id="record">
-        <div className="ca-heading"><span>02 / ROW ANATOMY</span><h2>{isKo ? "원자료에서 25개 필드까지" : "From source records to 25 fields"}</h2><p>{isKo ? "한 행은 서로 다른 시점과 출처의 정보를 같은 vector에 두되, 블록은 구분합니다." : "One row places different sources in one vector while preserving their block identities."}</p></div>
+        <div className="ca-heading"><span>02 / ROW ANATOMY</span><h2>{isKo ? "원자료에서 후보별 25개 특성까지" : "From source records to 25 candidate features"}</h2><p>{isKo ? "후보 기사 하나마다 숫자 행 하나를 만듭니다. 서로 다른 출처의 정보는 같은 행에 놓되 P·E·C·Z·ψ 블록으로 구분합니다." : "Build one numeric row per candidate article. Different sources share a row while retaining distinct P, E, C, Z, and ψ blocks."}</p></div>
         <div className="ca-provenance">
-          <div className="ca-source-card"><span>{isKo ? "관측" : "Observed"}</span><b>{isKo ? "프로필 · trace · 클릭 · 기사" : "Profile · trace · clicks · article"}</b><p>{isKo ? "저장된 기록과 query label" : "Stored records and query labels"}</p></div>
+          <div className="ca-source-card"><span>{isKo ? "원자료" : "Observed"}</span><b>{isKo ? "프로필 · 추천 기록 · 이전 클릭 · 기사" : "Profile · trace · clicks · article"}</b><p>{isKo ? "저장된 기록에서 특성을 계산하고, 당일 클릭은 정답 라벨로 따로 둡니다." : "Features come from stored records; target-day clicks remain separate labels."}</p></div>
           <div className="ca-process">→<small>{isKo ? "frozen encoder + 고정 수식" : "frozen encoder + fixed formulas"}</small></div>
           <div className="ca-record-card">
-            <div className="is-P"><b>P</b><span>1</span><small>{isKo ? "profile alignment" : "profile alignment"}</small></div>
-            <div className="is-E"><b>E</b><span>3</span><small>{isKo ? "retained trace" : "retained trace"}</small></div>
-            <div className="is-C"><b>C</b><span>4</span><small>{isKo ? "prior-click consumption" : "prior-click consumption"}</small></div>
-            <div className="is-Z"><b>Z</b><span>11</span><small>{isKo ? "recorded controls" : "recorded controls"}</small></div>
-            <div className="is-psi"><b>ψ</b><span>6</span><small>{isKo ? "deterministic products" : "deterministic products"}</small></div>
+            <div className="is-P"><b>P</b><span>1</span><small>{isKo ? "프로필 정합도" : "profile alignment"}</small></div>
+            <div className="is-E"><b>E</b><span>3</span><small>{isKo ? "보존 추천 기록" : "retained trace"}</small></div>
+            <div className="is-C"><b>C</b><span>4</span><small>{isKo ? "이전 클릭 이력" : "prior-click consumption"}</small></div>
+            <div className="is-Z"><b>Z</b><span>11</span><small>{isKo ? "기록 기반 통제 특성" : "recorded controls"}</small></div>
+            <div className="is-psi"><b>ψ</b><span>6</span><small>{isKo ? "고정 곱셈 항" : "deterministic products"}</small></div>
           </div>
         </div>
         <div className="ca-block-explainer">
@@ -234,11 +240,11 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       <section className="ca-section" id="learn">
         <div className="ca-heading"><span>04 / WHAT IS LEARNED</span><h2>{isKo ? "고정값, 계산값, 학습값을 분리해서 읽기" : "Separate fixed, computed, and learned quantities"}</h2></div>
         <div className="ca-learning-line">
-          <div><span>FIXED</span><b>BGE-M3 encoder</b><p>{isKo ? "기사·프로필 embedding을 생성하지만 이 연구 데이터로 업데이트하지 않음." : "Creates article/profile embeddings but is not updated on this study data."}</p></div>
-          <div><span>COMPUTED</span><b>P · E · C · Z · ψ</b><p>{isKo ? "관측 기록과 고정 수식에서 매 query–candidate마다 계산." : "Computed per query–candidate from observed records and fixed formulas."}</p></div>
-          <div><span>OPTIONALLY LEARNED</span><b>g<sub>θ</sub>(P,C)</b><p>{isKo ? "learned-fusion 비교에서만 scalar 또는 d차원 표현을 학습." : "Learns a scalar or d-dimensional representation only in fusion variants."}</p></div>
-          <div><span>FITTED</span><b>ExtraTrees / neural scorer</b><p>{isKo ? "행 단위 click label로 학습하고 class-1 probability를 query 안 순위 점수로 사용." : "Fits pointwise click labels and uses class-1 probability as the within-query score."}</p></div>
-          <div><span>EVALUATION ONLY</span><b>NDCG · Recall · MRR · CI</b><p>{isKo ? "query metric과 사용자 bootstrap은 모델 입력이 아니라 평가 절차." : "Query metrics and user bootstrap belong to evaluation, not model input."}</p></div>
+          <div><span>{isKo ? "고정" : "FIXED"}</span><b>BGE-M3 encoder</b><p>{isKo ? "기사와 프로필을 임베딩하지만, 이 연구 데이터로 가중치를 업데이트하지 않습니다." : "Creates article/profile embeddings but is not updated on this study data."}</p></div>
+          <div><span>{isKo ? "계산" : "COMPUTED"}</span><b>P · E · C · Z · ψ</b><p>{isKo ? "관측 기록과 고정 수식으로 질의–후보마다 다시 계산합니다." : "Computed per query–candidate from observed records and fixed formulas."}</p></div>
+          <div><span>{isKo ? "일부 비교에서 학습" : "OPTIONALLY LEARNED"}</span><b>g<sub>θ</sub>(P,C)</b><p>{isKo ? "학습형 융합 비교에서만 하나 또는 여러 개의 새 좌표를 학습합니다." : "Learns a scalar or d-dimensional representation only in fusion variants."}</p></div>
+          <div><span>{isKo ? "학습" : "FITTED"}</span><b>ExtraTrees / neural scorer</b><p>{isKo ? "후보 행과 클릭 라벨로 규칙을 학습하고, 후보마다 순위 점수를 냅니다." : "Fits pointwise click labels and uses class-1 probability as the within-query score."}</p></div>
+          <div><span>{isKo ? "평가에만 사용" : "EVALUATION ONLY"}</span><b>NDCG · Recall · MRR · CI</b><p>{isKo ? "완성된 순위를 평가하는 값이며 모델 입력에는 포함하지 않습니다." : "Query metrics and user bootstrap belong to evaluation, not model input."}</p></div>
         </div>
         <div className="ca-training-example">
           <div><span>{isKo ? "입력 행" : "Input rows"}</span><b>x<sub>q,A</sub>, x<sub>q,B</sub>, x<sub>q,C</sub></b><small>{isKo ? "각 후보의 d개 특성" : "d features per candidate"}</small></div>
@@ -252,7 +258,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       </section>
 
       <section className="ca-section ca-atlas-section" id="atlas">
-        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "어떤 것과 어떤 것을 비교했는가" : "What is compared with what"}</h2><p>{isKo ? "왼쪽에서 비교를 고르면, 두 입력의 모양과 바뀐 요소가 함께 갱신됩니다." : "Choose a comparison; both input shapes and the changed component update together."}</p></div>
+        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "왼쪽 목록에서 비교 질문을 고르세요. 오른쪽에서 실제 점수, 입력 구조, 공통 조건, 달라진 요소, 해석 범위를 같은 순서로 확인할 수 있습니다." : "Choose a comparison question on the left. The right panel shows observed scores, input structures, shared conditions, the changed element, and the interpretation boundary in that order."}</p></div>
         <ComparisonReadingGuide lang={lang} />
         <div className="ca-atlas-layout">
           <aside className="ca-selector" aria-label={isKo ? "비교 목록" : "Comparison list"}>
@@ -275,7 +281,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       </section>
 
       <section className="ca-section" id="decision">
-        <div className="ca-heading"><span>05 / READING PATH</span><h2>{isKo ? "질문에서 표로 바로 가기" : "Go from a question to the relevant comparison"}</h2></div>
+        <div className="ca-heading"><span>06 / READING PATH</span><h2>{isKo ? "궁금한 질문에 맞는 실험 찾기" : "Find the experiment that answers your question"}</h2></div>
         <div className="ca-decision-grid">
           {(isKo ? [
             ["전체 방법이 baseline보다 좋은가?", "01 · Complete vs control"],

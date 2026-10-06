@@ -82,28 +82,28 @@ export { GuidedModelLab as ScorerExplainer } from "./model-reading-guide";
 export function BeginnerGuide({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const steps = [
-    {n:"1", term:ko?"Query를 만든다":"Create one query", symbol:"q=(u,t)", text:ko?"사용자 u의 날짜 t 하루를 하나의 순위 문제로 묶습니다. 같은 사용자의 다음 날은 별도 query입니다.":"Bundle user u on date t into one ranking problem. The next day for the same user is a separate query."},
-    {n:"2", term:ko?"후보 기사를 모은다":"Assemble candidates", symbol:"Aq", text:ko?"그날 클릭 기사 Y, retained non-click R, 새로 도입한 기사 N을 합치고 중복을 제거합니다.":"Combine clicked articles Y, retained non-clicks R, and introduced articles N, then remove duplicates."},
-    {n:"3", term:ko?"기사마다 한 행을 만든다":"Build one row per article", symbol:"xq,i ∈ Rᵈ", text:ko?"후보 기사 i 하나를 d개의 숫자로 설명합니다. d는 기사 수가 아니라 기사 한 개의 feature 수입니다.":"Describe candidate article i with d numbers. Here d is the features per article, not the article count."},
-    {n:"4", term:ko?"학습용 정답을 붙인다":"Attach the training label", symbol:"yq,i ∈ {0,1}", text:ko?"그날 클릭된 기사면 1, 관측 클릭이 없으면 0입니다. 0은 dislike나 실제 미노출을 뜻하지 않습니다.":"Use 1 for a clicked article that day and 0 for no observed click. Zero does not mean dislike or verified non-exposure."},
+    {n:"1", term:ko?"질의를 만든다":"Create one query", symbol:"q=(u,t)", text:ko?"사용자 u의 날짜 t 하루를 하나의 순위 문제로 묶습니다. 같은 사용자라도 날짜가 달라지면 별도 질의입니다.":"Bundle user u on date t into one ranking problem. The next day for the same user is a separate query."},
+    {n:"2", term:ko?"후보 기사를 모은다":"Assemble candidates", symbol:"Aq", text:ko?"그날 클릭한 기사 Y, 클릭 기사를 뺀 보존 추천 기사 R, 새 비교 기사 N을 합치고 중복을 제거합니다.":"Combine clicked articles Y, retained non-clicks R, and introduced articles N, then remove duplicates."},
+    {n:"3", term:ko?"기사마다 한 행을 만든다":"Build one row per article", symbol:"xq,i ∈ Rᵈ", text:ko?"후보 기사 i 하나를 d개의 숫자로 설명합니다. d는 기사 수가 아니라 기사 한 개의 특성 수입니다.":"Describe candidate article i with d numbers. Here d is the features per article, not the article count."},
+    {n:"4", term:ko?"학습용 정답을 붙인다":"Attach the training label", symbol:"yq,i ∈ {0,1}", text:ko?"그날 클릭된 기사면 1, 클릭이 관측되지 않았으면 0입니다. 0은 싫어함이나 실제 미노출을 뜻하지 않습니다.":"Use 1 for a clicked article that day and 0 for no observed click. Zero does not mean dislike or verified non-exposure."},
     {n:"5", term:ko?"모델이 점수를 낸다":"Produce model scores", symbol:"sq,i=fθ(xq,i)", text:ko?"각 후보에 정렬용 숫자 하나가 생깁니다. 이 점수는 보정된 클릭 확률이나 사용자 전체 점수가 아닙니다.":"Each candidate receives one ordering number. It is not a calibrated click probability or a global user score."},
-    {n:"6", term:ko?"같은 query 안에서 정렬한다":"Rank within the query", symbol:"πq=argsort↓(sq)", text:ko?"그 query의 점수가 큰 기사부터 세웁니다. NDCG@10은 클릭 기사가 위쪽에 배치됐는지 평가합니다.":"Sort articles by score within that query. NDCG@10 evaluates whether clicked articles appear near the top."},
+    {n:"6", term:ko?"같은 질의 안에서 정렬한다":"Rank within the query", symbol:"πq=argsort↓(sq)", text:ko?"같은 질의에서 점수가 큰 기사부터 세웁니다. NDCG@10은 클릭 기사가 위쪽에 배치됐는지 평가합니다.":"Sort articles by score within that query. NDCG@10 evaluates whether clicked articles appear near the top."},
   ];
   return <section className="bg" aria-labelledby="bg-title">
-    <header><div><span>FIRST-TIME READER MAP</span><h2 id="bg-title">{ko?"처음 보는 독자를 위한 전체 흐름":"The whole pipeline for a first-time reader"}</h2></div><p>{ko?"아래 여섯 단계만 먼저 잡으면, 이후의 11-D·19-D·25-D 비교는 ‘3단계에서 기사 한 행을 어떤 숫자로 구성할 것인가’의 차이로 읽을 수 있습니다.":"Once these six steps are clear, the later 11-D, 19-D, and 25-D comparisons are simply different choices for the numbers placed in each article row at Step 3."}</p></header>
+    <header><div><span>{ko?"처음 읽는 순서":"FIRST-TIME READER MAP"}</span><h2 id="bg-title">{ko?"데이터에서 최종 순위까지, 여섯 단계":"The whole pipeline for a first-time reader"}</h2></div><p>{ko?"먼저 아래 흐름을 잡아 두면 11-D·19-D·25-D 비교를 쉽게 읽을 수 있습니다. 세 구성의 핵심 차이는 3단계에서 후보 기사 한 행을 어떤 숫자로 채우는가입니다.":"Once these six steps are clear, the later 11-D, 19-D, and 25-D comparisons are simply different choices for the numbers placed in each article row at Step 3."}</p></header>
     <div className="bg-steps">{steps.map((step,index)=><article key={step.n}><span>{step.n}</span><div><b>{step.term}</b><code>{step.symbol}</code><p>{step.text}</p></div>{index<steps.length-1&&<i>→</i>}</article>)}</div>
     <div className="bg-running">
       <div><span>{ko?"계속 사용하는 예시":"Running example"}</span><b>U-017 · 2026-05-10</b><p>{ko?"사용자 한 명의 하루를 설명하는 합성 예시이며, 실제 평가 성능값은 아닙니다.":"A synthetic example of one user-day, not a reported performance result."}</p></div>
       <div><small>{ko?"관측 클릭":"clicked"}</small><strong>2</strong><code>|Yq|</code></div><i>+</i>
-      <div><small>{ko?"retained non-click":"retained non-click"}</small><strong>5</strong><code>|Rqⁿᶜ|</code></div><i>+</i>
-      <div><small>{ko?"introduced":"introduced"}</small><strong>8</strong><code>|Nq|</code></div><i>=</i>
+      <div><small>{ko?"보존 추천 미클릭":"retained non-click"}</small><strong>5</strong><code>|Rqⁿᶜ|</code></div><i>+</i>
+      <div><small>{ko?"새 비교 기사":"introduced"}</small><strong>8</strong><code>|Nq|</code></div><i>=</i>
       <div className="is-total"><small>{ko?"후보 행":"candidate rows"}</small><strong>15</strong><code>|Aq|</code></div><i>→</i>
       <div className="is-total"><small>{ko?"Complete PEC 입력":"Complete PEC input"}</small><strong>15×25</strong><code>Xq</code></div>
     </div>
     <div className="bg-confusions">
-      <p><b>{ko?"15와 25는 무엇이 다른가?":"How do 15 and 25 differ?"}</b>{ko?"15는 후보 기사 행의 수이고, 25는 기사 한 행에 들어가는 feature 열의 수입니다.":"Fifteen is the number of candidate rows; 25 is the feature columns in each article row."}</p>
-      <p><b>{ko?"Feature와 label은 같은가?":"Are feature and label the same?"}</b>{ko?"아닙니다. feature x는 모델에 넣는 설명값이고, label y는 학습할 때 맞히도록 주는 정답입니다.":"No. Feature x describes the article to the model; label y is the target supplied during fitting."}</p>
-      <p><b>{ko?"Score와 metric은 같은가?":"Are score and metric the same?"}</b>{ko?"아닙니다. score는 기사마다 모델이 내고, NDCG·Recall·MRR은 완성된 순위 전체를 평가합니다.":"No. The model emits a score per article; NDCG, Recall, and MRR evaluate the completed ranked list."}</p>
+      <p><b>{ko?"15와 25는 무엇이 다른가?":"How do 15 and 25 differ?"}</b>{ko?"15는 후보 기사 행의 수이고, 25는 기사 한 행에 들어가는 특성 열의 수입니다.":"Fifteen is the number of candidate rows; 25 is the feature columns in each article row."}</p>
+      <p><b>{ko?"특성과 정답 라벨은 같은가?":"Are feature and label the same?"}</b>{ko?"아닙니다. 특성 x는 모델에 넣는 설명값이고, 라벨 y는 학습할 때 맞히도록 주는 정답입니다.":"No. Feature x describes the article to the model; label y is the target supplied during fitting."}</p>
+      <p><b>{ko?"모델 점수와 평가 지표는 같은가?":"Are score and metric the same?"}</b>{ko?"아닙니다. 모델 점수는 기사마다 하나씩 나오고, NDCG·Recall·MRR은 완성된 순위 전체를 평가합니다.":"No. The model emits a score per article; NDCG, Recall, and MRR evaluate the completed ranked list."}</p>
     </div>
   </section>;
 }
@@ -113,9 +113,9 @@ export function ComparisonReadingGuide({ lang }: { lang: Lang }) {
   return <section className="crg" aria-labelledby="crg-title">
     <header><span>HOW TO READ A COMPARISON</span><h3 id="crg-title">{ko?"모든 비교를 세 문장으로 읽는 법":"Read every comparison in three sentences"}</h3><p>{ko?"모델 이름과 차원부터 외우지 말고, 무엇을 그대로 두고 무엇 하나만 바꿨는지 확인하세요.":"Do not memorize model names and dimensions first. Identify what stays fixed and what single component changes."}</p></header>
     <div className="crg-three">
-      <article><span>01</span><b>{ko?"무엇이 같은가?":"What stays fixed?"}</b><p>{ko?"같은 evaluation regime, 같은 query와 후보 행, 같은 label, 가능한 경우 같은 downstream scorer를 사용합니다.":"The same evaluation regime, query and candidate rows, labels, and, where applicable, downstream scorer."}</p></article>
-      <article><span>02</span><b>{ko?"무엇만 바뀌는가?":"What changes?"}</b><p>{ko?"입력 source, 표현 방법, 제거한 block, 학습기 또는 후보 재선정 중 해당 비교가 지정한 요소입니다.":"The designated input source, representation, removed block, learner, or candidate reselection."}</p></article>
-      <article><span>03</span><b>{ko?"무슨 질문에 답하는가?":"What question is answered?"}</b><p>{ko?"바뀐 요소가 같은 query의 순위 품질을 개선했는지 묻습니다. 한 비교의 결론을 다른 모든 모델로 확대하지 않습니다.":"Whether that changed element improves ranking quality on the same queries, without generalizing the result to every possible model."}</p></article>
+      <article><span>01</span><b>{ko?"무엇이 같은가?":"What stays fixed?"}</b><p>{ko?"같은 평가 구간, 같은 질의와 후보 행, 같은 라벨을 사용합니다. 가능한 비교에서는 최종 점수 모델도 같게 둡니다.":"The same evaluation regime, query and candidate rows, labels, and, where applicable, downstream scorer."}</p></article>
+      <article><span>02</span><b>{ko?"무엇만 바뀌는가?":"What changes?"}</b><p>{ko?"정보 출처, 표현 방식, 제거한 입력 블록, 학습기, 후보 재선정 가운데 해당 실험이 지정한 요소만 바꿉니다.":"The designated input source, representation, removed block, learner, or candidate reselection."}</p></article>
+      <article><span>03</span><b>{ko?"무슨 질문에 답하는가?":"What question is answered?"}</b><p>{ko?"바꾼 요소가 같은 질의의 순위 품질을 개선했는지 묻습니다. 한 비교의 결론을 모든 모델에 확대하지 않습니다.":"Whether that changed element improves ranking quality on the same queries, without generalizing the result to every possible model."}</p></article>
     </div>
     <div className="crg-families">
       <article><b>{ko?"입력 정보 비교":"Input-information comparison"}</b><code>Control ↔ PEC</code><p>{ko?"P/E/C 정보를 추가하는 것이 유용한가?":"Does adding P/E/C information help?"}</p></article>
