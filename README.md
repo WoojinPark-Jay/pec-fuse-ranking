@@ -12,6 +12,8 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
+**Anonymous review artifact:** [Browse or download the archived review snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+
 ## Interactive tutorial: start here
 
 The public [PEC-Fuse interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the recommended visual introduction to the project. It connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
