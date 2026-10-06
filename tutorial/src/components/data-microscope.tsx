@@ -20,11 +20,25 @@ type Scenario = {
 
 const tx = (value: LocalText, lang: Lang) => value[lang];
 const fmt = (value: number) => value.toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+const routeLabel = (candidate: Candidate, lang: Lang) => {
+  if (lang === "en") return candidate.route.en;
+  if (candidate.label && candidate.traceRank) return "클릭 정답 · 추천 기록 중복";
+  if (candidate.label) return "당일 클릭 정답";
+  if (candidate.traceRank) return "보존 추천 기록의 미클릭 후보";
+  return "새로 추가한 비교 후보";
+};
+const groupTitle = (key: string, lang: Lang) => ({
+  P: lang === "ko" ? "P · 프로필 정합도" : "P · Profile",
+  E: lang === "ko" ? "E · 보존 추천 기록" : "E · Trace",
+  C: lang === "ko" ? "C · 이전 클릭 이력" : "C · Consumption",
+  Z: lang === "ko" ? "Z · 통제 특성" : "Z · Controls",
+  psi: lang === "ko" ? "ψ · 상호작용 항" : "ψ · Interactions",
+}[key] ?? key);
 
 const scenarios: Scenario[] = [
   {
     id: "mixed", tab: { ko: "일반 사례", en: "Mixed evidence" }, user: "U-017", date: "2026-05-10", poolSize: 15,
-    summary: { ko: "환경 선호가 강하지만 최근에는 스포츠도 읽은 사용자입니다. 클릭한 A는 trace에 없고 B·C는 trace에 남아 있습니다.", en: "A user with strong climate preferences but recent sports reading. Clicked A is absent from the trace; B and C are retained." },
+    summary: { ko: "환경 관련 기사를 선호하지만 최근에는 스포츠 기사도 읽은 사용자입니다. 클릭한 A는 보존 추천 기록에 없고, B와 C는 기록에 남아 있습니다.", en: "A user with strong climate preferences but recent sports reading. Clicked A is absent from the trace; B and C are retained." },
     profile: { categories: ["Climate 0.70", "Science 0.35", "Sports 0.05"], publishers: ["Daily Planet 0.20", "Field Notes 0.15"], keywords: ["carbon", "energy", "policy"] },
     history: [
       { date: "May 02", article: { ko: "스포츠 전술 분석", en: "Sports tactics analysis" }, sims: { A: .10, B: .88, C: .29 } },
@@ -40,8 +54,8 @@ const scenarios: Scenario[] = [
     ],
   },
   {
-    id: "no-trace", tab: { ko: "trace 없음", en: "No retained trace" }, user: "U-204", date: "2026-05-21", poolSize: 12,
-    summary: { ko: "세 후보 모두 retained trace에 없습니다. E 세 필드는 0이지만 P와 C는 후보마다 계속 달라집니다.", en: "None of the candidates appears in the retained trace. All E fields are zero, while P and C still vary." },
+    id: "no-trace", tab: { ko: "추천 기록 없음", en: "No retained trace" }, user: "U-204", date: "2026-05-21", poolSize: 12,
+    summary: { ko: "세 후보 모두 보존 추천 기록에 없습니다. 따라서 E의 세 특성은 0이지만 P와 C는 후보마다 달라집니다.", en: "None of the candidates appears in the retained trace. All E fields are zero, while P and C still vary." },
     profile: { categories: ["Economy 0.65", "Technology 0.30"], publishers: ["Market Desk 0.25"], keywords: ["rates", "chips", "trade"] },
     history: [
       { date: "May 14", article: { ko: "반도체 공급망", en: "Semiconductor supply chain" }, sims: { A: .62, B: .84, C: .20 } },
@@ -57,7 +71,7 @@ const scenarios: Scenario[] = [
   },
   {
     id: "no-history", tab: { ko: "과거 클릭 없음", en: "No prior clicks" }, user: "U-311", date: "2026-06-03", poolSize: 9,
-    summary: { ko: "적격한 이전 클릭이 없습니다. 모든 C 요약과 history control은 0이지만 profile과 trace는 사용할 수 있습니다.", en: "There are no eligible prior clicks. Every C summary and history control is zero, while profile and trace remain available." },
+    summary: { ko: "적격한 이전 클릭이 없습니다. C 요약값과 클릭 이력 기반 통제 특성은 모두 0이지만, 프로필과 보존 추천 기록은 사용할 수 있습니다.", en: "There are no eligible prior clicks. Every C summary and history control is zero, while profile and trace remain available." },
     profile: { categories: ["Science 0.80", "Health 0.45"], publishers: ["Research Wire 0.30"], keywords: ["space", "medicine", "discovery"] },
     history: [], trace: [{ id: "A", rank: 1 }, { id: "C", rank: 4 }],
     candidates: [
@@ -116,20 +130,21 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
   const treeOutputs=treeOffsets.map(offset=>selectedScore+offset);
   const chooseScenario=(id:string)=>{const next=scenarios.find(x=>x.id===id)??scenarios[0];setScenarioId(id);setCandidateId(next.candidates[0].id);};
   return <section className="ca-section dm-section" id="microscope">
-    <div className="ca-heading"><span>00 / DATA MICROSCOPE</span><h2>{isKo?"한 사용자의 기록이 모델 입력이 될 때까지":"From one user's records to a model input"}</h2><p>{isKo?"아래 값은 계산을 이해하기 위한 합성 예시입니다. 논문의 private candidate row를 공개한 것이 아닙니다.":"Values below are synthetic teaching examples, not released private candidate rows."}</p></div>
+    <div className="ca-heading"><span>00 / DATA MICROSCOPE</span><h2>{isKo?"원자료가 후보별 모델 입력이 되는 과정":"From one user's records to candidate-level model inputs"}</h2><p>{isKo?"한 사용자–날짜 질의를 따라가며 프로필, 이전 클릭, 보존 추천 기록, 당일 클릭이 서로 다른 역할을 하는지 확인합니다. 아래 값은 계산을 설명하기 위한 합성 예시입니다.":"Follow one user-date query to see how profile, prior clicks, retained trace, and target-day clicks play different roles. Values below are synthetic teaching examples."}</p></div>
+    <p className="dm-action-hint"><b>{isKo?"사례 선택":"Choose a case"}</b>{isKo?"아래 세 상황을 바꾸면 이후 표와 계산이 함께 갱신됩니다.":"Switch among the three cases; the tables and calculations below update together."}</p>
     <div className="dm-tabs" role="tablist">{scenarios.map(x=><button key={x.id} type="button" role="tab" aria-selected={x.id===scenario.id} onClick={()=>chooseScenario(x.id)}><span>{x.user}</span><b>{tx(x.tab,lang)}</b><small>{x.date}</small></button>)}</div>
-    <div className="dm-case-head"><div><span>{isKo?"선택한 사용자–날짜 query":"Selected user-date query"}</span><h3>{scenario.user} <i>→</i> q=({scenario.user}, {scenario.date})</h3><p>{tx(scenario.summary,lang)}</p></div><dl><div><dt>{isKo?"전체 후보":"Full pool"}</dt><dd>{scenario.poolSize}</dd></div><div><dt>{isKo?"대표 표시":"Shown"}</dt><dd>3</dd></div><div><dt>{isKo?"입력 폭":"Width"}</dt><dd>25</dd></div></dl></div>
+    <div className="dm-case-head"><div><span>{isKo?"선택한 사용자–날짜 질의":"Selected user-date query"}</span><h3>{scenario.user} <i>→</i> q=({scenario.user}, {scenario.date})</h3><p>{tx(scenario.summary,lang)}</p></div><dl><div><dt>{isKo?"전체 후보":"Full pool"}</dt><dd>{scenario.poolSize}</dd></div><div><dt>{isKo?"대표 표시":"Shown"}</dt><dd>3</dd></div><div><dt>{isKo?"후보당 특성":"Features per row"}</dt><dd>25</dd></div></dl></div>
     <div className="dm-raw-grid">
-      <section><header><span>USER TABLE</span><b>{isKo?"고정 프로필 snapshot":"Fixed profile snapshot"}</b></header><div className="dm-tags"><small>category</small>{scenario.profile.categories.map(x=><i key={x}>{x}</i>)}<small>publisher</small>{scenario.profile.publishers.map(x=><i key={x}>{x}</i>)}<small>keyword text</small>{scenario.profile.keywords.map(x=><i key={x}>{x}</i>)}</div><p>{isKo?"가중치는 Z에, 이름을 직렬화한 text embedding은 P 계산에 사용됩니다.":"Weights enter Z; embeddings of serialized names are used for P."}</p></section>
-      <section><header><span>CLICK LOG</span><b>{isKo?"query 이전 클릭":"Clicks before the query"}</b></header>{scenario.history.length?<div className="dm-history">{scenario.history.map(e=><div key={e.date}><time>{e.date}</time><span>{tx(e.article,lang)}</span><b>cos={fmt(e.sims[candidate.id]??0)}</b></div>)}</div>:<div className="dm-empty">{isKo?"prior click 없음 → C와 history shares는 0":"No prior clicks → C and history shares are zero"}</div>}<p>{isKo?"최신 50개는 semantic C에, 전체 적격 이벤트는 count control에 씁니다.":"The latest 50 feed semantic C; all eligible events feed count controls."}</p></section>
-      <section><header><span>RETAINED TRACE</span><b>{isKo?"보존된 추천목록":"Retained recommendation list"}</b></header>{scenario.trace.length?<ol className="dm-trace">{scenario.trace.map(x=><li key={x.id}><span>{x.id}</span><b>rank {x.rank}</b><small>1/r={fmt(1/x.rank)}</small></li>)}</ol>:<div className="dm-empty">{isKo?"retained entry 없음 → 모든 후보 E=0":"No retained entry → E=0 for every candidate"}</div>}<p>{isKo?"목록 부재는 실제 미노출의 증명이 아닙니다.":"Trace absence does not prove non-exposure."}</p></section>
-      <section><header><span>QUERY LABELS</span><b>{isKo?"당일 관측 클릭":"Observed target-day clicks"}</b></header><div className="dm-labels">{scenario.candidates.map(x=><div key={x.id} className={x.label?"is-clicked":""}><b>{x.id}</b><span>y={x.label}</span><small>{tx(x.route,lang)}</small></div>)}</div><p>{isKo?"y는 학습 정답이지 feature가 아닙니다. y=0은 weak negative입니다.":"y is the target, not a feature. A y=0 row is a weak negative."}</p></section>
+      <section><header><span>{isKo?"사용자 프로필":"USER PROFILE"}</span><b>{isKo?"질의 날짜에 고정된 프로필":"Fixed profile snapshot"}</b></header><div className="dm-tags"><small>{isKo?"카테고리":"category"}</small>{scenario.profile.categories.map(x=><i key={x}>{x}</i>)}<small>{isKo?"매체":"publisher"}</small>{scenario.profile.publishers.map(x=><i key={x}>{x}</i>)}<small>{isKo?"키워드":"keyword text"}</small>{scenario.profile.keywords.map(x=><i key={x}>{x}</i>)}</div><p>{isKo?"저장된 가중치는 Z에 들어가고, 프로필 이름을 텍스트로 직렬화한 임베딩은 P 계산에 사용합니다.":"Weights enter Z; embeddings of serialized names are used for P."}</p></section>
+      <section><header><span>{isKo?"이전 클릭 기록":"CLICK LOG"}</span><b>{isKo?"질의 날짜보다 앞선 클릭":"Clicks before the query"}</b></header>{scenario.history.length?<div className="dm-history">{scenario.history.map(e=><div key={e.date}><time>{e.date}</time><span>{tx(e.article,lang)}</span><b>cos={fmt(e.sims[candidate.id]??0)}</b></div>)}</div>:<div className="dm-empty">{isKo?"이전 클릭 없음 → C와 클릭 이력 비율은 0":"No prior clicks → C and history shares are zero"}</div>}<p>{isKo?"가장 최근의 클릭 최대 50개로 의미 기반 C를 계산하고, 전체 적격 클릭은 횟수·비율 통제 특성에 사용합니다.":"The latest 50 feed semantic C; all eligible events feed count controls."}</p></section>
+      <section><header><span>{isKo?"보존 추천 기록":"RETAINED TRACE"}</span><b>{isKo?"당시 저장된 추천 목록":"Retained recommendation list"}</b></header>{scenario.trace.length?<ol className="dm-trace">{scenario.trace.map(x=><li key={x.id}><span>{x.id}</span><b>{isKo?"순위":"rank"} {x.rank}</b><small>1/r={fmt(1/x.rank)}</small></li>)}</ol>:<div className="dm-empty">{isKo?"보존 항목 없음 → 모든 후보의 E=0":"No retained entry → E=0 for every candidate"}</div>}<p>{isKo?"이 기록에 없다는 사실만으로 실제 미노출을 확인할 수는 없습니다.":"Trace absence does not prove non-exposure."}</p></section>
+      <section><header><span>{isKo?"당일 클릭 정답":"QUERY LABELS"}</span><b>{isKo?"질의 날짜에 관측된 클릭":"Observed target-day clicks"}</b></header><div className="dm-labels">{scenario.candidates.map(x=><div key={x.id} className={x.label?"is-clicked":""}><b>{x.id}</b><span>y={x.label}</span><small>{routeLabel(x,lang)}</small></div>)}</div><p>{isKo?"y는 학습과 평가에 쓰는 정답 라벨이며 모델 입력 특성이 아닙니다. y=0은 ‘싫어함’이 아니라 클릭이 관측되지 않은 약한 음성 후보입니다.":"y is the target, not a feature. A y=0 row is a weak negative."}</p></section>
     </div>
     <div className="dm-candidate-table">
-      <div className="dm-table-title"><div><span>QUERY–CANDIDATE TABLE</span><b>{isKo?"후보를 눌러 계산 경로를 바꿔 보세요":"Select a candidate to change the calculation path"}</b></div><small>X<sub>q</sub> ∈ ℝ<sup>{scenario.poolSize}×25</sup></small></div>
+      <div className="dm-table-title"><div><span>{isKo?"질의별 후보 표":"QUERY–CANDIDATE TABLE"}</span><b>{isKo?"후보를 선택하면 아래 계산과 입력 행이 함께 바뀝니다":"Select a candidate to change the calculation path"}</b></div><small>X<sub>q</sub> ∈ ℝ<sup>{scenario.poolSize}×25</sup></small></div>
       <div className="dm-table-head"><span>{isKo?"후보":"Candidate"}</span><span>{isKo?"풀 경로":"Pool route"}</span><span>y</span><span>P</span><span>E<sub>x</sub></span><span>C<sub>mean</sub></span><span>{isKo?"모델 행":"Model row"}</span></div>
-      {scenario.candidates.map(x=>{const v=derived(x);return <button key={x.id} type="button" className={x.id===candidate.id?"is-selected":""} onClick={()=>setCandidateId(x.id)}><span><b>{x.id}</b><small>{tx(x.topic,lang)}</small></span><span>{tx(x.route,lang)}</span><span className={x.label?"is-one":""}>{x.label}</span><span>{fmt(x.p)}</span><span>{fmt(v.ex)}</span><span>{fmt(x.cmean)}</span><span>1 × 25 →</span></button>;})}
-      <p>{isKo?`실제 query에는 ${scenario.poolSize}개 행이 있지만 대표 3개만 표시합니다. 모델은 최종 후보의 모든 행을 점수화합니다.`:`The query has ${scenario.poolSize} rows; three are shown. The model scores every final candidate row.`}</p>
+      {scenario.candidates.map(x=>{const v=derived(x);return <button key={x.id} type="button" className={x.id===candidate.id?"is-selected":""} onClick={()=>setCandidateId(x.id)}><span><b>{x.id}</b><small>{tx(x.topic,lang)}</small></span><span>{routeLabel(x,lang)}</span><span className={x.label?"is-one":""}>{x.label}</span><span>{fmt(x.p)}</span><span>{fmt(v.ex)}</span><span>{fmt(x.cmean)}</span><span>1 × 25 →</span></button>;})}
+      <p>{isKo?`실제 질의에는 ${scenario.poolSize}개 후보 행이 있습니다. 화면에는 계산을 비교하기 좋은 3개만 표시하며, 모델은 최종 후보 전체를 점수화합니다.`:`The query has ${scenario.poolSize} rows; three are shown. The model scores every final candidate row.`}</p>
     </div>
     <div className="dm-derivation">
       <header><div><span>{isKo?`선택 후보 ${candidate.id}`:`Selected candidate ${candidate.id}`}</span><h3>{tx(candidate.topic,lang)}</h3></div><b>x<sub>q,{candidate.id}</sub> ∈ ℝ<sup>25</sup></b></header>
@@ -141,30 +156,30 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
       </div>
     </div>
     <div className="dm-feature-record">
-      <div className="dm-record-head"><div><span>SOURCE-GROUPED VIEW</span><b>{isKo?"최종 25개 입력값":"The final 25 input values"}</b></div><p>{isKo?"번호는 Table 13의 estimator serialization ID이고, 화면에서는 출처별로 묶었습니다.":"Numbers are Table 13 serialization IDs; the display groups fields by source."}</p></div>
-      <div className="dm-groups">{groups.map(g=><section key={g.key} className={`is-${g.key}`}><header><b>{g.title}</b><span>{g.fields.length}D</span></header><div>{g.fields.map(([id,name,value])=><p key={name}><small>{String(id).padStart(2,"0")}</small><code>{name}</code><strong>{fmt(Number(value))}</strong></p>)}</div></section>)}</div>
-      <div className="dm-row-total"><span>1 + 3 + 4 + 11 + 6</span><b>= 25 fields for candidate {candidate.id}</b><small>{isKo?"schema는 같고 값은 후보마다 달라집니다.":"The schema is shared; values differ by candidate."}</small></div>
+      <div className="dm-record-head"><div><span>{isKo?"출처별 입력 구조":"SOURCE-GROUPED VIEW"}</span><b>{isKo?"후보 하나에 들어가는 25개 특성":"The final 25 input values"}</b></div><p>{isKo?"번호는 논문 Table 13의 저장 순서 ID입니다. 화면에서는 숫자가 어디서 왔는지 보이도록 출처별로 묶었습니다.":"Numbers are Table 13 serialization IDs; the display groups fields by source."}</p></div>
+      <div className="dm-groups">{groups.map(g=><section key={g.key} className={`is-${g.key}`}><header><b>{groupTitle(g.key,lang)}</b><span>{g.fields.length}D</span></header><div>{g.fields.map(([id,name,value])=><p key={name}><small>{String(id).padStart(2,"0")}</small><code>{name}</code><strong>{fmt(Number(value))}</strong></p>)}</div></section>)}</div>
+      <div className="dm-row-total"><span>1 + 3 + 4 + 11 + 6</span><b>{isKo?`= 후보 ${candidate.id}의 특성 25개`:`= 25 fields for candidate ${candidate.id}`}</b><small>{isKo?"특성의 순서와 의미는 모든 후보에서 같고, 값만 후보마다 달라집니다.":"The schema is shared; values differ by candidate."}</small></div>
     </div>
     <ControlCalculations key={`${scenarioId}-${candidate.id}`} lang={lang} scenarioId={scenarioId} candidateId={candidate.id} reference={groups[3].fields} />
-    <aside className="dm-takeaway"><b>{isKo?"핵심":"Key point"}</b><p>{isKo?"사용자 하나가 25개 숫자 하나로 바뀌는 것이 아닙니다. 사용자–날짜 query마다 여러 후보가 생기고, 각 후보가 별도의 25-D 행이 됩니다. 모델은 행마다 점수를 낸 뒤 같은 query 안에서 정렬합니다.":"A user does not become one 25-number vector. Each user-date query has several candidates; every candidate becomes a separate 25-D row, is scored, and is ranked only within that query."}</p></aside>
+    <aside className="dm-takeaway"><b>{isKo?"핵심":"Key point"}</b><p>{isKo?"사용자 한 명을 숫자 25개로 요약하는 것이 아닙니다. 사용자–날짜 질의마다 여러 후보가 생기고, 후보마다 별도의 25차원 행을 만듭니다. 모델은 각 행에 점수를 낸 뒤 같은 질의 안에서만 정렬합니다.":"A user does not become one 25-number vector. Each user-date query has several candidates; every candidate becomes a separate 25-D row, is scored, and is ranked only within that query."}</p></aside>
     <section className="dm-final-demo" id="final-demo">
-      <header><div><span>END-TO-END SCENARIO DEMO</span><h3>{isKo?"많은 숫자가 최종 순위로 바뀌는 정확한 모양":"How many numbers become one ranked list"}</h3><p>{isKo?"위에서 선택한 사용자·query·후보를 그대로 사용합니다. 모델 모드를 바꾸면 행의 폭 d만 바뀌고, 후보마다 행 하나와 score 하나가 생기는 구조는 같습니다.":"This reuses the selected user, query, and candidate above. Changing model mode changes width d; every candidate still has one row and one score."}</p></div><nav>{(["control","direct","complete"] as DemoMode[]).map(mode=><button key={mode} type="button" aria-pressed={demoMode===mode} onClick={()=>setDemoMode(mode)}>{mode==="control"?"Control 11-D":mode==="direct"?"Direct 19-D":"Complete 25-D"}</button>)}</nav></header>
+      <header><div><span>END-TO-END SCENARIO DEMO</span><h3>{isKo?"후보별 입력값이 최종 기사 순위가 되는 과정":"How candidate inputs become one ranked list"}</h3><p>{isKo?"위에서 선택한 사용자, 질의, 후보를 그대로 사용합니다. 입력 구성을 바꾸면 후보 행의 너비 d가 달라지지만, 후보마다 행 하나와 모델 점수 하나가 생기는 구조는 같습니다.":"This reuses the selected user, query, and candidate above. Changing the input configuration changes width d; every candidate still has one row and one score."}</p></div><nav aria-label={isKo?"입력 구성 선택":"Choose an input configuration"}>{(["control","direct","complete"] as DemoMode[]).map(mode=><button key={mode} type="button" aria-pressed={demoMode===mode} onClick={()=>setDemoMode(mode)}>{mode==="control"?"Control 11-D":mode==="direct"?"Direct 19-D":"Complete 25-D"}</button>)}</nav></header>
       <div className="dm-e2e">
-        <div className="dm-e2e-step"><span>1 · USER–DATE</span><b>{scenario.user}</b><strong>{scenario.date}</strong><p>{isKo?`profile 1개 · prior clicks ${scenario.history.length}개 · trace items ${scenario.trace.length}개`:`one profile · ${scenario.history.length} prior clicks · ${scenario.trace.length} trace items`}</p></div>
+        <div className="dm-e2e-step"><span>{isKo?"1 · 사용자–날짜":"1 · USER–DATE"}</span><b>{scenario.user}</b><strong>{scenario.date}</strong><p>{isKo?`프로필 1개 · 이전 클릭 ${scenario.history.length}개 · 보존 추천 ${scenario.trace.length}개`:`one profile · ${scenario.history.length} prior clicks · ${scenario.trace.length} trace items`}</p></div>
         <i>→</i>
-        <div className="dm-e2e-step"><span>2 · CANDIDATE POOL</span><b>A<sub>q</sub></b><strong>{scenario.poolSize} articles</strong><p>{isKo?"기사마다 label과 source별 feature를 계산합니다.":"Compute a label and source-specific features for every article."}</p></div>
+        <div className="dm-e2e-step"><span>{isKo?"2 · 후보풀":"2 · CANDIDATE POOL"}</span><b>A<sub>q</sub></b><strong>{scenario.poolSize} {isKo?"개 기사":"articles"}</strong><p>{isKo?"기사마다 정답 라벨을 붙이고, 정보 출처별 특성을 계산합니다.":"Compute a label and source-specific features for every article."}</p></div>
         <i>→</i>
-        <div className="dm-e2e-step is-matrix"><span>3 · INPUT MATRIX</span><b>X<sub>q</sub>∈ℝ<sup>{scenario.poolSize}×{width}</sup></b><strong>{scenario.poolSize} rows × {width} columns</strong><p>{isKo?"사용자 벡터 하나가 아니라 후보별 row가 쌓인 행렬입니다.":"This is a stack of candidate rows, not one user vector."}</p></div>
+        <div className="dm-e2e-step is-matrix"><span>{isKo?"3 · 입력 행렬":"3 · INPUT MATRIX"}</span><b>X<sub>q</sub>∈ℝ<sup>{scenario.poolSize}×{width}</sup></b><strong>{scenario.poolSize} {isKo?"행":"rows"} × {width} {isKo?"열":"columns"}</strong><p>{isKo?"사용자 벡터 하나가 아니라 후보별 입력 행을 쌓은 행렬입니다.":"This is a stack of candidate rows, not one user vector."}</p></div>
         <i>→</i>
-        <div className="dm-e2e-step is-score"><span>4 · SCORER</span><b>f<sub>θ</sub>:ℝ<sup>{width}</sup>→ℝ</b><strong>{isKo?"row 하나 → scalar 하나":"one row → one scalar"}</strong><p>{isKo?"ExtraTrees가 25개 값을 더하거나 평균내는 것이 아니라 여러 tree split으로 하나의 class-1 score를 냅니다.":"ExtraTrees does not simply sum or average the values; tree splits produce one class-1 score."}</p></div>
+        <div className="dm-e2e-step is-score"><span>{isKo?"4 · 점수 모델":"4 · SCORER"}</span><b>f<sub>θ</sub>:ℝ<sup>{width}</sup>→ℝ</b><strong>{isKo?"후보 행 하나 → 점수 하나":"one row → one scalar"}</strong><p>{isKo?"ExtraTrees는 입력값을 단순히 더하거나 평균내지 않습니다. 여러 트리의 학습된 분기를 거쳐 후보 점수 하나를 만듭니다.":"ExtraTrees does not simply sum or average the values; tree splits produce one class-1 score."}</p></div>
       </div>
       <div className="dm-vector-demo">
         <header><div><span>{isKo?`현재 선택: 후보 ${candidate.id}`:`Selected: candidate ${candidate.id}`}</span><b>x<sub>q,{candidate.id}</sub> = [{vector.map(([,value])=>fmt(value)).join(", ")}]</b></div><strong>∈ ℝ<sup>{width}</sup></strong></header>
         <div>{vector.map(([name,value],index)=><span key={name+"-"+index} title={name}><small>{index+1}</small><b>{fmt(value)}</b><em>{name}</em></span>)}</div>
-        <p>{isKo?"각 칸은 별도 좌표입니다. 이 배열 전체가 후보 하나의 입력 vector이며, 숫자들을 사전에 하나로 합쳐 넣지 않습니다. scorer를 통과한 뒤에야 후보당 scalar score 하나가 생깁니다.":"Each cell is a separate coordinate. The whole array is one candidate vector; the inputs are not collapsed into one value beforehand. One scalar per candidate appears only after scoring."}</p>
+        <p>{isKo?"각 칸은 서로 다른 특성 좌표입니다. 배열 전체가 후보 하나의 입력 벡터이며, 입력 전에 숫자들을 하나로 합치지 않습니다. 점수 모델을 통과한 뒤에야 후보마다 점수 하나가 생깁니다.":"Each cell is a separate coordinate. The whole array is one candidate vector; the inputs are not collapsed into one value beforehand. One scalar per candidate appears only after scoring."}</p>
       </div>
       <div className="dm-ranking-lab">
-        <header><div><span>FULL CANDIDATE-TO-RANK WALKTHROUGH</span><h4>{isKo?"후보 기사별 입력, forest 출력, 최종 순위":"Candidate inputs, forest outputs, and final ranking"}</h4></div><p>{isKo?"아래 score는 계산 구조를 보여주기 위한 합성 출력이며 논문의 실험 결과값이 아닙니다. 모델 버튼을 바꾸면 입력 폭과 설명용 score가 함께 바뀝니다.":"Scores below are synthetic teaching outputs, not empirical results reported in the paper. Changing model mode changes both input width and the illustrative scores."}</p></header>
+        <header><div><span>{isKo?"후보에서 최종 순위까지":"FULL CANDIDATE-TO-RANK WALKTHROUGH"}</span><h4>{isKo?"후보별 입력 행, 트리 출력, 최종 순위":"Candidate inputs, forest outputs, and final ranking"}</h4></div><p>{isKo?"아래 점수는 계산 구조를 설명하기 위한 합성 출력이며 논문의 실험 결과가 아닙니다. 입력 구성 버튼을 바꾸면 행의 너비와 설명용 점수가 함께 바뀝니다.":"Scores below are synthetic teaching outputs, not empirical results reported in the paper. Changing model mode changes both input width and the illustrative scores."}</p></header>
         <div className="dm-ranking-grid">
           <section className="dm-candidate-stream">
             <header><b>{isKo?"추천 뉴스 풀의 대표 후보":"Representative news candidates"}</b><span>{isKo?`3개 표시 / 전체 ${scenario.poolSize}개`:`3 shown / ${scenario.poolSize} total`}</span></header>
@@ -177,16 +192,16 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
             {scenario.poolSize>3&&<div className="dm-more-candidates"><b>+ {scenario.poolSize-3}</b><span>{isKo?"같은 schema의 다른 후보 행":"other candidate rows with the same schema"}</span></div>}
           </section>
           <section className="dm-forest">
-            <header><span>EXTRATREES SCORER</span><b>{isKo?`후보 ${candidate.id}의 ${width}개 좌표가 동시에 보존됨`:`Candidate ${candidate.id}'s ${width} coordinates stay separate`}</b></header>
+            <header><span>{isKo?"EXTRATREES 점수 모델":"EXTRATREES SCORER"}</span><b>{isKo?`후보 ${candidate.id}의 ${width}개 특성을 서로 합치지 않고 입력`:`Candidate ${candidate.id}'s ${width} coordinates stay separate`}</b></header>
             <div className="dm-tree-input"><small>x<sub>q,{candidate.id}</sub>∈ℝ<sup>{width}</sup></small><b>[x<sub>1</sub>, x<sub>2</sub>, …, x<sub>{width}</sub>]</b></div>
             <div className="dm-trees">{treeOutputs.map((value,index)=><div key={index}><i/><i/><i/><span>T<sub>{index+1}</sub>(x)</span><b>{value.toFixed(2)}</b></div>)}</div>
-            <div className="dm-tree-average"><span>{isKo?"tree class-1 출력의 평균":"mean class-1 output across trees"}</span><b>({treeOutputs.map(x=>x.toFixed(2)).join(" + ")}) / 5</b><strong>= {selectedScore.toFixed(2)}*</strong></div>
+            <div className="dm-tree-average"><span>{isKo?"트리별 class-1 출력의 평균":"mean class-1 output across trees"}</span><b>({treeOutputs.map(x=>x.toFixed(2)).join(" + ")}) / 5</b><strong>= {selectedScore.toFixed(2)}*</strong></div>
             <p>{isKo?"실제 모델은 다섯 그루가 아니라 선택된 n_estimators만큼의 tree를 사용합니다. 다섯 개는 계산 방식을 보여주기 위한 축약입니다.":"The fitted model uses the selected number of estimators, not five trees. Five are shown only to explain aggregation."}</p>
           </section>
           <section className="dm-ranked-output">
-            <header><b>{isKo?"score 내림차순 최종 결과":"Final result sorted by score"}</b><span>π<sub>q</sub>=argsort<sub>↓</sub>(s<sub>q</sub>)</span></header>
+            <header><b>{isKo?"모델 점수 내림차순으로 정렬한 결과":"Final result sorted by score"}</b><span>π<sub>q</sub>=argsort<sub>↓</sub>(s<sub>q</sub>)</span></header>
             <div>{ranked.map(({item,score},index)=><article key={item.id} className={item.label?"is-positive":""}><strong>{index+1}</strong><span>{item.id}</span><div><b>{tx(item.topic,lang)}</b><small>{item.label?(isKo?"관측 클릭 positive":"observed clicked positive"):(isKo?"weak negative":"weak negative")}</small></div><output>{score.toFixed(2)}*</output></article>)}</div>
-            <aside><b>{isKo?"무엇이 하나의 값이 되는가?":"What becomes one value?"}</b><p>{isKo?"사용자 전체나 25개 입력 전체가 미리 scalar 하나가 되는 것이 아닙니다. scorer가 후보 row 하나를 처리한 결과만 sᵢ라는 하나의 값이 됩니다. 따라서 후보가 N개면 score도 N개입니다.":"Neither the user nor all inputs are collapsed beforehand. Only the scorer output for one candidate row becomes scalar sᵢ. N candidates therefore produce N scores."}</p></aside>
+            <aside><b>{isKo?"정확히 무엇이 점수 하나가 되나요?":"What becomes one value?"}</b><p>{isKo?"사용자 전체나 25개 특성을 미리 한 값으로 줄이는 것이 아닙니다. 점수 모델이 후보 행 하나를 처리한 결과가 sᵢ라는 점수 하나가 됩니다. 따라서 후보가 N개면 점수도 N개입니다.":"Neither the user nor all inputs are collapsed beforehand. Only the scorer output for one candidate row becomes scalar sᵢ. N candidates therefore produce N scores."}</p></aside>
           </section>
         </div>
         <footer><span>* {isKo?"설명용 합성 scorer 출력":"synthetic scorer output for teaching"}</span><b>{isKo?`현재 결과: ${ranked.map((x,i)=>`${i+1}위 ${x.item.id}`).join(" · ")}`:`Current result: ${ranked.map((x,i)=>`rank ${i+1} ${x.item.id}`).join(" · ")}`}</b></footer>
@@ -194,7 +209,7 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
       <div className="dm-score-demo">
         <div><span>{isKo?"모든 후보 행":"All candidate rows"}</span><b>X<sub>q</sub>=[x<sub>q,1</sub>; … ; x<sub>q,N</sub>]</b></div><i>f<sub>θ</sub> row by row →</i><div><span>{isKo?"후보별 score vector":"One score per candidate"}</span><b>s<sub>q</sub>=[s<sub>q,1</sub>, … , s<sub>q,N</sub>]</b></div><i>argsort ↓ →</i><div><span>{isKo?"최종 순위":"Final ranking"}</span><b>π<sub>q</sub>=argsort(s<sub>q</sub>)</b></div>
       </div>
-      <p className="dm-output-note">{isKo?"score는 후보별 class-1 probability 형태의 ranking 값이지, 보정된 CTR이나 사용자 전체를 나타내는 하나의 값이 아닙니다. 다른 query의 score와 직접 비교하지 않고 같은 query 안에서만 정렬합니다.":"The score is a candidate-level, class-1-probability-shaped ranking value, not calibrated CTR or one summary value for the user. Scores are ordered within the same query, not compared across queries."}</p>
+      <p className="dm-output-note">{isKo?"이 값은 후보별 class-1 출력 형태의 순위 점수입니다. 보정된 CTR도, 사용자 전체를 요약한 값도 아닙니다. 서로 다른 질의의 점수 크기를 직접 비교하지 않고 같은 질의 안에서만 정렬합니다.":"The score is a candidate-level, class-1-probability-shaped ranking value, not calibrated CTR or one summary value for the user. Scores are ordered within the same query, not compared across queries."}</p>
     </section>
   </section>;
 }

@@ -29,6 +29,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         <span>{t("IEEE Access 투고 논문을 위한 대화형 해설", "Interactive companion to the IEEE Access manuscript")}</span>
         <span>Version 0.1.0</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
+        <a href="https://github.com/WoojinPark-Jay">Woojin Park · PEC-Fuse author</a>
       </div>
     </header>
 
