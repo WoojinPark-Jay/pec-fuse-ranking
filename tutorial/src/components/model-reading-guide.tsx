@@ -3,6 +3,7 @@
 import { useState, type ComponentProps } from "react";
 import { ModelLearningLab } from "./model-learning-lab";
 import "./model-reading-guide.css";
+import "./model-role-map.css";
 
 export function GuidedModelLab(props: ComponentProps<typeof ModelLearningLab>) {
   const language = props as { lang?: string; locale?: string; language?: string; en?: boolean; english?: boolean };
@@ -36,21 +37,42 @@ export function GuidedModelLab(props: ComponentProps<typeof ModelLearningLab>) {
         <div className="mrg-equation"><strong>{learning ? t("학습 데이터 (X, y) → 모델 θ", "Training data (X, y) → model θ") : "sₐ = fθ(xₐ)"}</strong><span>{learning ? t("학습 방식은 모델마다 다릅니다. 아래에서 구분해 봅니다.", "How the model learns differs across the three cases below.") : t("읽는 법: ‘학습된 모델에 A의 입력 행을 넣어 A의 점수를 얻는다.’", "Read: apply the trained model to A’s input row to obtain A’s score.")}</span></div>
       </div>
 
-      <h3>{t("세 경로는 어디에서 달라질까요?", "Where do the three paths differ?")}</h3>
-      <p>{t("ExtraTrees와 신경망 순위 모델은 후보의 최종 점수를 만드는 두 가지 대안입니다. Learned fusion은 점수 모델 앞에서 입력 좌표를 바꾸는 방법입니다. 따라서 셋을 같은 종류의 최종 순위 모델로 보면 안 됩니다.", "ExtraTrees and the neural ranker are alternative final scorers. Learned fusion transforms inputs before the final scorer; it is not a third interchangeable ranking model.")}</p>
+      <h3>{t("최종 점수기는 둘, 입력 변환기는 하나입니다", "Two final scorers, plus one optional input transform")}</h3>
+      <p>{t("아래 세 경로를 같은 종류의 모델 세 개로 비교하지 마세요. ExtraTrees와 Neural ranker는 후보의 최종 점수 s를 직접 만듭니다. Learned fusion은 점수를 만들기 전에 P와 네 C 좌표의 표현만 바꾸고, 변환된 행은 다시 최종 scorer로 들어갑니다.", "Do not read these as three interchangeable ranking models. ExtraTrees and the neural ranker directly produce the final candidate score s. Learned fusion only changes the representation of P and the four C coordinates before the transformed row enters a final scorer.")}</p>
+      <div className="mrg-role-map" aria-label={t("모델 역할 비교", "Comparison of model roles")}>
+        <article className="is-scorer">
+          <header><span>{t("최종 점수기 A", "FINAL SCORER A")}</span><b>ExtraTrees</b></header>
+          <div className="mrg-role-flow"><span>{t("특징 행 x", "feature row x")}</span><i>→</i><strong>{t("여러 결정 나무", "tree ensemble")}</strong><i>→</i><b>{t("점수 s", "score s")}</b></div>
+          <p>{t("문턱 질문으로 경로를 나누고 여러 나무의 출력을 평균합니다.", "Routes the row through threshold questions and averages the tree outputs.")}</p>
+        </article>
+        <article className="is-scorer">
+          <header><span>{t("최종 점수기 B", "FINAL SCORER B")}</span><b>Neural ranker</b></header>
+          <div className="mrg-role-flow"><span>{t("후보 + 이력", "candidate + history")}</span><i>→</i><strong>{t("attention과 신경망", "attention + network")}</strong><i>→</i><b>{t("점수 s", "score s")}</b></div>
+          <p>{t("후보에 맞춰 이력을 요약하고 학습된 가중치로 점수를 계산합니다.", "Builds a candidate-aware history summary and scores it with learned weights.")}</p>
+        </article>
+        <article className="is-transform">
+          <header><span>{t("입력 변환 · 최종 점수기 아님", "INPUT TRANSFORM · NOT A FINAL SCORER")}</span><b>Learned fusion</b></header>
+          <div className="mrg-role-flow"><span>P + C₁…C₄</span><i>→</i><strong>gθ</strong><i>→</i><span>{t("학습된 5-D 좌표", "learned 5-D coordinates")}</span><i>→</i><strong>ExtraTrees</strong><i>→</i><b>{t("점수 s", "score s")}</b></div>
+          <p>{t("Direct가 원래 다섯 좌표를 유지한다면, fusion은 같은 다섯 신호를 새 좌표로 바꾼 뒤 scorer에 전달합니다.", "Direct preserves the original five coordinates; fusion rewrites the same five signals before passing them to the scorer.")}</p>
+        </article>
+      </div>
+      <div className="mrg-role-questions">
+        <div><span>{t("질문 1 · 누가 점수를 만드나?", "QUESTION 1 · WHO MAKES THE SCORE?")}</span><b>ExtraTrees ↔ Neural ranker</b><p>{t("서로 대체 가능한 최종 scorer 비교", "Alternative final scorers")}</p></div>
+        <div><span>{t("질문 2 · 입력을 어떤 모습으로 넣나?", "QUESTION 2 · HOW ARE INPUTS REPRESENTED?")}</span><b>Direct ↔ Learned fusion</b><p>{t("원 좌표 유지와 학습 변환의 비교", "Original coordinates versus a learned transform")}</p></div>
+      </div>
       <div className="mrg-models">
-        <details><summary><strong>ExtraTrees</strong><span>{t("여러 나무의 판단을 모아 점수를 만듭니다", "Combine the judgments of many trees")}</span></summary>
+        <details><summary><strong>ExtraTrees</strong><span>{t("최종 scorer · 여러 나무의 출력을 평균", "Final scorer · averages tree outputs")}</span></summary>
           <p>{t("숫자 한 행을 받아 ‘P가 이 기준보다 큰가?’ 같은 질문을 차례로 거칩니다. 마지막 말단에 도착하면 그곳의 학습 표본에서 얻은 클래스 1 비율을 사용합니다. 여러 나무가 내는 값을 평균한 것이 점수입니다.", "A feature row passes through questions such as ‘Is P above this threshold?’ At the reached leaf, a tree uses the class-1 proportion learned from training samples there. The forest averages the tree outputs.")}</p>
           <div className="mrg-arithmetic">(0.60 + 0.80 + 0.70) / 3 = <strong>0.70</strong></div>
           <p>{t("설명용 나무 3개의 예입니다. 0.70은 입력 특징들의 평균이 아니라 세 나무 출력의 평균이며, 실제 클릭률이 70%라고 보장하는 값도 아닙니다.", "This is a three-tree teaching example. 0.70 is the average of tree outputs, not of input features, and it is not a guarantee of a 70% click-through rate.")}</p>
           <p className="mrg-try"><strong>{t("아래에서 해보기", "Try below")}</strong>{t(" ExtraTrees에서 P나 C를 바꿔 보세요. 분기 경계를 넘을 때 경로와 점수가 바뀌고, 같은 말단에 머무르면 입력이 변해도 점수가 그대로일 수 있습니다.", " In ExtraTrees, change P or C. Crossing a split threshold can change the path and score. Within the same leaves, changing an input may leave the score unchanged.")}</p>
         </details>
-        <details><summary><strong>Neural ranker</strong><span>{t("기사와 이력을 벡터로 비교해 점수를 만듭니다", "Compare candidate and history vectors to produce a score")}</span></summary>
+        <details><summary><strong>Neural ranker</strong><span>{t("최종 scorer · 후보와 이력을 함께 계산", "Final scorer · combines candidate and history")}</span></summary>
           <p>{t("벡터는 여러 숫자를 순서대로 담은 배열입니다. 후보 기사 벡터와 과거 기사 벡터를 받고, 지금 후보와 관련 있는 이력에 더 큰 비중을 주어 사용자 표현을 만듭니다. 후보·사용자 표현과 둘의 곱·차이 등을 합쳐 점수를 계산합니다. 실험 조건에 따라 control 또는 PEC 특징도 함께 넣습니다.", "A vector is an ordered array of numbers. The ranker receives candidate and past-article vectors, gives relevant history more weight, and forms a user representation. Candidate and user representations, their elementwise product and absolute difference, and optional control or PEC features are combined to compute a score.")}</p>
           <p>{t("여기서 attention 비중은 ‘어느 과거 기사를 얼마나 참고할지’이고, 최종 추천 점수와 다릅니다. 학습 때 후보 점수들을 softmax로 바꿔 정답과 비교하는 과정도, 이력 attention과는 다른 계산입니다.", "History attention weights answer ‘How much should each past article contribute?’ They are not the final ranking scores. The softmax over candidate scores used by the training loss is a separate operation from history attention.")}</p>
           <p className="mrg-try"><strong>{t("아래에서 해보기", "Try below")}</strong>{t(" Neural ranker에서 A와 B를 번갈아 선택하세요. 같은 이력이라도 후보가 바뀌면 참고 비중과 사용자 표현이 달라지는 과정을 보세요. 작은 예시 벡터는 실제 임베딩 차원을 축소해 설명한 것입니다.", " In Neural ranker, switch between A and B. Observe how the same history gets different weights and yields a different user representation for each candidate. The small teaching vectors do not represent the actual embedding dimensionality.")}</p>
         </details>
-        <details><summary><strong>Learned fusion</strong><span>{t("점수를 만들기 전에 다섯 입력을 변환합니다", "Transform five inputs before final scoring")}</span></summary>
+        <details><summary><strong>Learned fusion</strong><span>{t("입력 변환 · ExtraTrees 전에 다섯 좌표를 재표현", "Input transform · rewrites five coordinates before ExtraTrees")}</span></summary>
           <p>{t("Direct는 P와 네 C 값을 각각 보존합니다. Fusion은 이 다섯 숫자를 학습된 가중치로 섞어 새 좌표로 바꿉니다. 새 좌표 하나는 일반적으로 P처럼 이름이 붙은 개념이 아니라 여러 입력의 조합입니다. 그 결과에 공통 context를 붙여 ExtraTrees에 넣습니다.", "Direct retains P and the four C values separately. Fusion mixes those five numbers using learned weights to create new coordinates. A new coordinate generally combines several inputs rather than retaining a named meaning such as P. Shared context is then appended before ExtraTrees scoring.")}</p>
           <div className="mrg-arithmetic">{t("Direct: 공통 14 + 원래 5 = 19칸", "Direct: shared 14 + original 5 = 19 fields")}<br/>{t("5-D fusion: 공통 14 + 변환된 5 = 19칸", "5-D fusion: shared 14 + transformed 5 = 19 fields")}</div>
           <p>{t("따라서 이 비교는 입력 개수가 아니라 원래 좌표를 유지하는지, 학습해 바꾼 좌표를 쓰는지의 차이입니다. 다차원 fusion의 1-D 설정(14+1)과 별도의 scalar 비교(11+1)는 공통 context가 다르므로 같은 실험이 아닙니다.", "This comparison changes the representation, not the number of inputs. The 1-D setting of the multidimensional audit (14+1) and the separate scalar comparison (11+1) have different shared context and are not the same experiment.")}</p>
