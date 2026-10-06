@@ -106,11 +106,65 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <section className="public-release" id="reproduce">
       <div className="public-section-label">REPRODUCE</div>
       <h2>{t("개념을 이해했다면, 공개 코드로 직접 재현해 보세요", "Reproduce the workflow with the public code")}</h2>
-      <p>{t("공개 저장소에는 합성 후보 데이터, 순서가 명시된 25개 특성 스키마, ExtraTrees 예제, NDCG@10·Recall@10·MRR 계산, 그리고 MIND 공개 데이터 실험이 포함되어 있습니다. 비공개 운영 데이터와 해당 데이터로 학습한 모델은 제공하지 않습니다.", "The public repository includes synthetic candidate data, the ordered 25-feature schema, an ExtraTrees example, NDCG@10/Recall@10/MRR calculations, and the public MIND study. Private operational data and models fitted to those data are not distributed.")}</p>
+      <p>{t("공개 저장소에는 기본 ExtraTrees 경로뿐 아니라 학습형 MLP 융합과 candidate-aware neural 모델의 정의·학습 루프도 포함되어 있습니다. 아래 세 경로는 모두 제공된 합성 입력에서 처음부터 실행할 수 있으며, MIND 공개 데이터 실험은 전체 재현 문서에서 별도로 안내합니다.", "The public repository now includes three executable paths: the ExtraTrees candidate pipeline, learned MLP fusion, and the candidate-aware neural scorer. All three can be trained from scratch on the supplied synthetic inputs; the public MIND study is documented separately in the full reproducibility guide.")}</p>
       <div className="public-command" role="group" aria-label={t("빠른 실행 명령", "Quick-start command")}>
         <code>python -m pip install -e .</code>
         <code>python scripts/run_synthetic_demo.py</code>
       </div>
+        <div className="public-repro-copy public-repro-copy-ko" lang="ko">
+          <div className="public-repro-grid">
+            <article className="public-repro-card">
+              <span>01 · 기본 후보 순위 경로</span>
+              <h3>ExtraTrees로 전체 파이프라인 확인</h3>
+              <code>python scripts/run_synthetic_demo.py</code>
+              <p>순서가 고정된 25개 특성을 만들고, ExtraTrees를 학습한 뒤 질의 안에서 후보를 정렬해 NDCG@10·Recall@10·MRR을 계산합니다.</p>
+            </article>
+            <article className="public-repro-card">
+              <span>02 · 학습형 MLP 융합</span>
+              <h3>다섯 입력을 5차원 표현으로 학습</h3>
+              <code>python -m pip install -e '.[neural]'</code>
+              <code>python scripts/run_synthetic_fusion.py</code>
+              <p>P·C 관련 다섯 좌표를 학습된 5차원 잠재 표현으로 바꾸고, 이 표현이 최종 점수 모델에 전달되는 과정과 역전파를 확인합니다.</p>
+            </article>
+            <article className="public-repro-card">
+              <span>03 · 후보 인식 신경망</span>
+              <h3>후보에 따라 달라지는 이력 요약 학습</h3>
+              <code>python scripts/run_synthetic_neural.py</code>
+              <p>이력 self-attention, candidate-conditioned pooling, listwise loss와 학습 루프를 합성 질의 그룹에서 직접 실행합니다.</p>
+            </article>
+          </div>
+          <aside className="public-repro-boundary">
+            <strong>재현 범위</strong>
+            <p>이 실행은 공개 모델 정의와 학습 루프가 실제로 작동함을 검증합니다. 비공개 운영 레코드·임베딩·학습된 논문 체크포인트는 공개하지 않으므로, 논문 표의 수치를 그대로 다시 만드는 절차는 아닙니다.</p>
+          </aside>
+        </div>
+        <div className="public-repro-copy public-repro-copy-en" lang="en">
+          <div className="public-repro-grid">
+            <article className="public-repro-card">
+              <span>01 · Candidate ranking baseline</span>
+              <h3>Trace the full ExtraTrees pipeline</h3>
+              <code>python scripts/run_synthetic_demo.py</code>
+              <p>Build the ordered 25-feature record, fit ExtraTrees, rank candidates within each query, and report NDCG@10, Recall@10, and MRR.</p>
+            </article>
+            <article className="public-repro-card">
+              <span>02 · Learned MLP fusion</span>
+              <h3>Learn a 5-D representation from five inputs</h3>
+              <code>python -m pip install -e '.[neural]'</code>
+              <code>python scripts/run_synthetic_fusion.py</code>
+              <p>Transform the five P/C coordinates into a learned 5-D latent representation, pass it to the final scorer, and inspect backpropagation.</p>
+            </article>
+            <article className="public-repro-card">
+              <span>03 · Candidate-aware neural</span>
+              <h3>Learn a candidate-conditioned history summary</h3>
+              <code>python scripts/run_synthetic_neural.py</code>
+              <p>Run history self-attention, candidate-conditioned pooling, listwise loss, and the training loop on generated query groups.</p>
+            </article>
+          </div>
+          <aside className="public-repro-boundary">
+            <strong>Reproducibility boundary</strong>
+            <p>These runs verify that the public model definitions and learning loops execute. They do not release operational rows, private embeddings, or fitted manuscript checkpoints, so they are not a numerical reproduction of the manuscript tables.</p>
+          </aside>
+        </div>
       <div className="public-link-row">
         <a href={`${repository}#quick-start`}>{t("전체 실행 절차", "Full quick start")}</a>
         <a href={`${repository}/blob/main/docs/REPRODUCIBILITY.md`}>{t("재현 가능 범위", "Reproducibility scope")}</a>
