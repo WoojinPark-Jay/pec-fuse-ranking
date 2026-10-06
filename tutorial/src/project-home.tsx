@@ -26,7 +26,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label="Project page navigation">
-          <a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#demo">Demo</a><a href="#paper">Paper</a><a href="#citation">Citation</a>
+          <a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#paper">Paper</a><a href="#demo">Demo</a><a href="#citation">Citation</a>
         </nav>
       </header>
 
@@ -48,8 +48,8 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <ExternalLink href={PAPER_URL} className="project-button">Paper</ExternalLink>
             <ExternalLink href={REPOSITORY_URL} className="project-button"><GitHubIcon />Code</ExternalLink>
             <ExternalLink href={ARTIFACT_URL} className="project-button">Reproducibility artifact</ExternalLink>
-            <a className="project-button project-button-accent" href="?view=tutorial&lang=en">Tutorial</a>
-            <a className="project-button project-button-accent" href="?view=tutorial&lang=en#live-demo">Live demo</a>
+            <a className="project-button" href="?view=tutorial&lang=en">Tutorial</a>
+            <a className="project-button" href="?view=tutorial&lang=en#live-demo">Live demo</a>
           </div>
         </section>
 
@@ -133,41 +133,6 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           </div>
         </section>
 
-        <section className="demo-section" id="demo">
-          <div className="demo-copy">
-            <p className="section-kicker">Interactive companion</p><h2>Trace how source-specific evidence changes a ranked list.</h2>
-            <p>Select a synthetic reader and scorer, compare the resulting order, and inspect the P, E, C, and Z evidence behind each candidate score.</p>
-            <div className="demo-actions"><a className="project-button demo-cta" href="?view=tutorial&lang=en#live-demo">Open live ranking demo <span aria-hidden="true">→</span></a></div>
-          </div>
-          <figure className="demo-preview">
-            <div className="preview-context">
-              <div className="preview-person">
-                <span className="reader-avatar" aria-hidden="true">👨🏽‍💼</span>
-                <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
-              </div>
-              <div className="preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
-            </div>
-            <div className="preview-feed">
-              <div className="preview-feed-header"><strong>Ranked recommendations</strong><span>Complete PEC · descending score</span></div>
-              <div className="preview-story">
-                <b className="story-rank">1</b><span className="story-thumb" aria-hidden="true">⚽</span><span><small>Sports</small><strong>The second-half switch that changed the final</strong></span>
-              </div>
-              <div className="preview-story preview-story-selected">
-                <b className="story-rank">2</b><span className="story-thumb" aria-hidden="true">🚇</span><span><small>Local</small><strong>What the rail redesign could mean for your commute</strong></span>
-              </div>
-              <div className="preview-story">
-                <b className="story-rank">3</b><span className="story-thumb" aria-hidden="true">🏙️</span><span><small>Urban policy</small><strong>What the new public-housing rules change locally</strong></span>
-              </div>
-            </div>
-            <div className="preview-evidence">
-              <div className="evidence-title"><small>Selected candidate</small><strong>Local news · rank 2 of 8</strong></div>
-              <div className="evidence-values"><span><b>P</b> Profile</span><span><b>E</b> Trace</span><span><b>C</b> History</span><span><b>Z</b> Controls</span></div>
-              <div className="preview-score"><strong>Score → rank</strong></div>
-            </div>
-            <figcaption>Synthetic preview. Reader and scorer choices determine the within-query order; the live demo exposes the evidence and score for every candidate.</figcaption>
-          </figure>
-        </section>
-
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
             <div><p className="section-kicker">Current manuscript</p><h2>Read the paper</h2></div>
@@ -177,6 +142,42 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="paper-viewer">
             <iframe src={`${PAPER_URL}#view=FitH`} title="PEC-Fuse current manuscript PDF" loading="lazy" />
           </div>
+        </section>
+
+        <section className="demo-section" id="demo">
+          <div className="demo-copy">
+            <p className="section-kicker">Interactive demo</p>
+            <h2>Inspect candidate-level ranking behavior.</h2>
+            <p>A controlled synthetic example supports scorer comparison and source-level inspection of each ranked candidate.</p>
+            <a className="demo-link" href="?view=tutorial&lang=en#live-demo">Open live demo <span aria-hidden="true">→</span></a>
+          </div>
+          <figure className="demo-preview">
+            <div className="preview-context">
+              <div className="preview-person">
+                <span className="reader-avatar" aria-hidden="true">J</span>
+                <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
+              </div>
+              <div className="preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
+            </div>
+            <div className="preview-feed">
+              <div className="preview-feed-header"><strong>Ranked candidates</strong><span>Complete PEC · descending score</span></div>
+              <div className="preview-story">
+                <b className="story-rank">1</b><span className="story-thumb" aria-hidden="true">S</span><span><small>Sports</small><strong>The second-half switch that changed the final</strong></span>
+              </div>
+              <div className="preview-story preview-story-selected">
+                <b className="story-rank">2</b><span className="story-thumb" aria-hidden="true">L</span><span><small>Local</small><strong>What the rail redesign could mean for your commute</strong></span>
+              </div>
+              <div className="preview-story">
+                <b className="story-rank">3</b><span className="story-thumb" aria-hidden="true">U</span><span><small>Urban policy</small><strong>What the new public-housing rules change locally</strong></span>
+              </div>
+            </div>
+            <div className="preview-evidence">
+              <div className="evidence-title"><small>Selected candidate</small><strong>Local news · rank 2 of 8</strong></div>
+              <div className="evidence-values"><span><b>P</b> Profile</span><span><b>E</b> Trace</span><span><b>C</b> History</span><span><b>Z</b> Controls</span></div>
+              <div className="preview-score"><strong>Score → rank</strong></div>
+            </div>
+            <figcaption>Synthetic interface for tracing source-specific evidence, model scores, and within-query ranks.</figcaption>
+          </figure>
         </section>
 
         <section className="paper-section citation-section" id="citation">
