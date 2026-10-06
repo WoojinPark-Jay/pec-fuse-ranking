@@ -145,30 +145,31 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="demo-section" id="demo">
-          <div className="demo-copy">
-            <p className="section-kicker">Interactive demo</p>
-            <h2>Inspect candidate-level ranking behavior.</h2>
-            <p>A controlled synthetic example supports scorer comparison and source-level inspection of each ranked candidate.</p>
+          <header className="demo-heading">
+            <div className="demo-copy">
+              <p className="section-kicker">Interactive analysis</p>
+              <h2>Inspect a complete within-query ranking trace.</h2>
+              <p>Choose a synthetic reader and scorer, then trace one candidate from P, E, C, and Z evidence to its model score and final rank.</p>
+            </div>
             <a className="demo-link" href="?view=tutorial&lang=en#live-demo">Open live demo <span aria-hidden="true">→</span></a>
-          </div>
+          </header>
           <figure className="demo-preview">
             <div className="preview-context">
-              <div className="preview-person">
-                <span className="reader-avatar" aria-hidden="true">J</span>
-                <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
+              <div className="preview-meta">
+                <small>Reader</small><strong>Jin</strong><span>General news reader</span>
               </div>
-              <div className="preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
+              <div className="preview-meta preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
             </div>
             <div className="preview-feed">
-              <div className="preview-feed-header"><strong>Ranked candidates</strong><span>Complete PEC · descending score</span></div>
+              <div className="preview-feed-header"><strong>Within-query ranking</strong><span>Complete PEC · synthetic score</span></div>
               <div className="preview-story">
-                <b className="story-rank">1</b><span className="story-thumb" aria-hidden="true">S</span><span><small>Sports</small><strong>The second-half switch that changed the final</strong></span>
+                <b className="story-rank">1</b><span><small>Sports</small><strong>The second-half switch that changed the final</strong></span><output className="story-score">0.812</output>
               </div>
               <div className="preview-story preview-story-selected">
-                <b className="story-rank">2</b><span className="story-thumb" aria-hidden="true">L</span><span><small>Local</small><strong>What the rail redesign could mean for your commute</strong></span>
+                <b className="story-rank">2</b><span><small>Local</small><strong>What the rail redesign could mean for your commute</strong></span><output className="story-score">0.764</output>
               </div>
               <div className="preview-story">
-                <b className="story-rank">3</b><span className="story-thumb" aria-hidden="true">U</span><span><small>Urban policy</small><strong>What the new public-housing rules change locally</strong></span>
+                <b className="story-rank">3</b><span><small>Urban policy</small><strong>What the new public-housing rules change locally</strong></span><output className="story-score">0.691</output>
               </div>
             </div>
             <div className="preview-evidence">
@@ -176,7 +177,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <div className="evidence-values"><span><b>P</b> Profile</span><span><b>E</b> Trace</span><span><b>C</b> History</span><span><b>Z</b> Controls</span></div>
               <div className="preview-score"><strong>Score → rank</strong></div>
             </div>
-            <figcaption>Synthetic interface for tracing source-specific evidence, model scores, and within-query ranks.</figcaption>
+            <figcaption>Synthetic illustration. Scores are for interface explanation only and are not manuscript results.</figcaption>
           </figure>
         </section>
 

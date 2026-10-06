@@ -66,8 +66,8 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <a href={`${repository}#quick-start`}>{t("실행", "Run")}</a>
           <a href={`${repository}/tree/main/access`}>{t("결과", "Results")}</a>
           <span className="public-language" aria-label={t("언어 선택", "Language selection")}>
-            <a href="?lang=en" aria-label="English" title="English" aria-current={!ko ? "page" : undefined}><span aria-hidden="true">🇺🇸</span></a>
-            <a href="?lang=ko" aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}><span aria-hidden="true">🇰🇷</span></a>
+            <a href="?view=tutorial&lang=en" aria-label="English" title="English" aria-current={!ko ? "page" : undefined}><span aria-hidden="true">🇺🇸</span></a>
+            <a href="?view=tutorial&lang=ko" aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}><span aria-hidden="true">🇰🇷</span></a>
           </span>
         </nav>
       </div>
