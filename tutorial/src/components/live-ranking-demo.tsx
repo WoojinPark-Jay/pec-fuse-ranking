@@ -385,10 +385,6 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             {persona.interests.map((item) => <span key={item.en}>{t(item)}</span>)}
           </div>
         </article>
-        <div className="prd-recent">
-          <b>{ko ? "최근 클릭한 기사" : "Recently clicked"}</b>
-          {persona.recent.map((item, index) => <div key={item.en}><span>{index + 1}</span>{t(item)}</div>)}
-        </div>
         <div className="prd-reader-signals" aria-label={ko ? "독자 선호 신호 요약" : "Reader preference signal summary"}>
           <header>
             <b>{ko ? "독자 신호 요약" : "Reader signal summary"}</b>
@@ -413,6 +409,12 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             </p>
             <ul>{persona.recentMix.map((item, index) => <li key={item.category}><i className={`is-tone-${index + 1}`} />{t(categoryLabels[item.category])}<b>{Math.round(item.value * 100)}%</b></li>)}</ul>
           </section>
+        </div>
+        <div className="prd-recent">
+          <b>{ko ? "최근 클릭한 기사" : "Recently clicked"}</b>
+          <div className="prd-recent-list">
+            {persona.recent.map((item, index) => <span key={item.en}><i>{index + 1}</i>{t(item)}</span>)}
+          </div>
         </div>
       </section>
 
@@ -462,11 +464,27 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           {model === "complete" && <span className="prd-interaction">ψ</span>}
           <i>→</i><b>s(x)</b>
         </div>
+        <div className="prd-model-lens" key={`${model}-${selected.article.id}`}>
+          <header>
+            <div><small>{ko ? "현재 선택 기사" : "Selected story"}</small><b>{selected.article.icon} {t(selected.article.title)}</b></div>
+            <span>{ko ? "기사·모델 선택 시 갱신" : "Updates with story and model"}</span>
+          </header>
+          <div className="prd-model-signal-list">
+            {(Object.keys(selected.signals) as (keyof Signals)[]).map((key) => <p key={key} className={model === "control" && key !== "Z" ? "is-muted" : ""}>
+              <b>{key}</b><span>{t(signalLabels[key])}</span><i><em style={{ width: `${Math.round(selected.signals[key] * 100)}%` }} /></i><output>{selected.signals[key].toFixed(2)}</output>
+            </p>)}
+            {model === "complete" && <p className="is-interaction"><b>ψ</b><span>{ko ? "P×C 상호작용" : "P×C interaction"}</span><i><em style={{ width: `${Math.round(selected.signals.P * selected.signals.C * 100)}%` }} /></i><output>{(selected.signals.P * selected.signals.C).toFixed(2)}</output></p>}
+          </div>
+          <footer>
+            <div><small>{ko ? "현재 정렬 점수" : "Current ranking score"}</small><output>{selected.score.toFixed(3)}</output></div>
+            <div><small>{ko ? "현재 예상 순위" : "Current rank"}</small><output>{ranked.findIndex((item) => item.article.id === selected.article.id) + 1}<i>/ {ranked.length}</i></output></div>
+          </footer>
+        </div>
       </section>
     </div>
 
     <section className="prd-output" aria-labelledby="prd-output-title">
-      <div className="prd-output-marker"><span aria-hidden="true">↓</span><b>RECOMMENDATION PREVIEW</b><em>{ko ? "선택한 독자와 모델로 만든 결과" : "The result for the selected reader and model"}</em></div>
+      <div className="prd-output-marker"><span aria-hidden="true">↓</span><div><b>RECOMMENDATION PREVIEW</b><em>{ko ? "선택한 독자와 모델로 만든 결과가 아래 순위로 이어집니다" : "The selected reader and model produce the ranking below"}</em></div></div>
       <header>
         <div className="prd-panel-heading">
           <span>04</span>
