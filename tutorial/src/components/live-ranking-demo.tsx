@@ -498,6 +498,19 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           <div className="prd-phone-preview" aria-hidden="true"><div><span>{persona.avatar}</span><i>PEC</i></div><p>{ranked.slice(0, 3).map((item) => <b key={item.article.id}>{item.article.icon}</b>)}</p></div>
           <div className="prd-winner"><span aria-hidden="true">{top.article.icon}</span><div><small>{ko ? "현재 1위 추천" : "Top recommendation"}</small><b>{t(top.article.title)}</b></div></div>
         </div>
+        <div className="prd-output-models">
+          <small>{ko ? "여기서도 모델 바꾸기" : "Switch model here"}</small>
+          <div>
+            {([
+              { id: "complete", icon: "🔗", name: "Complete PEC" },
+              { id: "control", icon: "⚙️", name: ko ? "운영 기준" : "Operational" },
+              { id: "direct", icon: "🧩", name: "Direct PEC" },
+              { id: "neural", icon: "🧠", name: ko ? "뉴럴 오딧" : "Neural audit" },
+            ] as const).map((item) => <button key={item.id} type="button" aria-pressed={model === item.id} onClick={() => setModel(item.id)}>
+              <span aria-hidden="true">{item.icon}</span><b>{item.name}</b>
+            </button>)}
+          </div>
+        </div>
       </header>
       <div className="prd-ranking-stage">
         <div className="prd-ranking">
