@@ -25,8 +25,9 @@
 .ca-overview-head>span { color:var(--blue); font:700 10px "SFMono-Regular",Consolas,monospace; letter-spacing:.12em; }
 .ca-overview-head h2 { margin:8px 0 7px; font-size:20px; line-height:1.35; }
 .ca-overview-head p { margin:0; color:var(--muted); font-size:13px; line-height:1.7; }
-.ca-first-read { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; margin-top:16px; background:var(--rule); border:1px solid var(--rule); }
-.ca-first-read>div { min-height:175px; padding:17px; background:white; }
+.ca-first-read { display:grid; grid-template-columns:repeat(4,1fr); margin-top:16px; border:1px solid var(--rule); }
+.ca-first-read>div { min-height:175px; padding:17px; border-right:1px solid var(--rule); background:white; }
+.ca-first-read>div:last-child { border-right:0; }
 .ca-first-read span { display:grid; place-items:center; width:27px; height:27px; margin-bottom:25px; border:1px solid #9fb0b5; border-radius:50%; color:var(--blue); font:10px "SFMono-Regular",Consolas,monospace; }
 .ca-first-read b { display:block; font-size:14px; line-height:1.45; }
 .ca-first-read p { margin:8px 0 0; color:var(--muted); font-size:12.5px; line-height:1.65; }

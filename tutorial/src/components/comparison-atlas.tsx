@@ -160,7 +160,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
 
     <article className="ca-shell">
       <header className="ca-intro">
-        <p className="ca-kicker">PEC-FUSE · INTERACTIVE PAPER COMPANION</p>
+        <p className="ca-kicker">PEC-FUSE · INTERACTIVE TUTORIAL</p>
         <h1 className={isKo ? "is-ko" : "is-en"}>{isKo ? "PEC-Fuse, 단계별로 살펴보기" : "PEC-Fuse, step by step"}</h1>
         <p className="ca-deck">{isKo ? "한 사용자와 날짜를 하나의 질의로 정의하고, 기사 후보를 구성하는 단계부터 시작합니다. 이후 각 특성의 출처와 계산 과정, 학습되는 요소, 실험에서 달라지는 조건을 차례로 확인합니다." : "Start with a single user-date query and build its candidate set. Then trace each feature to its source, separate computed quantities from learned components, and identify the condition changed in every experiment."}</p>
         <nav className="ca-route" aria-label={isKo ? "주요 섹션 바로가기" : "Jump to a section"}><b>{isKo ? "빠른 이동" : "Jump to"}</b><a href="#microscope">{isKo ? "데이터 사례" : "Data example"}</a><a href="#final-demo">{isKo ? "전체 순위 과정" : "End-to-end ranking"}</a><a href="#row">{isKo ? "후보 구성" : "Candidate construction"}</a><a href="#record">{isKo ? "특성 계산" : "Feature computation"}</a><a href="#learn">{isKo ? "모델 이해" : "Model guide"}</a><a href="#atlas">{isKo ? "실험 비교" : "Experiments"}</a></nav>
