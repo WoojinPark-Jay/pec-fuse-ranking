@@ -499,7 +499,11 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           <div className="prd-winner"><span aria-hidden="true">{top.article.icon}</span><div><small>{ko ? "현재 1위 추천" : "Top recommendation"}</small><b>{t(top.article.title)}</b></div></div>
         </div>
         <div className="prd-output-models">
-          <small>{ko ? "여기서도 모델 바꾸기" : "Switch model here"}</small>
+          <small className="prd-model-switch-label">
+            <b>{ko ? "점수 모델 선택" : "Choose a scoring model"}</b>
+            <span>{ko ? "모델을 선택하면 아래 순위가 다시 계산됩니다." : "Select an option to recalculate the ranking below."}</span>
+            <i aria-hidden="true">↓</i>
+          </small>
           <div>
             {([
               { id: "complete", icon: "🔗", name: "Complete PEC" },
@@ -507,7 +511,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
               { id: "direct", icon: "🧩", name: "Direct PEC" },
               { id: "neural", icon: "🧠", name: ko ? "뉴럴 오딧" : "Neural audit" },
             ] as const).map((item) => <button key={item.id} type="button" aria-pressed={model === item.id} onClick={() => setModel(item.id)}>
-              <span aria-hidden="true">{item.icon}</span><b>{item.name}</b>
+              <span aria-hidden="true">{item.icon}</span><b>{item.name}</b><em>{model === item.id ? (ko ? "현재 모델" : "Current model") : (ko ? "선택" : "Select")}</em>
             </button>)}
           </div>
         </div>
