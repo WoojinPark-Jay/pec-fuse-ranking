@@ -290,7 +290,7 @@ const modelCopy: Record<ModelKey, { name: string; icon: string; inputs: string; 
   }
 };
 
-const modelOrder: ModelKey[] = ["control", "direct", "complete", "neural"];
+const modelOrder: ModelKey[] = ["complete", "control", "direct", "neural"];
 
 function clamp(value: number) {
   return Math.max(0, Math.min(1, value));
