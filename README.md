@@ -86,7 +86,7 @@ Both modes report `status: passed` only for their stated scope. Neither re-runs 
 
 ## Results and paper mapping
 
-This release is aligned with manuscript revision **v35**. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+This release is aligned with manuscript revision **v36**. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |

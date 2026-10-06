@@ -2,7 +2,8 @@
 
 ## Private platform data
 
-The headline experiments use processed platform tables containing user profile
+The headline experiments use four processed tables from insightea, a now-discontinued
+personalized news service formerly operated by the author, containing user profile
 preferences, click events, retained recommendation traces, and article metadata.
 These row-level tables cannot be distributed because they may contain private
 behavioral and proprietary operational information.
