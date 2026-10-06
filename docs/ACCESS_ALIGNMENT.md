@@ -1,6 +1,12 @@
 # IEEE Access Manuscript Alignment
 
-This revision aligns the anonymous artifact with the IEEE Access manuscript package `PEC_Fuse_Access_v29`.
+This release aligns the public artifact with IEEE Access manuscript revision v37, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the added equal-width Direct-versus-learned-5-D comparison.
+
+## Equal-width comparison availability
+
+`access/tables/direct_complete.tex` reports Direct minus learned 5-D NDCG@10: +0.0041 [0.0009, 0.0068] for recent-window and +0.0030 [-0.0028, 0.0088] for same-day. Both scorers have 19 inputs. These added intervals are distributed at manuscript precision in the table; a separate unrounded bootstrap record for this contrast is not included. They cannot be recovered by subtracting other interval endpoints. `fusion_seed_metrics.csv` supplies seed-specific absolute scores, not the paired per-query inputs needed to recalculate these intervals.
+
+Absolute scores are means of seed-specific aggregate metrics. Paired intervals first average within-query differences across five fixed seeds, then resample users. Reported deltas use unrounded values. These are representation-audit fits, not headline fits.
 
 ## Primary evidence
 
