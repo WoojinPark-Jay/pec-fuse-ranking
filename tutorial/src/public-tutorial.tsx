@@ -42,9 +42,9 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <a href="#equations">{t("수식", "Equations")}</a>
       <a href="#model-lab">{t("모델", "Models")}</a>
       <a href="#atlas">{t("실험", "Experiments")}</a>
-      <a href="#live-demo">{t("데모", "Live demo")}</a>
       <a href="#reproduce">{t("재현", "Reproduce")}</a>
       <a href="#cite">{t("인용", "Cite")}</a>
+      <a className="public-live-demo-link" href="#live-demo">{t("데모", "Demo")}<i>LIVE</i></a>
     </nav>
 
     <div id="tutorial">

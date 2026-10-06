@@ -177,6 +177,15 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div><b>{isKo ? "정답 라벨" : "Target label"}</b><span>y<sub>q,i</sub></span><p>{isKo ? "학습과 평가에 쓰는 관측 클릭 여부" : "Observed click status used for fitting and evaluation"}</p></div>
           <div><b>{isKo ? "모델 점수" : "Model score"}</b><span>s<sub>q,i</sub></span><p>{isKo ? "같은 질의 안에서 후보를 정렬하는 값" : "The value used to rank candidates within a query"}</p></div>
         </div>
+        <a className="ca-demo-bridge" href="#live-demo" aria-label={isKo ? "라이브 추천 데모로 이동" : "Jump to the live recommendation demo"}>
+          <div className="ca-demo-visual" aria-hidden="true"><span>👩🏻‍🔬</span><span>🧑🏽‍💼</span><span>👩🏻‍⚕️</span><i>→</i><strong>📱</strong></div>
+          <div className="ca-demo-copy">
+            <div><span>LIVE</span><small>INTERACTIVE RANKING DEMO</small></div>
+            <b>{isKo ? "세부 내용을 읽기 전에, 전체 흐름부터 살펴보세요" : "See the whole picture before the details"}</b>
+            <p>{isKo ? "저자의 팁: 독자와 모델을 하나씩 바꿔 보면 입력 근거가 추천 순위로 이어지는 과정을 먼저 한눈에 파악할 수 있어, 뒤의 특성과 수식을 따라가기가 한결 쉬워집니다." : "Author's tip: try one reader and one model first. Seeing how evidence becomes a ranked list will make the later feature and equation walkthrough easier to follow."}</p>
+          </div>
+          <span className="ca-demo-action">{isKo ? "간단히 체험하기" : "Take a quick tour"}<i aria-hidden="true">→</i></span>
+        </a>
       </header>
 
       <DataMicroscope lang={lang} />
