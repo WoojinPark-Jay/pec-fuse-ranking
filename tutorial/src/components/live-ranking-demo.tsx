@@ -480,6 +480,10 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             <div><small>{ko ? "현재 예상 순위" : "Current rank"}</small><output>{ranked.findIndex((item) => item.article.id === selected.article.id) + 1}<i>/ {ranked.length}</i></output></div>
           </footer>
         </div>
+        <a className="prd-model-next" href="#prd-output-title">
+          <div><small>STEP 03 OUTPUT</small><b>{ko ? "후보별 점수가 준비됐습니다" : "Candidate scores are ready"}</b><span>{ko ? "아래 04 추천 순위에서 결과 확인" : "Continue to the Step 04 recommendation ranking"}</span></div>
+          <i aria-hidden="true">↓</i>
+        </a>
       </section>
     </div>
 
