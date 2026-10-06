@@ -1,0 +1,49 @@
+.comparison-atlas .zcalc { margin:32px 0; padding:28px; border:1px solid #a9bbc2; border-top:3px solid #34748b; background:#fff; color:#203641; scroll-margin-top:24px; font-size:16px; line-height:1.7; }
+.zcalc-heading>span { font:13px/1.6 Consolas,monospace; letter-spacing:.08em; color:#435d69; }
+.comparison-atlas .zcalc h3 { font-size:28px; line-height:1.4; margin:8px 0 12px; }
+.comparison-atlas .zcalc h4 { font-size:21px; line-height:1.45; margin:8px 0 16px; }
+.comparison-atlas .zcalc p { font-size:16px; color:#334e5b; margin:8px 0; }
+.zcalc-disclosure { margin:20px 0; padding:15px 18px; border-left:3px solid #a87937; background:#fcf7ee; }
+.zcalc-presets { display:flex; flex-wrap:wrap; gap:8px; margin:20px 0; }
+.comparison-atlas .zcalc button { font-family:inherit; cursor:pointer; color:#203641; }
+.zcalc-presets button { padding:10px 14px; min-height:44px; border:1px solid #a4b8c1; background:#f4f8f9; font-size:15px; font-weight:600; }
+.zcalc button:hover { background:#e7f1f5; }
+.zcalc button:focus-visible,.zcalc input:focus-visible { outline:3px solid #237b99; outline-offset:3px; }
+.zcalc-inputs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin:24px 0; }
+.zcalc-inputs fieldset { min-width:0; padding:14px; border:1px solid #b9c9cf; background:#fafcfc; }
+.zcalc-inputs legend { font-size:16px; font-weight:700; padding:0 5px; }
+.zcalc-input { display:grid; grid-template-columns:1fr 90px; align-items:center; gap:6px 10px; margin:9px 0 18px; font-size:15px; }
+.zcalc-input input { min-width:0; width:100%; padding:7px; border:1px solid #92acb7; border-radius:0; background:white; color:#19394a; font:600 17px/1.5 Consolas,monospace; }
+.comparison-atlas .zcalc small { color:#425d69; font-size:14px; line-height:1.55; }
+.zcalc-input small { grid-column:1/-1; }
+.comparison-atlas .zcalc-inputs fieldset>p { font-size:14px; }
+.zcalc-check { display:flex; align-items:center; gap:10px; font-size:15px; }
+.zcalc-check input { width:20px; height:20px; accent-color:#237b99; }
+.zcalc-workspace { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:24px; align-items:start; }
+.zcalc-table-wrap { overflow-x:auto; }
+.zcalc table { border-collapse:collapse; width:100%; font-size:15px; }
+.zcalc caption { text-align:left; padding:10px 0; font-weight:700; }
+.zcalc th { text-align:left; padding:10px 7px; border-bottom:2px solid #8aa5b0; background:#f0f5f6; font-size:14px; white-space:nowrap; }
+.zcalc td { padding:6px; border-bottom:1px solid #d0dce1; font-variant-numeric:tabular-nums; }
+.zcalc td:nth-child(2) { color:#536875; }
+.zcalc td:nth-child(3) { color:#165a72; font-weight:700; }
+.zcalc td button { display:flex; align-items:center; gap:8px; width:100%; padding:10px 3px; border:0; background:transparent; text-align:left; min-height:44px; }
+.zcalc td button span { color:#556d78; font-size:14px; }
+.zcalc td code { font:14px/1.6 Consolas,monospace; overflow-wrap:anywhere; }
+.zcalc tr.is-active { background:#e6f1f5; box-shadow:inset 3px 0 #237b99; }
+.zcalc-detail { border:1px solid #9bb5c0; padding:22px; background:#f8fbfc; }
+.zcalc-detail header>span { font:14px/1.6 Consolas,monospace; overflow-wrap:anywhere; color:#355866; }
+.zcalc-detail ol { padding-left:26px; margin:20px 0; }
+.zcalc-detail li { margin:0 0 20px; padding-left:6px; }
+.zcalc-detail li::marker { font-weight:700; color:#237b99; }
+.zcalc-math { font:17px/1.8 Consolas,monospace; overflow-wrap:anywhere; padding:10px 12px; background:white; border-left:2px solid #7ca1b1; margin-top:8px; }
+.zcalc-detail output { display:block; font:36px/1.4 "Iowan Old Style",Georgia,serif; color:#155d76; padding-top:5px; }
+.zcalc-detail aside { padding:14px 16px; border-left:3px solid #39765f; background:#edf5f1; color:#234737; font-size:16px; }
+.zcalc-vector { margin-top:24px; padding:20px 0 0; border-top:1px solid #acbfc7; }
+.zcalc-vector-cells { display:grid; grid-template-columns:repeat(11,minmax(65px,1fr)); gap:5px; overflow-x:auto; padding:10px 0; }
+.zcalc-vector-cells button { padding:10px 4px; border:1px solid #b2c5ce; background:#f0f6f8; }
+.zcalc-vector-cells button[aria-pressed=true] { border:2px solid #237b99; background:#e0edf2; }
+.zcalc-vector-cells span,.zcalc-vector-cells b { display:block; font:14px/1.8 Consolas,monospace; }
+.zcalc-vector-cells b { font-size:16px; font-weight:700; }
+@media(max-width:1100px) { .zcalc-inputs { grid-template-columns:repeat(2,minmax(0,1fr)); } .zcalc-workspace { grid-template-columns:1fr; } }
+@media(max-width:600px) { .comparison-atlas .zcalc { padding:18px 12px; } .zcalc-inputs { grid-template-columns:1fr; } .zcalc-detail { padding:15px; } .comparison-atlas .zcalc h3 { font-size:24px; } .zcalc td code { font-size:12px; } .zcalc td { padding:5px 3px; } .zcalc-presets button { width:100%; text-align:left; } }

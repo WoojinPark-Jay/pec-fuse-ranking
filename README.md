@@ -4,7 +4,11 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Start here:** [Quick start](README.md#quick-start) | [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Reproducibility](docs/REPRODUCIBILITY.md)
+**Start here:** [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Quick start](README.md#quick-start) | [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Reproducibility](docs/REPRODUCIBILITY.md)
+
+## Interactive tutorial
+
+The public [PEC-Fuse interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) follows one synthetic user-date query from source records through candidate-pool construction, the 25-field record, scoring, model comparisons, and NDCG@10/Recall@10/MRR. Sliders and scenario controls run entirely in the browser; they do not upload data or retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
 
 ## Method at a glance
 
