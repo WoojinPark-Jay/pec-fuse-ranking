@@ -308,11 +308,11 @@ function signalsFor(persona: Persona, article: Article): Signals {
 
 function scoreFor(model: ModelKey, s: Signals, article: Article) {
   if (model === "control") return clamp(.78 * s.Z + .22 * article.quality);
-  if (model === "direct") return clamp(.36 * s.P + .12 * s.E + .25 * s.C + .18 * s.Z + .09 * article.quality);
+  if (model === "direct") return clamp(.25 * s.P + .15 * s.E + .25 * s.C + .15 * s.Z + .20 * article.quality);
   if (model === "complete") {
     return clamp(.25 * s.P + .14 * s.E + .24 * s.C + .15 * s.Z + .05 * article.quality + .11 * s.P * s.C + .06 * s.C * s.E);
   }
-  return clamp(.18 * Math.sqrt(s.P) + .10 * s.E + .32 * Math.pow(s.C, .70) + .14 * s.Z + .12 * article.quality + .14 * Math.max(s.P, s.C));
+  return clamp(.15 * Math.sqrt(s.P) + .15 * s.E + .10 * Math.pow(s.C, .70) + .35 * s.Z + .05 * article.quality + .20 * Math.max(s.P, s.C));
 }
 
 export function LiveRankingDemo({ lang }: { lang: Lang }) {
