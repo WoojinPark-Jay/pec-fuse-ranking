@@ -1,4 +1,5 @@
 import { ComparisonAtlas } from "./components/comparison-atlas";
+import { LiveRankingDemo } from "./components/live-ranking-demo";
 
 type Lang = "ko" | "en";
 const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
@@ -41,6 +42,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <a href="#equations">{t("수식", "Equations")}</a>
       <a href="#model-lab">{t("모델", "Models")}</a>
       <a href="#atlas">{t("실험", "Experiments")}</a>
+      <a href="#live-demo">{t("데모", "Live demo")}</a>
       <a href="#reproduce">{t("재현", "Reproduce")}</a>
       <a href="#cite">{t("인용", "Cite")}</a>
     </nav>
@@ -48,6 +50,8 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <div id="tutorial">
       <ComparisonAtlas lang={lang} />
     </div>
+
+    <LiveRankingDemo lang={lang} />
 
     <section className="public-release" id="reproduce">
       <div className="public-section-label">REPRODUCE</div>
@@ -79,6 +83,11 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         <a href={`${repository}/issues`}>{t("질문 및 재현 이슈", "Questions and reproducibility issues")}</a>
       </aside>
     </section>
+
+    <a className="public-backtotop" href="#top" aria-label={t("맨 위로 이동", "Back to top")}>
+      <span aria-hidden="true">↑</span>
+      <b>{t("맨 위로", "Top")}</b>
+    </a>
 
     <footer className="public-footer">
       <span>PEC-Fuse · Version 0.1.0</span>
