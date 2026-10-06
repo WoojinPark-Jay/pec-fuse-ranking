@@ -16,6 +16,8 @@ type Persona = {
   recent: Localized[];
   profile: Record<Category, number>;
   history: Record<Category, number>;
+  publishers: { name: Localized; value: number }[];
+  recentMix: { category: Category; value: number }[];
   trace: string[];
 };
 
@@ -35,6 +37,19 @@ type Article = {
 };
 
 type Signals = { P: number; E: number; C: number; Z: number };
+
+const categoryLabels: Record<Category, Localized> = {
+  climate: { ko: "기후", en: "Climate" },
+  science: { ko: "과학·기술", en: "Science & tech" },
+  sports: { ko: "스포츠", en: "Sports" },
+  local: { ko: "지역·도시", en: "Local & cities" },
+  health: { ko: "건강", en: "Health" }
+};
+
+const topProfileCategories = (persona: Persona) =>
+  (Object.entries(persona.profile) as [Category, number][])
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3);
 
 const personas: Persona[] = [
   {
@@ -59,6 +74,12 @@ const personas: Persona[] = [
     ],
     profile: { climate: .96, science: .84, sports: .12, local: .38, health: .44 },
     history: { climate: .91, science: .79, sports: .18, local: .34, health: .41 },
+    publishers: [
+      { name: { ko: "사이언스와이어", en: "Science Wire" }, value: .82 },
+      { name: { ko: "도시일보", en: "Metro Chronicle" }, value: .74 },
+      { name: { ko: "테크스코프", en: "TechScope" }, value: .61 }
+    ],
+    recentMix: [{ category: "science", value: .43 }, { category: "climate", value: .42 }, { category: "local", value: .15 }],
     trace: ["battery", "climate"]
   },
   {
@@ -83,6 +104,12 @@ const personas: Persona[] = [
     ],
     profile: { climate: .31, science: .28, sports: .97, local: .88, health: .36 },
     history: { climate: .22, science: .31, sports: .94, local: .81, health: .29 },
+    publishers: [
+      { name: { ko: "매치리뷰", en: "Match Review" }, value: .93 },
+      { name: { ko: "시티저널", en: "City Journal" }, value: .79 },
+      { name: { ko: "도시일보", en: "Metro Chronicle" }, value: .42 }
+    ],
+    recentMix: [{ category: "sports", value: .54 }, { category: "local", value: .36 }, { category: "science", value: .10 }],
     trace: ["football", "transit"]
   },
   {
@@ -107,6 +134,12 @@ const personas: Persona[] = [
     ],
     profile: { climate: .42, science: .91, sports: .09, local: .32, health: .98 },
     history: { climate: .38, science: .88, sports: .12, local: .28, health: .93 },
+    publishers: [
+      { name: { ko: "에비던스랩", en: "Evidence Lab" }, value: .95 },
+      { name: { ko: "사이언스와이어", en: "Science Wire" }, value: .88 },
+      { name: { ko: "웰빙리포트", en: "Wellbeing Report" }, value: .76 }
+    ],
+    recentMix: [{ category: "health", value: .52 }, { category: "science", value: .39 }, { category: "climate", value: .09 }],
     trace: ["health", "science"]
   },
   {
@@ -131,6 +164,12 @@ const personas: Persona[] = [
     ],
     profile: { climate: .68, science: .95, sports: .18, local: .78, health: .39 },
     history: { climate: .61, science: .91, sports: .14, local: .73, health: .35 },
+    publishers: [
+      { name: { ko: "테크스코프", en: "TechScope" }, value: .94 },
+      { name: { ko: "시티저널", en: "City Journal" }, value: .77 },
+      { name: { ko: "사이언스와이어", en: "Science Wire" }, value: .72 }
+    ],
+    recentMix: [{ category: "science", value: .48 }, { category: "local", value: .29 }, { category: "climate", value: .23 }],
     trace: ["aiweather", "battery", "transit"]
   },
   {
@@ -155,6 +194,12 @@ const personas: Persona[] = [
     ],
     profile: { climate: .66, science: .69, sports: .46, local: .92, health: .78 },
     history: { climate: .59, science: .65, sports: .42, local: .89, health: .74 },
+    publishers: [
+      { name: { ko: "커먼그라운드", en: "Common Ground" }, value: .91 },
+      { name: { ko: "웰빙리포트", en: "Wellbeing Report" }, value: .82 },
+      { name: { ko: "시티저널", en: "City Journal" }, value: .78 }
+    ],
+    recentMix: [{ category: "local", value: .40 }, { category: "health", value: .32 }, { category: "science", value: .28 }],
     trace: ["housing", "sleep", "transit"]
   }
 ];
@@ -343,6 +388,31 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
         <div className="prd-recent">
           <b>{ko ? "최근 클릭한 기사" : "Recently clicked"}</b>
           {persona.recent.map((item, index) => <div key={item.en}><span>{index + 1}</span>{t(item)}</div>)}
+        </div>
+        <div className="prd-reader-signals" aria-label={ko ? "독자 선호 신호 요약" : "Reader preference signal summary"}>
+          <header>
+            <b>{ko ? "독자 신호 요약" : "Reader signal summary"}</b>
+            <small>{ko ? "합성 데모 · 클릭 확률 아님" : "Synthetic demo · not click probabilities"}</small>
+          </header>
+          <section className="prd-mini-chart">
+            <div><b>{ko ? "프로필 카테고리" : "Profile categories"}</b><small>{ko ? "상위 선호 가중치" : "Top affinity weights"}</small></div>
+            {topProfileCategories(persona).map(([category, value]) => <p key={category}>
+              <span>{t(categoryLabels[category])}</span><i><em style={{ width: `${value * 100}%` }} /></i><output>{Math.round(value * 100)}</output>
+            </p>)}
+          </section>
+          <section className="prd-mini-chart is-publisher">
+            <div><b>{ko ? "선호 매체" : "Publisher affinity"}</b><small>{ko ? "상위 매체 가중치" : "Top publisher weights"}</small></div>
+            {persona.publishers.map((publisher) => <p key={publisher.name.en}>
+              <span>{t(publisher.name)}</span><i><em style={{ width: `${publisher.value * 100}%` }} /></i><output>{Math.round(publisher.value * 100)}</output>
+            </p>)}
+          </section>
+          <section className="prd-click-mix">
+            <div><b>{ko ? "최근 클릭 구성" : "Recent click mix"}</b><small>{ko ? "최근 표본의 카테고리 비중" : "Category share in the recent sample"}</small></div>
+            <p aria-label={ko ? "최근 클릭 카테고리 분포" : "Recent click category distribution"}>
+              {persona.recentMix.map((item, index) => <i key={item.category} className={`is-tone-${index + 1}`} style={{ width: `${item.value * 100}%` }} />)}
+            </p>
+            <ul>{persona.recentMix.map((item, index) => <li key={item.category}><i className={`is-tone-${index + 1}`} />{t(categoryLabels[item.category])}<b>{Math.round(item.value * 100)}%</b></li>)}</ul>
+          </section>
         </div>
       </section>
 
