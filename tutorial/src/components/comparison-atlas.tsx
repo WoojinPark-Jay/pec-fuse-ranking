@@ -44,7 +44,10 @@ const enBlockLabels: Record<string, string> = {
   "B · 운영 control": "B · operational controls",
   "수식 scalar": "Rule-based scalar",
   "학습 scalar": "Learned scalar",
-  "H · 공통 context": "H · shared context",
+  "H · 공통 맥락": "H · shared context",
+  "C 요약": "C summaries",
+  "H · E+Z 맥락": "H · E+Z context",
+  "ψ 곱셈 항": "ψ interaction products",
   "남은 P–C products": "Remaining P–C products",
 };
 
