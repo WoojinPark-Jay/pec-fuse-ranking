@@ -47,9 +47,9 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="project-actions" aria-label="Project resources">
             <ExternalLink href={PAPER_URL} className="project-button">Paper</ExternalLink>
             <ExternalLink href={REPOSITORY_URL} className="project-button"><GitHubIcon />Code</ExternalLink>
-            <a className="project-button" href="/?view=tutorial&lang=en">Tutorial</a>
+            <a className="project-button" href="?view=tutorial&lang=en">Tutorial</a>
             <ExternalLink href={ARTIFACT_URL} className="project-button">Reproducibility artifact</ExternalLink>
-            <a className="project-button" href="/?view=tutorial&lang=en#live-demo">Live demo</a>
+            <a className="project-button" href="?view=tutorial&lang=en#live-demo">Live demo</a>
           </div>
         </section>
 
@@ -92,7 +92,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
                 <span className="example-c"><b>C</b><small>Mean · attention</small><strong>0.31 · 0.40</strong></span>
                 <span className="example-psi"><b>ψ</b><small>P × C mean</small><strong>0.254</strong></span>
               </div>
-              <a href="/?view=tutorial&lang=en#record">Explore the complete row →</a>
+              <a href="?view=tutorial&lang=en#record">Explore the complete row →</a>
             </div>
           </div>
 
@@ -137,7 +137,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="demo-copy">
             <p className="section-kicker">Interactive companion</p><h2>Trace how source-specific evidence changes a ranked list.</h2>
             <p>Select a synthetic reader and scorer, compare the resulting order, and inspect the P, E, C, and Z evidence behind each candidate score.</p>
-            <div className="demo-actions"><a className="project-button demo-cta" href="/?view=tutorial&lang=en#live-demo">Open live ranking demo <span aria-hidden="true">→</span></a></div>
+            <div className="demo-actions"><a className="project-button demo-cta" href="?view=tutorial&lang=en#live-demo">Open live ranking demo <span aria-hidden="true">→</span></a></div>
           </div>
           <figure className="demo-preview">
             <div className="preview-context">
