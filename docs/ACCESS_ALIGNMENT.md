@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v35, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the added equal-width Direct-versus-learned-5-D comparison.
+This release aligns the public artifact with IEEE Access manuscript revision v36, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the added equal-width Direct-versus-learned-5-D comparison.
 
 ## Equal-width comparison availability
 
