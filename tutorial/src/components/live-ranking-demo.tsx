@@ -499,17 +499,33 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           <div className="prd-winner"><span aria-hidden="true">{top.article.icon}</span><div><small>{ko ? "현재 1위 추천" : "Top recommendation"}</small><b>{t(top.article.title)}</b></div></div>
         </div>
       </header>
-      <div className="prd-ranking">
-        {ranked.map((item, index) => {
-          const active = selected.article.id === item.article.id;
-          return <button key={item.article.id} type="button" className={active ? "is-selected" : ""} aria-pressed={active} onClick={() => setSelectedId(item.article.id)}>
-            <span className="prd-rank">{index + 1}</span>
-            <span className="prd-rank-icon" aria-hidden="true">{item.article.icon}</span>
-            <span className="prd-rank-copy"><small>{t(item.article.section)}</small><b>{t(item.article.title)}</b></span>
-            <span className="prd-scorebar"><i style={{ width: `${Math.round(item.score * 100)}%` }} /></span>
-            <output>{item.score.toFixed(3)}</output>
-          </button>;
-        })}
+      <div className="prd-ranking-stage">
+        <div className="prd-ranking">
+          {ranked.map((item, index) => {
+            const active = selected.article.id === item.article.id;
+            return <button key={item.article.id} type="button" className={active ? "is-selected" : ""} aria-pressed={active} onClick={() => setSelectedId(item.article.id)}>
+              <span className="prd-rank">{index + 1}</span>
+              <span className="prd-rank-icon" aria-hidden="true">{item.article.icon}</span>
+              <span className="prd-rank-copy"><small>{t(item.article.section)}</small><b>{t(item.article.title)}</b></span>
+              <span className="prd-scorebar"><i style={{ width: `${Math.round(item.score * 100)}%` }} /></span>
+              <output>{item.score.toFixed(3)}</output>
+            </button>;
+          })}
+        </div>
+        <aside className="prd-reader-view" aria-label={ko ? "독자에게 보이는 추천 화면" : "Recommendation shown to the reader"}>
+          <div className="prd-reader-view-label"><small>READER VIEW</small><b>{ko ? "추천이 이렇게 전달됩니다" : "How the ranking reaches the reader"}</b></div>
+          <div className="prd-reader-view-flow">
+            <div className="prd-reader-badge"><span aria-hidden="true">{persona.avatar}</span><b>{t(persona.name)}</b><small>{ko ? "선택한 독자" : "Selected reader"}</small></div>
+            <i aria-hidden="true">→</i>
+            <div className="prd-demo-phone">
+              <header><b>PEC</b><span>{ko ? "맞춤 뉴스" : "For you"}</span></header>
+              {ranked.slice(0, 3).map((item, index) => <div key={item.article.id} className={index === 0 ? "is-top" : ""}>
+                <span aria-hidden="true">{item.article.icon}</span><p><small>#{index + 1} · {t(item.article.section)}</small><b>{t(item.article.title)}</b></p>
+              </div>)}
+            </div>
+          </div>
+          <p>{ko ? "왼쪽의 모델 점수가 실제 독자 화면의 기사 순서를 결정합니다." : "The model scores on the left determine the story order shown in the reader's feed."}</p>
+        </aside>
       </div>
       <aside className="prd-inspector">
         <div className="prd-inspector-title">
