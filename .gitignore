@@ -4,11 +4,16 @@ __pycache__/
 .pytest_cache/
 .venv/
 venv/
+node_modules/
 build/
 dist/
 *.egg-info/
+*.tsbuildinfo
 cache/
 outputs/
+access/figures/*.pdf
+access/figures/*.png
+access/figures/*.svg
 data/MINDsmall/
 data/private/
 data/raw/
