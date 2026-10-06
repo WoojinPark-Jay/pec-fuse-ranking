@@ -299,7 +299,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
       <div>
         <span className="public-section-label">LIVE RANKING DEMO</span>
         <h2 id="prd-title">{ko ? "독자 한 명의 뉴스 순위가 만들어지는 과정" : "Watch one reader's news ranking take shape"}</h2>
-        <p>{ko ? "독자와 모델을 바꾸면 같은 다섯 기사의 순위가 어떻게 달라지는지 확인할 수 있습니다. 기사 하나를 누르면 그 순위를 만든 입력 근거도 함께 표시됩니다." : "Switch the reader and scoring model to see the same five stories reorder. Select any story to inspect the evidence behind its score."}</p>
+        <p>{ko ? "독자와 모델을 바꾸면 같은 여덟 기사의 순위가 어떻게 달라지는지 확인할 수 있습니다. 기사 하나를 누르면 그 순위를 만든 입력 근거도 함께 표시됩니다." : "Switch the reader and scoring model to see the same eight stories reorder. Select any story to inspect the evidence behind its score."}</p>
       </div>
       <aside>
         <b>{ko ? "이 화면의 범위" : "What this demo is"}</b>
@@ -349,7 +349,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
       <section className="prd-candidates" aria-labelledby="prd-candidate-title">
         <div className="prd-panel-heading">
           <span>02</span>
-          <div><b id="prd-candidate-title">{ko ? "오늘의 후보 기사" : "Today's candidate stories"}</b><small>{ko ? "모든 모델에 동일한 후보 5개" : "The same five candidates for every model"}</small></div>
+          <div><b id="prd-candidate-title">{ko ? "오늘의 후보 기사" : "Today's candidate stories"}</b><small>{ko ? "모든 모델에 동일한 후보 8개" : "The same eight candidates for every model"}</small></div>
         </div>
         <div className="prd-news-grid">
           {articles.map((article) => {

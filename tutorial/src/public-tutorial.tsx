@@ -53,7 +53,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <div>
         <small>INTERACTIVE RECOMMENDATION DEMO</small>
         <b>{t("독자와 모델을 바꾸며 뉴스 순위를 직접 확인하세요", "Switch readers and models, then watch the news ranking change")}</b>
-        <p>{t("세 가지 독자 성향과 네 가지 모델을 조합하고, 각 추천 점수가 어떤 입력에서 나왔는지 살펴볼 수 있습니다.", "Combine three reader profiles with four scoring models and inspect the evidence behind every recommendation score.")}</p>
+        <p>{t("다섯 가지 독자 성향과 네 가지 모델을 조합하고, 각 추천 점수가 어떤 입력에서 나왔는지 살펴볼 수 있습니다.", "Combine five reader profiles with four scoring models and inspect the evidence behind every recommendation score.")}</p>
       </div>
       <a href="#live-demo"><span>{t("라이브 데모 시작", "Open live demo")}</span><i aria-hidden="true">↓</i></a>
     </aside>
