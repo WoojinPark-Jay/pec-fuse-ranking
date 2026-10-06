@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use PEC-Fuse software or the interactive tutorial, cite the repository version and commit. Publication details will be added after acceptance."
+title: "PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking"
+type: software
+version: 0.1.0
+date-released: 2026-10-06
+authors:
+  - family-names: Park
+    given-names: Woojin
+repository-code: "https://github.com/WoojinPark-Jay/pec-fuse-ranking"
+url: "https://woojinpark-jay.github.io/pec-fuse-ranking/"
+license: MIT
