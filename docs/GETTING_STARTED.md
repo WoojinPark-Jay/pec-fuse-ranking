@@ -4,7 +4,7 @@
 
 Follow the root [installation instructions](../README.md#quick-start), then run `python scripts/run_synthetic_demo.py` from the repository root.
 
-On GitHub, clone the repository or download its ZIP. On the anonymous artifact, choose **Download full repository as ZIP** in the file viewer, extract it, and open a terminal in the directory containing `pyproject.toml`, `README.md`, and `src/`. The archive's top-level folder name may differ from the GitHub repository name. You do not need to identify or access the original GitHub account. Never execute a clone command whose URL has become `XXXX`.
+On GitHub, clone the repository or download its ZIP. In the versioned review artifact, choose **Download full repository as ZIP** in the file viewer, extract it, and open a terminal in the directory containing `pyproject.toml`, `README.md`, and `src/`. The archive's top-level folder name may differ from the GitHub repository name. The artifact can be used directly without cloning GitHub. Never execute a clone command whose URL has become `XXXX`.
 
 | Stage | File | What happens |
 | --- | --- | --- |
@@ -26,7 +26,7 @@ No notebook is required for these commands. The editable installation makes `pec
 | Download | Command | Meaning of success |
 | --- | --- | --- |
 | Unchanged GitHub checkout or GitHub ZIP | `python scripts/check_access_aggregates.py` | Release-file hashes and the implemented schema/arithmetic checks pass. |
-| Anonymous artifact ZIP | `python scripts/check_access_aggregates.py --data-only` | Schema/arithmetic checks pass; file hashes are not checked. |
+| Versioned review artifact ZIP | `python scripts/check_access_aggregates.py --data-only` | Schema/arithmetic checks pass; file hashes are not checked. |
 
 The original SHA-256 manifest describes original file bytes. Anonymization may alter names and links, so those hashes need not match the anonymized download. Data-only mode explicitly prints `file_hash_verification: skipped` and `hashed_files: 0`; it is not an authenticity check and does not claim the ZIP is identical to the GitHub release. Default mode remains strict and never automatically falls back. Do not regenerate a manifest merely to make a modified download pass as the original.
 
@@ -57,6 +57,6 @@ CLI values control the MIND run; configuration documents are not automatically l
 | Encoder download failure | Check network access and the selected model's availability/terms. |
 | Hash mismatch after editing | Compare with a clean checkout of the same release; a locally changed file is no longer the distributed file. |
 | Hash mismatch in an intentionally anonymized ZIP | Use `--data-only` for schema/arithmetic checks, without claiming original-file integrity. |
-| Clone or dataset URL appears as `XXXX` | Download the anonymous repository ZIP; obtain MIND-small training/validation from the official Microsoft News Dataset website separately. |
+| Clone or dataset URL appears as `XXXX` | Download the versioned review artifact ZIP; obtain MIND-small training/validation from the official Microsoft News Dataset website separately. |
 
 Dependencies specify minimums, not a fully pinned historical environment. Library/model revisions may change numeric results. Keep downloaded data and local outputs in ignored directories; do not commit private rows.

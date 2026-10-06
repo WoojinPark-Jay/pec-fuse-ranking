@@ -12,7 +12,7 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
-**Anonymous review artifact:** [Browse or download the archived review snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Versioned review artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The snapshot corresponds to IEEE Access manuscript revision **v36**; this GitHub repository is the canonical, actively maintained source.
 
 ## Interactive tutorial: start here
 
@@ -43,7 +43,7 @@ Python 3.10 or newer is required. The synthetic example runs on CPU and needs no
 **Download using the route you are viewing.**
 
 - **GitHub:** clone the repository with the command below, or use GitHub's Code > Download ZIP.
-- **Anonymous artifact:** use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. No access to the original GitHub repository is required. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
+- **Versioned review artifact:** use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
 
 GitHub download only:
 
@@ -76,7 +76,7 @@ python scripts/check_access_aggregates.py
 
 This checks original release-file SHA-256 hashes, feature order, and selected aggregate arithmetic.
 
-**ZIP downloaded from the anonymous artifact:**
+**ZIP downloaded from the versioned review artifact:**
 
 ```bash
 python scripts/check_access_aggregates.py --data-only
