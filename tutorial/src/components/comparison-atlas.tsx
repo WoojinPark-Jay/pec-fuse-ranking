@@ -266,7 +266,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       </section>
 
       <section className="ca-section ca-atlas-section" id="atlas">
-        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "왼쪽 목록에서 비교 질문을 고르세요. 오른쪽에서 실제 점수, 입력 구조, 공통 조건, 달라진 요소, 해석 범위를 같은 순서로 확인할 수 있습니다." : "Choose a comparison question on the left. The right panel shows observed scores, input structures, shared conditions, the changed element, and the interpretation boundary in that order."}</p></div>
+        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "왼쪽에서 비교 질문을 고른 뒤, 오른쪽을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a comparison question on the left, then read the right panel from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
         <ComparisonReadingGuide lang={lang} />
         <div className="ca-atlas-layout">
           <aside className="ca-selector" aria-label={isKo ? "비교 목록" : "Comparison list"}>
@@ -275,15 +275,29 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div className="ca-comparison-stage" aria-live="polite">
             <header><span>{active.number} · {active.group}</span><h3>{active.title}</h3><p>{active.short}</p></header>
             <div className="ca-plain-guide"><span>{isKo ? "한마디로 말하면" : "In plain language"}</span><p>{(isKo ? plainKo : plainEn)[active.id]}</p></div>
-            <ComparisonEvidence key={active.id} lang={lang} comparisonId={active.id} />
-            <div className="ca-model-pair">
-              <section><div className="ca-model-title"><span>{isKo ? "비교 기준" : "Reference"}</span><b>{left.name}</b><strong>{left.width}D</strong></div><Matrix width={left.width} side="left" /><VectorBar model={left} /><p>{left.note}</p></section>
-              <div className="ca-versus">VS</div>
-              <section><div className="ca-model-title"><span>{isKo ? "비교 대상" : "Compared model"}</span><b>{right.name}</b><strong>{right.width}D</strong></div><Matrix width={right.width} side="right" /><VectorBar model={right} /><p>{right.note}</p></section>
+            <div className="ca-comparison-flow">
+              <div className="ca-flow-step is-input">
+                <div className="ca-flow-label"><b>01</b><div><span>{isKo ? "먼저, 입력 구조를 비교하세요" : "Start with the input structure"}</span><p>{isKo ? "같은 후보 기사 한 행이 두 모델에서 어떤 숫자 블록으로 표현되는지 봅니다." : "See how the same candidate article is represented as numeric blocks in each model."}</p></div></div>
+                <div className="ca-model-pair">
+                  <section><div className="ca-model-title"><span>{isKo ? "비교 기준" : "Reference"}</span><b>{left.name}</b><strong>{left.width}D</strong></div><Matrix width={left.width} side="left" /><VectorBar model={left} /><p>{left.note}</p></section>
+                  <div className="ca-versus">VS</div>
+                  <section><div className="ca-model-title"><span>{isKo ? "비교 대상" : "Compared model"}</span><b>{right.name}</b><strong>{right.width}D</strong></div><Matrix width={right.width} side="right" /><VectorBar model={right} /><p>{right.note}</p></section>
+                </div>
+                <p className="ca-matrix-key">{isKo ? "행렬 읽는 법 · 작은 사각형의 한 줄은 후보 기사 하나, 세로 열 하나는 입력 특성 하나입니다. 여기서는 모양을 보여 주기 위해 후보 6개만 그렸으며 실제 후보 수는 query마다 달라집니다. 19-D는 후보마다 숫자 19개를 모델에 준다는 뜻입니다." : "How to read the matrices · One horizontal row represents one candidate article; one vertical column is one input feature. Six rows are drawn only to show shape. Actual candidate counts vary by query. A 19-D input means nineteen numbers per candidate."}</p>
+              </div>
+              <div className="ca-flow-step is-result">
+                <div className="ca-flow-label"><b>02</b><div><span>{isKo ? "다음, 점수와 불확실성을 확인하세요" : "Then inspect scores and uncertainty"}</span><p>{isKo ? "두 입력 구조가 만든 NDCG@10을 비교하고, 차이의 신뢰구간이 0을 지나는지 확인합니다." : "Compare the NDCG@10 produced by the two structures, then check whether the confidence interval crosses zero."}</p></div></div>
+                <ComparisonEvidence key={active.id} lang={lang} comparisonId={active.id} />
+              </div>
+              <div className="ca-flow-step is-detail">
+                <div className="ca-flow-label"><b>03</b><div><span>{isKo ? "필요하면 후보 한 행까지 내려가 보세요" : "Drill down to one candidate row"}</span><p>{isKo ? "블록 안의 각 숫자가 어디에서 왔고 실제 모델 입력에서 어떻게 보이는지 확인합니다." : "Inspect where each value comes from and how it appears in the actual model input."}</p></div></div>
+                <ComparisonDataPreview lang={lang} comparisonId={active.id} leftId={left.id} leftName={left.name} rightId={right.id} rightName={right.name} />
+              </div>
+              <div className="ca-flow-step is-protocol">
+                <div className="ca-flow-label"><b>04</b><div><span>{isKo ? "마지막으로 비교 조건을 점검하세요" : "Finally, verify the comparison design"}</span><p>{isKo ? "무엇을 같게 두고 무엇만 바꿨는지 확인한 뒤 결과의 해석 범위를 정합니다." : "Confirm what stayed fixed and what changed before interpreting the result."}</p></div></div>
+                <ComparisonProtocol lang={lang} item={active} />
+              </div>
             </div>
-            <p className="ca-matrix-key">{isKo ? "행렬 읽는 법 · 작은 사각형의 한 줄은 후보 기사 하나, 세로 열 하나는 입력 특성 하나입니다. 여기서는 모양을 보여 주기 위해 후보 6개만 그렸으며 실제 후보 수는 query마다 달라집니다. 19-D는 후보마다 숫자 19개를 모델에 준다는 뜻입니다." : "How to read the matrices · One horizontal row represents one candidate article; one vertical column is one input feature. Six rows are drawn only to show shape. Actual candidate counts vary by query. A 19-D input means nineteen numbers per candidate."}</p>
-            <ComparisonDataPreview lang={lang} comparisonId={active.id} leftId={left.id} leftName={left.name} rightId={right.id} rightName={right.name} />
-            <ComparisonProtocol lang={lang} item={active} />
           </div>
         </div>
       </section>
