@@ -39,9 +39,9 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <p className="affiliation-line">SaVAnNA Lab · Department of Industrial and Management Engineering · Korea University</p>
 
           <div className="institution-logos" aria-label="Research institution and operational data source">
-            <div className="institution-logo ku-logo"><img src="/korea-university-crest.png" alt="Korea University" /></div>
+            <div className="institution-logo ku-logo"><img src="./korea-university-crest.png" alt="Korea University" /></div>
             <span className="logo-divider" aria-hidden="true" />
-            <div className="institution-logo insightea-logo"><img src="/insightea-wordmark.png" alt="insightea" /></div>
+            <div className="institution-logo insightea-logo"><img src="./insightea-wordmark.png" alt="insightea" /></div>
           </div>
 
           <div className="project-actions" aria-label="Project resources">
@@ -68,7 +68,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <img src="/paper-architecture.png" alt="PEC-Fuse architecture from the manuscript" />
+            <img src="./paper-architecture.png" alt="PEC-Fuse architecture from the manuscript" />
             <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.</figcaption>
           </figure>
 
@@ -100,7 +100,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="/paper-algorithm-1.png" alt="Algorithm 1: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png" alt="Algorithm 1: Retrospective candidate construction and PEC ranking" /></figure>
         </section>
 
         <section className="paper-section results-section" id="results">
