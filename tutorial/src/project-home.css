@@ -216,11 +216,11 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
   background: #fff;
   color: var(--ink);
 }
-.demo-heading { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 42px; align-items: end; }
+.demo-heading { display: grid; grid-template-columns: minmax(0,1fr); gap: 15px; align-items: start; }
 .demo-copy .section-kicker { margin-bottom: 11px; color: var(--muted); }
 .demo-section h2 { max-width: 620px; font-size: clamp(25px, 2.7vw, 30px); line-height: 1.16; }
 .demo-section p:not(.section-kicker) { max-width: 660px; margin: 13px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.demo-link { display: inline-block; margin-bottom: 2px; border-bottom: 1px solid #aaa49b; color: var(--ink); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.demo-link { display: inline-block; justify-self: start; border-bottom: 1px solid rgba(143,22,33,.55); color: var(--ku-crimson); font-size: 13px; font-weight: 750; letter-spacing: .01em; text-decoration: none; white-space: nowrap; }
 .demo-link:hover { border-color: var(--ku-crimson); color: var(--ku-crimson); }
 .demo-preview { width: 100%; max-width: 820px; margin: 26px auto 0; border: 1px solid #d5d1ca; background: #fff; }
 .demo-preview, .demo-preview * { font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
