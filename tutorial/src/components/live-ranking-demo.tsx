@@ -85,7 +85,7 @@ const personas: Persona[] = [
   {
     id: "jun",
     avatar: "🧑🏽‍💼",
-    name: { ko: "준", en: "Jun" },
+    name: { ko: "진", en: "Jin" },
     role: { ko: "스포츠·지역 소식 독자", en: "Sports and local-news reader" },
     summary: {
       ko: "출퇴근 시간에는 지역 소식을, 저녁에는 경기 분석과 팀 뉴스를 주로 읽습니다.",
@@ -115,7 +115,7 @@ const personas: Persona[] = [
   {
     id: "sora",
     avatar: "👩🏻‍⚕️",
-    name: { ko: "소라", en: "Sora" },
+    name: { ko: "엘리", en: "Ellie" },
     role: { ko: "건강·연구 뉴스 독자", en: "Health and research reader" },
     summary: {
       ko: "의학 연구와 검증된 과학 보도를 선호하며, 속보보다 설명이 충분한 기사를 오래 읽습니다.",
@@ -175,7 +175,7 @@ const personas: Persona[] = [
   {
     id: "nari",
     avatar: "👩🏽‍🏫",
-    name: { ko: "나리", en: "Nari" },
+    name: { ko: "서현", en: "Seohyun" },
     role: { ko: "생활·시사 종합 독자", en: "General current-affairs reader" },
     summary: {
       ko: "지역 정책과 건강, 과학을 고르게 읽으며 생활에 직접 영향을 주는 기사를 저장합니다.",
