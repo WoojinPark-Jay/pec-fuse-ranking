@@ -181,10 +181,10 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div className="ca-demo-visual" aria-hidden="true"><span>👩🏻‍🔬</span><span>🧑🏽‍💼</span><span>👩🏻‍⚕️</span><i>→</i><strong>📱</strong></div>
           <div className="ca-demo-copy">
             <div><span>LIVE</span><small>INTERACTIVE RANKING DEMO</small></div>
-            <b>{isKo ? "설명을 읽기 전에, 추천 결과를 직접 바꿔보세요" : "Change the recommendation before reading the details"}</b>
-            <p>{isKo ? "다섯 독자와 네 모델을 선택하고, 여덟 기사의 순위와 점수 근거가 어떻게 달라지는지 바로 확인할 수 있습니다." : "Choose among five readers and four models, then inspect how eight stories reorder and why each score changes."}</p>
+            <b>{isKo ? "세부 내용을 읽기 전에, 전체 흐름부터 살펴보세요" : "See the whole picture before the details"}</b>
+            <p>{isKo ? "저자의 팁: 독자와 모델을 하나씩 바꿔 보면 입력 근거가 추천 순위로 이어지는 과정을 먼저 한눈에 파악할 수 있어, 뒤의 특성과 수식을 따라가기가 한결 쉬워집니다." : "Author's tip: try one reader and one model first. Seeing how evidence becomes a ranked list will make the later feature and equation walkthrough easier to follow."}</p>
           </div>
-          <span className="ca-demo-action">{isKo ? "데모 열기" : "Open demo"}<i aria-hidden="true">→</i></span>
+          <span className="ca-demo-action">{isKo ? "간단히 체험하기" : "Take a quick tour"}<i aria-hidden="true">→</i></span>
         </a>
       </header>
 
