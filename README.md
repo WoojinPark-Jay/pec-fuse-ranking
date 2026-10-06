@@ -4,19 +4,19 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Try the live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo) | [Anonymous review artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/) | [Quick start](README.md#quick-start) | [Reproducibility](docs/REPRODUCIBILITY.md)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v37.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
 > [!TIP]
-> **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo).**
+> **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
 > Select a reader and scoring model, inspect the resulting news ranking, and trace a candidate score back to its profile, retained-trace, prior-consumption, and control signals. No installation or data upload is required.
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
-**Versioned review artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The snapshot corresponds to IEEE Access manuscript revision **v36**; this GitHub repository is the canonical, actively maintained source.
+**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The snapshot corresponds to IEEE Access manuscript revision **v37**; this GitHub repository is the canonical, actively maintained source.
 
 ## Interactive tutorial: start here
 
-The public [PEC-Fuse interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the recommended visual introduction to the project. It connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
+The public [PEC-Fuse project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the canonical entry point for the paper, code, tutorial, live demo, and reproducibility artifact. The [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
 
 ## Method at a glance
 
@@ -105,7 +105,7 @@ Both modes report `status: passed` only for their stated scope. Neither re-runs 
 
 ## Results and paper mapping
 
-This release is aligned with manuscript revision **v36**. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+This release is aligned with manuscript revision **v37**. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |
