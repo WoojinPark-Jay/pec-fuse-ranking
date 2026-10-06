@@ -177,8 +177,8 @@
     "tutorial/src/main.tsx": "ac1d910a57cc5a3dd3edea12b8270435a2295287f0b57983f3b485a1f53fcc3d",
     "tutorial/src/project-home.css": "dbfa0fa423ef8f0125b3fe361bccc6deafb10ee3862916bdeb64feb2b7806199",
     "tutorial/src/project-home.tsx": "a3e9c36f36fca3d600f7ac320b97eb76907ad685dcb4ac259a0869e7594e3cef",
-    "tutorial/src/public-tutorial.tsx": "c8dd987da055339d8aa6bd80459df4d413de93ee5d0a9a6767d6fe0cb2815339",
-    "tutorial/src/public.css": "e3b2c1652a31e6c156d462f85f8032e6735730c76e2c1532339e3e3680f2763e",
+    "tutorial/src/public-tutorial.tsx": "e956f9e236c843a745bf04624cc9699ef20ffd6c1e99239f34e2b771034691db",
+    "tutorial/src/public.css": "ebf1807b633c07cbc96973ac83536dc5d8dbac9f09d6f7f1568d895989a62add",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   }
