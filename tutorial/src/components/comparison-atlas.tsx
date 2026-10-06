@@ -308,7 +308,6 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <p><b>Paired difference</b>{isKo ? "같은 query에서 두 모델의 metric을 빼서 얻은 차이입니다." : "The metric difference between two models evaluated on the same query."}</p>
           <p><b>CI</b>{isKo ? "사용자 단위 bootstrap으로 구한 차이의 불확실성 범위입니다. 0을 포함하면 방향이 확실하지 않습니다." : "An uncertainty interval for the difference from user-cluster bootstrap. Including zero means the direction is unresolved."}</p>
         </div></details>
-        <div><a href={isKo ? "/notes/pec-fuse" : "/notes/pec-fuse/en"}>{isKo ? "수식과 알고리즘을 자세히 읽기" : "Read the full math and algorithm notes"}</a><a href="/notes/pec-fuse/paper">{isKo ? "논문을 처음부터 끝까지 읽기" : "Read the full paper commentary"}</a></div>
       </footer>
     </article>
   </main>;
