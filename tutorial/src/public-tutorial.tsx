@@ -84,6 +84,11 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       </aside>
     </section>
 
+    <a className="public-backtotop" href="#top" aria-label={t("맨 위로 이동", "Back to top")}>
+      <span aria-hidden="true">↑</span>
+      <b>{t("맨 위로", "Top")}</b>
+    </a>
+
     <footer className="public-footer">
       <span>PEC-Fuse · Version 0.1.0</span>
       <span>{t("모든 계산 예시는 교육용 합성 데이터입니다.", "All calculation examples use synthetic teaching data.")}</span>
