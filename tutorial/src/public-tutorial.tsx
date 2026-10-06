@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
 
@@ -7,6 +8,35 @@ const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 export function PublicTutorial({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const t = (a: string, b: string) => ko ? a : b;
+
+  useEffect(() => {
+    let settleTimer = 0;
+
+    const alignHashTarget = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      const toc = document.querySelector<HTMLElement>(".public-toc");
+      const offset = (toc?.getBoundingClientRect().height ?? 0) + 12;
+      const top = window.scrollY + target.getBoundingClientRect().top - offset;
+      window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+    };
+
+    const alignAfterRender = () => {
+      window.requestAnimationFrame(() => window.requestAnimationFrame(alignHashTarget));
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(alignHashTarget, 350);
+    };
+
+    alignAfterRender();
+    document.fonts?.ready.then(alignHashTarget);
+    window.addEventListener("hashchange", alignAfterRender);
+    return () => {
+      window.clearTimeout(settleTimer);
+      window.removeEventListener("hashchange", alignAfterRender);
+    };
+  }, []);
 
   return <>
     <a className="public-skip" href="#tutorial">{t("본문으로 건너뛰기", "Skip to tutorial")}</a>
