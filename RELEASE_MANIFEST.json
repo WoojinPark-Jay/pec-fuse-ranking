@@ -168,7 +168,7 @@
     "tutorial/src/components/data-microscope.tsx": "c6f312d020c37c0d0229c781136f1a2e472fb8bf4f1e3b8415ef0e1f36a4ab68",
     "tutorial/src/components/equation-walkthrough.css": "24bf05d750108d916386bd3fbb7f835ecaaa9650733295e007abcacee43ce4e0",
     "tutorial/src/components/equation-walkthrough.tsx": "399b3969aa228040f89fc8457728b4a99ec0e65cf240de493a2caa3bddce12ab",
-    "tutorial/src/components/live-ranking-demo.tsx": "4a6beffe6a8d0658efc0fd483de386afd6505ed7a19cfbae7fbeb6eaa6c8c469",
+    "tutorial/src/components/live-ranking-demo.tsx": "e1c44e6233b4f1457f68d86399533d817dc43fa0ee8398f438d89fc4a23ddcc8",
     "tutorial/src/components/model-learning-lab.css": "72cb6ace5ac6ff2dad82bcb202e04ff45d6bb19296de6e0ac82469a78a955543",
     "tutorial/src/components/model-learning-lab.tsx": "c86b21a140ad0ec58945440ca8aede8359306936fa39c69fc80ca9c01b3d5643",
     "tutorial/src/components/model-reading-guide.css": "abc0e1c7f885434c7efa491248a1f1248e7d7eed0cd823024507b6b4d318f9fe",
@@ -178,7 +178,7 @@
     "tutorial/src/project-home.css": "47b3eb9185e1a4d96b6a096cbeef4bacf67146d8e138e06a7645232298e5d9b6",
     "tutorial/src/project-home.tsx": "7aef949631a38eb317689750a86cbbcae59aaff5289692f7ff6cc84845fac84c",
     "tutorial/src/public-tutorial.tsx": "b93aea5e776ad9cc17f0490ad1eaea02d289d9e35f7eee08a5018c7e1baa7bee",
-    "tutorial/src/public.css": "547d4b8527bce1ebe13d3f4eb240d643efd78b16cbad69ce355fea2520d2e905",
+    "tutorial/src/public.css": "fe91a71101ce67487e3848d0d424aff7786363c5503b69fdbb0d54b949f4146c",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   }

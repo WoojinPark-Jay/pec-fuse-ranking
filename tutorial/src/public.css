@@ -317,3 +317,66 @@ html[lang="en"] .public-repro-copy-en {
     gap: 0.35rem;
   }
 }
+/* Explicit affordance for the live-demo model selector. */
+.prd-output-models > .prd-model-switch-label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  color: #5d4d47;
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: .04em;
+}
+.prd-output-models > .prd-model-switch-label b {
+  color: var(--ku-crimson);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.prd-output-models > .prd-model-switch-label span {
+  color: #687477;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.prd-output-models > .prd-model-switch-label i {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #c8bcb7;
+  border-radius: 50%;
+  color: var(--ku-crimson);
+  background: #fff;
+  font: 700 12px/1 Georgia, serif;
+}
+.prd-output-models > div > button {
+  cursor: pointer;
+}
+.prd-output-models > div > button:hover,
+.prd-output-models > div > button:focus-visible {
+  border-color: var(--ku-crimson);
+  background: #fff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(143, 22, 33, .10);
+}
+.prd-output-models > div > button em {
+  display: block;
+  margin-top: 4px;
+  color: #817873;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 650;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.prd-output-models > div > button[aria-pressed="true"] em {
+  color: var(--ku-crimson);
+}
+@media(max-width:520px) {
+  .prd-output-models > .prd-model-switch-label { grid-template-columns: 1fr auto; }
+  .prd-output-models > .prd-model-switch-label span { grid-column: 1 / -1; grid-row: 2; }
+  .prd-output-models > .prd-model-switch-label i { grid-column: 2; grid-row: 1; }
+}
