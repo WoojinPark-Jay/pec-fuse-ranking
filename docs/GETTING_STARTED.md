@@ -19,6 +19,24 @@ The printed `pec_fuse_score` is a model output, not an input feature or a calibr
 
 No notebook is required for these commands. The editable installation makes `pec_fuse` importable in the active Python environment. If a notebook cannot import it, use the same environment as its kernel rather than moving individual `.py` files into the notebook folder.
 
+### Run the candidate-aware neural reference
+
+Install the optional PyTorch dependency and run the synthetic neural command:
+
+```bash
+python -m pip install -e '.[neural]'
+python scripts/run_synthetic_neural.py
+```
+
+| Stage | File | What happens |
+| --- | --- | --- |
+| Generate | `scripts/run_synthetic_neural.py` | Creates synthetic article embeddings, padded histories, query groups, control fields, PEC fields, and one positive label per query. |
+| Define | `src/pec_fuse/neural.py` | Projects frozen input embeddings, self-attends over history, pools history for each candidate, and forms candidate/user interaction records. |
+| Fit | `src/pec_fuse/neural.py` | Minimizes query-wise listwise cross-entropy with AdamW, backpropagation, and gradient clipping. |
+| Compare | `scripts/run_synthetic_neural.py` | Fits matched neural-control and neural-PEC variants, then prints losses and ranking metrics. |
+
+The command is a CPU-scale implementation check. It does not load operational records, BGE-M3 weights, private embeddings, or fitted manuscript parameters, and its metrics are not paper results.
+
 ## 2. Separate demonstration results from paper results
 
 `python scripts/render_access_summary.py` reads stored CSVs without training models. The aggregate checker has two explicit scopes:
@@ -52,6 +70,7 @@ CLI values control the MIND run; configuration documents are not automatically l
 | --- | --- |
 | `No module named pec_fuse` | Activate the intended environment and run `python -m pip install -e .` from the root. |
 | Missing `sentence_transformers` | Install `python -m pip install -e '.[mind]'`. |
+| Missing `torch` for the neural example | Install `python -m pip install -e '.[neural]'`. |
 | Missing plotting dependencies | Install `python -m pip install -e '.[figures]'`. |
 | Missing TSV files | Check `news.tsv` and `behaviors.tsv` in both `train/` and `dev/` under `--mind-root`. |
 | Encoder download failure | Check network access and the selected model's availability/terms. |

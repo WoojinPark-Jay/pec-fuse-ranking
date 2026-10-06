@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "embedding_dim": 24,
+  "max_history": 8,
+  "candidates_per_query": 6,
+  "train_queries": 48,
+  "test_queries": 12,
+  "variants": {
+    "control_side_dim": 11,
+    "pec_side_dim": 25
+  },
+  "model": {
+    "hidden_dim": 32,
+    "num_heads": 4,
+    "dropout": 0.05
+  },
+  "training": {
+    "max_epochs": 30,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 5.0
+  }
+}

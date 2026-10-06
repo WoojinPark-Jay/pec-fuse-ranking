@@ -66,6 +66,15 @@ On Windows PowerShell, activate with `.venv\Scripts\Activate.ps1` instead. Run s
 
 The example reads [synthetic candidate inputs](examples/synthetic/candidate_inputs.csv), constructs ordered features, fits the operational control and Complete PEC, and prints candidate IDs, labels, scores, ranks, and NDCG@10/Recall@10/MRR. Some semantic summaries are supplied in the fixture; this example does not encode raw article text. Its small illustrative scores are not manuscript results.
 
+The candidate-aware neural architecture and its query-wise training loop are also executable on generated, non-private inputs:
+
+```bash
+python -m pip install -e '.[neural]'
+python scripts/run_synthetic_neural.py
+```
+
+This command trains matched neural-control and neural-PEC variants from scratch on synthetic embeddings and side features. It exercises history self-attention, candidate-conditioned pooling, the candidate/user interaction record, listwise loss, backpropagation, gradient clipping, scoring, and within-query evaluation. It does **not** download BGE-M3, expose operational rows, load a manuscript checkpoint, or reproduce the reported private-platform scores. See the [neural audit guide](docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md).
+
 To inspect released results without retraining, run `python scripts/render_access_summary.py`. Choose the appropriate check for your download:
 
 **Unchanged GitHub checkout or GitHub ZIP:**
@@ -140,8 +149,8 @@ This regenerates the protocol, aggregate plots, and synthetic feature example un
 
 | Path | Role |
 | --- | --- |
-| `src/pec_fuse/` | Feature construction, scorer, metrics, bootstrap, MIND proxy, tie-order utilities |
-| `scripts/` | Synthetic demo, MIND run, aggregate checker, result summary |
+| `src/pec_fuse/` | Feature construction, ExtraTrees and candidate-aware neural scorers, metrics, bootstrap, MIND proxy, tie-order utilities |
+| `scripts/` | ExtraTrees and neural synthetic demos, MIND run, aggregate checker, result summary |
 | `examples/synthetic/` | Non-private example rows |
 | `configs/` | Demo settings and documented audit/proxy configurations |
 | `tutorial/` | Source for the bilingual interactive paper tutorial |
@@ -152,7 +161,7 @@ This regenerates the protocol, aggregate plots, and synthetic feature example un
 
 ## Reproducibility and data access
 
-The release includes executable synthetic and MIND examples, feature/evaluation code, configurations, aggregate results, and table/figure sources. Private operational rows, per-query predictions, embeddings, and fitted private models are not distributed. The public commands therefore demonstrate the implementation and inspect reported evidence, but cannot regenerate private-platform scores from raw data. [Reproducibility scope](docs/REPRODUCIBILITY.md) | [Data availability](docs/DATA_AVAILABILITY.md)
+The release includes executable ExtraTrees and candidate-aware neural synthetic examples, a public MIND boundary study, feature/evaluation code, configurations, aggregate results, and table/figure sources. Private operational rows, per-query predictions, embeddings, and fitted private models are not distributed. The public commands therefore demonstrate the model definitions and learning procedures and inspect reported evidence, but cannot regenerate private-platform scores from raw data. [Reproducibility scope](docs/REPRODUCIBILITY.md) | [Data availability](docs/DATA_AVAILABILITY.md)
 
 ## License, citation, and questions
 
