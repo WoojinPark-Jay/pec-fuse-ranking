@@ -161,7 +161,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
     <article className="ca-shell">
       <header className="ca-intro">
         <p className="ca-kicker">PEC-FUSE · INTERACTIVE PAPER COMPANION</p>
-        <h1>{isKo ? "PEC-Fuse, 단계별로 살펴보기" : "PEC-Fuse, step by step"}</h1>
+        <h1 className={isKo ? "is-ko" : "is-en"}>{isKo ? "PEC-Fuse, 단계별로 살펴보기" : "PEC-Fuse, step by step"}</h1>
         <p className="ca-deck">{isKo ? "한 사용자와 날짜를 하나의 질의로 정의하고, 기사 후보를 구성하는 단계부터 시작합니다. 이후 각 특성의 출처와 계산 과정, 학습되는 요소, 실험에서 달라지는 조건을 차례로 확인합니다." : "Start with a single user-date query and build its candidate set. Then trace each feature to its source, separate computed quantities from learned components, and identify the condition changed in every experiment."}</p>
         <div className="ca-route"><a href="#microscope">0 · {isKo ? "데이터 살펴보기" : "Inspect the data"}</a><span>→</span><a href="#final-demo">{isKo ? "전체 순위 과정" : "Follow the ranking"}</a><span>→</span><a href="#row">1 · {isKo ? "후보 행 구성" : "Build candidate rows"}</a><span>→</span><a href="#record">2 · {isKo ? "특성 계산" : "Compute features"}</a><span>→</span><a href="#learn">3 · {isKo ? "모델 학습" : "Fit the model"}</a><span>→</span><a href="#atlas">4 · {isKo ? "실험 비교" : "Compare experiments"}</a></div>
         <div className="ca-first-read">

@@ -10,6 +10,7 @@
 .ca-intro { max-width:860px; padding-bottom:44px; }
 .ca-kicker,.ca-heading>span,.ca-comparison-stage>header>span { font:11px "SFMono-Regular",Consolas,monospace; letter-spacing:.12em; color:var(--muted); }
 .ca-intro h1 { margin:14px 0 18px; font:500 clamp(36px,4.5vw,54px)/1.08 "Iowan Old Style","Palatino Linotype",Georgia,serif; letter-spacing:-.035em; }
+.ca-intro h1.is-ko { font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo",sans-serif; font-weight:720; line-height:1.18; letter-spacing:-.045em; }
 .ca-intro h1 span { display:block; color:#566168; }
 .ca-deck { max-width:800px; margin:0; font-size:18px; color:#536067; }
 .ca-route { display:flex; align-items:center; flex-wrap:wrap; gap:11px; margin-top:28px; font-size:13px; color:#51626b; }
