@@ -108,7 +108,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <aside>
         <span>{t("저자", "AUTHOR")}</span>
         <h3>Woojin Park</h3>
-        <p>{t("PEC-Fuse 연구, 공개 소프트웨어 및 튜토리얼", "PEC-Fuse research, open-source software, and tutorial")}</p>
+        <p>{t("PEC-Fuse 저자", "PEC-Fuse author")}</p>
         <a href="https://github.com/WoojinPark-Jay">GitHub profile</a>
         <a href={`${repository}/issues`}>{t("질문 및 재현 이슈", "Questions and reproducibility issues")}</a>
       </aside>
