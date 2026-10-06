@@ -21,6 +21,7 @@ a { color:inherit; }
 .public-language a[aria-current="page"] { color:#173744; background:#f2f7f8; }
 .public-language a:hover,.public-language a:focus-visible { color:#173744; background:#dcecf1; }
 .public-paper-meta { max-width:1500px; margin:auto; padding:9px 34px 11px; border-top:1px solid #395967; display:flex; flex-wrap:wrap; gap:9px 24px; color:#bad4dc; font:12px/1.5 "SFMono-Regular",Consolas,monospace; letter-spacing:.03em; }
+.public-paper-meta a { color:#d7e8ed; text-decoration:none; border-bottom:1px solid #63808b; }.public-paper-meta a:hover,.public-paper-meta a:focus-visible { color:#fff; border-color:#9fd4e2; }
 .public-toc { position:sticky; top:0; z-index:30; display:flex; justify-content:center; gap:2px; overflow-x:auto; padding:8px 16px; background:rgba(249,251,250,.96); border-bottom:1px solid #aebfc5; backdrop-filter:blur(10px); }
 .public-toc a { flex:none; padding:8px 13px; text-decoration:none; color:#294d5c; font-size:14px; font-weight:700; }.public-toc a:hover,.public-toc a:focus-visible { background:#e1eff3; }
 #tutorial .ca-topbar { display:none; }
