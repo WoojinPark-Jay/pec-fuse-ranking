@@ -29,7 +29,7 @@ type Article = {
   popularity: number;
   recency: number;
   quality: number;
-  source: string;
+  source: Localized;
   published: string;
   readTime: number;
 };
@@ -108,6 +108,54 @@ const personas: Persona[] = [
     profile: { climate: .42, science: .91, sports: .09, local: .32, health: .98 },
     history: { climate: .38, science: .88, sports: .12, local: .28, health: .93 },
     trace: ["health", "science"]
+  },
+  {
+    id: "taeo",
+    avatar: "🧑🏻‍💻",
+    name: { ko: "태오", en: "Taeo" },
+    role: { ko: "기술·도시 변화 독자", en: "Technology and cities reader" },
+    summary: {
+      ko: "새 기술이 교통, 에너지와 일상에 미치는 영향을 다룬 분석 기사를 자주 읽습니다.",
+      en: "Often reads analysis of how new technology changes transport, energy, and everyday life."
+    },
+    moment: { ko: "점심시간 · 노트북에서 주요 기사 확인", en: "Lunch break · scanning key stories on a laptop" },
+    interests: [
+      { ko: "인공지능", en: "Artificial intelligence" },
+      { ko: "도시 기술", en: "Urban technology" },
+      { ko: "에너지", en: "Energy" }
+    ],
+    recent: [
+      { ko: "AI 기상예측", en: "AI weather forecasting" },
+      { ko: "스마트 교통망", en: "Smart transit networks" },
+      { ko: "전력망 혁신", en: "Power-grid innovation" }
+    ],
+    profile: { climate: .68, science: .95, sports: .18, local: .78, health: .39 },
+    history: { climate: .61, science: .91, sports: .14, local: .73, health: .35 },
+    trace: ["aiweather", "battery", "transit"]
+  },
+  {
+    id: "nari",
+    avatar: "👩🏽‍🏫",
+    name: { ko: "나리", en: "Nari" },
+    role: { ko: "생활·시사 종합 독자", en: "General current-affairs reader" },
+    summary: {
+      ko: "지역 정책과 건강, 과학을 고르게 읽으며 생활에 직접 영향을 주는 기사를 저장합니다.",
+      en: "Reads broadly across local policy, health, and science, saving stories with practical impact."
+    },
+    moment: { ko: "저녁 · 휴대폰으로 저장 기사 탐색", en: "Evening · revisiting saved stories on mobile" },
+    interests: [
+      { ko: "생활 정책", en: "Everyday policy" },
+      { ko: "건강", en: "Health" },
+      { ko: "지역 사회", en: "Community" }
+    ],
+    recent: [
+      { ko: "공공주택 변화", en: "Public-housing changes" },
+      { ko: "수면 연구", en: "Sleep research" },
+      { ko: "지역 예산안", en: "Local budget proposal" }
+    ],
+    profile: { climate: .66, science: .69, sports: .46, local: .92, health: .78 },
+    history: { climate: .59, science: .65, sports: .42, local: .89, health: .74 },
+    trace: ["housing", "sleep", "transit"]
   }
 ];
 
@@ -117,55 +165,80 @@ const articles: Article[] = [
     section: { ko: "기후 정책", en: "Climate policy" },
     title: { ko: "도시 탄소예산, 내년부터 달라지는 것", en: "How the city carbon budget changes next year" },
     dek: { ko: "새 감축 목표와 시민 생활의 변화를 설명합니다.", en: "A practical guide to new targets and their everyday effects." },
-    popularity: .66, recency: .86, quality: .83, source: "Metro Desk", published: "2026.06.03", readTime: 5
+    popularity: .66, recency: .86, quality: .83, source: { ko: "도시일보", en: "Metro Chronicle" }, published: "2026.06.03", readTime: 5
   },
   {
     id: "battery", icon: "🔋", category: "science",
     section: { ko: "에너지 기술", en: "Energy technology" },
     title: { ko: "고체전지 수명, 새 실험이 보여준 결과", en: "What a new trial reveals about solid-state batteries" },
     dek: { ko: "연구진의 측정 방법과 한계를 함께 살펴봅니다.", en: "The measurements, the result, and the limits of the study." },
-    popularity: .74, recency: .72, quality: .91, source: "Science Wire", published: "2026.06.02", readTime: 7
+    popularity: .74, recency: .72, quality: .91, source: { ko: "사이언스와이어", en: "Science Wire" }, published: "2026.06.02", readTime: 7
   },
   {
     id: "football", icon: "⚽", category: "sports",
     section: { ko: "스포츠", en: "Sports" },
     title: { ko: "후반 전술 변화가 결승전을 뒤집었다", en: "The second-half switch that changed the final" },
     dek: { ko: "패스 경로와 압박 위치로 승부처를 복기합니다.", en: "A tactical replay through passing lanes and pressing positions." },
-    popularity: .95, recency: .91, quality: .69, source: "Match Review", published: "2026.06.03", readTime: 4
+    popularity: .95, recency: .91, quality: .69, source: { ko: "매치리뷰", en: "Match Review" }, published: "2026.06.03", readTime: 4
   },
   {
     id: "transit", icon: "🚇", category: "local",
     section: { ko: "지역", en: "Local" },
     title: { ko: "광역철도 개편안, 내 통근시간은 얼마나 줄까", en: "What the rail redesign could mean for your commute" },
     dek: { ko: "역별 예상 시간과 환승 변화를 비교했습니다.", en: "Station-level travel times and transfer changes compared." },
-    popularity: .81, recency: .79, quality: .76, source: "City Journal", published: "2026.06.03", readTime: 3
+    popularity: .81, recency: .79, quality: .76, source: { ko: "시티저널", en: "City Journal" }, published: "2026.05.31", readTime: 3
   },
   {
     id: "health", icon: "🧬", category: "health",
     section: { ko: "의학 연구", en: "Medical research" },
     title: { ko: "유전자 치료 임상시험, 숫자 뒤의 의미", en: "Reading beyond the headline in a gene-therapy trial" },
     dek: { ko: "효과 크기와 부작용을 연구 설계와 함께 읽습니다.", en: "Effect size and adverse events, read alongside the trial design." },
-    popularity: .58, recency: .63, quality: .96, source: "Evidence Lab", published: "2026.06.01", readTime: 8
+    popularity: .58, recency: .63, quality: .96, source: { ko: "에비던스랩", en: "Evidence Lab" }, published: "2026.05.29", readTime: 8
+  },
+  {
+    id: "aiweather", icon: "🤖", category: "science",
+    section: { ko: "AI·과학", en: "AI and science" },
+    title: { ko: "AI 기상예측은 폭우를 얼마나 빨리 알릴까", en: "How much earlier can AI forecast extreme rain?" },
+    dek: { ko: "기존 수치예보와 새 모델의 예측 시간을 비교했습니다.", en: "A comparison of lead times from conventional and AI forecasts." },
+    popularity: .84, recency: .88, quality: .81, source: { ko: "테크스코프", en: "TechScope" }, published: "2026.06.03", readTime: 6
+  },
+  {
+    id: "housing", icon: "🏙️", category: "local",
+    section: { ko: "도시 정책", en: "Urban policy" },
+    title: { ko: "공공주택 배정 기준, 우리 동네는 무엇이 달라지나", en: "What the new public-housing rules change locally" },
+    dek: { ko: "지역별 공급 계획과 신청 조건을 표로 정리했습니다.", en: "Local supply plans and eligibility rules, mapped and compared." },
+    popularity: .69, recency: .67, quality: .87, source: { ko: "커먼그라운드", en: "Common Ground" }, published: "2026.05.30", readTime: 6
+  },
+  {
+    id: "sleep", icon: "🌙", category: "health",
+    section: { ko: "건강", en: "Health" },
+    title: { ko: "수면 30분의 차이가 기억력에 미치는 영향", en: "What 30 more minutes of sleep may mean for memory" },
+    dek: { ko: "참가자 규모와 효과 크기를 과장 없이 살펴봅니다.", en: "A careful look at sample size, effect size, and uncertainty." },
+    popularity: .76, recency: .59, quality: .89, source: { ko: "웰빙리포트", en: "Wellbeing Report" }, published: "2026.05.27", readTime: 5
   }
 ];
 
-const modelCopy: Record<ModelKey, { name: string; label: Localized; detail: Localized }> = {
+const modelCopy: Record<ModelKey, { name: string; icon: string; inputs: string; label: Localized; detail: Localized }> = {
   control: {
+    icon: "⚙️", inputs: "Z → s(x)",
     name: "Operational control",
     label: { ko: "운영 정보 중심", en: "Operational signals" },
     detail: { ko: "인기도·최신성 같은 Z 통제 특성을 중심으로 정렬합니다.", en: "Ranks mainly from Z controls such as popularity and recency." }
   },
   direct: {
+    icon: "🧩", inputs: "P · E · C · Z",
     name: "Direct PEC",
     label: { ko: "출처별 값을 그대로", en: "Source values retained" },
     detail: { ko: "P·E·C를 구분된 좌표로 유지해 점수 모델에 전달합니다.", en: "Passes P, E, and C to the scorer as separate coordinates." }
   },
   complete: {
+    icon: "🔗", inputs: "P · E · C · Z · ψ",
     name: "Complete PEC",
     label: { ko: "출처와 상호작용", en: "Sources plus interactions" },
     detail: { ko: "분리된 P·E·C와 그 상호작용을 함께 사용합니다.", en: "Uses separated P, E, and C signals together with their interactions." }
   },
   neural: {
+    icon: "🧠", inputs: "embeddings → s(x)",
     name: "Neural audit",
     label: { ko: "비선형 비교 모델", en: "Nonlinear audit model" },
     detail: { ko: "같은 정보가 신경망형 점수 모델에서도 유용한지 살펴보는 비교입니다.", en: "Checks whether the same evidence remains useful with a neural scorer." }
@@ -286,8 +359,9 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
             return <button key={article.id} type="button" className={active ? "is-selected" : ""} aria-pressed={active} onClick={() => setSelectedId(article.id)}>
               <span className="prd-news-visual" aria-hidden="true"><i>NEWS</i>{article.icon}</span>
               <span className="prd-news-copy">
-                <small>{t(article.section)}{inTrace ? ` · ${ko ? "추천 기록 있음" : "in retained trace"}` : ""}</small>
-                <span className="prd-news-meta">{article.source} · {article.published} · {article.readTime} min</span>
+                <small>{t(article.section)}</small>
+                <span className="prd-news-meta">{t(article.source)} · {article.published} · {article.readTime} min</span>
+                <span className={`prd-rec-status ${inTrace ? "is-yes" : "is-no"}`}>{inTrace ? (ko ? "추천 기록 있음" : "In retained trace") : (ko ? "추천 기록 없음" : "Not in retained trace")}</span>
                 <b>{t(article.title)}</b>
                 <em>{t(article.dek)}</em>
               </span>
@@ -304,13 +378,13 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
         </div>
         <div className="prd-model-tabs" role="group" aria-label={ko ? "모델 선택" : "Choose a model"}>
           {modelOrder.map((key) => <button key={key} type="button" aria-pressed={model === key} onClick={() => setModel(key)}>
-            <b>{modelCopy[key].name}</b>
-            <span>{t(modelCopy[key].label)}</span>
+            <span className="prd-model-symbol" aria-hidden="true">{modelCopy[key].icon}</span>
+            <span className="prd-model-copy"><b>{modelCopy[key].name}</b><small>{t(modelCopy[key].label)}</small><i>{modelCopy[key].inputs}</i></span>
             {key === "complete" && <em>{ko ? "기본 모델" : "DEFAULT"}</em>}
           </button>)}
         </div>
-        <div className="prd-model-card">
-          <div className="prd-model-icon" aria-hidden="true"><span>f</span><sub>θ</sub></div>
+        <div className="prd-model-card" key={model}>
+          <div className="prd-model-icon" aria-hidden="true"><span>{modelCopy[model].icon}</span><sub>fθ</sub></div>
           <div><b>{modelCopy[model].name}</b><p>{t(modelCopy[model].detail)}</p></div>
         </div>
         <div className="prd-input-route" aria-label={ko ? "선택 모델의 입력 경로" : "Input route for the selected model"}>
