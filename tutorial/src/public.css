@@ -16,12 +16,20 @@ a { color:inherit; }
 .public-mark i:nth-child(1) { border-bottom:5px solid #2d8cac; }.public-mark i:nth-child(2) { border-bottom:5px solid #ca8737; }.public-mark i:nth-child(3) { border-bottom:5px solid #4a9a78; }
 .public-masthead nav { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:8px 20px; font-size:15px; font-weight:650; }
 .public-masthead nav a { text-decoration:none; border-bottom:1px solid transparent; }.public-masthead nav a:hover,.public-masthead nav a:focus-visible { border-color:#8fd0e2; }
+.public-language { display:inline-flex; align-items:center; gap:2px; margin-left:4px; padding:2px; border:1px solid #54727e; background:#0f2d38; }
+.public-language a { display:flex; align-items:center; gap:6px; padding:6px 9px; border:0!important; color:#bfd4dc; font-size:13px; }
+.public-language a[aria-current="page"] { color:#173744; background:#f2f7f8; }
+.public-language a:hover,.public-language a:focus-visible { color:#173744; background:#dcecf1; }
 .public-paper-meta { max-width:1500px; margin:auto; padding:9px 34px 11px; border-top:1px solid #395967; display:flex; flex-wrap:wrap; gap:9px 24px; color:#bad4dc; font:12px/1.5 "SFMono-Regular",Consolas,monospace; letter-spacing:.03em; }
 .public-toc { position:sticky; top:0; z-index:30; display:flex; justify-content:center; gap:2px; overflow-x:auto; padding:8px 16px; background:rgba(249,251,250,.96); border-bottom:1px solid #aebfc5; backdrop-filter:blur(10px); }
 .public-toc a { flex:none; padding:8px 13px; text-decoration:none; color:#294d5c; font-size:14px; font-weight:700; }.public-toc a:hover,.public-toc a:focus-visible { background:#e1eff3; }
 #tutorial .ca-topbar { display:none; }
 #tutorial .comparison-atlas { background:transparent; }
 #tutorial .ca-shell { box-shadow:0 22px 70px rgba(26,55,66,.08); }
+#tutorial h1,#tutorial h2,#tutorial h3,#tutorial h4 { text-wrap:balance; }
+#tutorial p,#tutorial li { text-wrap:pretty; }
+#tutorial section[id],#tutorial div[id] { scroll-margin-top:78px; }
+#tutorial :focus-visible { outline:3px solid #d08b38; outline-offset:3px; }
 .public-release,.public-citation { max-width:1500px; margin:34px auto; padding:40px; background:#fff; border:1px solid #9fb5be; }
 .public-section-label { color:#287b98; font:13px/1.5 "SFMono-Regular",Consolas,monospace; letter-spacing:.12em; }
 .public-release h2,.public-citation h2 { max-width:850px; margin:8px 0 12px; color:#183d4d; font:700 30px/1.35 "Iowan Old Style",Georgia,serif; }
@@ -37,3 +45,4 @@ a { color:inherit; }
 .public-footer { max-width:1500px; margin:0 auto 40px; padding:22px 4px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 24px; color:#536c77; font-size:14px; }
 .public-footer a { color:#205f78; font-weight:700; }
 @media(max-width:820px) { .public-masthead-inner { align-items:flex-start; flex-direction:column; padding:16px 20px; }.public-masthead nav { justify-content:flex-start; }.public-paper-meta { padding-inline:20px; }.public-citation { grid-template-columns:1fr; }.public-release,.public-citation { margin:20px 10px; padding:26px 20px; }.public-toc { justify-content:flex-start; } }
+@media(max-width:520px) { .public-masthead nav { gap:8px 12px; }.public-language { width:100%; margin:4px 0 0; }.public-language a { flex:1; justify-content:center; } }
