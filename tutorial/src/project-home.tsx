@@ -156,7 +156,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <figure className="demo-preview">
             <div className="preview-context">
               <div className="preview-meta preview-reader">
-                <span className="preview-avatar" aria-hidden="true">👨🏻‍💼</span>
+                <span className="preview-avatar" aria-hidden="true">👨🏻</span>
                 <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
               </div>
               <div className="preview-route" aria-hidden="true">

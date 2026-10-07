@@ -229,7 +229,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .preview-reader { grid-template-columns: 44px 1fr; align-items: center; gap: 10px; padding: 12px 14px 7px; }
 .preview-reader > span:last-child { display: grid; gap: 1px; }
 .preview-reader em { color: #777a79; font-size: 9px; font-style: normal; }
-.preview-avatar { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #c7c1ba; border-radius: 50%; background: #fff; font-size: 25px; line-height: 1; }
+.preview-meta .preview-avatar { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid #c7c1ba; border-radius: 50%; background: #fff; font-size: 29px; line-height: 1; }
 .preview-route { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 5px; padding: 2px 14px 9px; color: #9a8f88; }
 .preview-route > i { font: 700 12px/1 Georgia,serif; transform: rotate(90deg); }
 .preview-phone { width: 148px; overflow: hidden; border: 1px solid #75909a; border-radius: 9px; background: #fff; box-shadow: 2px 2px 0 #dce5e7; }
