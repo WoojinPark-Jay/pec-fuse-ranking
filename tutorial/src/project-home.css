@@ -230,13 +230,16 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .preview-reader > span:last-child { display: grid; gap: 1px; }
 .preview-reader em { color: #777a79; font-size: 9px; font-style: normal; }
 .preview-avatar { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid #c7c1ba; border-radius: 50%; background: #fff; font-size: 18px; }
-.preview-route { display: flex; align-items: center; gap: 8px; color: #9a8f88; }
+.preview-route { display: flex; align-items: center; gap: 10px; padding: 7px 0; color: #9a8f88; }
 .preview-route > i { font: 700 12px/1 Georgia,serif; }
-.preview-phone { display: grid; grid-template-columns: 12px 1fr; gap: 2px 4px; width: 36px; padding: 4px; border: 1px solid #75909a; border-radius: 5px; background: #fff; }
-.preview-phone b { grid-column: 1/-1; color: #315767; font-size: 6px; letter-spacing: .05em; }
-.preview-phone span { grid-column: 1/-1; height: 2px; border-radius: 2px; background: #d9e2e4; }
-.preview-phone span:nth-of-type(2) { width: 76%; background: #eadfd6; }
-.preview-phone span:nth-of-type(3) { width: 88%; background: #dce7df; }
+.preview-phone { width: 148px; overflow: hidden; border: 1px solid #75909a; border-radius: 9px; background: #fff; box-shadow: 2px 2px 0 #dce5e7; }
+.preview-phone header { display: flex; justify-content: space-between; padding: 4px 7px; background: #315d6b; color: #fff; }
+.preview-phone header b { font-size: 7px; letter-spacing: .08em; }
+.preview-phone header em { font-size: 6px; font-style: normal; }
+.preview-phone > span { display: grid; grid-template-columns: 18px 1fr; gap: 5px; align-items: center; min-height: 20px; padding: 2px 6px; border-top: 1px solid #e2dfd9; }
+.preview-phone > span > i { display: grid; place-items: center; width: 17px; height: 17px; background: #f5f3ef; font-size: 10px; font-style: normal; }
+.preview-phone small { overflow: hidden; color: #34464c; font-size: 7px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.preview-phone small b { margin-right: 3px; color: var(--ku-crimson); font-size: 7px; }
 .preview-meta small, .evidence-title small { color: #7d807e; font-size: 8px; font-style: normal; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
 .preview-meta strong { color: #263b42; font-size: 12px; line-height: 1.25; }
 .preview-meta span { color: #777a79; font-size: 9px; font-style: normal; }

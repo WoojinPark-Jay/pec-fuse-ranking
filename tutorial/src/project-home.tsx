@@ -159,7 +159,15 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
                 <span className="preview-avatar" aria-hidden="true">👨🏻‍💼</span>
                 <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
               </div>
-              <div className="preview-route" aria-hidden="true"><i>→</i><span className="preview-phone"><b>PEC</b><span></span><span></span><span></span></span></div>
+              <div className="preview-route" aria-hidden="true">
+                <i>→</i>
+                <div className="preview-phone">
+                  <header><b>PEC</b><em>For you</em></header>
+                  <span><i>⚽</i><small><b>1</b> Second-half switch</small></span>
+                  <span><i>🚇</i><small><b>2</b> Rail redesign</small></span>
+                  <span><i>🏙️</i><small><b>3</b> Housing rules</small></span>
+                </div>
+              </div>
               <div className="preview-meta preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
             </div>
             <div className="preview-feed">
