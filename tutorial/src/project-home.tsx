@@ -155,9 +155,11 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           </header>
           <figure className="demo-preview">
             <div className="preview-context">
-              <div className="preview-meta">
-                <small>Reader</small><strong>Jin</strong><span>General news reader</span>
+              <div className="preview-meta preview-reader">
+                <span className="preview-avatar" aria-hidden="true">👨🏻‍💼</span>
+                <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
               </div>
+              <div className="preview-route" aria-hidden="true"><i>→</i><span className="preview-phone"><b>PEC</b><span></span><span></span><span></span></span></div>
               <div className="preview-meta preview-model"><small>Scoring model</small><strong>Complete PEC</strong><span>P · E · C · Z · ψ</span></div>
             </div>
             <div className="preview-feed">
