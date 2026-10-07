@@ -35,7 +35,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <p className="venue-line">IEEE Access manuscript · Interactive project page</p>
           <h1>PEC-Fuse</h1>
           <p className="project-subtitle">Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</p>
-          <div className="author-line"><ExternalLink href={LINKEDIN_URL}>Woojin Park</ExternalLink><span>·</span><ExternalLink href={PROFESSOR_SCHOLAR_URL}>Taesu Cheong</ExternalLink></div>
+          <div className="author-line"><ExternalLink href="https://woojinpark-jay.github.io">Woojin Park</ExternalLink><span>·</span><ExternalLink href={PROFESSOR_SCHOLAR_URL}>Taesu Cheong</ExternalLink></div>
           <p className="affiliation-line">SaVAnNA Lab · Department of Industrial and Management Engineering · Korea University</p>
 
           <div className="institution-logos" aria-label="Research institution and operational data source">
@@ -222,7 +222,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
       <footer className="project-footer">
         <div className="footer-identity">
           <strong>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</strong>
-          <span>Woojin Park · Taesu Cheong</span>
+          <span><ExternalLink href="https://woojinpark-jay.github.io">Woojin Park</ExternalLink> · Taesu Cheong</span>
         </div>
         <div className="footer-links">
           <ExternalLink href={REPOSITORY_URL}><GitHubIcon />GitHub repository</ExternalLink>
