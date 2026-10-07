@@ -33,7 +33,12 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
       <main id="top">
         <section className="project-hero">
           <p className="venue-line">IEEE Access manuscript · Interactive project page</p>
-          <h1>PEC-Fuse</h1>
+          <div className="hero-title-lockup">
+            <div className="pec-block-mark" role="img" aria-label="PEC-Fuse feature blocks: P, E, C, Z, and psi">
+              <span className="mark-p">P</span><span className="mark-e">E</span><span className="mark-c">C</span><span className="mark-z">Z</span><span className="mark-psi">ψ</span>
+            </div>
+            <h1>PEC-Fuse</h1>
+          </div>
           <p className="project-subtitle">Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</p>
           <div className="author-line"><ExternalLink href="https://woojinpark-jay.github.io">Woojin Park</ExternalLink><span>·</span><ExternalLink href={PROFESSOR_SCHOLAR_URL}>Taesu Cheong</ExternalLink></div>
           <p className="affiliation-line">SaVAnNA Lab · Department of Industrial and Management Engineering · Korea University</p>
