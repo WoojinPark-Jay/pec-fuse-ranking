@@ -220,7 +220,7 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .demo-copy .section-kicker { margin-bottom: 11px; color: var(--muted); }
 .demo-section h2 { max-width: 620px; font-size: clamp(25px, 2.7vw, 30px); line-height: 1.16; }
 .demo-section p:not(.section-kicker) { max-width: 660px; margin: 13px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-.demo-link { display: inline-block; justify-self: start; border-bottom: 1px solid rgba(143,22,33,.55); color: var(--ku-crimson); font-size: 13px; font-weight: 750; letter-spacing: .01em; text-decoration: none; white-space: nowrap; }
+.demo-link { display: inline-block; justify-self: start; padding-bottom: 2px; border-bottom: 2px solid var(--ku-crimson); color: var(--ku-crimson); font-size: 14px; font-weight: 750; letter-spacing: .01em; text-decoration: none; white-space: nowrap; }
 .demo-link:hover { border-color: var(--ku-crimson); color: var(--ku-crimson); }
 .demo-preview { width: 100%; max-width: 760px; margin: 24px auto 0; border: 1px solid #d5d1ca; background: #fff; }
 .demo-preview, .demo-preview * { font-family: "Avenir Next", "Helvetica Neue", sans-serif; }
@@ -337,4 +337,14 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
   .citation-section pre { padding: 18px; }
   .project-footer { display: grid; padding: 34px 20px 45px; }
   .footer-links { justify-content: flex-start; }
+}
+img[alt*="algorithm" i] {
+  display: block;
+  width: 88%;
+  max-width: 900px;
+  height: auto;
+  margin-inline: auto;
+}
+@media(max-width:760px) {
+  img[alt*="algorithm" i] { width: 100%; }
 }

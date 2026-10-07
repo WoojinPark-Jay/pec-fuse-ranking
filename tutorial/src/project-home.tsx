@@ -151,7 +151,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <h2>Inspect a complete within-query ranking trace.</h2>
               <p>Choose a synthetic reader and scorer, then trace one candidate from P, E, C, and Z evidence to its model score and final rank.</p>
             </div>
-            <a className="demo-link" href="?view=tutorial&lang=en#live-demo">Open live demo <span aria-hidden="true">→</span></a>
+            <a className="demo-link" href="?view=tutorial&lang=en#live-demo">Explore the live ranking demo <span aria-hidden="true">→</span></a>
           </header>
           <figure className="demo-preview">
             <div className="preview-context">
