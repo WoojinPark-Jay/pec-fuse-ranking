@@ -215,11 +215,6 @@ ${repository}`}</code></pre>
         <strong>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</strong>
         <span>Woojin Park · Taesu Cheong</span>
       </div>
-      <nav className="public-footer-links" aria-label={t("저자 및 프로젝트 링크", "Author and project links")}>
-        <a href={repository} target="_blank" rel="noopener noreferrer" aria-label={t("PEC-Fuse GitHub 저장소", "PEC-Fuse GitHub repository")}><SocialIcon kind="github" /><span>{t("GitHub 저장소", "GitHub repository")}</span></a>
-        <a href={linkedinProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park LinkedIn 프로필", "Woojin Park LinkedIn profile")}><SocialIcon kind="linkedin" /><span>{t("LinkedIn 프로필", "LinkedIn profile")}</span></a>
-        <a href="#top">{t("맨 위로", "Back to top")}</a>
-      </nav>
     </footer>
   </>;
 }
