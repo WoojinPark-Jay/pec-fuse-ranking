@@ -57,7 +57,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
         <div className="public-brand">
-          <span className="public-mark" aria-hidden="true"><i>P</i><i>E</i><i>C</i></span>
+          <span className="public-mark" role="img" aria-label="PEC-Fuse feature blocks: P, E, C, Z, and psi"><i className="public-mark-p">P</i><i className="public-mark-e">E</i><i className="public-mark-c">C</i><i className="public-mark-z">Z</i><i className="public-mark-psi">ψ</i></span>
           <div><b>PEC-Fuse</b><span>{t("논문 해설 · 인터랙티브 튜토리얼", "Interactive paper companion")}</span></div>
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>

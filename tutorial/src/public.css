@@ -11,9 +11,13 @@ a { color:inherit; }
 .public-brand>div>b,.public-brand>div>span { display:block; }
 .public-brand>div>b { color:#312a28; font-family:"Iowan Old Style",Georgia,serif; font-size:25px; letter-spacing:.01em; }
 .public-brand>div>span { color:#7a6f6a; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
-.public-mark { display:grid; grid-template-columns:repeat(3,24px); gap:3px; }
-.public-mark i { display:grid; place-items:center; width:24px; height:34px; border:1px solid #e2dcd6; font-style:normal; font-weight:800; color:var(--ku-crimson-dark); background:#fff; }
-.public-mark i:nth-child(1) { border-bottom:5px solid #b52a38; }.public-mark i:nth-child(2) { border-bottom:5px solid #8f1621; }.public-mark i:nth-child(3) { border-bottom:5px solid #551017; }
+.public-mark { display:grid; grid-template-columns:repeat(3,24px); grid-template-rows:repeat(2,22px); gap:3px; padding:2px; }
+.public-mark i { display:grid; place-items:center; border:1px solid; font:700 12px/1 "Iowan Old Style",Georgia,serif; font-style:normal; }
+.public-mark-p { border-color:#69a9bc!important; background:#e2f1f5; color:#357e96; }
+.public-mark-e { border-color:#c8964b!important; background:#f8eddb; color:#9a682b; }
+.public-mark-c { border-color:#6ca184!important; background:#e5f2e9; color:#38795a; }
+.public-mark-z { grid-column:1/3; border-color:#8d83ad!important; background:#eeecf6; color:#675d8d; }
+.public-mark-psi { grid-column:3; border-color:#7d9ba9!important; background:#e8f0f3; color:#496f80; }
 .public-masthead nav { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:8px 20px; color:#3d3532; font-size:15px; font-weight:650; }
 .public-masthead nav a { text-decoration:none; border-bottom:1px solid transparent; }.public-masthead nav a:hover,.public-masthead nav a:focus-visible { color:var(--ku-crimson); border-color:var(--ku-crimson); }
 .public-language { display:inline-flex; align-items:center; height:30px; gap:1px; margin-left:4px; padding:1px; border:1px solid #cfc5bf; border-radius:999px; background:#f2eeeb; }
@@ -36,6 +40,14 @@ a { color:inherit; }
 #tutorial .ca-topbar { display:none; }
 #tutorial .comparison-atlas { background:transparent; }
 #tutorial .ca-shell { box-shadow:0 22px 70px rgba(76,35,38,.08); }
+.ca-kicker-identity { display:flex; align-items:center; gap:11px; }
+.ca-feature-key { display:inline-grid; grid-template-columns:repeat(5,17px); gap:2px; }
+.ca-feature-key i { display:grid; place-items:center; width:17px; height:17px; border:1px solid; font:700 8px/1 "Iowan Old Style",Georgia,serif; font-style:normal; }
+.ca-feature-key i:nth-child(1) { border-color:#69a9bc; background:#e2f1f5; color:#357e96; }
+.ca-feature-key i:nth-child(2) { border-color:#c8964b; background:#f8eddb; color:#9a682b; }
+.ca-feature-key i:nth-child(3) { border-color:#6ca184; background:#e5f2e9; color:#38795a; }
+.ca-feature-key i:nth-child(4) { border-color:#8d83ad; background:#eeecf6; color:#675d8d; }
+.ca-feature-key i:nth-child(5) { border-color:#7d9ba9; background:#e8f0f3; color:#496f80; }
 #tutorial h1,#tutorial h2,#tutorial h3,#tutorial h4 { text-wrap:balance; }
 #tutorial p,#tutorial li { text-wrap:pretty; }
 #tutorial section[id],#tutorial div[id] { scroll-margin-top:78px; }
