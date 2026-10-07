@@ -118,7 +118,23 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             </div>
             <p className="result-interpretation">Both paired user-clustered 95% confidence intervals exclude zero.</p>
           </div>
-          <p className="results-note">Recall@10, MRR, source-removal tests, candidate-aware neural scoring, candidate reselection, and the public MIND proxy remain in the paper and tutorial rather than competing with the headline result here.</p>
+
+          <div className="contrast-block">
+            <div className="contrast-heading">
+              <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
+              <p>NDCG@10 differences for representative fixed-fit comparisons in both candidate regimes.</p>
+            </div>
+            <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts">
+              <div className="contrast-row contrast-header" role="row"><span role="columnheader">Comparison</span><span role="columnheader">Recent-window Δ [95% CI]</span><span role="columnheader">Same-day Δ [95% CI]</span></div>
+              <div className="contrast-row" role="row"><strong role="cell">PEC − control</strong><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − collapsed</strong><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − early fusion</strong><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">No-E PEC − no-E control</strong><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Direct − early fusion</strong><span className="contrast-estimate is-uncertain" role="cell">+0.0033 <small>[−0.0047, 0.0119]</small><em>CI includes zero</em></span><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0046, 0.0223]</small></span></div>
+            </div>
+            <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
+          </div>
+          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and the public MIND proxy remain in the paper and tutorial.</p>
         </section>
 
         <section className="takeaways-section" aria-labelledby="takeaways-title">
