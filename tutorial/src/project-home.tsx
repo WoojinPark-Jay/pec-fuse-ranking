@@ -162,7 +162,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <div className="preview-route" aria-hidden="true">
                 <i>→</i>
                 <div className="preview-phone">
-                  <header><b>PEC</b><em>For you</em></header>
+                  <header><b>PEC-Fuse</b><em>For you</em></header>
                   <span><i>⚽</i><small><b>1</b> Second-half switch</small></span>
                   <span><i>🚇</i><small><b>2</b> Rail redesign</small></span>
                   <span><i>🏙️</i><small><b>3</b> Housing rules</small></span>
