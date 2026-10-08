@@ -75,17 +75,17 @@
 }
 
 /* Denser role comparison. */
-#model-reading-guide.mrg .mrg-role-map { gap: 17px 28px; margin: 14px 0 8px; }
-#model-reading-guide.mrg .mrg-role-map article { padding: 10px 0 2px; }
-#model-reading-guide.mrg .mrg-role-map article.is-transform { padding-top: 11px; }
-#model-reading-guide.mrg .mrg-role-map header { gap: 12px; margin-bottom: 7px; }
+#model-reading-guide.mrg .mrg-role-map { gap: 21px 30px; margin: 18px 0 11px; }
+#model-reading-guide.mrg .mrg-role-map article { padding: 13px 0 4px; }
+#model-reading-guide.mrg .mrg-role-map article.is-transform { padding-top: 14px; }
+#model-reading-guide.mrg .mrg-role-map header { gap: 14px; margin-bottom: 9px; }
 #model-reading-guide.mrg .mrg-role-map header span { font-size: 10px; }
-#model-reading-guide.mrg .mrg-role-map header b { font-size: 16px; }
-#model-reading-guide.mrg .mrg-role-flow { gap: 6px; padding: 3px 0; }
+#model-reading-guide.mrg .mrg-role-map header b { font-size: 17px; }
+#model-reading-guide.mrg .mrg-role-flow { gap: 7px; padding: 5px 0; }
 #model-reading-guide.mrg .mrg-role-flow span,
 #model-reading-guide.mrg .mrg-role-flow strong,
-#model-reading-guide.mrg .mrg-role-flow b { padding: 2px 0; font-size: 11px; }
-#model-reading-guide.mrg .mrg-role-map article > p { margin-top: 7px !important; font-size: 13px !important; line-height: 1.45 !important; }
+#model-reading-guide.mrg .mrg-role-flow b { padding: 2px 0; font-size: 12px; }
+#model-reading-guide.mrg .mrg-role-map article > p { margin-top: 9px !important; font-size: 14px !important; line-height: 1.55 !important; }
 #model-reading-guide.mrg .mrg-role-questions { gap: 24px; margin: 10px 0 15px; padding-top: 10px; }
 #model-reading-guide.mrg .mrg-role-questions b { margin-top: 3px; font-size: 14px; }
 #model-reading-guide.mrg .mrg-role-questions p { margin-top: 1px !important; font-size: 12px !important; }
