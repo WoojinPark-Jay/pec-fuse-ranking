@@ -520,3 +520,18 @@ section#model-reading-guide.mrg { margin: 24px 0; padding: 26px 30px; }
   #model-reading-guide.mrg .mrg-path { gap: 12px; }
   #model-reading-guide.mrg .mrg-models > details > summary { grid-template-columns: minmax(0,1fr) 24px; }
 }
+
+/* Keep the guide comfortably readable; gain density through structure, not tiny type. */
+#model-reading-guide.mrg p,
+#model-reading-guide.mrg dd { font-size: 17px !important; line-height: 1.72 !important; }
+#model-reading-guide.mrg .mrg-example > div > span { font-size: 13px !important; }
+#model-reading-guide.mrg .mrg-example strong { font-size: 20px; }
+#model-reading-guide.mrg .mrg-switch button { font-size: 16px !important; }
+#model-reading-guide.mrg .mrg-path span { font-size: 13px !important; }
+#model-reading-guide.mrg .mrg-path strong { font-size: 17px; }
+#model-reading-guide.mrg .mrg-equation strong { font-size: 20px; }
+#model-reading-guide.mrg .mrg-equation span { font-size: 16px; }
+#model-reading-guide.mrg .mrg-models > details > summary,
+#model-reading-guide.mrg .mrg-models summary strong,
+#model-reading-guide.mrg .mrg-models summary span { font-size: 17px !important; }
+#model-reading-guide.mrg .mrg-start { font-size: 16px !important; }
