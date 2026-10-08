@@ -933,3 +933,8 @@ body {
 .public-repro-boundary strong {
   color: #554b47;
 }
+
+/* Use crimson for fine accents; keep filled surfaces softly pink. */
+.comparison-atlas {
+  --ku-crimson-soft: #fbf4f5;
+}
