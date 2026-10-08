@@ -236,3 +236,22 @@
   .ml-katex .katex-display { text-align: left; }
   .ml-katex .katex { font-size: .94em; }
 }
+
+/* Readable lab type: compact controls, full-size explanations. */
+.comparison-atlas .ml { font-size: 16px; line-height: 1.68; }
+.comparison-atlas .ml p { font-size: 16px; line-height: 1.68; }
+.ml-routes > button > span { font-size: 12px; }
+.ml-routes > button > b { font-size: 19px; }
+.comparison-atlas .ml-routes > button p { font-size: 14px; line-height: 1.45; }
+.ml-scope { font-size: 14px; }
+.ml-candidates > span,.ml-phase > span { font-size: 12px; }
+.ml-candidates button,.ml-phase button,.ml-variant button,.ml-mini-controls button,.ml-train-controls button,.ml-pagination button { font-size: 14px; }
+.ml-label-note { font-size: 14px; line-height: 1.55; }
+.ml-stage-nav button { font-size: 14px; }
+.comparison-atlas .ml-stage > h4 { font-size: 21px; }
+.comparison-atlas .ml h5 { font-size: 17px; }
+.comparison-atlas .ml-vector small { font-size: 11px; }
+.ml-vector b { font-size: 14px; }
+.ml-attention > div > span { font-size: 14px; }
+.ml-attention strong { font-size: 16px; }
+.ml-table table { font-size: 14px; }

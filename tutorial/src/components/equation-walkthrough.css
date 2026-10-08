@@ -519,3 +519,71 @@
   .ql-equivalence { grid-template-columns: 1fr; }
   .ql-equivalence > article + article { border-left: 0; border-top: 1px solid #ded9d6; }
 }
+
+/* Desktop equation studio: navigation on the left, worked calculation on the right. */
+.comparison-atlas .ql { font-size: 16px; }
+.comparison-atlas .ql p { font-size: 16px; line-height: 1.68; }
+.ql-tabs button { font-size: 14px; }
+.ql-route b { font-size: 15px; }
+.ql-dimension-strip b { font-size: 14px; }
+@media(min-width:1000px) {
+  .comparison-atlas .ql {
+    display: grid;
+    grid-template-columns: 250px minmax(0,1fr);
+    align-items: start;
+  }
+  .ql-header { grid-column: 1 / -1; }
+  .ql-action-hint {
+    grid-column: 1;
+    grid-row: 2;
+    display: block;
+    align-self: stretch;
+    padding: 17px 20px 9px;
+    border-top: 1px solid #ddd8d5;
+    border-right: 1px solid #ddd8d5;
+  }
+  .ql-action-hint b { display: block; margin-bottom: 4px; }
+  .ql-tabs {
+    grid-column: 1;
+    grid-row: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-self: stretch;
+    padding: 0 20px 14px;
+    border: 0;
+    border-right: 1px solid #ddd8d5;
+  }
+  .ql-tabs button {
+    width: 100%;
+    min-height: 38px;
+    padding: 8px 0;
+    border: 0;
+    border-bottom: 1px solid #e5e1de;
+    text-align: left;
+  }
+  .ql-tabs button[aria-pressed=true] {
+    padding-left: 11px;
+    border-bottom-color: #d9d2cf;
+    border-left: 2px solid #8b1d28;
+  }
+  .ql-number-note {
+    grid-column: 1;
+    grid-row: 4;
+    align-self: stretch;
+    padding: 13px 20px 17px;
+    border: 0;
+    border-right: 1px solid #ddd8d5;
+    background: #faf9f8;
+    font-size: 13px;
+  }
+  .ql-number-note b { display: block; margin-bottom: 4px; }
+  .ql-content {
+    grid-column: 2;
+    grid-row: 2 / span 3;
+    min-width: 0;
+    padding: 22px 30px 24px;
+  }
+  .ql-footer { grid-column: 1 / -1; }
+  .ql-controls { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
