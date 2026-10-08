@@ -392,3 +392,513 @@ html[lang="en"] .public-repro-copy-en {
   .prd-output-models > .prd-model-switch-label span { grid-column: 1 / -1; grid-row: 2; }
   .prd-output-models > .prd-model-switch-label i { grid-column: 2; grid-row: 1; }
 }
+
+/* Editorial density pass: quieter palette, tighter rhythm, fewer competing surfaces. */
+:root {
+  --ku-crimson: #8b1d28;
+  --ku-crimson-dark: #68131c;
+  --ku-crimson-soft: #f5ecec;
+  --ku-paper: #f5f3ef;
+  --ku-ink: #282523;
+  --ku-muted: #6b6460;
+  --ku-line: #d9d3cd;
+}
+
+body {
+  background: #f5f3ef;
+}
+
+.public-masthead {
+  border-top-width: 3px;
+  border-bottom-width: 1px;
+  background: #faf9f7;
+}
+
+.public-masthead-inner {
+  max-width: 1320px;
+  min-height: 62px;
+  padding: 9px 24px;
+  gap: 22px;
+}
+
+.public-brand {
+  gap: 11px;
+}
+
+.public-brand > div > b {
+  font-size: 23px;
+}
+
+.public-brand > div > span {
+  font-size: 11px;
+}
+
+.public-mark {
+  grid-template-columns: repeat(3, 20px);
+  grid-template-rows: repeat(2, 18px);
+  gap: 2px;
+  padding: 0;
+}
+
+.public-mark i {
+  font-size: 10px;
+}
+
+.public-masthead nav {
+  gap: 6px 15px;
+  font-size: 13px;
+}
+
+.public-language {
+  height: 27px;
+}
+
+.public-language a {
+  width: 28px;
+  height: 23px;
+  font-size: 12px;
+}
+
+.public-paper-meta {
+  max-width: 1320px;
+  padding: 5px 24px 6px;
+  gap: 7px 18px;
+  font-size: 10.5px;
+  background: #f4f1ee;
+}
+
+.public-paper-meta > span:nth-child(2),
+.public-paper-meta > span:nth-child(3) {
+  display: none;
+}
+
+.public-author-cluster {
+  margin-left: auto;
+}
+
+.public-paper-meta .public-social-icon {
+  width: 23px;
+  height: 23px;
+}
+
+.public-social-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.public-toc {
+  padding: 4px 12px;
+  gap: 1px;
+  background: rgba(250, 249, 247, .97);
+}
+
+.public-toc a {
+  padding: 6px 9px;
+  font-size: 12.5px;
+}
+
+.public-toc .public-live-demo-link {
+  margin-left: 4px;
+  padding-left: 12px;
+}
+
+.comparison-atlas {
+  --ink: #2b2927;
+  --muted: #6a6460;
+  --paper: #faf9f7;
+  --rule: #d9d3cd;
+  --blue: #8b1d28;
+  --blue-soft: #f5ecec;
+  --orange: #796356;
+  --orange-soft: #f4f0ec;
+  --green: #586860;
+  --green-soft: #eef1ef;
+  --violet: #6b6570;
+  --violet-soft: #f0eef1;
+  --slate: #5e666a;
+  --slate-soft: #eef0f0;
+  min-height: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  background: #faf9f7;
+}
+
+#tutorial .ca-shell {
+  max-width: 1320px;
+  padding: 34px 32px 58px;
+  box-shadow: none;
+}
+
+#tutorial .ca-intro {
+  max-width: 1080px;
+  padding-bottom: 27px;
+}
+
+#tutorial .ca-kicker {
+  color: var(--ku-crimson);
+}
+
+#tutorial .ca-intro h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(36px, 4vw, 49px);
+}
+
+#tutorial .ca-deck {
+  max-width: 980px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+#tutorial .ca-route {
+  display: none;
+}
+
+#tutorial .ca-overview-head {
+  max-width: 1040px;
+  margin-top: 30px;
+}
+
+#tutorial .ca-overview-head h2,
+#tutorial .ca-heading h2 {
+  color: #2f2b29;
+}
+
+#tutorial .ca-first-read,
+#tutorial .ca-term-strip {
+  margin-top: 15px;
+}
+
+#tutorial .ca-first-read > div,
+#tutorial .ca-term-strip > div {
+  padding: 12px 14px;
+  background: #fff;
+}
+
+#tutorial .ca-term-strip {
+  border-color: var(--ku-line);
+  background: #fff;
+}
+
+#tutorial .ca-term-strip > div {
+  border-color: var(--ku-line);
+}
+
+#tutorial .ca-section {
+  padding: 45px 0 10px;
+}
+
+#tutorial .ca-heading {
+  max-width: 980px;
+  margin-bottom: 21px;
+}
+
+#tutorial .ca-heading h2 {
+  font-size: 28px;
+}
+
+#tutorial .ca-heading > span,
+#tutorial .ca-overview-head > span,
+#tutorial .ca-comparison-stage > header > span {
+  color: var(--ku-crimson);
+}
+
+#tutorial :is(
+  .ca-flow-step,
+  .ca-comparison-stage,
+  .budget-story,
+  .bg,
+  .crg,
+  .dm-final-demo,
+  .eql,
+  .ml,
+  .mrg,
+  .ql,
+  .sme,
+  .zcalc
+) {
+  box-shadow: none !important;
+}
+
+#tutorial :is(.ca-flow-step, .ca-block, .ca-source-card, .ca-record-card) {
+  border-color: var(--ku-line);
+}
+
+#tutorial .ca-comparison-flow {
+  gap: 14px;
+  margin-top: 14px;
+}
+
+#tutorial .ca-flow-step {
+  padding: 16px;
+  background: #fff;
+}
+
+#tutorial .ca-flow-step.is-input,
+#tutorial .ca-flow-step.is-result {
+  border-top: 3px solid var(--ku-crimson);
+  background: #fff;
+}
+
+#tutorial .ca-flow-label {
+  margin-bottom: 13px;
+  padding-bottom: 11px;
+  border-color: var(--ku-line);
+}
+
+#tutorial .ca-flow-label > b,
+#tutorial .is-result > .ca-flow-label > b {
+  border-color: #b9969a;
+  color: var(--ku-crimson);
+}
+
+#tutorial .ca-demo-bridge {
+  border-color: #cdbfc0;
+  background: #fff;
+}
+
+#tutorial .ca-demo-copy > div span {
+  border-color: #b98288;
+  color: var(--ku-crimson);
+  background: #fff;
+}
+
+#tutorial .ca-demo-copy > div small,
+#tutorial .ca-demo-copy > b {
+  color: #4a403d;
+}
+
+#tutorial .ca-demo-action {
+  border-color: var(--ku-crimson);
+  background: var(--ku-crimson);
+}
+
+.prd-demo {
+  max-width: 1320px;
+  margin: 24px auto;
+  padding: 28px;
+  border: 1px solid var(--ku-line);
+  border-top: 3px solid var(--ku-crimson);
+  background: #fff;
+  box-shadow: none;
+}
+
+.prd-demo::before {
+  display: none;
+}
+
+.prd-intro {
+  grid-template-columns: minmax(0, 1.7fr) minmax(240px, .65fr);
+  gap: 26px;
+  padding-bottom: 18px;
+  border-color: var(--ku-line);
+}
+
+.prd-intro h2 {
+  margin-top: 5px;
+  color: #302c2a;
+  font-size: 29px;
+}
+
+.prd-intro p {
+  color: var(--ku-muted);
+  font-size: 14.5px;
+  line-height: 1.65;
+}
+
+.prd-intro aside {
+  padding: 13px 15px;
+  border-left: 3px solid var(--ku-crimson);
+  background: #f7f3f1;
+}
+
+.prd-intro aside b {
+  color: var(--ku-crimson);
+}
+
+.prd-stagebar {
+  margin: 16px 0;
+  border-color: var(--ku-line);
+  background: #f7f6f4;
+}
+
+.prd-stagebar span {
+  padding: 9px 11px;
+  border-color: var(--ku-line);
+  color: #5c5753;
+}
+
+.prd-stagebar span:last-child {
+  background: var(--ku-crimson);
+}
+
+.prd-workbench {
+  border-color: var(--ku-line);
+}
+
+.prd-workbench > section {
+  padding: 16px;
+  border-color: var(--ku-line);
+}
+
+.prd-panel-heading b,
+.prd-profile-card h3,
+.prd-mini-chart > div b,
+.prd-click-mix > div b {
+  color: #3d3835;
+}
+
+.prd-profile-card,
+.prd-mini-chart,
+.prd-click-mix,
+.prd-recent {
+  border-color: var(--ku-line);
+  background: #fbfaf8;
+}
+
+.public-release,
+.public-citation {
+  max-width: 1320px;
+  margin: 24px auto;
+  padding: 28px;
+  box-shadow: none;
+}
+
+.public-release h2,
+.public-citation h2 {
+  margin: 6px 0 9px;
+  font-size: 27px;
+}
+
+.public-release > p,
+.public-citation p {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.public-command {
+  margin: 15px 0;
+}
+
+.public-command code {
+  padding: 12px 15px;
+  font-size: 13px;
+}
+
+.public-repro-copy {
+  margin: 1rem 0 .75rem;
+}
+
+.public-repro-card {
+  gap: .48rem;
+  padding: .8rem;
+  border-top-width: 2px;
+  background: #faf9f7;
+}
+
+.public-repro-boundary {
+  margin-top: .65rem;
+  padding: .7rem .85rem;
+  border-left-width: 3px;
+  background: #f7f3f1;
+}
+
+.public-citation {
+  grid-template-columns: minmax(0, 1.7fr) minmax(250px, .65fr);
+  gap: 28px;
+}
+
+.public-citation pre {
+  padding: 14px;
+  border-left-width: 3px;
+}
+
+.public-citation aside {
+  padding: 18px;
+  border-top-width: 3px;
+}
+
+.public-backtotop {
+  min-height: 38px;
+  padding: 6px 11px 6px 7px;
+}
+
+.public-backtotop span {
+  width: 23px;
+  height: 23px;
+}
+
+@media (max-width: 900px) {
+  .public-masthead-inner {
+    padding-inline: 18px;
+  }
+
+  .public-paper-meta {
+    padding-inline: 18px;
+  }
+
+  .public-author-cluster {
+    margin-left: 0;
+  }
+
+  #tutorial .ca-shell {
+    padding: 28px 20px 48px;
+  }
+
+  #tutorial .ca-section {
+    padding-top: 38px;
+  }
+
+  .prd-demo,
+  .public-release,
+  .public-citation {
+    margin: 18px;
+    padding: 22px;
+  }
+
+  .prd-intro,
+  .public-citation {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .public-masthead-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .public-masthead nav {
+    justify-content: flex-start;
+  }
+
+  .public-paper-meta > span:first-child {
+    display: none;
+  }
+
+  .public-toc {
+    justify-content: flex-start;
+  }
+
+  #tutorial .ca-shell {
+    padding-inline: 16px;
+  }
+
+  #tutorial .ca-intro h1 {
+    font-size: 34px;
+  }
+
+  #tutorial .ca-heading h2,
+  .prd-intro h2,
+  .public-release h2,
+  .public-citation h2 {
+    font-size: 24px;
+  }
+
+  .prd-demo,
+  .public-release,
+  .public-citation {
+    margin: 12px;
+    padding: 17px;
+  }
+}
