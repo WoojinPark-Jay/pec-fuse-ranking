@@ -221,3 +221,18 @@
   .ml-candidates button { width: auto; }
   .ml-equation { padding: 5px 0; font-size: 17px; text-align: left; }
 }
+
+.ml-katex { display: block; width: 100%; }
+.ml-katex .katex-display {
+  margin: 0;
+  padding: 3px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  text-align: center;
+}
+.ml-katex .katex { color: #2e3437; font-size: 1.04em; }
+.ml-katex .katex .mord.text { font-family: Georgia,"Iowan Old Style",serif; }
+@media(max-width:550px) {
+  .ml-katex .katex-display { text-align: left; }
+  .ml-katex .katex { font-size: .94em; }
+}
