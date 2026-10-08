@@ -902,3 +902,34 @@ body {
     padding: 17px;
   }
 }
+
+/* Keep crimson as an accent, not a default text color. */
+.comparison-atlas {
+  --blue: #46565d;
+  --blue-soft: #eff2f2;
+}
+
+.public-link-row a,
+.public-citation aside a {
+  color: #3d3835;
+  border-color: #cec5c0;
+  background: #fff;
+}
+
+.public-link-row a:hover,
+.public-link-row a:focus-visible,
+.public-citation aside a:hover,
+.public-citation aside a:focus-visible {
+  color: var(--ku-crimson);
+  border-color: #b98288;
+  background: var(--ku-crimson-soft);
+}
+
+.public-citation aside .public-profile-link svg {
+  color: var(--ku-crimson);
+}
+
+.public-repro-card span,
+.public-repro-boundary strong {
+  color: #554b47;
+}
