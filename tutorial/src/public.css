@@ -936,5 +936,5 @@ body {
 
 /* Use crimson for fine accents; keep filled surfaces softly pink. */
 .comparison-atlas {
-  --ku-crimson-soft: #fdfbfb;
+  --ku-crimson-soft: #f6f5f3;
 }
