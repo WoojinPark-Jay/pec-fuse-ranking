@@ -17,3 +17,59 @@
 #model-reading-guide.mrg .mrg-role-questions b{display:block;margin-top:6px;color:#203e4c;font-size:15px}
 #model-reading-guide.mrg .mrg-role-questions p{margin:3px 0 0!important;font-size:13px!important;line-height:1.5!important;color:#697c85!important}
 @media(max-width:760px){#model-reading-guide.mrg .mrg-role-map,#model-reading-guide.mrg .mrg-role-questions{grid-template-columns:minmax(0,1fr)}#model-reading-guide.mrg .mrg-role-map article.is-transform{grid-column:auto}#model-reading-guide.mrg .mrg-role-map header{display:block}#model-reading-guide.mrg .mrg-role-map header b{display:block;margin-top:6px}#model-reading-guide.mrg .mrg-role-flow{padding:10px}}
+
+/* Role lanes: distinguish scorer versus transform without card clutter. */
+#model-reading-guide.mrg .mrg-role-map {
+  gap: 24px 34px;
+  margin: 20px 0 12px;
+  padding-top: 4px;
+}
+#model-reading-guide.mrg .mrg-role-map article {
+  padding: 15px 0 5px;
+  border: 0;
+  border-top: 2px solid #676b6c;
+  background: transparent;
+}
+#model-reading-guide.mrg .mrg-role-map article.is-scorer { border-top-color: #6f7475; }
+#model-reading-guide.mrg .mrg-role-map article.is-transform {
+  padding-top: 17px;
+  border-top: 2px solid #8b1d28;
+  background: transparent;
+}
+#model-reading-guide.mrg .mrg-role-map header span { color: #7a6969; }
+#model-reading-guide.mrg .mrg-role-map header b { color: #303537; }
+#model-reading-guide.mrg .mrg-role-flow {
+  gap: 8px;
+  padding: 7px 0;
+  border: 0;
+  background: transparent;
+}
+#model-reading-guide.mrg .mrg-role-flow span,
+#model-reading-guide.mrg .mrg-role-flow strong,
+#model-reading-guide.mrg .mrg-role-flow b {
+  padding: 3px 0;
+  border: 0;
+  border-bottom: 1px solid #bdb6b2;
+  background: transparent;
+  color: #43484a;
+}
+#model-reading-guide.mrg .mrg-role-flow strong { color: #6d3c41; border-bottom-color: #a77d81; }
+#model-reading-guide.mrg .mrg-role-flow b { color: #8b1d28; border-bottom-color: #8b1d28; }
+#model-reading-guide.mrg .mrg-role-flow i { color: #a39c98; }
+#model-reading-guide.mrg .mrg-role-map article > p { color: #616668 !important; }
+#model-reading-guide.mrg .mrg-role-questions {
+  gap: 28px;
+  margin: 16px 0 22px;
+  padding-top: 14px;
+  border: 0;
+  border-top: 1px dashed #d5cfcc;
+  background: transparent;
+}
+#model-reading-guide.mrg .mrg-role-questions > div { padding: 0; background: transparent; }
+#model-reading-guide.mrg .mrg-role-questions span { color: #8b1d28; }
+#model-reading-guide.mrg .mrg-role-questions b { color: #383d3f; }
+@media(max-width:760px) {
+  #model-reading-guide.mrg .mrg-role-map,
+  #model-reading-guide.mrg .mrg-role-questions { grid-template-columns: minmax(0,1fr); }
+  #model-reading-guide.mrg .mrg-role-map article.is-transform { grid-column: auto; }
+}
