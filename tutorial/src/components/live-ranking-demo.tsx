@@ -114,7 +114,7 @@ const personas: Persona[] = [
   },
   {
     id: "sora",
-    avatar: "👩🏻‍⚕️",
+    avatar: "👱🏻‍♀️",
     name: { ko: "엘리", en: "Ellie" },
     role: { ko: "건강·연구 뉴스 독자", en: "Health and research reader" },
     summary: {
