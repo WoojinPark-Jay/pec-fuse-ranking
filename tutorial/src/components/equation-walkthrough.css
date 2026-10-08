@@ -372,3 +372,150 @@
   .ql-reading-path { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .ql-reading-path::before { display: none; }
 }
+
+/* Compact mathematical reading pass. */
+.ql-header { padding: 20px 28px 16px; }
+.comparison-atlas .ql h2 { margin: 5px 0 8px; font-size: 25px; line-height: 1.32; }
+.comparison-atlas .ql h3 { margin: 0 0 10px; font-size: 21px; line-height: 1.4; }
+.comparison-atlas .ql p { margin: 7px 0; font-size: 15px; line-height: 1.62; }
+.ql-reading-path { gap: 18px; margin-top: 15px; }
+.ql-reading-path::before { top: 12px; }
+.ql-reading-path li { padding-top: 31px; }
+.ql-reading-path b { width: 25px; height: 25px; font-size: 11px; }
+.ql-reading-path span { font-size: 14px; }
+.comparison-atlas .ql-reading-path small { font-size: 12px; line-height: 1.35; }
+.ql-action-hint { padding: 10px 28px 7px; }
+.ql-tabs { gap: 0 18px; padding: 0 28px; }
+.ql-tabs button { min-height: 37px; padding: 7px 0 6px; font-size: 13px; }
+.ql-number-note { padding: 8px 28px; font-size: 12px; line-height: 1.5; }
+.ql-content { padding: 18px 28px 20px; }
+.ql-route { gap: 12px; margin-bottom: 10px; padding-top: 12px; }
+.ql-route > article { gap: 3px; }
+.ql-route b { font-size: 14px; line-height: 1.4; }
+.ql-route .ql-route-role { margin-top: 2px; padding-top: 8px; }
+.comparison-atlas .ql-route-role small { font-size: 13px; line-height: 1.4; }
+.ql-dimension-strip { gap: 11px; margin-bottom: 10px; padding: 9px 12px; }
+.ql-dimension-strip span { font-size: 10px; }
+.ql-dimension-strip b { margin-top: 2px; font-size: 13px; line-height: 1.4; }
+.comparison-atlas .ql .ql-rounding { margin: 5px 0 10px; padding: 5px 0 5px 11px; font-size: 12px; }
+.ql-note { margin: 10px 0; padding: 2px 0 2px 12px; font-size: 14px; }
+.ql-note > b { font-size: 15px; }
+.ql-plain-intro { margin: 10px 0; padding: 10px 13px; }
+.comparison-atlas .ql .ql-plain-intro h4 { margin: 3px 0; font-size: 17px; line-height: 1.4; }
+.comparison-atlas .ql .ql-plain-intro p { font-size: 13px; }
+.ql-step {
+  margin-left: 12px;
+  padding: 12px 0 14px 23px;
+}
+.comparison-atlas .ql-step h4 { gap: 9px; margin-bottom: 7px; font-size: 17px; line-height: 1.35; }
+.ql-step h4 > span { left: -12px; top: 12px; width: 24px; height: 24px; font-size: 11px; }
+.comparison-atlas .ql .ql-math {
+  margin: 5px 0 7px;
+  padding: 5px 8px;
+  border: 0;
+  background: transparent;
+  color: #273137;
+  font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", "Iowan Old Style", Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.52;
+  letter-spacing: .012em;
+  text-align: center;
+  overflow-x: auto;
+}
+.comparison-atlas .ql .ql-math b,
+.comparison-atlas .ql .ql-math strong { color: #6f242c; font-weight: 600; }
+.ql-controls { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 8px 18px; margin: 8px 0; }
+.ql-slider { gap: 5px; padding: 6px 0 8px; font-size: 13px; }
+.ql-slider input { min-height: 18px; }
+.ql-presets { gap: 7px; margin: 10px 0; }
+.ql-presets button { min-height: 33px; padding: 5px 9px; font-size: 12px; }
+.ql-table { margin: 8px 0; }
+.ql table { font-size: 13px; }
+.ql th { padding: 7px 8px; }
+.ql td { padding: 7px 8px; }
+.ql-weight-bar { height: 14px; margin: 10px 0; }
+.ql-contributions { gap: 0; margin: 8px 0; border-top: 1px solid #d8d3d0; border-bottom: 1px solid #d8d3d0; }
+.ql-contributions > article { padding: 10px 14px; border: 0; background: transparent; }
+.ql-contributions > article + article { border-left: 1px solid #d8d3d0; }
+.ql-contributions > article > strong { font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 22px; color: #6f242c; }
+.ql-answer { padding: 9px 13px; border: 0; border-top: 1px solid #c9c3bf; border-bottom: 1px solid #c9c3bf; background: transparent; color: #414648; }
+.ql-answer > strong { font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 29px; color: #6f242c; }
+.ql details { margin-top: 10px; padding-top: 8px; }
+.ql summary { font-size: 15px; }
+.ql-equivalence {
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 0;
+  margin: 10px 0;
+  border-top: 1px solid #d4cfcc;
+  border-bottom: 1px solid #d4cfcc;
+}
+.ql-equivalence > article { padding: 10px 14px; border: 0; background: transparent; }
+.ql-equivalence > article + article { border-left: 1px solid #ded9d6; }
+.ql-equivalence > article > span { min-height: 0; color: #575d5f; font-size: 12px; }
+.comparison-atlas .ql-equivalence .ql-math {
+  margin: 3px 0 0;
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  font-family: "STIX Two Math", "Cambria Math", "Latin Modern Math", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.45;
+  text-align: left;
+}
+.ql-identity {
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  padding: 9px 0;
+  border: 0;
+  border-top: 1px solid #d8d3d0;
+  border-bottom: 1px solid #d8d3d0;
+  background: transparent;
+  color: #44494b;
+}
+.ql-identity b,.ql-identity span { font-size: 13px; }
+.ql-mean-story { gap: 0; margin: 10px 0; border-top: 1px solid #d8d3d0; border-bottom: 1px solid #d8d3d0; }
+.ql-mean-story > article { padding: 10px 12px; border: 0; background: transparent; }
+.ql-mean-story > article + i + article { border-left: 1px solid #e0dcda; }
+.ql-mean-story > article > span { top: 8px; right: 8px; width: 21px; height: 21px; border: 0; color: #8b1d28; font-size: 11px; }
+.ql-mean-story > article > b { font-size: 14px; }
+.comparison-atlas .ql-mean-story > article > small { margin-top: 3px; font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 15px; color: #6f242c; }
+.comparison-atlas .ql-mean-story > article > p { margin-top: 5px; font-size: 12px; line-height: 1.45; }
+.ql-mean-story > i { padding: 0 3px; color: #aaa39f; font-size: 15px; }
+.ql-mean-story .ql-mean-result { background: #faf9f8; border: 0; }
+.ql-name-map { gap: 0; margin: 10px 0; padding: 0; border: 0; border-top: 1px solid #d8d3d0; border-bottom: 1px solid #d8d3d0; background: transparent; }
+.ql-name-map > article { padding: 9px 12px; border: 0; background: transparent; }
+.ql-name-map > article + i + article { border-left: 1px solid #e0dcda; }
+.ql-name-map > article > b { font-size: 14px; }
+.comparison-atlas .ql-name-map > p { margin: 0; padding: 8px 12px; border-top: 1px dashed #ded9d6; font-size: 12px; line-height: 1.45; }
+.ql-term-growth { grid-template-columns: 150px 1fr; gap: 5px 12px; margin: 8px 0; padding: 9px 0; border: 0; border-top: 1px solid #d8d3d0; border-bottom: 1px solid #d8d3d0; background: transparent; }
+.ql-term-growth > span { font-size: 13px; }
+.ql-term-growth > b { font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 16px; color: #34393b; }
+.comparison-atlas .ql-term-growth > small { padding-top: 5px; font-size: 12px; line-height: 1.45; }
+.ql-labels { gap: 5px; margin: 8px 0; }
+.ql-labels button { padding: 8px 6px; border-color: #d0cbc8; background: transparent; }
+.ql-labels button[aria-pressed=true] { border-color: #8b1d28; background: #f6f5f3; }
+.ql-labels b { font-size: 18px; }
+.ql-hit-count { gap: 7px; margin: 8px 0; }
+.ql-hit-count > article { padding: 9px; border: 0; border-bottom: 1px solid #cfc9c6; background: transparent; }
+.ql-hit-count b { font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 22px; color: #6f242c; }
+.ql-rank-ruler { gap: 5px; margin: 8px 0; }
+.ql-rank-ruler > span { min-height: 65px; padding: 7px; border-color: #d1ccca; background: transparent; }
+.ql-rank-ruler > span.is-positive { border-color: #8b1d28; background: #f6f5f3; }
+.ql-rank-ruler em { background: #8b1d28; }
+.ql-metric-compare { gap: 0; margin: 8px 0; border-top: 1px solid #d8d3d0; border-bottom: 1px solid #d8d3d0; }
+.ql-metric-compare > article { padding: 10px 14px; border: 0; background: transparent; }
+.ql-metric-compare > article + article { border-left: 1px solid #ded9d6; }
+.ql-metric-compare b { font-family: "STIX Two Math", "Cambria Math", Georgia, serif; font-size: 22px; color: #6f242c; }
+.ql-metric-compare > article > div { height: 7px; background: #e4e0de; }
+.ql-metric-compare > article > div > i { background: #8b1d28; }
+.comparison-atlas .ql-metric-compare p { margin-top: 5px; font-size: 12px; line-height: 1.4; }
+.ql-footer { gap: 8px; padding: 11px 28px; font-size: 13px; }
+@media(max-width:1100px) { .ql-controls { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:750px) {
+  .ql-header,.ql-content { padding-left: 16px; padding-right: 16px; }
+  .ql-action-hint,.ql-tabs,.ql-number-note { padding-left: 16px; padding-right: 16px; }
+  .comparison-atlas .ql .ql-math { font-size: 18px; text-align: left; }
+  .ql-equivalence { grid-template-columns: 1fr; }
+  .ql-equivalence > article + article { border-left: 0; border-top: 1px solid #ded9d6; }
+}
