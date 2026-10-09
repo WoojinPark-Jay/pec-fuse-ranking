@@ -73,7 +73,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <img src="./paper-architecture.png" alt="PEC-Fuse architecture from the manuscript" />
+            <img src="./paper-architecture.png?v=39" alt="PEC-Fuse architecture from manuscript revision v39" />
             <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.</figcaption>
           </figure>
 
@@ -105,7 +105,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png" alt="Algorithm 1: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=39" alt="Algorithm 1 from manuscript revision v39: Retrospective candidate construction and PEC ranking" /></figure>
         </section>
 
         <section className="paper-section results-section" id="results">
@@ -156,7 +156,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
-            <div><p className="section-kicker">Current manuscript</p><h2>Read the paper</h2></div>
+            <div><p className="section-kicker">Current manuscript · v39</p><h2>Read the paper</h2></div>
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">Open PDF</ExternalLink>
           </div>
