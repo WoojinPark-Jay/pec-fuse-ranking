@@ -9,6 +9,7 @@ type Lang = "ko" | "en";
 type BlockKind = "B" | "H" | "P" | "E" | "C" | "Z" | "psi" | "F";
 type Block = { kind: BlockKind; label: string; width: number };
 type Model = { id: string; name: string; width: number; blocks: Block[]; note: string };
+type FieldMeta = { key: string; kind: BlockKind; label: string; ko: string; en: string };
 type Comparison = {
   id: string;
   group: string;
@@ -35,7 +36,7 @@ const koModels: Model[] = [
   { id: "fusion19", name: "Learned 5-D fusion", width: 19, blocks: [{ kind: "H", label: "H · 공통 맥락", width: 14 }, { kind: "F", label: "gθ(P,C)", width: 5 }], note: "동일한 다섯 입력을 학습된 변환을 거친 5차원 은닉 벡터로 바꾼다." },
   { id: "complete25", name: "Complete PEC", width: 25, blocks: [{ kind: "H", label: "H · E+Z 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }, { kind: "psi", label: "ψ 곱셈 항", width: 6 }], note: "Direct의 19개 특성에 고정식으로 계산한 상호작용 항 여섯 개를 더한다." },
   { id: "noE9", name: "No-E control", width: 9, blocks: [{ kind: "B", label: "E-free control", width: 9 }], note: "trace 관련 control을 제거한 baseline." },
-  { id: "noE18", name: "No-E PEC", width: 18, blocks: [{ kind: "Z", label: "E-free context", width: 9 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C", width: 4 }, { kind: "psi", label: "남은 P–C products", width: 4 }], note: "E와 E를 포함한 product를 제거하고 P/C 구조는 유지한다." },
+  { id: "noE18", name: "No-E PEC", width: 18, blocks: [{ kind: "Z", label: "Z · recorded controls", width: 11 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C", width: 4 }, { kind: "psi", label: "남은 P–C products", width: 2 }], note: "E 세 필드와 E가 들어간 product 네 개를 제거하고 Z, P, C와 두 P–C product를 유지한다." },
   { id: "context8", name: "Context only", width: 8, blocks: [{ kind: "Z", label: "P/E-free context", width: 8 }], note: "프로필 유래 입력과 trace 입력을 함께 제거한다." },
   { id: "contextC12", name: "Context + C", width: 12, blocks: [{ kind: "Z", label: "P/E-free context", width: 8 }, { kind: "C", label: "C summaries", width: 4 }], note: "동일한 8개 context에 과거 클릭 기반 C 네 개만 더한다." },
 ];
@@ -50,6 +51,66 @@ const enBlockLabels: Record<string, string> = {
   "ψ 곱셈 항": "ψ interaction products",
   "남은 P–C products": "Remaining P–C products",
 };
+
+const fieldCatalog: Record<string, FieldMeta> = {
+  pref_category_weight: { key: "pref_category_weight", kind: "Z", label: "Profile-category weight", ko: "후보 기사 카테고리에 해당하는 사용자의 저장된 프로필 가중치입니다.", en: "The stored user-profile weight for the candidate article's category." },
+  pref_publisher_weight: { key: "pref_publisher_weight", kind: "Z", label: "Profile-publisher weight", ko: "후보 기사 발행처에 해당하는 사용자의 저장된 프로필 가중치입니다.", en: "The stored user-profile weight for the candidate article's publisher." },
+  same_day_recommended: { key: "same_day_recommended", kind: "E", label: "Trace membership", ko: "후보가 보존된 당일 추천 trace에 있으면 1, 아니면 0입니다.", en: "One when the candidate appears in the retained same-day recommendation trace; zero otherwise." },
+  reciprocal_rank: { key: "reciprocal_rank", kind: "E", label: "Reciprocal retained rank", ko: "trace에 기록된 추천 순위의 역수입니다. trace에 없으면 0입니다.", en: "The reciprocal of the retained recommendation rank; zero when absent from the trace." },
+  hist_category_click_share: { key: "hist_category_click_share", kind: "Z", label: "History-category share", ko: "query 이전 클릭 중 후보 카테고리가 차지하는 비율입니다.", en: "The share of pre-query clicks belonging to the candidate's category." },
+  hist_publisher_click_share: { key: "hist_publisher_click_share", kind: "Z", label: "History-publisher share", ko: "query 이전 클릭 중 후보 발행처가 차지하는 비율입니다.", en: "The share of pre-query clicks belonging to the candidate's publisher." },
+  log_user_prior_clicks: { key: "log_user_prior_clicks", kind: "Z", label: "Log prior-click count", ko: "사용자의 query 이전 클릭 수에 log(1+n)을 적용한 값입니다.", en: "Log(1+n) of the user's click count before the query date." },
+  P_semantic: { key: "P_semantic", kind: "P", label: "Profile semantic alignment", ko: "사용자가 밝힌 프로필과 후보 기사 embedding의 cosine 정합도입니다.", en: "Cosine alignment between the stated profile and the candidate article embedding." },
+  C_semantic: { key: "C_semantic", kind: "C", label: "Mean-history semantic score", ko: "recency 가중 이전 클릭 표현과 후보 기사 사이의 cosine 유사도입니다.", en: "Cosine similarity between the candidate and the recency-weighted prior-click representation." },
+  P_count: { key: "P_count", kind: "Z", label: "Profile count summary", ko: "프로필의 카테고리·발행처 가중치를 더한 뒤 1로 제한한 요약값입니다.", en: "The category and publisher profile weights summed and capped at one." },
+  C_count: { key: "C_count", kind: "Z", label: "Click-history count summary", ko: "이전 클릭의 카테고리·발행처 비율을 더한 뒤 1로 제한한 요약값입니다.", en: "The category and publisher click shares summed and capped at one." },
+  E_exposure: { key: "E_exposure", kind: "E", label: "Combined trace score", ko: "trace membership과 reciprocal rank를 더한 결합 E 값입니다. 노출 확률은 아닙니다.", en: "Trace membership plus reciprocal rank. It is not an exposure probability." },
+  popularity_score: { key: "popularity_score", kind: "Z", label: "Frozen popularity", ko: "학습 기간에서 고정한 기사 인기도 변환값입니다.", en: "The article-popularity transform frozen at the training cutoff." },
+  recency_score: { key: "recency_score", kind: "Z", label: "Article recency", ko: "기사 나이를 일 단위로 계산한 1/(1+age) 값입니다.", en: "Article recency computed as 1/(1+age in days)." },
+  log_article_len: { key: "log_article_len", kind: "Z", label: "Log article length", ko: "기사 텍스트 길이에 log(1+n)을 적용한 값입니다.", en: "Log(1+n) of the article text length." },
+  is_breaking: { key: "is_breaking", kind: "Z", label: "Breaking-news flag", ko: "기사 metadata의 속보 여부를 나타내는 이진값입니다.", en: "A binary breaking-news metadata flag." },
+  C_max: { key: "C_max", kind: "C", label: "Maximum-history similarity", ko: "후보와 query 이전 클릭 기사들 사이 cosine 유사도의 최댓값입니다.", en: "The maximum candidate-to-prior-click cosine similarity." },
+  C_top3: { key: "C_top3", kind: "C", label: "Top-three history mean", ko: "가장 유사한 이전 클릭 기사 최대 세 개의 cosine 평균입니다.", en: "The mean of the top three available candidate-to-history cosine similarities." },
+  C_attention: { key: "C_attention", kind: "C", label: "Attention-history score", ko: "의미 유사도와 클릭 recency로 가중한 후보-이력 cosine 요약입니다.", en: "A candidate-history cosine summary weighted by semantic similarity and click recency." },
+  P_semantic_x_E: { key: "P_semantic_x_E", kind: "psi", label: "P × E", ko: "P_semantic과 E_exposure의 고정 곱입니다.", en: "The deterministic product of P_semantic and E_exposure." },
+  C_semantic_x_E: { key: "C_semantic_x_E", kind: "psi", label: "Cmean × E", ko: "C_semantic과 E_exposure의 고정 곱입니다.", en: "The deterministic product of C_semantic and E_exposure." },
+  P_semantic_x_C_semantic: { key: "P_semantic_x_C_semantic", kind: "psi", label: "P × Cmean", ko: "P_semantic과 C_semantic의 고정 곱입니다.", en: "The deterministic product of P_semantic and C_semantic." },
+  C_attention_x_E: { key: "C_attention_x_E", kind: "psi", label: "Cattention × E", ko: "C_attention과 E_exposure의 고정 곱입니다.", en: "The deterministic product of C_attention and E_exposure." },
+  C_max_x_E: { key: "C_max_x_E", kind: "psi", label: "Cmax × E", ko: "C_max와 E_exposure의 고정 곱입니다.", en: "The deterministic product of C_max and E_exposure." },
+  P_semantic_x_C_attention: { key: "P_semantic_x_C_attention", kind: "psi", label: "P × Cattention", ko: "P_semantic과 C_attention의 고정 곱입니다.", en: "The deterministic product of P_semantic and C_attention." },
+  collapsed_pc_score: { key: "collapsed_pc_score", kind: "F", label: "Rule-based P/C scalar", ko: "P와 C를 사람이 정한 식으로 하나의 값에 압축한 audit 입력입니다.", en: "One audit input that collapses P and C with a hand-built rule." },
+  learned_fusion_score: { key: "learned_fusion_score", kind: "F", label: "Learned P/C scalar", ko: "P와 C에서 학습한 하나의 early-fusion 좌표입니다.", en: "One learned early-fusion coordinate derived from P and C." },
+};
+
+const core9 = ["pref_category_weight", "pref_publisher_weight", "hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "popularity_score", "recency_score", "log_article_len", "is_breaking"];
+const b11 = ["pref_category_weight", "pref_publisher_weight", "same_day_recommended", "reciprocal_rank", "hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "popularity_score", "recency_score", "log_article_len", "is_breaking"];
+const z11 = ["pref_category_weight", "pref_publisher_weight", "hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "P_count", "C_count", "popularity_score", "recency_score", "log_article_len", "is_breaking"];
+const h14 = ["pref_category_weight", "pref_publisher_weight", "same_day_recommended", "reciprocal_rank", "hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "P_count", "C_count", "E_exposure", "popularity_score", "recency_score", "log_article_len", "is_breaking"];
+const semantic5 = ["P_semantic", "C_semantic", "C_max", "C_top3", "C_attention"];
+const products6 = ["P_semantic_x_E", "C_semantic_x_E", "P_semantic_x_C_semantic", "C_attention_x_E", "C_max_x_E", "P_semantic_x_C_attention"];
+const full25 = ["pref_category_weight", "pref_publisher_weight", "same_day_recommended", "reciprocal_rank", "hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "P_semantic", "C_semantic", "P_count", "C_count", "E_exposure", "P_semantic_x_E", "C_semantic_x_E", "P_semantic_x_C_semantic", "popularity_score", "recency_score", "log_article_len", "is_breaking", "C_max", "C_top3", "C_attention", "C_attention_x_E", "C_max_x_E", "P_semantic_x_C_attention"];
+const context8 = ["hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "C_count", "popularity_score", "recency_score", "log_article_len", "is_breaking"];
+const contextC12 = ["hist_category_click_share", "hist_publisher_click_share", "log_user_prior_clicks", "C_semantic", "C_count", "popularity_score", "recency_score", "log_article_len", "is_breaking", "C_max", "C_top3", "C_attention"];
+
+const learnedFields = Array.from({ length: 5 }, (_, index) => ({ key: `g_theta_${index + 1}`, kind: "F" as BlockKind, label: `gθ coordinate ${index + 1}`, ko: "P와 C의 다섯 원래 좌표를 학습 변환한 좌표입니다.", en: "A learned coordinate that transforms the five original P/C values." }));
+
+const modelFieldKeys: Record<string, string[]> = {
+  control11: b11,
+  collapsed12: [...b11, "collapsed_pc_score"],
+  early12: [...b11, "learned_fusion_score"],
+  scalarDirect17: [...b11, "E_exposure", ...semantic5],
+  direct19: [...h14, ...semantic5],
+  complete25: full25,
+  noE9: core9,
+  noE18: [...z11, ...semantic5, "P_semantic_x_C_semantic", "P_semantic_x_C_attention"],
+  context8,
+  contextC12,
+};
+
+function fieldsForModel(modelId: string): FieldMeta[] {
+  if (modelId === "fusion19") return [...h14.map((key) => fieldCatalog[key]), ...learnedFields];
+  return (modelFieldKeys[modelId] ?? []).map((key) => fieldCatalog[key]).filter(Boolean);
+}
 
 const enModels: Model[] = koModels.map((model) => ({
   ...model,
@@ -134,9 +195,31 @@ function VectorBar({ model }: { model: Model }) {
   </div>;
 }
 
-function Matrix({ width, side }: { width: number; side: "left" | "right" }) {
-  return <div className={`ca-matrix is-${side}`} style={{ gridTemplateColumns: `repeat(${width}, minmax(2px, 1fr))` }} aria-hidden="true">
-    {Array.from({ length: width * 6 }, (_, index) => <i key={index} />)}
+function FieldMatrix({ model, side, lang }: { model: Model; side: "left" | "right"; lang: Lang }) {
+  const fields = fieldsForModel(model.id);
+  const [selected, setSelected] = useState(0);
+  const field = fields[selected] ?? fields[0];
+  return <>
+    <div className={`ca-matrix is-${side}`} style={{ gridTemplateColumns: `repeat(${fields.length}, minmax(8px, 1fr))` }} role="listbox" aria-label={lang === "ko" ? `${model.name} 입력 열` : `${model.name} input columns`}>
+      {fields.map((item, index) => <button type="button" key={`${item.key}-${index}`} className={`ca-matrix-column is-${item.kind}${selected === index ? " is-selected" : ""}`} onClick={() => setSelected(index)} aria-selected={selected === index} title={`${index + 1}. ${item.key}`}>
+        {Array.from({ length: 6 }, (_, row) => <i key={row} />)}
+      </button>)}
+    </div>
+    {field && <div className={`ca-field-readout is-${field.kind}`} aria-live="polite">
+      <span>{String(selected + 1).padStart(2, "0")} / {fields.length} · {field.kind}</span>
+      <div><b>{field.label}</b><code>{field.key}</code></div>
+      <p>{lang === "ko" ? field.ko : field.en}</p>
+    </div>}
+  </>;
+}
+
+function FullRecordExplorer({ lang }: { lang: Lang }) {
+  const [selected, setSelected] = useState(0);
+  const field = fieldCatalog[full25[selected]];
+  return <div className="ca-field-dictionary">
+    <header><div><span>{lang === "ko" ? "클릭해서 확인" : "CLICK TO INSPECT"}</span><b>{lang === "ko" ? "25개 열의 정확한 이름과 의미" : "Exact names and meanings of all 25 columns"}</b></div><p>{lang === "ko" ? "색은 P·E·C·Z·ψ 출처 블록을 나타냅니다." : "Colors identify the P, E, C, Z, and ψ source blocks."}</p></header>
+    <div className="ca-field-index" role="listbox" aria-label={lang === "ko" ? "25개 특성 열" : "25 feature columns"}>{full25.map((key, index) => { const item = fieldCatalog[key]; return <button type="button" key={key} className={`is-${item.kind}${selected === index ? " is-selected" : ""}`} onClick={() => setSelected(index)} aria-selected={selected === index}><span>{String(index + 1).padStart(2, "0")}</span><b>{item.label}</b></button>; })}</div>
+    <article className={`is-${field.kind}`}><span>{field.kind} · {String(selected + 1).padStart(2, "0")} / 25</span><div><b>{field.label}</b><code>{field.key}</code></div><p>{lang === "ko" ? field.ko : field.en}</p></article>
   </div>;
 }
 
@@ -239,6 +322,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div className="is-Z"><b>Z · 11 fields</b><p>{isKo ? "프로필·클릭 비율, 과거 클릭 수, 인기도, 최신성, 기사 길이 같은 기록 기반 control입니다." : "Recorded controls such as profile/click shares, prior-click count, popularity, recency, and article length."}</p></div>
           <div className="is-psi"><b>ψ · 6 fields</b><p>{isKo ? "이미 계산된 P·E·C 값들을 곱한 interaction입니다. 새 관측 자료나 별도 embedding이 아닙니다." : "Products of already computed P, E, and C values. They are neither new observations nor learned embeddings."}</p></div>
         </div>
+        <FullRecordExplorer lang={lang} />
         <div className="ca-sample-row">
           <div><span>{isKo ? "후보 A" : "Candidate A"}</span><b>Climate-policy news</b><small>y=1 · trace member=0</small></div>
           <div className="is-P"><small>P</small><b>0.82</b></div><div className="is-E"><small>E<sub>m</sub></small><b>0</b></div><div className="is-E"><small>1/r</small><b>0</b></div><div className="is-C"><small>C<sub>mean</sub></small><b>0.31</b></div><div className="is-C"><small>C<sub>att</sub></small><b>0.40</b></div><div className="is-psi"><small>P×C<sub>mean</sub></small><b>0.2542</b></div>
@@ -282,11 +366,11 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
               <div className="ca-flow-step is-input">
                 <div className="ca-flow-label"><b>01</b><div><span>{isKo ? "먼저, 입력 구조를 비교하세요" : "Start with the input structure"}</span><p>{isKo ? "같은 후보 기사 한 행이 두 모델에서 어떤 숫자 블록으로 표현되는지 봅니다." : "See how the same candidate article is represented as numeric blocks in each model."}</p></div></div>
                 <div className="ca-model-pair">
-                  <section><div className="ca-model-title"><span>{isKo ? "비교 기준" : "Reference"}</span><b>{left.name}</b><strong>{left.width}D</strong></div><Matrix width={left.width} side="left" /><VectorBar model={left} /><p>{left.note}</p></section>
+                  <section key={left.id}><div className="ca-model-title"><span>{isKo ? "비교 기준" : "Reference"}</span><b>{left.name}</b><strong>{left.width}D</strong></div><FieldMatrix model={left} side="left" lang={lang} /><VectorBar model={left} /><p>{left.note}</p></section>
                   <div className="ca-versus">VS</div>
-                  <section><div className="ca-model-title"><span>{isKo ? "비교 대상" : "Compared model"}</span><b>{right.name}</b><strong>{right.width}D</strong></div><Matrix width={right.width} side="right" /><VectorBar model={right} /><p>{right.note}</p></section>
+                  <section key={right.id}><div className="ca-model-title"><span>{isKo ? "비교 대상" : "Compared model"}</span><b>{right.name}</b><strong>{right.width}D</strong></div><FieldMatrix model={right} side="right" lang={lang} /><VectorBar model={right} /><p>{right.note}</p></section>
                 </div>
-                <p className="ca-matrix-key">{isKo ? "행렬 읽는 법 · 작은 사각형의 한 줄은 후보 기사 하나, 세로 열 하나는 입력 특성 하나입니다. 여기서는 모양을 보여 주기 위해 후보 6개만 그렸으며 실제 후보 수는 query마다 달라집니다. 19-D는 후보마다 숫자 19개를 모델에 준다는 뜻입니다." : "How to read the matrices · One horizontal row represents one candidate article; one vertical column is one input feature. Six rows are drawn only to show shape. Actual candidate counts vary by query. A 19-D input means nineteen numbers per candidate."}</p>
+                <p className="ca-matrix-key">{isKo ? "행렬 읽는 법 · 작은 사각형의 한 줄은 후보 기사 하나, 세로 열 하나는 입력 특성 하나입니다. 열을 클릭하면 정확한 컬럼명과 설명이 나타납니다. B₁₁과 Z₁₁은 열 수는 같지만 구성은 다릅니다." : "How to read the matrices · One row is one candidate article and one vertical column is one input feature. Click a column to see its exact name and meaning. B₁₁ and Z₁₁ have equal width but different memberships."}</p>
               </div>
               <div className="ca-flow-step is-result">
                 <div className="ca-flow-label"><b>02</b><div><span>{isKo ? "다음, 점수와 불확실성을 확인하세요" : "Then inspect scores and uncertainty"}</span><p>{isKo ? "두 입력 구조가 만든 NDCG@10을 비교하고, 차이의 신뢰구간이 0을 지나는지 확인합니다." : "Compare the NDCG@10 produced by the two structures, then check whether the confidence interval crosses zero."}</p></div></div>
