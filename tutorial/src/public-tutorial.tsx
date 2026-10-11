@@ -79,7 +79,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         <span>Software 0.1.0 · Manuscript v46</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
         <span className="public-author-cluster">
-          <span>{t("Woojin Park · 제1저자 제작", "Tutorial by Woojin Park · First author")}</span>
+          <span>{t("Woojin Park · 제1저자 제작 · 원고 v46", "Tutorial by Woojin Park · First author · Manuscript v46")}</span>
           <span className="public-social-icons">
             <a className="public-social-icon" href={personalWebsite} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park 개인 웹사이트", "Woojin Park personal website")} title="Website"><SocialIcon kind="website" /></a>
             <a className="public-social-icon" href={githubProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park GitHub 프로필", "Woojin Park GitHub profile")} title="GitHub"><SocialIcon kind="github" /></a>
