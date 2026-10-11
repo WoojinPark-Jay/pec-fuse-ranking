@@ -146,11 +146,11 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "ac1d910a57cc5a3dd3edea12b8270435a2295287f0b57983f3b485a1f53fcc3d",
     "tutorial/src/project-home.css": "f6f606253aa0709662f147922cf8a4d07d1a7df20ba0eb7557d440cd5f59fe46",
-    "tutorial/src/project-home.tsx": "3c0a627e94a58cbb33cb6491519ed8a1c60f0a1bbcd2ccca41b0bc38ed423ec7",
-    "tutorial/src/public-tutorial.tsx": "2fa851f042b946965ebf1dfa9915ec649ac26be7e5bb83400e7cd12d1264d5fd",
+    "tutorial/src/project-home.tsx": "fbd026f87516a5b862a91474d55876de2baca4ebb4af54b7421e14560971ec3a",
+    "tutorial/src/public-tutorial.tsx": "c9bf8ac820a95e43a35ff71957650b90c2bcca382dbdfa21e20cabd9952f636e",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v47-public-artifact-v14"
+  "revision": "ieee-access-v47-public-artifact-v15"
 }
