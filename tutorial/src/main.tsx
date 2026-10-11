@@ -5,6 +5,7 @@ import { PublicTutorial } from "./public-tutorial";
 import "./public.css";
 import "./components/compare.css";
 import "./project-home.css";
+import "./tutorial-refinement.css";
 
 const params = new URLSearchParams(window.location.search);
 const lang = params.get("lang") === "ko" ? "ko" : "en";

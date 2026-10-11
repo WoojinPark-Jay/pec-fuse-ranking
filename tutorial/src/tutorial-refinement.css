@@ -1,0 +1,52 @@
+/* Reading hierarchy: preserve source colors; keep explanatory UI neutral. */
+.comparison-atlas { --tutorial-ink:#29353a; --tutorial-copy:#4d585d; --tutorial-rule:#d9ddde; --tutorial-soft:#f7f8f8; }
+.comparison-atlas .ql,.comparison-atlas .ml,.comparison-atlas .mrg { --a:#315b6b; --ink:#29353a; --copy:#4d585d; --line:#d9ddde; --soft:#f7f8f8; }
+.tutorial-disclosure { min-width:0; margin:18px 0; padding:13px 0; border:0; border-top:1px solid #d9ddde; border-bottom:1px solid #d9ddde; color:#29353a; }
+.tutorial-disclosure>summary { cursor:pointer; padding:5px 0; font:600 16px/1.5 inherit; color:#29353a; }
+.tutorial-disclosure>summary::marker { color:#526b76; }
+.tutorial-disclosure[open]>summary { margin-bottom:15px; }
+.tutorial-disclosure :focus-visible { outline:2px solid #315b6b; outline-offset:4px; }
+.comparison-atlas .tutorial-disclosure>.bg { margin:0; padding:14px 0; border:0; background:transparent; }
+.comparison-atlas .tutorial-disclosure .cdp-preview { margin:0; border:0; }
+.comparison-atlas .ca-first-read { border:0; border-top:1px solid #d9ddde; border-bottom:1px solid #d9ddde; background:transparent; }
+.comparison-atlas .ca-first-read>div { background:transparent; padding:18px 20px; min-height:0; }
+.comparison-atlas .ql p,.comparison-atlas .ml p,.comparison-atlas .mrg p { color:#4d585d; font-size:16px; line-height:1.65; }
+.comparison-atlas .ql .ql-number-note { background:transparent; padding-top:8px; padding-bottom:8px; }
+.comparison-atlas .ql .ql-note { border-color:#aebbc1; }
+.comparison-atlas .ql .ql-math { color:#29353a; overflow-x:auto; overflow-y:hidden; padding:10px 2px; font-size:18px; }
+.comparison-atlas .ql .ql-math .katex-display { margin:0; text-align:left; }
+.comparison-atlas .ql .ql-math .katex-display>.katex { text-align:left; }
+.comparison-atlas .ql .ql-math .katex { font-size:1em; }
+.comparison-atlas .ql .ql-answer>strong,.comparison-atlas .ql .ql-contributions>article>strong { color:#29353a; }
+.comparison-atlas .ql .ql-equivalence>article { min-width:0; padding:12px; }
+.comparison-atlas .ql .ql-equivalence .ql-math { font-size:16px; }
+.comparison-atlas .ql .ql-contributions>article { min-width:0; }
+.comparison-atlas .ql .ql-weight-bar>span { background:#315b6b; }
+.comparison-atlas .ql .ql-weight-bar>span+span { background:#a2b0b6; }
+.comparison-atlas .ql .ql-step { padding-top:14px; padding-bottom:14px; }
+.comparison-atlas .ql .ql-controls { gap:12px 20px; }
+.comparison-atlas .ql .ql-presets button,.comparison-atlas .ml button { min-height:40px; }
+.comparison-atlas .ml .ml-equation { min-width:0; overflow-x:auto; overflow-y:hidden; color:#29353a; background:#f7f8f8; }
+.comparison-atlas .ml .ml-katex .katex-display { margin:8px 0; }
+.comparison-atlas .mrg { padding-top:24px; padding-bottom:24px; }
+.comparison-atlas .ca-plain-guide { background:#f7f8f8; border-color:#d9ddde; }
+.comparison-atlas .ca-flow-step { border-color:#d9ddde; }
+.comparison-atlas .ca-flow-step.is-detail { padding-top:16px; padding-bottom:12px; }
+.comparison-atlas .ca-flow-label> b { border-color:#aebbc1; color:#29353a; background:transparent; }
+.prd-rule-notes { margin:16px 0 22px; }
+.prd-rule-notes p { max-width:100ch; font-size:16px; line-height:1.65; }
+.prd-rule-notes dl { display:grid; grid-template-columns:minmax(130px,180px) minmax(0,1fr); gap:10px 20px; font-size:15px; }
+.prd-rule-notes dt { font-weight:650; }.prd-rule-notes dd { margin:0; overflow-wrap:anywhere; font-variant-numeric:tabular-nums; }
+@media(max-width:760px) {
+ .comparison-atlas .ql .ql-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .comparison-atlas .ql .ql-equivalence,.comparison-atlas .ml .ml-two { grid-template-columns:minmax(0,1fr); }
+ .comparison-atlas .ql .ql-equivalence>article+article { border-left:0; border-top:1px solid #d9ddde; }
+ .comparison-atlas .ql .ql-math { font-size:16px; }
+ .prd-rule-notes dl { grid-template-columns:minmax(0,1fr); gap:5px; }.prd-rule-notes dd { margin-bottom:12px; }
+}
+@media(max-width:480px) {
+ .comparison-atlas .ql .ql-controls { grid-template-columns:minmax(0,1fr); }
+ .comparison-atlas .ql p,.comparison-atlas .ml p,.comparison-atlas .mrg p { font-size:15px; }
+ .comparison-atlas .ca-first-read { grid-template-columns:minmax(0,1fr); }
+ .comparison-atlas .ca-first-read>div { border-left:0; border-bottom:1px solid #d9ddde; }
+}

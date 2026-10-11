@@ -265,28 +265,28 @@ const articles: Article[] = [
 
 const modelCopy: Record<ModelKey, { name: string; icon: string; inputs: string; label: Localized; detail: Localized }> = {
   control: {
-    icon: "⚙️", inputs: "Z → s(x)",
-    name: "Operational control",
+    icon: "⚙️", inputs: "metadata + quality → s(x)",
+    name: "Metadata rule (toy)",
     label: { ko: "운영 정보 중심", en: "Operational signals" },
-    detail: { ko: "인기도·최신성 같은 Z 통제 특성을 중심으로 정렬합니다.", en: "Ranks mainly from Z controls such as popularity and recency." }
+    detail: { ko: "인기도·최신성·합성 quality 값으로 정렬합니다. 논문의 11필드 운영 기준모델은 아닙니다.", en: "Uses popularity, recency and a synthetic quality value. This is not the paper's 11-field operational baseline." }
   },
   direct: {
     icon: "🧩", inputs: "P · E · C · Z",
-    name: "Direct PEC",
+    name: "Separate signals (toy)",
     label: { ko: "출처별 값을 그대로", en: "Source values retained" },
     detail: { ko: "P·E·C를 구분된 좌표로 유지해 점수 모델에 전달합니다.", en: "Passes P, E, and C to the scorer as separate coordinates." }
   },
   complete: {
     icon: "🔗", inputs: "P · E · C · Z · ψ",
-    name: "Complete PEC",
+    name: "Interactions (toy)",
     label: { ko: "출처와 상호작용", en: "Sources plus interactions" },
     detail: { ko: "분리된 P·E·C와 그 상호작용을 함께 사용합니다.", en: "Uses separated P, E, and C signals together with their interactions." }
   },
   neural: {
-    icon: "🧠", inputs: "embeddings → s(x)",
-    name: "Neural audit",
+    icon: "🧠", inputs: "fixed nonlinear rule → s(x)",
+    name: "Nonlinear rule (toy)",
     label: { ko: "비선형 비교 모델", en: "Nonlinear audit model" },
-    detail: { ko: "같은 정보가 신경망형 점수 모델에서도 유용한지 살펴보는 비교입니다.", en: "Checks whether the same evidence remains useful with a neural scorer." }
+    detail: { ko: "설명용 신호에 고정 비선형 수식을 적용합니다. 이 데모에서 신경망을 학습하거나 실행하지는 않습니다.", en: "Applies a fixed nonlinear formula to the toy signals; no neural network is trained or run here." }
   }
 };
 
@@ -334,9 +334,9 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
   const top = ranked[0];
   const signalLabels: Record<keyof Signals, Localized> = {
     P: { ko: "프로필 정합도", en: "Profile alignment" },
-    E: { ko: "보존 추천 기록", en: "Retained trace" },
+    E: { ko: "E 대용값 · 보존 순위 역수", en: "E proxy · reciprocal retained rank" },
     C: { ko: "이전 클릭 정합도", en: "Click-history alignment" },
-    Z: { ko: "운영 통제 특성", en: "Operational controls" }
+    Z: { ko: "Z 대용값 · 메타데이터 요약", en: "Z proxy · metadata summary" }
   };
 
   return <section className="prd-demo" id="live-demo" aria-labelledby="prd-title">
@@ -344,19 +344,25 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
       <div>
         <span className="public-section-label">LIVE RANKING DEMO</span>
         <h2 id="prd-title">{ko ? "독자 한 명의 뉴스 순위가 만들어지는 과정" : "Watch one reader's news ranking take shape"}</h2>
-        <p>{ko ? "독자와 모델을 바꾸면 같은 여덟 기사의 순위가 어떻게 달라지는지 확인할 수 있습니다. 기사 하나를 누르면 그 순위를 만든 입력 근거도 함께 표시됩니다." : "Switch the reader and scoring model to see the same eight stories reorder. Select any story to inspect the evidence behind its score."}</p>
+        <p>{ko ? "독자와 설명용 점수 규칙을 바꾸면 같은 여덟 기사의 순위가 어떻게 달라지는지 확인할 수 있습니다. 기사 하나를 누르면 그 순위를 만든 입력 근거도 함께 표시됩니다." : "Switch the reader and illustrative scoring rule to see the same eight stories reorder. Select any story to inspect the evidence behind its score."}</p>
       </div>
       <aside>
         <b>{ko ? "이 화면의 범위" : "What this demo is"}</b>
-        <span>{ko ? "논문의 구조를 설명하는 합성 시뮬레이션" : "A synthetic simulation of the paper's ranking structure"}</span>
-        <small>{ko ? "실제 사용자·학습 모델·논문 성능값이 아닙니다." : "Not a real user, fitted checkpoint, or reported result."}</small>
+        <span>{ko ? "명시적인 고정 점수 수식을 사용하는 합성 시뮬레이션" : "A toy simulation using explicit, fixed scoring formulas"}</span>
+        <small>{ko ? "ExtraTrees·신경망 체크포인트나 논문의 모델 비교를 재현하는 화면이 아닙니다." : "Not ExtraTrees, a neural checkpoint, or a reproduction of the paper's model comparison."}</small>
       </aside>
     </header>
+
+    <details className="tutorial-disclosure prd-rule-notes"><summary>{ko ? "이 데모의 신호와 점수 수식 보기" : "See the toy signals and scoring formulas"}</summary>
+      <p>{ko ? "P와 C는 합성 카테고리 선호값, E는 보존 순위 역수(부재 시 0), Z는 인기도·최신성의 가중 요약입니다. 논문의 다차원 P/E/C/Z 블록을 그대로 계산하는 것은 아닙니다. Q는 설명용 quality 값입니다. 각 규칙의 출력은 0~1로 제한합니다." : "P and C are synthetic category affinities. E is reciprocal retained rank (zero when absent); Z combines popularity and recency. These proxies do not reconstruct the paper's multi-field blocks. Q is a synthetic quality value. Each rule clamps its output to [0,1]."}</p>
+      <dl><dt>Z proxy</dt><dd>0.55 popularity + 0.45 recency</dd><dt>Metadata rule</dt><dd>0.78 Z + 0.22 Q</dd><dt>Separate signals</dt><dd>0.25 P + 0.15 E + 0.25 C + 0.15 Z + 0.20 Q</dd><dt>Interactions</dt><dd>0.25 P + 0.14 E + 0.24 C + 0.15 Z + 0.05 Q + 0.11 PC + 0.06 CE</dd><dt>Nonlinear rule</dt><dd>0.15 sqrt(P) + 0.15 E + 0.10 C^0.70 + 0.35 Z + 0.05 Q + 0.20 max(P,C)</dd></dl>
+      <p>{ko ? "실제 학습기의 계산은 위의 Model Lab에서, 실험 성능은 Comparison Atlas에서 확인하세요." : "Use the Model Lab for learner calculations and the Comparison Atlas for empirical results."} <a href="#model-lab">Model Lab</a> · <a href="#atlas">Comparison Atlas</a></p>
+    </details>
 
     <div className="prd-stagebar" aria-label={ko ? "데모 진행 단계" : "Demo stages"}>
       <span><i>1</i>{ko ? "독자 선택" : "Choose reader"}</span>
       <span><i>2</i>{ko ? "후보 기사 확인" : "Review candidates"}</span>
-      <span><i>3</i>{ko ? "모델 선택" : "Choose model"}</span>
+      <span><i>3</i>{ko ? "점수 규칙 선택" : "Choose rule"}</span>
       <span><i>4</i>{ko ? "순위와 근거 확인" : "Inspect ranking"}</span>
     </div>
 
@@ -448,7 +454,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
           <span>03</span>
           <div><b id="prd-model-title">{ko ? "어떤 모델로 정렬할까요?" : "Which model should rank them?"}</b><small>{ko ? "입력 정보와 점수 규칙 비교" : "Compare inputs and scoring rules"}</small></div>
         </div>
-        <div className="prd-model-tabs" role="group" aria-label={ko ? "모델 선택" : "Choose a model"}>
+        <div className="prd-model-tabs" role="group" aria-label={ko ? "점수 규칙 선택" : "Choose a scoring rule"}>
           {modelOrder.map((key) => <button key={key} type="button" aria-pressed={model === key} onClick={() => setModel(key)}>
             <span className="prd-model-symbol" aria-hidden="true">{modelCopy[key].icon}</span>
             <span className="prd-model-copy"><b>{modelCopy[key].name}</b><small>{t(modelCopy[key].label)}</small><i>{modelCopy[key].inputs}</i></span>
@@ -467,7 +473,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
         <div className="prd-model-lens" key={`${model}-${selected.article.id}`}>
           <header>
             <div><small>{ko ? "현재 선택 기사" : "Selected story"}</small><b>{selected.article.icon} {t(selected.article.title)}</b></div>
-            <span>{ko ? "기사·모델 선택 시 갱신" : "Updates with story and model"}</span>
+            <span>{ko ? "기사·점수 규칙 선택 시 갱신" : "Updates with story and model"}</span>
           </header>
           <div className="prd-model-signal-list">
             {(Object.keys(selected.signals) as (keyof Signals)[]).map((key) => <p key={key} className={model === "control" && key !== "Z" ? "is-muted" : ""}>
@@ -500,18 +506,18 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
         </div>
         <div className="prd-output-models">
           <small className="prd-model-switch-label">
-            <b>{ko ? "점수 모델 선택" : "Choose a scoring model"}</b>
+            <b>{ko ? "점수 규칙 선택" : "Choose a scoring rule"}</b>
             <span>{ko ? "모델을 선택하면 아래 순위가 다시 계산됩니다." : "Select an option to recalculate the ranking below."}</span>
             <i aria-hidden="true">↓</i>
           </small>
           <div>
             {([
-              { id: "complete", icon: "🔗", name: "Complete PEC" },
-              { id: "control", icon: "⚙️", name: ko ? "운영 기준" : "Operational" },
-              { id: "direct", icon: "🧩", name: "Direct PEC" },
-              { id: "neural", icon: "🧠", name: ko ? "뉴럴 오딧" : "Neural audit" },
+              { id: "complete", icon: "🔗", name: "Interactions (toy)" },
+              { id: "control", icon: "⚙️", name: ko ? "메타데이터 규칙" : "Metadata rule" },
+              { id: "direct", icon: "🧩", name: "Separate signals (toy)" },
+              { id: "neural", icon: "🧠", name: ko ? "비선형 규칙" : "Nonlinear rule" },
             ] as const).map((item) => <button key={item.id} type="button" aria-pressed={model === item.id} onClick={() => setModel(item.id)}>
-              <span aria-hidden="true">{item.icon}</span><b>{item.name}</b><em>{model === item.id ? (ko ? "현재 모델" : "Current model") : (ko ? "선택" : "Select")}</em>
+              <span aria-hidden="true">{item.icon}</span><b>{item.name}</b><em>{model === item.id ? (ko ? "현재 규칙" : "Current rule") : (ko ? "선택" : "Select")}</em>
             </button>)}
           </div>
         </div>
@@ -560,7 +566,7 @@ export function LiveRankingDemo({ lang }: { lang: Lang }) {
         </div>
         <div className="prd-total-score"><small>{ko ? "선택 기사 총점" : "Selected story score"}</small><output>{selected.score.toFixed(3)}</output><span>{ko ? `현재 ${ranked.findIndex((item) => item.article.id === selected.article.id) + 1}위 · 정렬용 점수` : `Rank ${ranked.findIndex((item) => item.article.id === selected.article.id) + 1} · ranking score`}</span></div>
         <p>{model === "control"
-          ? (ko ? "이 모델은 P·E·C를 사용하지 않습니다. 인기와 최신성 같은 운영 정보가 순위를 주로 결정합니다." : "This model does not use P, E, or C. Operational signals such as popularity and recency drive the ranking.")
+          ? (ko ? "이 설명용 규칙은 메타데이터와 quality만 씁니다. 논문의 B11 기준모델은 이와 달리 trace 포함 여부와 순위 역수도 포함합니다." : "This toy rule uses metadata and quality only. The paper's B11 baseline is different: it includes trace membership and reciprocal rank.")
           : (ko ? `${t(persona.name)}의 프로필·이력과 이 기사의 관계가 후보별 입력이 됩니다. 네 값을 단순히 더한 것이 아니라, 선택한 모델의 규칙으로 점수 하나를 계산합니다.` : `The relationship between ${t(persona.name)} and this story becomes candidate-level input. The four values are not simply added; the selected model maps them to one ranking score.`)}</p>
       </aside>
     </section>

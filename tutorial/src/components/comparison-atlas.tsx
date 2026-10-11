@@ -32,9 +32,9 @@ const koModels: Model[] = [
   { id: "collapsed12", name: "Scalar collapsed", width: 12, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "F", label: "수식 scalar", width: 1 }], note: "P/C를 사람이 정한 하나의 점수로 먼저 합친다." },
   { id: "early12", name: "Learned early fusion", width: 12, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "F", label: "학습 scalar", width: 1 }], note: "P/C를 logistic 또는 MLP가 학습한 하나의 값으로 먼저 합친다." },
   { id: "scalarDirect17", name: "Scalar-audit Direct", width: 17, blocks: [{ kind: "B", label: "B", width: 11 }, { kind: "E", label: "combined E", width: 1 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C summaries", width: 4 }], note: "운영 baseline 위에 combined E와 원래의 다섯 P/C 좌표를 직접 제공한다." },
-  { id: "direct19", name: "Direct", width: 19, blocks: [{ kind: "H", label: "H · 공통 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }], note: "상호작용 항을 추가하지 않고 출처별 의미 좌표를 그대로 유지한다." },
-  { id: "fusion19", name: "Learned 5-D fusion", width: 19, blocks: [{ kind: "H", label: "H · 공통 맥락", width: 14 }, { kind: "F", label: "gθ(P,C)", width: 5 }], note: "동일한 다섯 입력을 학습된 변환을 거친 5차원 은닉 벡터로 바꾼다." },
-  { id: "complete25", name: "Complete PEC", width: 25, blocks: [{ kind: "H", label: "H · E+Z 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }, { kind: "psi", label: "ψ 곱셈 항", width: 6 }], note: "Direct의 19개 특성에 고정식으로 계산한 상호작용 항 여섯 개를 더한다." },
+  { id: "direct19", name: "Direct", width: 19, blocks: [{ kind: "H", label: "S · 공통 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }], note: "상호작용 항을 추가하지 않고 출처별 의미 좌표를 그대로 유지한다." },
+  { id: "fusion19", name: "Learned 5-D fusion", width: 19, blocks: [{ kind: "H", label: "S · 공통 맥락", width: 14 }, { kind: "F", label: "gθ(P,C)", width: 5 }], note: "동일한 다섯 입력을 학습된 변환을 거친 5차원 은닉 벡터로 바꾼다." },
+  { id: "complete25", name: "Complete PEC", width: 25, blocks: [{ kind: "H", label: "S · E+Z 맥락", width: 14 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C 요약", width: 4 }, { kind: "psi", label: "ψ 곱셈 항", width: 6 }], note: "Direct의 19개 특성에 고정식으로 계산한 상호작용 항 여섯 개를 더한다." },
   { id: "noE9", name: "No-E control", width: 9, blocks: [{ kind: "B", label: "E-free control", width: 9 }], note: "trace 관련 control을 제거한 baseline." },
   { id: "noE18", name: "No-E PEC", width: 18, blocks: [{ kind: "Z", label: "Z · recorded controls", width: 11 }, { kind: "P", label: "P", width: 1 }, { kind: "C", label: "C", width: 4 }, { kind: "psi", label: "남은 P–C products", width: 2 }], note: "E 세 필드와 E가 들어간 product 네 개를 제거하고 Z, P, C와 두 P–C product를 유지한다." },
   { id: "context8", name: "Context only", width: 8, blocks: [{ kind: "Z", label: "P/E-free context", width: 8 }], note: "프로필 유래 입력과 trace 입력을 함께 제거한다." },
@@ -45,9 +45,9 @@ const enBlockLabels: Record<string, string> = {
   "B · 운영 control": "B · operational controls",
   "수식 scalar": "Rule-based scalar",
   "학습 scalar": "Learned scalar",
-  "H · 공통 맥락": "H · shared context",
+  "S · 공통 맥락": "S · shared context",
   "C 요약": "C summaries",
-  "H · E+Z 맥락": "H · E+Z context",
+  "S · E+Z 맥락": "S · E+Z context",
   "ψ 곱셈 항": "ψ interaction products",
   "남은 P–C products": "Remaining P–C products",
 };
@@ -250,12 +250,12 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         <h1 className={isKo ? "is-ko" : "is-en"}>{isKo ? "PEC-Fuse, 단계별로 살펴보기" : "PEC-Fuse, step by step"}</h1>
         <p className="ca-deck">{isKo ? "한 사용자와 날짜를 하나의 질의로 정의하고, 기사 후보를 구성하는 단계부터 시작합니다. 이후 각 특성의 출처와 계산 과정, 학습되는 요소, 실험에서 달라지는 조건을 차례로 확인합니다." : "Start with a single user-date query and build its candidate set. Then trace each feature to its source, separate computed quantities from learned components, and identify the condition changed in every experiment."}</p>
         <nav className="ca-route" aria-label={isKo ? "주요 섹션 바로가기" : "Jump to a section"}><b>{isKo ? "빠른 이동" : "Jump to"}</b><a href="#microscope">{isKo ? "데이터 사례" : "Data example"}</a><a href="#final-demo">{isKo ? "전체 순위 과정" : "End-to-end ranking"}</a><a href="#row">{isKo ? "후보 구성" : "Candidate construction"}</a><a href="#record">{isKo ? "특성 계산" : "Feature computation"}</a><a href="#learn">{isKo ? "모델 이해" : "Model guide"}</a><a href="#atlas">{isKo ? "실험 비교" : "Experiments"}</a></nav>
-        <div className="ca-overview-head"><span>FOUR-STEP OVERVIEW</span><h2>{isKo ? "먼저, 전체 분석 절차를 네 단계로 봅니다" : "First, see the complete workflow in four steps"}</h2><p>{isKo ? "아래 네 칸은 메뉴가 아니라 PEC-Fuse의 전체 절차를 요약한 것입니다. 각 단계의 계산과 예시는 다음 섹션부터 같은 순서로 자세히 설명합니다." : "These four panels summarize the PEC-Fuse workflow; they are not navigation controls. The sections that follow unpack each stage with calculations and examples."}</p></div>
+        <div className="ca-overview-head"><span>FOUR-STEP OVERVIEW</span><h2>{isKo ? "먼저, 전체 분석 절차를 네 단계로 봅니다" : "First, see the complete workflow in four steps"}</h2><p>{isKo ? "먼저 전체 흐름을 잡고, 아래에서 후보 기사 하나를 따라가 보세요. 자세한 계산은 필요할 때 펼쳐 볼 수 있습니다." : "Start here, then follow one candidate through the examples below. Detailed calculations remain available when you need them."}</p></div>
         <div className="ca-first-read">
           <div><span>1</span><b>{isKo ? "평가할 하루를 정합니다" : "Define the ranking query"}</b><p>{isKo ? "사용자 한 명과 날짜 하나를 평가 단위로 묶고, 그날 클릭한 기사와 비교 후보를 모읍니다." : "Pair one user with one date, then collect the clicked articles and the candidates they will be ranked against."}</p></div>
           <div><span>2</span><b>{isKo ? "기사마다 입력 행을 만듭니다" : "Build one input row per article"}</b><p>{isKo ? "각 후보 기사에 P·E·C·Z·ψ를 계산합니다. 후보가 15개라면 입력 행도 15개입니다." : "Compute P, E, C, Z, and ψ for every candidate. Fifteen candidates produce fifteen input rows."}</p></div>
           <div><span>3</span><b>{isKo ? "모델을 학습하고 후보를 점수화합니다" : "Fit the model and score candidates"}</b><p>{isKo ? "학습 데이터에서는 클릭 여부로 점수 규칙을 배웁니다. 평가할 때는 후보별 점수를 계산해 같은 질의 안에서 정렬합니다." : "Click labels supervise fitting. At evaluation time, the fitted model scores each candidate and ranks them within the query."}</p></div>
-          <div><span>4</span><b>{isKo ? "한 조건씩 바꿔 비교합니다" : "Change one condition at a time"}</b><p>{isKo ? "후보와 평가 방법은 같게 유지하고, 입력 정보·표현 방식·학습기 중 비교할 요소만 바꿉니다." : "Keep the candidates and evaluation fixed while changing only the input, representation, or learner under study."}</p></div>
+          <div><span>4</span><b>{isKo ? "한 조건씩 바꿔 비교합니다" : "Change one condition at a time"}</b><p>{isKo ? "각 비교에서 입력·표현·학습기·후보 선택 중 무엇이 바뀌는지 확인하고, 나머지 지정된 조건은 유지합니다." : "Identify what each comparison changes: inputs, representation, learner, or candidate selection; keep the other specified conditions fixed."}</p></div>
         </div>
         <div className="ca-term-strip" aria-label={isKo ? "핵심 용어" : "Core terms"}>
           <div><b>{isKo ? "질의" : "Query"}</b><span>q=(u,t)</span><p>{isKo ? "사용자 한 명의 특정 날짜에 대한 순위 문제" : "A ranking problem for one user on one date"}</p></div>
@@ -314,7 +314,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         </section>
       </section>
 
-      <BeginnerGuide lang={lang} />
+      <details className="tutorial-disclosure"><summary>{isKo ? "전체 흐름 다시 보기: 데이터에서 순위까지" : "Optional recap: from records to ranking"}</summary><BeginnerGuide lang={lang} /></details>
 
       <section className="ca-section" id="record">
         <div className="ca-heading"><span>02 / ROW ANATOMY</span><h2>{isKo ? "원자료에서 후보별 25개 특성까지" : "From source records to 25 candidate features"}</h2><p>{isKo ? "후보 기사 하나마다 숫자 행 하나를 만듭니다. 서로 다른 출처의 정보는 같은 행에 놓되 P·E·C·Z·ψ 블록으로 구분합니다." : "Build one numeric row per candidate article. Different sources share a row while retaining distinct P, E, C, Z, and ψ blocks."}</p></div>
@@ -339,7 +339,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         <FullRecordExplorer lang={lang} />
         <div className="ca-sample-row">
           <div><span>{isKo ? "후보 A" : "Candidate A"}</span><b>Climate-policy news</b><small>y=1 · trace member=0</small></div>
-          <div className="is-P"><small>P</small><b>0.82</b></div><div className="is-E"><small>E<sub>m</sub></small><b>0</b></div><div className="is-E"><small>1/r</small><b>0</b></div><div className="is-C"><small>C<sub>mean</sub></small><b>0.31</b></div><div className="is-C"><small>C<sub>att</sub></small><b>0.40</b></div><div className="is-psi"><small>P×C<sub>mean</sub></small><b>0.2542</b></div>
+          <div className="is-P"><small>P</small><b>0.82</b></div><div className="is-E"><small>E<sub>m</sub></small><b>0</b></div><div className="is-E"><small>1/r</small><b>0</b></div><div className="is-C"><small>C<sub>mean</sub></small><b>0.31</b></div><div className="is-C"><small>C<sub>attn</sub></small><b>0.40</b></div><div className="is-psi"><small>P×C<sub>mean</sub></small><b>0.2542</b></div>
         </div>
         <p className="ca-caption">{isKo ? "0.82는 확률이 아니라 cosine alignment입니다. 0.2542는 0.82×0.31로 계산한 입력값이며 예측 점수가 아닙니다. y는 정답 label로 평가에 쓰이지만 scorer 입력에는 들어가지 않습니다." : "0.82 is a cosine alignment, not a probability. 0.2542 is the computed input 0.82×0.31, not a prediction. The label y is used for fitting and evaluation, not as a scorer feature."}</p>
       </section>
@@ -352,7 +352,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <div><span>{isKo ? "고정" : "FIXED"}</span><b>BGE-M3 encoder</b><p>{isKo ? "기사와 프로필을 임베딩하지만, 이 연구 데이터로 가중치를 업데이트하지 않습니다." : "Creates article/profile embeddings but is not updated on this study data."}</p></div>
           <div><span>{isKo ? "계산" : "COMPUTED"}</span><b>P · E · C · Z · ψ</b><p>{isKo ? "관측 기록과 고정 수식으로 질의–후보마다 다시 계산합니다." : "Computed per query–candidate from observed records and fixed formulas."}</p></div>
           <div><span>{isKo ? "일부 비교에서 학습" : "OPTIONALLY LEARNED"}</span><b>g<sub>θ</sub>(P,C)</b><p>{isKo ? "학습형 융합 비교에서만 하나 또는 여러 개의 새 좌표를 학습합니다." : "Learns a scalar or d-dimensional representation only in fusion variants."}</p></div>
-          <div><span>{isKo ? "학습" : "FITTED"}</span><b>ExtraTrees / neural scorer</b><p>{isKo ? "후보 행과 클릭 라벨로 규칙을 학습하고, 후보마다 순위 점수를 냅니다." : "Fits pointwise click labels and uses class-1 probability as the within-query score."}</p></div>
+          <div><span>{isKo ? "학습" : "FITTED"}</span><b>ExtraTrees / neural scorer</b><p>{isKo ? "ExtraTrees는 후보별 클릭 라벨로, 신경망은 질의별 listwise loss로 학습합니다. 둘 다 질의 안에서 정렬할 후보 점수를 냅니다." : "ExtraTrees fits candidate-level click labels; the neural scorer uses query-wise listwise loss. Both produce within-query ranking scores."}</p></div>
           <div><span>{isKo ? "평가에만 사용" : "EVALUATION ONLY"}</span><b>NDCG · Recall · MRR · CI</b><p>{isKo ? "완성된 순위를 평가하는 값이며 모델 입력에는 포함하지 않습니다." : "Query metrics and user bootstrap belong to evaluation, not model input."}</p></div>
         </div>
         <div className="ca-training-example">
@@ -392,7 +392,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
               </div>
               <div className="ca-flow-step is-detail">
                 <div className="ca-flow-label"><b>03</b><div><span>{isKo ? "필요하면 후보 한 행까지 내려가 보세요" : "Drill down to one candidate row"}</span><p>{isKo ? "블록 안의 각 숫자가 어디에서 왔고 실제 모델 입력에서 어떻게 보이는지 확인합니다." : "Inspect where each value comes from and how it appears in the actual model input."}</p></div></div>
-                <ComparisonDataPreview lang={lang} comparisonId={active.id} leftId={left.id} leftName={left.name} rightId={right.id} rightName={right.name} />
+                <details className="tutorial-disclosure" key={active.id}><summary>{isKo ? "두 모델의 전체 입력 행 펼치기" : "Expand the complete input rows for both models"}</summary><ComparisonDataPreview lang={lang} comparisonId={active.id} leftId={left.id} leftName={left.name} rightId={right.id} rightName={right.name} /></details>
               </div>
               <div className="ca-flow-step is-protocol">
                 <div className="ca-flow-label"><b>04</b><div><span>{isKo ? "마지막으로 비교 조건을 점검하세요" : "Finally, verify the comparison design"}</span><p>{isKo ? "무엇을 같게 두고 무엇만 바꿨는지 확인한 뒤 결과의 해석 범위를 정합니다." : "Confirm what stayed fixed and what changed before interpreting the result."}</p></div></div>

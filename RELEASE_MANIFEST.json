@@ -1,5 +1,5 @@
 {
-  "file_count": 150,
+  "file_count": 151,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "81a8047809d113b2ddc0958f5db20ccec580ed538479ad5706042119234f0b4d",
@@ -127,8 +127,8 @@
     "tutorial/src/components/candidate-budget-story.css": "d563c6ddf580575ecec0485453bca01b6077b0b4c3ce82dc48dac9cc5431db86",
     "tutorial/src/components/candidate-budget-story.tsx": "bb1c852ea2a4f3353265a401beef23fa326d933aa902f1b10086291d3e4856ee",
     "tutorial/src/components/compare.css": "3fa499371000fd0b08c5cf0b5bfba12ebbf4ef2073749fbe06260b06ba2a6408",
-    "tutorial/src/components/comparison-atlas.tsx": "c9b4548e0cd60e204ee4be43a271e1f26ff38772453b6dc021530187d0bfe875",
-    "tutorial/src/components/comparison-details.tsx": "ccdbc9986d673cc9a53bc101eaebdf1d184d40a54ece7c3cad0dd150987d86c3",
+    "tutorial/src/components/comparison-atlas.tsx": "1833777e24391dcfe07263535f73068b373bd991a91624c73bd205492ad7dd9c",
+    "tutorial/src/components/comparison-details.tsx": "9f6211608f78f44f98361e8d8045d3a31d997cea04e62fd73419ead3c87ad7ab",
     "tutorial/src/components/comparison-evidence.css": "6aa31dca2f3a7792c6c15e8f4adb8c5f3a3049bb3b5adcb820bba6265f4c6539",
     "tutorial/src/components/comparison-evidence.tsx": "aa73a4706a33e799c8bf06b2fbd0a7154fefa3a3be4aec18406720e2d2ca23e5",
     "tutorial/src/components/comparison-score-charts.css": "34bad1f31857bbed172a957c7ccd4788b9d886c7cbd51a54977b9653b78bc72c",
@@ -137,20 +137,21 @@
     "tutorial/src/components/control-calculations.tsx": "16f4eb884d43540923c593336f2dfa88df07aa1cebabe54f09434b119a7743f5",
     "tutorial/src/components/data-microscope.tsx": "c6f312d020c37c0d0229c781136f1a2e472fb8bf4f1e3b8415ef0e1f36a4ab68",
     "tutorial/src/components/equation-walkthrough.css": "3dda7b2602d383243926dbe5106030c238cac667cb7500d5d9bdddaf2b26173f",
-    "tutorial/src/components/equation-walkthrough.tsx": "ab511fdb11a0f0eef376fc68b98f077fd3e4c8398c78583b0390869f935d9a0c",
-    "tutorial/src/components/live-ranking-demo.tsx": "0a91b226e23029c6b0de63012deaf466bb73e8d2565f2aad7d6c58565b80b46d",
+    "tutorial/src/components/equation-walkthrough.tsx": "f40e7ac4383ca032b611e42cc08d65db61f7b965aa42768c6020a9d1ca111dd9",
+    "tutorial/src/components/live-ranking-demo.tsx": "4b2c62a36116570e051167963b684f803bb841b7d44296cefb3167a4bb7932b4",
     "tutorial/src/components/model-learning-lab.css": "fdb899f59ccc7711906a2367bcb230ad7f5bd5609be512fd02cb6918893adb41",
-    "tutorial/src/components/model-learning-lab.tsx": "3d027777cccad844e2ae29622b67db0faea350d68d24e3d14c990e4986487436",
+    "tutorial/src/components/model-learning-lab.tsx": "ec698777270ad2b4e1811ba2b58e82012dcdf7bf3f5e3f16e8a8cd2df5081e2d",
     "tutorial/src/components/model-reading-guide.css": "c55c7f7279c1f8a60a2a2886e442a6bd75b7f429bbe90b892e4e6c8454994280",
     "tutorial/src/components/model-reading-guide.tsx": "409ce2f72b5528d7825df64876ef820b9825ebc349b573af19923446e1eef673",
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
-    "tutorial/src/main.tsx": "ac1d910a57cc5a3dd3edea12b8270435a2295287f0b57983f3b485a1f53fcc3d",
+    "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "f6f606253aa0709662f147922cf8a4d07d1a7df20ba0eb7557d440cd5f59fe46",
     "tutorial/src/project-home.tsx": "fbd026f87516a5b862a91474d55876de2baca4ebb4af54b7421e14560971ec3a",
     "tutorial/src/public-tutorial.tsx": "c9bf8ac820a95e43a35ff71957650b90c2bcca382dbdfa21e20cabd9952f636e",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
-    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
+    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
+    "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b"
   },
-  "revision": "ieee-access-v47-public-artifact-v15"
+  "revision": "ieee-access-v47-public-artifact-v16"
 }
