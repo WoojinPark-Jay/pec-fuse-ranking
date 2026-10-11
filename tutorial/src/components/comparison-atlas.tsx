@@ -65,7 +65,7 @@ const fieldCatalog: Record<string, FieldMeta> = {
   P_count: { key: "P_count", kind: "Z", label: "Profile count summary", ko: "프로필의 카테고리·발행처 가중치를 더한 뒤 1로 제한한 요약값입니다.", en: "The category and publisher profile weights summed and capped at one." },
   C_count: { key: "C_count", kind: "Z", label: "Click-history count summary", ko: "이전 클릭의 카테고리·발행처 비율을 더한 뒤 1로 제한한 요약값입니다.", en: "The category and publisher click shares summed and capped at one." },
   E_exposure: { key: "E_exposure", kind: "E", label: "Combined trace score", ko: "trace membership과 reciprocal rank를 더한 결합 E 값입니다. 노출 확률은 아닙니다.", en: "Trace membership plus reciprocal rank. It is not an exposure probability." },
-  popularity_score: { key: "popularity_score", kind: "Z", label: "Frozen popularity", ko: "학습 기간에서 고정한 기사 인기도 변환값입니다.", en: "The article-popularity transform frozen at the training cutoff." },
+  popularity_score: { key: "popularity_score", kind: "Z", label: "Phase-frozen popularity", ko: "각 fitting interval의 종료 시점에 고정한 기사 인기도 변환값입니다. query마다 다시 계산하는 과거 특성이 아닙니다.", en: "The article-popularity transform frozen at the end of each fitting interval, not recomputed as a query-time historical feature." },
   recency_score: { key: "recency_score", kind: "Z", label: "Article recency", ko: "기사 나이를 일 단위로 계산한 1/(1+age) 값입니다.", en: "Article recency computed as 1/(1+age in days)." },
   log_article_len: { key: "log_article_len", kind: "Z", label: "Log article length", ko: "기사 텍스트 길이에 log(1+n)을 적용한 값입니다.", en: "Log(1+n) of the article text length." },
   is_breaking: { key: "is_breaking", kind: "Z", label: "Breaking-news flag", ko: "기사 metadata의 속보 여부를 나타내는 이진값입니다.", en: "A binary breaking-news metadata flag." },
@@ -298,6 +298,20 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <p><b>{isKo ? "클릭 기사와 추천 기록이 겹칠 때" : "Overlapping positive"}</b>{isKo ? "클릭 기사가 보존 추천 기록에도 있으면 한 행만 남깁니다. 정답 라벨은 1이고 E 정보도 유지합니다." : "If a click also appears in the trace, it remains one row with label 1 and keeps its E features."}</p>
           <p><b>{isKo ? "라벨 0의 의미" : "Meaning of label 0"}</b>{isKo ? "해당 날짜에 클릭이 관측되지 않았다는 뜻입니다. 실제로 싫어했거나 노출되지 않았다고 확인된 것은 아닙니다." : "It means no observed click in this query, not verified dislike or verified non-exposure."}</p>
         </div>
+        <section className="ca-e-diagnostic" aria-labelledby="ca-e-diagnostic-title">
+          <header>
+            <span>{isKo ? "TRACE-ONLY DIAGNOSTIC · SAME-DAY" : "TRACE-ONLY DIAGNOSTIC · SAME-DAY"}</span>
+            <h3 id="ca-e-diagnostic-title">{isKo ? "E는 후보풀 구조를 보여 주지만, E만으로 headline 성능을 재현하지 못합니다" : "E reveals candidate-pool structure, but E alone does not reproduce headline performance"}</h3>
+            <p>{isKo ? "Trace member의 positive 비율은 1.34%, trace-absent 후보는 23.63%입니다. 이 연관성은 실제로 존재하지만, 같은 test pool에서 제한된 E-only 점수들은 control과 Complete PEC보다 훨씬 낮습니다." : "The positive rate is 1.34% among trace members and 23.63% among trace-absent candidates. The association is real, yet restricted E-only scores remain far below the control and Complete PEC on the same test pool."}</p>
+          </header>
+          <div className="ca-e-diagnostic-values" aria-label={isKo ? "Same-day NDCG@10 진단값" : "Same-day NDCG@10 diagnostic values"}>
+            <article><span>{isKo ? "Trace-absent 우선" : "Trace-absent first"}</span><b>0.5000</b></article>
+            <article><span>E-only logistic</span><b>0.5007</b></article>
+            <article><span>{isKo ? "운영 control" : "Operational control"}</span><b>0.7499</b></article>
+            <article><span>Complete PEC</span><b>0.7717</b></article>
+          </div>
+          <footer>{isKo ? "해석: trace membership은 활용 가능한 pool cue이지만, 이 진단만으로 후보풀 의존성이 제거되거나 E의 가능한 성능 상한이 정해지는 것은 아닙니다." : "Interpretation: trace membership is an exploitable pool cue, but this diagnostic neither removes candidate-pool dependence nor establishes an upper bound on E."}</footer>
+        </section>
       </section>
 
       <BeginnerGuide lang={lang} />

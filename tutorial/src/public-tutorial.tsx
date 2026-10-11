@@ -76,7 +76,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       </div>
       <div className="public-paper-meta">
         <span>{t("IEEE Access 투고 논문을 위한 대화형 해설", "Interactive companion to the IEEE Access manuscript")}</span>
-        <span>Version 0.1.0</span>
+        <span>Software 0.1.0 · Manuscript v45</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
         <span className="public-author-cluster">
           <span>{t("Woojin Park · 제1저자 제작", "Tutorial by Woojin Park · First author")}</span>
