@@ -1,44 +1,161 @@
-"""Compact protocol figure; schematic, not additional experimental data."""
+"""Protocol preview v2: one accent family, aligned typography, tighter labels.
+
+Blue is a structural accent, not a separate code for labels or evidence sources.
+All categories are identified in text. Exports the accepted Access Figure 2.
+"""
 from pathlib import Path
+import sys
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle,FancyArrowPatch
-OUT=Path(__file__).resolve().parents[1]/'figures'
-import sys
-sys.path.insert(0,str(Path(__file__).resolve().parent))
-from figure_style import configure,INK,MUTED,BLUE,BORDER
+from matplotlib.patches import Rectangle, Polygon
+
+HERE = Path(__file__).resolve().parent
+OUT = HERE.parent / 'figures'
+sys.path.insert(0, str(HERE))
+from figure_style import configure
 configure()
-ink=INK;blue=BLUE;teal='#465D6C';gray=BORDER
-fig=plt.figure(figsize=(7.5,2.32));ax=fig.add_axes([.01,.025,.98,.95])
-ax.set_xlim(0,100);ax.set_ylim(0,100);ax.axis('off')
-ax.text(0,99,'(a) Temporal evaluation',fontsize=10,fontweight='bold',va='top')
-left=26;step=12
-for x,label in [(44,'January–March'),(68,'April'),(86,'May–June')]:
- ax.text(x,89,label,ha='center',va='center',fontsize=8.5)
-def band(y,x,w,label,edge,fill):
- ax.add_patch(Rectangle((x,y),w,7,facecolor=fill,edgecolor=edge,lw=.7))
- ax.text(x+w/2,y+3.5,label,ha='center',va='center',fontsize=8.1)
-ax.text(0,77.5,'Selection',va='center',fontsize=9)
-ax.text(0,64.5,'Final model',va='center',fontsize=9)
-band(74,26,36,'Fit',blue,'#F1F5F8');band(74,62,12,'Validate',gray,'#F6F5F2')
-band(61,26,48,'Refit selected configuration',blue,'#F1F5F8');band(61,74,24,'Test',teal,'#EDF2F5')
-ax.text(26,52,'Popularity cutoff: Mar 31 for selection; Apr 30 for final scoring',fontsize=7.7,va='center',color='#596B76')
-ax.plot([0,100],[44,44],color='#D6DDE1',lw=.55)
-ax.text(0,39,'(b) Query-level candidate assembly',fontsize=10,fontweight='bold',va='top')
-items=[(9,r'$Y^+_{u,t}$','Clicked positives'),(31,r'$R^-_{u,t}$','Retained non-clicks'),(54,r'$N_{u,t}$','Introduced items')]
-for x,math,label in items:
- ax.text(x,24,math,ha='center',va='center',fontsize=13)
- ax.text(x,13,label,ha='center',va='center',fontsize=8.1)
-for x in [20,43]:ax.text(x,24,r'$\cup$',ha='center',va='center',fontsize=12,color=gray)
-ax.add_patch(FancyArrowPatch((64,24),(70,24),arrowstyle='-|>',mutation_scale=9,lw=.85,color=ink))
-ax.text(77,24,r'$\mathcal{A}_{u,t}$',ha='center',va='center',fontsize=13)
-ax.text(77,13,'Unique pairs',ha='center',va='center',fontsize=8.1)
-ax.add_patch(FancyArrowPatch((84,24),(89,24),arrowstyle='-|>',mutation_scale=9,lw=.85,color=ink))
-ax.text(95,24,'Score',ha='center',va='center',fontsize=9)
-ax.text(95,13,'then rank',ha='center',va='center',fontsize=8.1)
-ax.text(31,3,'Up to 24',ha='center',va='center',fontsize=7.5,color='#596B76')
-ax.text(54,3,r'Recent: $t-3{:}t$  /  Same-day: $t$',ha='center',va='center',fontsize=7.5,color='#596B76')
+plt.rcParams['svg.fonttype'] = 'path'
+
+INK = '#25313B'
+MUTED = '#44515B'
+BORDER = '#D0D0D0'
+BLUE = '#287595'
+PALE_BLUE = '#E8F3F9'
+PALE_GRAY = '#E8F3F9'
+
+fig = plt.figure(figsize=(18, 7.9), facecolor='white')
+ax = fig.add_axes([0, 0, 1, 1])
+ax.set_xlim(0, 1800)
+ax.set_ylim(830, 0)
+ax.axis('off')
+
+def text(x, y, label, size=23, color=INK, weight='normal', ha='left', va='center'):
+    size = {21:22, 23:22, 25:24, 27:26, 29:28, 39:36}.get(size,size)
+    ax.text(x, y, label, fontsize=size * .72, color=color,
+            fontweight=weight, ha=ha, va=va, linespacing=1.35)
+
+def line(x1, y1, x2, y2, color=BORDER, width=.85, style='-'):
+    ax.plot([x1, x2], [y1, y2], color=color, lw=width, ls=style,
+            solid_capstyle='butt', zorder=1)
+
+def rect(x, y, w, h, fill='white', edge=BORDER, lw=.85):
+    ax.add_patch(Rectangle((x,y),w,h,facecolor=fill,edgecolor=edge,lw=lw))
+
+def arrow(x1, x2, y):
+    # A short hollow arrow, matching Figure 1's stage connectors.
+    p=[(x1,y-3.7),(x2-11,y-3.7),(x2-11,y-9),
+       (x2,y),(x2-11,y+9),(x2-11,y+3.7),(x1,y+3.7)]
+    ax.add_patch(Polygon(p,closed=True,facecolor='white',edgecolor='#333333',lw=1.1))
+
+def title(x,y,s):
+    text(x,y,s,size=29,weight='bold')
+
+# A. Aligned six-month timeline, with phase-specific cutoff annotations.
+title(36,35,'A. Temporal evaluation')
+text(1764,35,'January–June 2026',size=22,color=MUTED,ha='right')
+line(36,61,1764,61,color='#222222',width=1.05)
+start=286
+step=174
+for k,month in enumerate(['January','February','March','April','May','June']):
+    text(start+(k+.5)*step,93,month,size=23,ha='center',color=INK)
+for x in [start+3*step,start+4*step]:
+    line(x,114,x,279,color='#C6D1DA',width=.8,style=(0,(3,4)))
+
+text(36,156,'Model selection',size=24,weight='bold')
+text(36,243,'Final evaluation',size=24,weight='bold')
+
+rect(start,128,3*step,56,PALE_BLUE,'#818B92')
+rect(start+3*step,128,step,56,'#D8EBF5','#818B92')
+text(start+1.5*step,156,'Fit candidate configurations',size=24,ha='center')
+text(start+3.5*step,156,'Validate',size=24,ha='center',weight='bold')
+text(start+5*step,156,'Not used for selection',size=21,ha='center',color=MUTED)
+
+rect(start,215,4*step,56,PALE_BLUE,'#818B92')
+rect(start+4*step,215,2*step,56,'#D8EBF5','#818B92')
+text(start+2*step,243,'Refit selected configuration',size=24,ha='center')
+text(start+5*step,243,'Test',size=24,ha='center',weight='bold')
+
+# Redundant separator omitted in v47.
+text(1410,91,'POPULARITY CUTOFF',size=18,color=MUTED,weight='bold')
+text(1410,143,'March 31',size=26,weight='bold')
+text(1410,174,'For model selection',size=22,color=MUTED)
+text(1410,230,'April 30',size=26,weight='bold')
+text(1410,261,'For final test scoring',size=22,color=MUTED)
+
+# B. Source blocks use the same restrained visual grammar as Figure 1.
+title(36,329,'B. Query-level candidate construction')
+text(1764,329,r'One user-day query: $q=(u,t)$',size=24,color=MUTED,ha='right')
+line(36,355,1764,355,color='#222222',width=1.05)
+
+y=379
+h=200
+def source(x,w,heading,symbol,fill,accent):
+    rect(x,y,w,h)
+    rect(x,y,w,42,fill,fill,lw=0)
+    text(x+17,y+22,heading,size=25,weight='bold',color=accent)
+    text(x+w/2,y+88,symbol,size=39,ha='center')
+
+source(36,280,'Clicked positives',r'$Y^{+}_{u,t}$',PALE_BLUE,INK)
+text(176,518,'Observed on',size=22,ha='center')
+text(176,548,r'query day $t$',size=22,ha='center',color=MUTED)
+
+source(356,340,'Retained non-clicks',r'$R^{-}_{u,t}$',PALE_BLUE,INK)
+text(526,518,'From the retained trace',size=23,ha='center')
+text(526,548,'Up to 24 articles',size=23,ha='center',color=MUTED)
+
+source(736,380,'Introduced candidates',r'$N_{u,t}$',PALE_BLUE,INK)
+text(926,512,r'Up to $\min(24,\max(4,4n_q^{+}))$',size=24,ha='center')
+text(926,545,'Exclude positive / retained items',size=20,ha='center',color=MUTED)
+
+for x in [336,716]:
+    text(x,469,r'$\cup$',size=32,ha='center',color=BLUE)
+
+arrow(1141,1199,469)
+rect(1224,y,246,h)
+rect(1224,y,246,42,PALE_GRAY,PALE_GRAY,lw=0)
+text(1347,401,'Candidate pool',size=25,weight='bold',ha='center')
+text(1347,467,r'$\mathcal{A}_{u,t}$',size=39,ha='center')
+text(1347,518,'Deduplicate',size=22,ha='center')
+text(1347,548,'query–item pairs',size=23,ha='center',color=MUTED)
+
+arrow(1495,1547,469)
+rect(1572,y,192,h)
+rect(1572,y,192,42,PALE_GRAY,PALE_GRAY,lw=0)
+text(1668,401,'Score & rank',size=24,weight='bold',ha='center')
+for i,yy in enumerate([449,482],1):
+    text(1595,yy,str(i),size=22,color=MUTED)
+    text(1658,yy,rf'$i_{{({i})}}$',size=28,ha='center')
+text(1658,517,r'$\vdots$',size=25,ha='center',color=MUTED)
+text(1668,551,'Within query',size=21,ha='center',color=MUTED)
+
+# Explicitly distinguish the two introduced-item rules, not just their windows.
+text(36,616,r'Introduced-set rules: $N_{u,t}$',size=24,weight='bold')
+text(1116,616,r'$n_q^{+}$: number of observed positives',size=21,ha='right',color=MUTED)
+
+# Redundant separator omitted in v47.
+text(54,668,'Recent-window',size=24,weight='bold')
+for k,day in enumerate([r'$t-3$',r'$t-2$',r'$t-1$',r'$t$']):
+    x=54+k*75
+    rect(x,703,69,44,PALE_BLUE,'#C9CFD3',lw=.65)
+    text(x+34.5,726,day,size=25,ha='center')
+arrow(363,392,725)
+text(412,713,'Random',size=22)
+text(412,743,'sample',size=22)
+
+# Redundant separator omitted in v47.
+text(594,668,'Same-day',size=24,weight='bold')
+rect(594,703,69,44,PALE_BLUE,'#C9CFD3',lw=.65)
+text(628.5,726,r'$t$',size=25,ha='center')
+arrow(684,713,725)
+text(735,711,'Frozen click-count order',size=22)
+text(735,742,'Source-file order for ties',size=22,color=MUTED)
+
+# Redundant separator omitted in v47.
+text(1224,668,'Selection is not ranking',size=24,weight='bold')
+text(1224,710,'The rule determines which items enter.',size=22,color=MUTED)
+text(1224,746,'The model determines their final order.',size=22,color=MUTED)
+
 for ext in ['pdf','svg','png']:
- fig.savefig(OUT/('protocol.'+ext),bbox_inches='tight',pad_inches=.045,dpi=220)
+    fig.savefig(OUT / ('protocol.'+ext),dpi=170,facecolor='white')
 plt.close(fig)
