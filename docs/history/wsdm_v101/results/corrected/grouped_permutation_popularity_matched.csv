@@ -1,6 +1,0 @@
-candidate_regime,feature_group,mean_ndcg_drop,std_ndcg_drop,repeats
-popularity_matched,preference_semantic,0.0665024054478727,0.0057527479310633,20
-popularity_matched,exposure,0.2280117086337914,0.0053694653649428,20
-popularity_matched,consumption_semantic,0.0849478466600253,0.0039456043963769,20
-popularity_matched,count_history,0.0193773358998905,0.003284987021307,20
-popularity_matched,trend_metadata,0.1343551747992844,0.0046534537983187,20

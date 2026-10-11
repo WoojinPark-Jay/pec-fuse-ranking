@@ -7,7 +7,7 @@ pnpm install
 pnpm dev
 ```
 
-The production build is static and deploys to GitHub Pages through `.github/workflows/pages.yml`.
+The production build is static and is published to the repository's GitHub Pages site.
 
 ```bash
 pnpm build

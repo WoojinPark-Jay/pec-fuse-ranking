@@ -1,6 +1,5 @@
 """Validate distributed aggregate arithmetic; does not reproduce private training."""
 from pathlib import Path
-import argparse
 import hashlib
 import json
 import sys
@@ -13,33 +12,18 @@ sys.path.insert(0, str(ROOT / "src"))
 from pec_fuse.schema import FEATURES_25, STRONG_CONTROL_FEATURES, SHARED_CONTEXT_FEATURES
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
-        "--data-only", action="store_true",
-        help="Check aggregate schemas/arithmetic without file hashes (for anonymized ZIPs).",
-    )
-    args = parser.parse_args()
     if not __debug__:
-        parser.error("Run without -O or PYTHONOPTIMIZE; aggregate assertions must be enabled.")
+        raise SystemExit("Run without -O or PYTHONOPTIMIZE; aggregate assertions must be enabled.")
     manifest = json.loads((ROOT / "RELEASE_MANIFEST.json").read_text())
     hashed_files = 0
-    if args.data_only:
-        print(
-            "DATA-ONLY MODE: file-hash verification is explicitly skipped. "
-            "Passing does not establish byte identity with the original release.",
-            file=sys.stderr,
-        )
-    else:
-        for name, expected in manifest["files"].items():
-            path = ROOT / name
-            if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
-                raise SystemExit(
-                    f"Release file missing or SHA-256 mismatch: {name}\n"
-                    "Use an unchanged checkout of this release for full verification. "
-                    "For an intentionally anonymized ZIP, --data-only checks aggregate "
-                    "schemas/arithmetic only; it does not validate file integrity."
-                )
-            hashed_files += 1
+    for name, expected in manifest["files"].items():
+        path = ROOT / name
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            raise SystemExit(
+                f"Release file missing or SHA-256 mismatch: {name}\n"
+                "Use an unchanged checkout or archive of this release for verification."
+            )
+        hashed_files += 1
     schema = pd.read_csv(DATA / "feature_dictionary.csv")
     assert len(schema) == 25 and schema["feature"].is_unique
     assert schema["order"].tolist() == list(range(1, 26))
@@ -79,16 +63,15 @@ def main():
     assert {r["seed"] for r in manifest_pools} == {7,13,42,101,202}
     assert all(r["rows"] == 21207 and r["queries"] == 1040 for r in manifest_pools)
     print(json.dumps({"revision": manifest["revision"], "hashed_files": hashed_files,
-        "verification_mode": "data_only" if args.data_only else "full_release",
-        "file_hash_verification": "skipped" if args.data_only else "passed",
+        "verification_mode": "full_release",
+        "file_hash_verification": "passed",
         "aggregate_checks": "passed",
         "ordered_features": 25, "fusion_seed_records": len(seeds),
         "fusion_comparisons": len(fusion),
         "direct_comparisons": len(direct), "pool_score_rows": len(pools),
         "status": "passed",
-        "scope": ("aggregate schema and arithmetic only; no file-integrity verification"
-                  if args.data_only else "release file hashes plus aggregate schema and arithmetic")
-                 + "; not private experiment reproduction"}, indent=2))
+        "scope": "release file hashes plus aggregate schema and arithmetic; "
+                 "not private experiment reproduction"}, indent=2))
 
 if __name__ == "__main__":
     main()

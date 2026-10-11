@@ -2,7 +2,8 @@
 
 ## Private platform data
 
-The headline experiments use processed platform tables containing user profile
+The headline experiments use four processed tables from insightea, a now-discontinued
+personalized news service formerly operated by the author, containing user profile
 preferences, click events, retained recommendation traces, and article metadata.
 These row-level tables cannot be distributed because they may contain private
 behavioral and proprietary operational information.
@@ -12,21 +13,21 @@ feature derivation, model configuration, evaluation implementation, and a
 non-private synthetic fixture. No private identifiers, article text, profile
 values, click histories, retained traces, or cached embeddings are included.
 
-Anonymous repository hosting protects author identity during review; it is not
-a privacy transformation for user data. Restricted rows must not be uploaded
-to an anonymous mirror.
+Repository publication is not a privacy transformation for user data.
+Restricted operational rows must not be committed to this repository or any
+public mirror.
 
 ## Reproducibility layers
 
 1. **Executable public contract:** the 25-D schema, deterministic transforms,
    ranking and evaluation code, synthetic fixture, and public MIND proxy.
-2. **Aggregate audit records:** paper tables and the bounded MIND neural
-   diagnostic, committed without user-level rows.
+2. **Aggregate audit records:** active paper tables, neural-input comparisons,
+   and encoder-specific MIND proxy summaries, without user-level rows.
 3. **Restricted evidence:** private platform rows and resulting headline-score
    regeneration, which remain unavailable for privacy and proprietary reasons.
 
-This separation lets reviewers inspect the method without implying that an
-anonymous host makes operational records safe to distribute.
+This separation lets readers inspect the method without implying that public
+hosting makes operational records safe to distribute.
 
 ## Temporal contract
 

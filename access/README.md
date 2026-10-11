@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies the current IEEE Access manuscript revision. It is the active aggregate release for PEC-Fuse; earlier short-paper materials are preserved separately under `docs/history/wsdm_v101/`.
+This directory accompanies IEEE Access manuscript revision v46 and is the active aggregate release for PEC-Fuse. Existing aggregate values are preserved; tables and plot generators follow the current manuscript presentation.
 
 ## Contents and paper mapping
 
@@ -13,13 +13,14 @@ This directory accompanies the current IEEE Access manuscript revision. It is th
 | `fusion_protocol.json`, `fusion_selected_configs.json` | Shared-context multidimensional audit and validation selections |
 | `fusion_seed_metrics.csv`, `fusion_test_summary.csv`, `fusion_paired_intervals.csv` | Final-seed metrics and interval variants |
 | `direct_complete_user_bootstrap.csv` | Complete 25-D minus Direct 19-D comparisons |
+| `tables/direct_complete.tex` (outside `data/`) | Added Direct-minus-learned-5-D intervals at manuscript precision; see [alignment notes](../docs/ACCESS_ALIGNMENT.md) |
 | `joint_pe_*` | Joint profile/trace-removal protocol, census, selected fits, seed metrics, and paired intervals |
 | `neural_user_bootstrap.csv`, `supplementary_user_bootstrap.csv` | Neural-input and supplementary comparisons |
 | `disagreement_user_bootstrap.csv`, `thresholds_*.json` | High-profile/trace-absence diagnostic |
 | `pool_metrics.csv`, `pool_paired_differences.csv`, `pool_manifest.json` | Fixed-model candidate-reselection scores, deltas, and intervals |
 | `mind_text_*_proxy_results.csv` | Three-encoder MIND boundary results |
 
-The `tables/` directory contains generated manuscript table fragments. Supporting fragments not included by the manuscript are not additional experiments. `tools/` contains plot generators, shared styling, and authorized-only paired calculations. Figure 1 is an independent vector architecture and is not regenerated here.
+The `tables/` directory contains generated manuscript table fragments. Supporting fragments not included by the manuscript are not additional experiments. `tools/` contains plot generators, shared styling, and one paired-calculation script that requires restricted per-query inputs not distributed in this repository. Figure 1 is an independent vector architecture and is not regenerated here.
 
 Run `python scripts/check_access_aggregates.py` from the repository root to check the supplied Access records. Run `python scripts/render_access_summary.py` for a compact textual summary and `PYTHONPATH=src python scripts/run_synthetic_demo.py` for the public feature/ranking example. These checks do not recreate private experiments.
 

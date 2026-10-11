@@ -1,6 +1,0 @@
-candidate_regime,feature_group,mean_ndcg_drop,std_ndcg_drop,repeats
-recent_window,preference_semantic,0.0729967487905032,0.0053519956283264,20
-recent_window,exposure,0.2243504357929552,0.005816439822484,20
-recent_window,consumption_semantic,0.1128092371339373,0.0047681284965258,20
-recent_window,count_history,0.010147609882788,0.0028367806234318,20
-recent_window,trend_metadata,0.1448999206052814,0.0048990075198529,20
