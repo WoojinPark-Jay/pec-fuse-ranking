@@ -25,6 +25,8 @@
   "newly_encoded_articles": 4201,
   "reused_supplemental_articles": 191,
   "encoder": {"name": "BAAI/bge-m3", "max_seq_length": 192, "text_char_limit": 1400, "normalized": true, "trained": false},
+  "historical_embedding_revision": "Not recorded; identical checkpoint provenance is not established",
+  "fresh_independent_test": false,
   "retraining_per_pool": false,
   "private_data_released": false
 }

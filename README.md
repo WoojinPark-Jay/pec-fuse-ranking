@@ -34,7 +34,7 @@ User profile + retained trace + earlier clicks + candidate metadata
 
 The complete record has 25 fields: P (1), E (3), C (4), recorded controls Z (11), and explicit products (6). The compact Direct record has 19 fields and omits the six products. For N candidates, the scorer receives an N-by-25 or N-by-19 matrix, not a single user vector. Click labels are training/evaluation targets, not input features.
 
-The operational control has 11 inputs but is **not** the same field set as the 11-field Z block. The shared-context representation audit uses 14 common context fields plus five original or learned semantic coordinates. See the [ordered schema](docs/feature_dictionary.csv) and [comparison design](access/tables/comparison_design.tex) for exact memberships.
+The operational control has 11 inputs but is **not** the same field set as the 11-field Z block. The shared-context representation audit uses 14 common context fields plus five original or learned semantic coordinates. See the [ordered schema](access/data/feature_dictionary.csv) and [comparison design](access/tables/comparison_design.tex) for exact memberships.
 
 ## Quick start
 
@@ -43,7 +43,7 @@ Python 3.10 or newer is required. The synthetic example runs on CPU and needs no
 **Download using the route you are viewing.**
 
 - **GitHub:** clone the repository with the command below, or use GitHub's Code > Download ZIP.
-- **Versioned review artifact:** [open the anonymous 4open snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/), then use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub. If a URL is replaced with `XXXX`, do not run that clone command; use the ZIP route instead.
+- **Versioned review artifact:** [open the 4open snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/), then use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub.
 
 GitHub download only:
 
@@ -83,25 +83,13 @@ python scripts/run_synthetic_fusion.py
 
 The command learns a 5-D latent representation from five synthetic P/C coordinates, joins it to 14 shared context fields, and fits the downstream ExtraTrees scorer. It also fits the equal-width 19-D Direct path for orientation. These generated metrics illustrate the code path only and are not manuscript results.
 
-To inspect released results without retraining, run `python scripts/render_access_summary.py`. Choose the appropriate check for your download:
-
-**Unchanged GitHub checkout or GitHub ZIP:**
+To inspect released results without retraining, run `python scripts/render_access_summary.py`. For an unchanged GitHub checkout, GitHub ZIP, or versioned artifact ZIP, run:
 
 ```bash
 python scripts/check_access_aggregates.py
 ```
 
-This checks original release-file SHA-256 hashes, feature order, and selected aggregate arithmetic.
-
-**ZIP downloaded from the versioned review artifact:**
-
-```bash
-python scripts/check_access_aggregates.py --data-only
-```
-
-Anonymization can replace names and links, changing file bytes without changing the experiment. `--data-only` explicitly skips file hashes but retains the feature/schema and aggregate-arithmetic checks. Its output reports `verification_mode: data_only`, `file_hash_verification: skipped`, and `hashed_files: 0`. A passing data-only check does **not** establish file integrity or equality to the original release. Full mode never silently skips a hash mismatch; do not use this option to dismiss unexplained changes in an original GitHub download.
-
-Both modes report `status: passed` only for their stated scope. Neither re-runs private experiments. See the [walkthrough](docs/GETTING_STARTED.md) for inputs, outputs, and file roles.
+This checks release-file SHA-256 hashes, feature order, and selected aggregate arithmetic. It reports `status: passed` only when those checks pass; it does not re-run private experiments. See the [walkthrough](docs/GETTING_STARTED.md) for inputs, outputs, and file roles.
 
 ## Results and paper mapping
 
@@ -118,7 +106,7 @@ The compact 19-D Direct alternative is competitive with Complete PEC. The equal-
 
 | Question | Where to look |
 | --- | --- |
-| Which features reach each model? | [Feature schema](docs/feature_dictionary.csv), [comparison design](access/tables/comparison_design.tex) |
+| Which features reach each model? | [Feature schema](access/data/feature_dictionary.csv), [comparison design](access/tables/comparison_design.tex) |
 | What changes when semantic coordinates are transformed? | [Fusion protocol](access/data/fusion_protocol.json), [representation comparisons](access/tables/direct_complete.tex) |
 | Does C help when P and E are removed together? | [Joint-removal records](access/data/joint_pe_user_bootstrap.csv) |
 | What happens when candidates are reselected? | [Fixed-model reselection](docs/SAME_DAY_TIE_ORDER.md) |
@@ -130,8 +118,6 @@ The [artifact map](docs/PAPER_RQ_REPRODUCIBILITY_MAP.md), [result-file guide](do
 ## Public-data example
 
 Obtain MIND-small under its [dataset terms](https://msnews.github.io/) and arrange `news.tsv` and `behaviors.tsv` under both `data/MINDsmall/train/` and `data/MINDsmall/dev/`.
-
-If the anonymous viewer masks the external link, search for **Microsoft News Dataset (MIND)**, open the official Microsoft Research dataset website, and download the **MIND-small training and validation** archives under its terms. Extract the training files into `train/` and validation files into `dev/`. These third-party data are separate from the repository ZIP; do not try to open a masked `XXXX` link.
 
 ```bash
 python -m pip install -e '.[mind]'
@@ -176,5 +162,3 @@ The release includes executable ExtraTrees and candidate-aware neural synthetic 
 The repository code is released under the [MIT License](LICENSE). MIND and downloaded encoders retain their own licenses and terms. Please identify the repository URL and commit when referring to this software. A publication-specific citation will be added when final bibliographic details are available; the manuscript is not represented here as an accepted article.
 
 For questions or reproducibility issues, use [GitHub Issues](https://github.com/WoojinPark-Jay/pec-fuse-ranking/issues) and include the command, Python/package versions, and a non-private error example. Do not attach operational data or credentials.
-
-Anonymous reviewers should use the review venue's communication channel if the repository/contact links are masked. The anonymous hosting service's bug-report link is for hosting problems, not scientific questions about this manuscript.

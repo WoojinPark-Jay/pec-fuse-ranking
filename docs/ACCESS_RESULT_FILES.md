@@ -16,5 +16,3 @@ All active manuscript records are under `access/data/`.
 | `thresholds_*.json` | diagnostic thresholds for the two candidate regimes |
 
 These files contain aggregate or configuration records, not individual user rows. Unrounded values are retained where supplied by the experiment record.
-
-Added Direct-versus-learned-5-D intervals are supplied at manuscript precision in [the current table](../access/tables/direct_complete.tex), not a separate unrounded CSV. See [alignment notes](ACCESS_ALIGNMENT.md). Seed-score CSVs alone cannot regenerate paired user-bootstrap intervals.

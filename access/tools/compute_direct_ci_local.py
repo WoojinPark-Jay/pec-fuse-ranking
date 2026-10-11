@@ -1,12 +1,12 @@
-"""Post-hoc Complete minus Direct audit; fixed five seeds, user-cluster bootstrap.
-Reads authorized local per-query records; writes aggregate results only. No training.
+"""Complete-minus-Direct paired interval calculation for five fixed seeds.
+Reads restricted local per-query records; writes aggregate results only. No training.
 """
 from pathlib import Path
 import numpy as np
 import pandas as pd
 import argparse
 ap=argparse.ArgumentParser()
-ap.add_argument('--source',type=Path,required=True,help='Authorized folder of PRIVATE_queries_*.pkl records')
+ap.add_argument('--source',type=Path,required=True,help='Restricted folder of per-query records')
 ap.add_argument('--output',type=Path,required=True)
 args=ap.parse_args()
 SRC=args.source
