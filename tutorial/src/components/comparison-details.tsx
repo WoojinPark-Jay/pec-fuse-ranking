@@ -31,7 +31,7 @@ function fieldsFor(id: string): { fields: Field[]; transform?: string } {
   const H=[...E,...Z], noE9=B.filter(x=>!["same_day_recommended","reciprocal_rank"].includes(x.name));
   if(id==="control11") return {fields:B};
   if(id==="collapsed12") return {fields:[...B,{name:"hand_collapsed_score",value:"0.61†",kind:"F"}],transform:"P/C evidence → fixed collapse rule → one scalar"};
-  if(id==="early12") return {fields:[...B,{name:"learned_scalar",value:"0.63*",kind:"F"}],transform:"[P, Cmean, Cmax, Ctop3, Catt] → gθ → one fitted scalar"};
+  if(id==="early12") return {fields:[...B,{name:"learned_scalar",value:"0.63*",kind:"F"}],transform:"[P, Cmean, Cmax, Ctop3, Cattn] → gθ → one fitted scalar"};
   if(id==="scalarDirect17") return {fields:[...B,{name:"E_exposure",value:"0",kind:"E"},...PC]};
   if(id==="direct19") return {fields:[...H,...PC]};
   if(id==="fusion19") return {fields:[...H,...["h1 0.44*","h2 −0.08*","h3 0.31*","h4 0.12*","h5 0.57*"].map(x=>{const [name,value]=x.split(" ");return {name,value,kind:"F" as const};})],transform:"[0.82, 0.31, 0.58, 0.45, 0.40] → gθ → [0.44, −0.08, 0.31, 0.12, 0.57]*"};
@@ -113,12 +113,12 @@ export function ComparisonReadingGuide({ lang }: { lang: Lang }) {
   return <section className="crg" aria-labelledby="crg-title">
     <header><span>HOW TO READ A COMPARISON</span><h3 id="crg-title">{ko?"모든 비교를 세 문장으로 읽는 법":"Read every comparison in three sentences"}</h3><p>{ko?"모델 이름과 차원부터 외우지 말고, 무엇을 그대로 두고 무엇 하나만 바꿨는지 확인하세요.":"Do not memorize model names and dimensions first. Identify what stays fixed and what single component changes."}</p></header>
     <div className="crg-three">
-      <article><span>01</span><b>{ko?"무엇이 같은가?":"What stays fixed?"}</b><p>{ko?"같은 평가 구간, 같은 질의와 후보 행, 같은 라벨을 사용합니다. 가능한 비교에서는 최종 점수 모델도 같게 둡니다.":"The same evaluation regime, query and candidate rows, labels, and, where applicable, downstream scorer."}</p></article>
+      <article><span>01</span><b>{ko?"무엇이 같은가?":"What stays fixed?"}</b><p>{ko?"지정된 평가 구간·질의·평가 방법을 유지합니다. 입력·학습기 비교는 후보 행도 공유하지만, 후보 재선정에서는 의도적으로 후보 행을 바꿉니다.":"The specified regime, queries and evaluation procedure; input and learner comparisons also share candidate rows, while reselection deliberately changes them."}</p></article>
       <article><span>02</span><b>{ko?"무엇만 바뀌는가?":"What changes?"}</b><p>{ko?"정보 출처, 표현 방식, 제거한 입력 블록, 학습기, 후보 재선정 가운데 해당 실험이 지정한 요소만 바꿉니다.":"The designated input source, representation, removed block, learner, or candidate reselection."}</p></article>
       <article><span>03</span><b>{ko?"무슨 질문에 답하는가?":"What question is answered?"}</b><p>{ko?"바꾼 요소가 같은 질의의 순위 품질을 개선했는지 묻습니다. 한 비교의 결론을 모든 모델에 확대하지 않습니다.":"Whether that changed element improves ranking quality on the same queries, without generalizing the result to every possible model."}</p></article>
     </div>
     <div className="crg-families">
-      <article><b>{ko?"입력 정보 비교":"Input-information comparison"}</b><code>Control ↔ PEC</code><p>{ko?"P/E/C 정보를 추가하는 것이 유용한가?":"Does adding P/E/C information help?"}</p></article>
+      <article><b>{ko?"입력 정보 비교":"Input-information comparison"}</b><code>Control ↔ PEC</code><p>{ko?"이미 trace 포함 여부와 순위를 쓰는 기준모델에 의미 기반 P/C와 파생 특성을 더하면 유용한가?":"Does adding semantic P/C and derived features help beyond a control that already includes trace membership and rank?"}</p></article>
       <article><b>{ko?"표현 방식 비교":"Representation comparison"}</b><code>Direct ↔ Complete ↔ Fusion</code><p>{ko?"원 좌표 유지, interaction 추가, learned transform 중 무엇이 유리한가?":"Is it better to retain coordinates, add interactions, or use a learned transform?"}</p></article>
       <article><b>{ko?"정보 제거 비교":"Source-removal comparison"}</b><code>No-E · joint removal</code><p>{ko?"특정 source를 사용할 수 없어도 남는 효과가 있는가?":"Does useful signal remain when a source is unavailable?"}</p></article>
       <article><b>{ko?"학습기 점검":"Learner check"}</b><code>ExtraTrees ↔ neural variants</code><p>{ko?"PEC의 이점이 특정 tree 모델에만 묶여 있는가?":"Is the PEC benefit tied only to one tree learner?"}</p></article>
