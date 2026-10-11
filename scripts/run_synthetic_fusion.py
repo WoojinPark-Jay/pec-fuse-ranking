@@ -95,6 +95,7 @@ def main() -> None:
     frame = pd.DataFrame(
         {
             "query_id": rows["query_id"][test],
+            "user_id": rows["query_id"][test],
             "candidate_id": np.arange(int(test.sum())),
             "label": rows["label"][test],
         }
@@ -110,4 +111,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

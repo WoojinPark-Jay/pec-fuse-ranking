@@ -73,7 +73,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <img src="./paper-architecture.png?v=45" alt="PEC-Fuse architecture from manuscript revision v46" />
+            <img src="./paper-architecture.png?v=46" alt="PEC-Fuse architecture from manuscript revision v46" />
             <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.</figcaption>
           </figure>
 
@@ -105,7 +105,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=45" alt="Algorithm 1 from manuscript revision v46: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=46" alt="Algorithm 1 from manuscript revision v46: Retrospective candidate construction and PEC ranking" /></figure>
         </section>
 
         <section className="paper-section results-section" id="results">
