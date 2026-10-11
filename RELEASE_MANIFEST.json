@@ -3,7 +3,7 @@
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "81a8047809d113b2ddc0958f5db20ccec580ed538479ad5706042119234f0b4d",
-    "LICENSE": "8f45362b3feddfedf4fe8133353137a3386110524948b2f3d83db767b67c501d",
+    "LICENSE": "16281b5ad05f44ed3c427fbb1bbf2d5b6cb0bf184c37e57de2d2e474059d9374",
     "Makefile": "69141a92d237e64d035c3b7cb735ae3727d1c009bec69a12135459256a8d1d2c",
     "README.md": "fe14c298a0444563edee5676dbd2ff36a65fc843f2ffd616ff0979f89ec9e1e6",
     "access/README.md": "14545adce0481859b2bf5ea3204ad17520178f7df596c974a71d00d8990f17b6",
@@ -145,5 +145,5 @@
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v46-public-artifact-v11"
+  "revision": "ieee-access-v46-public-artifact-v12"
 }
