@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v46, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v47, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
 
 ## Equal-width comparison availability
 
@@ -24,3 +24,7 @@ Absolute scores are means of seed-specific aggregate metrics. Paired intervals f
 The artifact supports a source-preserving input and evaluation interface. It does not claim causal exposure correction, universal superiority of every 25-field component, or equivalence between MIND proxy evidence and private stated-profile provenance.
 
 The internal key `popularity_matched` denotes the manuscript's same-day candidate expansion and does not assert verified hard negatives.
+
+## v47 figure and notation refinement
+
+Figures 1-5 use the approved news icons, compact scorer artwork and restrained neutral rules. The manuscript keeps the same figure dimensions and inclusion sizes. Figure 1 explicitly defines reciprocal rank for retained and absent articles; fixed consumption-attention weights use `alpha_ij` consistently. No experimental values or candidate protocols changed. The public figure generators now follow the current manuscript layout. Vector copies are distributed under `tutorial/public/paper-*.pdf`.

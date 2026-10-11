@@ -19,7 +19,7 @@ def configure():
  plt.rcParams.update({'font.family':'sans-serif','font.sans-serif':['Helvetica','Arial','Liberation Sans','DejaVu Sans'],
   'mathtext.fontset':'stix','font.size':9,'axes.titlesize':10,'axes.labelsize':8.5,
   'xtick.labelsize':8,'ytick.labelsize':8.5,'pdf.fonttype':42,'ps.fonttype':42,
-  'axes.spines.top':False,'axes.spines.right':False,'axes.edgecolor':BORDER,
-  'axes.linewidth':.65,'grid.color':'#E4E9ED','grid.linewidth':.55,
+  'axes.spines.top':False,'axes.spines.right':False,'axes.edgecolor':'#292929',
+  'axes.linewidth':.65,'grid.color':'#E8E8E8','grid.linewidth':.55,
   'text.color':INK,'axes.labelcolor':INK,'xtick.color':MUTED,'ytick.color':MUTED,
   'savefig.facecolor':'white','legend.fontsize':8,'legend.frameon':False})
