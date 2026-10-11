@@ -73,8 +73,10 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <img src="./paper-architecture.png?v=47" alt="PEC-Fuse architecture from manuscript revision v47" />
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.</figcaption>
+            <a href="./paper-architecture.pdf?v=47" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 1 as a sharp, zoomable vector PDF in a new tab" title="Click to open the vector PDF" style={{ display: 'block', cursor: 'zoom-in' }}>
+              <img src="./paper-architecture.png?v=47" alt="PEC-Fuse architecture from manuscript revision v47" />
+            </a>
+            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=47" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
           <div className="record-preview">
