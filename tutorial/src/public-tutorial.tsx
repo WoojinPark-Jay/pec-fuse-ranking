@@ -6,17 +6,20 @@ type Lang = "ko" | "en";
 const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const githubProfile = "https://github.com/WoojinPark-Jay";
 const linkedinProfile = "https://www.linkedin.com/in/woojinjaypark/";
+const personalWebsite = "https://woojinpark-jay.github.io";
 
-function SocialIcon({ kind }: { kind: "github" | "linkedin" }) {
-  return kind === "github" ? (
+function SocialIcon({ kind }: { kind: "website" | "github" | "linkedin" }) {
+  if (kind === "github") return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.52-1.34-1.29-1.69-1.29-1.69-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.4-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.47.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.19-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.71 5.38-5.29 5.67.42.36.79 1.06.79 2.14v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z" />
     </svg>
-  ) : (
+  );
+  if (kind === "linkedin") return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M5.34 7.84H1.48V22h3.86V7.84ZM3.41 1a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM22.52 13.88c0-4.27-2.28-6.26-5.32-6.26-2.45 0-3.55 1.35-4.16 2.29V7.84H9.18V22h3.86v-7.01c0-1.85.35-3.64 2.64-3.64 2.26 0 2.29 2.11 2.29 3.76V22h3.86v-7.77c0-.12 0-.23-.01-.35Z" />
     </svg>
   );
+  return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2 2.5 9.9V22h7.1v-6.3h4.8V22h7.1V9.9L12 2.2Zm7.3 17.6h-2.7v-6.3H7.4v6.3H4.7v-8.9L12 5l7.3 5.9v8.9Z" /></svg>;
 }
 
 export function PublicTutorial({ lang }: { lang: Lang }) {
@@ -57,7 +60,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
         <div className="public-brand">
-          <span className="public-mark" aria-hidden="true"><i>P</i><i>E</i><i>C</i></span>
+          <span className="public-mark" role="img" aria-label="PEC-Fuse feature blocks: P, E, C, Z, and psi"><i className="public-mark-p">P</i><i className="public-mark-e">E</i><i className="public-mark-c">C</i><i className="public-mark-z">Z</i><i className="public-mark-psi">ψ</i></span>
           <div><b>PEC-Fuse</b><span>{t("논문 해설 · 인터랙티브 튜토리얼", "Interactive paper companion")}</span></div>
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>
@@ -73,11 +76,12 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       </div>
       <div className="public-paper-meta">
         <span>{t("IEEE Access 투고 논문을 위한 대화형 해설", "Interactive companion to the IEEE Access manuscript")}</span>
-        <span>Version 0.1.0</span>
+        <span>Software 0.1.0 · Manuscript v45</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
         <span className="public-author-cluster">
           <span>{t("Woojin Park · 제1저자 제작", "Tutorial by Woojin Park · First author")}</span>
           <span className="public-social-icons">
+            <a className="public-social-icon" href={personalWebsite} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park 개인 웹사이트", "Woojin Park personal website")} title="Website"><SocialIcon kind="website" /></a>
             <a className="public-social-icon" href={githubProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park GitHub 프로필", "Woojin Park GitHub profile")} title="GitHub"><SocialIcon kind="github" /></a>
             <a className="public-social-icon" href={linkedinProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park LinkedIn 프로필", "Woojin Park LinkedIn profile")} title="LinkedIn"><SocialIcon kind="linkedin" /></a>
           </span>
@@ -194,6 +198,7 @@ ${repository}`}</code></pre>
         <span>{t("제1저자", "FIRST AUTHOR")}</span>
         <h3>Woojin Park</h3>
         <p>{t("PEC-Fuse 제1저자 · 튜토리얼 제작", "PEC-Fuse first author · Tutorial author")}</p>
+        <a className="public-profile-link" href={personalWebsite} target="_blank" rel="noopener noreferrer"><SocialIcon kind="website" /><span>{t("개인 웹사이트", "Personal website")}</span></a>
         <a className="public-profile-link" href={githubProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="github" /><span>GitHub profile</span></a>
         <a className="public-profile-link" href={linkedinProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="linkedin" /><span>LinkedIn profile</span></a>
         <a href={`${repository}/issues`}>{t("질문 및 재현 이슈", "Questions and reproducibility issues")}</a>
@@ -210,11 +215,6 @@ ${repository}`}</code></pre>
         <strong>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces</strong>
         <span>Woojin Park · Taesu Cheong</span>
       </div>
-      <nav className="public-footer-links" aria-label={t("저자 및 프로젝트 링크", "Author and project links")}>
-        <a href={repository} target="_blank" rel="noopener noreferrer" aria-label={t("PEC-Fuse GitHub 저장소", "PEC-Fuse GitHub repository")}><SocialIcon kind="github" /><span>{t("GitHub 저장소", "GitHub repository")}</span></a>
-        <a href={linkedinProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park LinkedIn 프로필", "Woojin Park LinkedIn profile")}><SocialIcon kind="linkedin" /><span>{t("LinkedIn 프로필", "LinkedIn profile")}</span></a>
-        <a href="#top">{t("맨 위로", "Back to top")}</a>
-      </nav>
     </footer>
   </>;
 }
