@@ -4,7 +4,7 @@ const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
-const PAPER_URL = "./PEC-Fuse-manuscript-v42.pdf";
+const PAPER_URL = "./PEC-Fuse-manuscript-v43.pdf";
 
 function GitHubIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .8A11.2 11.2 0 0 0 8.46 22.62c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.11c.95 0 1.9.13 2.79.38 2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.7.12 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z" /></svg>;
@@ -62,8 +62,8 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Abstract</h2></div>
           <div className="abstract-copy">
             <p>Operational news recommenders must combine stated profiles, recommendation traces, and clicks even when impression logs are incomplete. We present PEC-Fuse, a source-preserving input interface that keeps profile alignment, recorded system action, and candidate-aware consumption distinct until scoring. The interface supports cached text representations and different scorers and is specified by an ordered feature schema and temporal evaluation procedure.</p>
-            <p>On retrospective platform logs, the complete 25-field implementation improves an operational control by 0.0662 and 0.0218 in normalized discounted cumulative gain at rank 10 under recent-window and same-day candidate expansion; both paired user-clustered confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At the same 19-field input width, Direct exceeds a learned 5-D transformation in recent-window, while the same-day difference is uncertain.</p>
-            <p>Joint profile/trace removal, a candidate-aware neural scorer, and fixed-model candidate reselection further test the interface under changes in evidence, learner, and candidate membership. On MIND, where profiles are derived from click histories, P+C outperforms the full P+E+C proxy, marking a boundary of the complete interface. The findings support source-preserving evidence design for bounded news re-ranking under incomplete operational records.</p>
+            <p>On retrospective platform logs, the complete 25-field PEC record improves normalized discounted cumulative gain at rank 10 (NDCG@10) over the operational control by 0.0662 and 0.0218 under recent-window and same-day candidate expansion, respectively. Both paired user-clustered 95% confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At the same scorer input width, Direct outperforms a learned 5-D representation in recent-window ranking, while the same-day difference remains uncertain.</p>
+            <p>Joint profile/trace removal, a candidate-aware neural scorer, and fixed-model candidate reselection further test the interface under changes in evidence, learner, and candidate membership. On MIND, where our P proxy is derived from click histories, P+C achieves higher NDCG@10 than the full P+E+C proxy, illustrating a limitation of the complete interface in this setting. The findings support source-preserving evidence design for bounded news re-ranking under incomplete operational records.</p>
           </div>
         </section>
 
@@ -73,7 +73,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <img src="./paper-architecture.png?v=41" alt="PEC-Fuse architecture from manuscript revision v42" />
+            <img src="./paper-architecture.png?v=43" alt="PEC-Fuse architecture from manuscript revision v43" />
             <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.</figcaption>
           </figure>
 
@@ -105,7 +105,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=41" alt="Algorithm 1 from manuscript revision v42: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=43" alt="Algorithm 1 from manuscript revision v43: Retrospective candidate construction and PEC ranking" /></figure>
         </section>
 
         <section className="paper-section results-section" id="results">
@@ -156,7 +156,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
-            <div><p className="section-kicker">Current manuscript · v42</p><h2>Read the paper</h2></div>
+            <div><p className="section-kicker">Current manuscript · v43</p><h2>Read the paper</h2></div>
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">Open PDF</ExternalLink>
           </div>
