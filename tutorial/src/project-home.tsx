@@ -61,9 +61,9 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         <section className="paper-section abstract-section" id="abstract">
           <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Abstract</h2></div>
           <div className="abstract-copy">
-            <p>Operational news recommenders must combine stated profiles, recommendation traces, and clicks even when impression logs are incomplete. We present PEC-Fuse, a source-preserving input interface that keeps profile alignment, recorded system action, and candidate-aware consumption distinct until scoring. The interface supports cached text representations and different scorers and is specified by an ordered feature schema and temporal evaluation procedure.</p>
-            <p>On retrospective platform logs, the complete 25-field PEC record improves normalized discounted cumulative gain at rank 10 (NDCG@10) over the operational control by 0.0662 and 0.0218 under recent-window and same-day candidate expansion, respectively. Both paired user-clustered 95% confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At the same scorer input width, Direct outperforms a learned 5-D representation in recent-window ranking, while the same-day difference remains uncertain.</p>
-            <p>Joint profile/trace removal, a candidate-aware neural scorer, and fixed-model candidate reselection further test the interface under changes in evidence, learner, and candidate membership. On MIND, where our P proxy is derived from click histories, P+C achieves higher NDCG@10 than the full P+E+C proxy, illustrating a limitation of the complete interface in this setting. The findings support source-preserving evidence design for bounded news re-ranking under incomplete operational records.</p>
+            <p>Operational news recommenders must combine stated profiles, recommendation traces, and clicks despite incomplete impression logs. We present PEC-Fuse, a source-preserving input interface that keeps profile alignment, recorded system action, and candidate-aware consumption distinct until scoring. An ordered schema and temporal evaluation support cached representations and different scorers.</p>
+            <p>On retrospective platform logs, the complete 25-field PEC record improves normalized discounted cumulative gain at rank 10 (NDCG@10) over the operational control by 0.0662 and 0.0218 under recent-window and same-day candidate expansion, respectively; both paired user-clustered 95% confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At matched input width, it outperforms a learned 5-D representation in recent-window ranking, while the same-day difference remains uncertain.</p>
+            <p>Source-removal, neural-scoring, and fixed-model candidate-reselection checks assess robustness across evidence, scorer, and candidate conditions. The unversioned profile snapshot and date-level traces cannot verify whether P and E were available before each click. On MIND, where P is derived from click histories, P+C achieves higher NDCG@10 than P+E+C, marking a boundary of the complete interface in this setting. These findings support source-preserving evidence design for bounded news re-ranking under incomplete operational records.</p>
           </div>
         </section>
 
@@ -151,7 +151,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           </div>
           <div className="takeaway-grid">
             <article><span>01</span><h3>Complete PEC improves the operational control</h3><p>NDCG@10 increases by 0.0662 in recent-window and 0.0218 in same-day evaluation; both user-clustered intervals exclude zero.</p></article>
-            <article><span>02</span><h3>Source preservation outperforms compression</h3><p>Complete PEC exceeds scalar collapse and learned early fusion in both regimes; all four paired intervals exclude zero.</p></article>
+            <article><span>02</span><h3>Complete PEC outperforms the tested scalar baselines</h3><p>In the scalar audit, Complete PEC exceeds scalar collapse and learned early fusion in both regimes; all four paired intervals exclude zero.</p></article>
             <article><span>03</span><h3>A compact Direct variant remains competitive</h3><p>Retaining the original P/C coordinates provides a 19-field alternative to the complete 25-field record.</p></article>
           </div>
         </section>
@@ -215,12 +215,13 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section citation-section" id="citation">
-          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>The final DOI and publication metadata will replace the fields below after publication.</p></div>
-          <pre><code>{`@article{park2026pecfuse,
+          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v47. Use the citation below until final publication metadata and a DOI are available.</p></div>
+          <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  journal = {IEEE Access},
+  note    = {Unpublished manuscript, revision v47},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v47.pdf},
   year    = {2026}
 }`}</code></pre>
         </section>
