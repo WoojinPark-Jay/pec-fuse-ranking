@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v47, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v48, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
 
 ## Equal-width comparison availability
 
@@ -28,3 +28,7 @@ The internal key `popularity_matched` denotes the manuscript's same-day candidat
 ## v47 figure and notation refinement
 
 Figures 1-5 use the approved news icons, compact scorer artwork and restrained neutral rules. The manuscript keeps the same figure dimensions and inclusion sizes. Figure 1 explicitly defines reciprocal rank for retained and absent articles; fixed consumption-attention weights use `alpha_ij` consistently. No experimental values or candidate protocols changed. The public figure generators now follow the current manuscript layout. Vector copies are distributed under `tutorial/public/paper-*.pdf`.
+
+## v48 source-provenance conclusion
+
+The concluding synthesis now states that competitive ranking performance can coexist with explicit input-source provenance in bounded retrospective news re-ranking. The 19-field Direct record remains the compact implementation. This wording change does not claim transparent score attribution or measured user understanding. Experimental values, protocols and figures are unchanged.
