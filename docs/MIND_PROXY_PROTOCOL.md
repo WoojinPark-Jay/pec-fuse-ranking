@@ -38,7 +38,19 @@ Article text is `title [SEP] abstract`, encoded into L2-normalized vectors.
 | Controls, 8 fields | Training-derived article/category statistics, history/slate sizes, and text lengths |
 | Products, 6 fields | Explicit products of proxy source scores |
 
-Input widths are 11 for `exposure_only`, 15 for `p_c_without_e`, and 24 for `full_pec_proxy`. These are not the private 11/19/25-field designs. Here P and C both depend on history.
+All models include the same eight controls. The displayed names and retained code keys are:
+
+| Displayed model | Code key | Input composition |
+| --- | --- | --- |
+| Controls + E | `exposure_only` | Controls 8 + E 3 = 11 |
+| P+C | `p_c_without_e` | Controls 8 + P 3 + C 4 = 15 |
+| Full PEC proxy | `full_pec_proxy` | Controls 8 + P 3 + E 3 + C 4 + products 6 = 24 |
+
+The legacy key `exposure_only` includes controls. It is not the private trace-only diagnostic. The full-versus-P+C comparison adds E **and all six products**, not E alone. These are not the private 11/19/25-field designs.
+
+P contains `P_proxy` (cosine with the normalized mean-history vector), `P_category_share`, and `P_subcategory_share` (fractions of retained history matching the candidate). C instead summarizes individual candidate-to-history cosines. Its attention weights use a similarity softmax at temperature 0.18, without private-history recency weighting. P and C share click-history provenance even though their calculations differ.
+
+The eight controls are article/category/subcategory CTR estimates, log article impression count, log history/slate size, and log title/abstract word count. CTR uses (clicks + 1)/(impressions + 2). The six products multiply P alignment, C mean, C attention and C maximum by E membership, plus P alignment times C mean and C attention.
 
 ## Candidate construction and selection
 

@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v51, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v52, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
 
 ## Equal-width comparison availability
 
@@ -44,3 +44,7 @@ Both figure rows label Original and all five candidate-pool/tie-order seeds. The
 ## v51 MIND feature-description clarity
 
 The manuscript explicitly distinguishes the three history-derived P fields from the four candidate-to-history similarity summaries in C. The definitions of E, shared-history provenance, and the boundary-audit interpretation are unchanged. No estimates or experimental procedures changed.
+
+## v52 MIND schema and model naming
+
+The public proxy has common Controls (8), P (3), E (3), C (4), and products (6). Controls+E has 11 fields, P+C has 15, and Full PEC has 24. The full-versus-P+C contrast changes E and all six products together. The legacy code key `exposure_only` is unchanged for compatibility; it means Controls+E, not the private trace-only diagnostic. Appendix C-F documents the construction. Estimates and experimental procedures are unchanged.
