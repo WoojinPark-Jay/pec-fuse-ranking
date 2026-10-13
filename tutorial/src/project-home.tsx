@@ -1,11 +1,11 @@
 import "./project-home.css";
-import { ComparisonInputStrips } from "./components/comparison-input-strips";
+import { ComparisonInputExplorer } from "./components/comparison-input-strips";
 
 const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
-const PAPER_URL = "./PEC-Fuse-manuscript-v48.pdf";
+const PAPER_URL = "./PEC-Fuse-manuscript-v49.pdf";
 
 function GitHubIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .8A11.2 11.2 0 0 0 8.46 22.62c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.11c.95 0 1.9.13 2.79.38 2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.7.12 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z" /></svg>;
@@ -74,10 +74,10 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <a href="./paper-architecture.pdf?v=48" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 1 as a sharp, zoomable vector PDF in a new tab" title="Click to open the vector PDF" style={{ display: 'block', cursor: 'zoom-in' }}>
-              <img src="./paper-architecture.png?v=48" alt="PEC-Fuse architecture from manuscript revision v48" />
+            <a href="./paper-architecture.pdf?v=49" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 1 as a sharp, zoomable vector PDF in a new tab" title="Click to open the vector PDF" style={{ display: 'block', cursor: 'zoom-in' }}>
+              <img src="./paper-architecture.png?v=49" alt="PEC-Fuse architecture from manuscript revision v49" />
             </a>
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=48" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
+            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=49" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
           <div className="record-preview">
@@ -108,7 +108,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=48" alt="Algorithm 1 from manuscript revision v48: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=49" alt="Algorithm 1 from manuscript revision v49: Retrospective candidate construction and PEC ranking" /></figure>
         </section>
 
         <section className="paper-section results-section" id="results">
@@ -132,14 +132,14 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
               <p>NDCG@10 differences for representative fixed-fit comparisons in both candidate regimes.</p>
             </div>
-            <p className="contrast-input-key">Input fields per candidate, grouped by source. All strips share a 25-field scale; colors identify blocks, not importance. Select a diagram to explore the inputs.</p>
+            <ComparisonInputExplorer />
             <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts">
               <div className="contrast-row contrast-header" role="row"><span role="columnheader">Comparison</span><span role="columnheader">Recent-window Δ [95% CI]</span><span role="columnheader">Same-day Δ [95% CI]</span></div>
-              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>PEC − control</strong><ComparisonInputStrips kind="headline" /></div><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
-              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Audit PEC − collapsed</strong><ComparisonInputStrips kind="collapsed" /></div><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
-              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Audit PEC − early fusion</strong><ComparisonInputStrips kind="early" /></div><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
-              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>No-E PEC − no-E control</strong><ComparisonInputStrips kind="noe" /></div><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
-              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Direct 19-D − learned 5-D fusion</strong><ComparisonInputStrips kind="direct" /></div><span className="contrast-estimate" role="cell">+0.0041 <small>[0.0009, 0.0068]</small></span><span className="contrast-estimate is-uncertain" role="cell">+0.0030 <small>[−0.0028, 0.0088]</small><em>CI includes zero</em></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">PEC − control</strong><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − collapsed</strong><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − early fusion</strong><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">No-E PEC − no-E control</strong><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
+              <div className="contrast-row" role="row"><strong role="cell">Direct 19-D − learned 5-D fusion</strong><span className="contrast-estimate" role="cell">+0.0041 <small>[0.0009, 0.0068]</small></span><span className="contrast-estimate is-uncertain" role="cell">+0.0030 <small>[−0.0028, 0.0088]</small><em>CI includes zero</em></span></div>
             </div>
             <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
           </div>
@@ -160,7 +160,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
-            <div><p className="section-kicker">Current manuscript · v48</p><h2>Read the paper</h2></div>
+            <div><p className="section-kicker">Current manuscript · v49</p><h2>Read the paper</h2></div>
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">Open PDF</ExternalLink>
           </div>
@@ -217,13 +217,13 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section citation-section" id="citation">
-          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v48. Use the citation below until final publication metadata and a DOI are available.</p></div>
+          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v49. Use the citation below until final publication metadata and a DOI are available.</p></div>
           <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  note    = {Unpublished manuscript, revision v48},
-  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v48.pdf},
+  note    = {Unpublished manuscript, revision v49},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v49.pdf},
   year    = {2026}
 }`}</code></pre>
         </section>

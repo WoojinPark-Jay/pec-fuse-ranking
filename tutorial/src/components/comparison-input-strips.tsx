@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./comparison-input-strips.css";
 
 type Part = { label: string; count: number; tone: "context" | "semantic" | "products" | "mixed"; description: string };
@@ -16,22 +17,41 @@ const schemas = {
   direct: { rows: [{ label: "Direct", parts: [shared, semantic] }, { label: "Learned", parts: [shared, { label: "Learned", count: 5, tone: "mixed", description: "A learned five-dimensional transform of the same five P/C coordinates" }] }], note: "Same 19-field width; only the five P/C coordinates change." },
 } satisfies Record<string, { rows: Input[]; note: string }>;
 
-export function ComparisonInputStrips({ kind }: { kind: keyof typeof schemas }) {
-  const schema = schemas[kind];
-  return <a className="comparison-input-strips" href="?view=tutorial&lang=en#atlas" aria-label={schema.note + " Explore input definitions in the tutorial."}>
-    <span className="input-strip-pair">
-      {schema.rows.map(row => {
-        const total = row.parts.reduce((n, part) => n + part.count, 0);
-        return <span className="input-strip-row" key={row.label}>
-          <span className="input-strip-name">{row.label}</span>
-          <span className="input-strip-track" role="img" aria-label={row.label + ": " + row.parts.map(part => part.description + " (" + part.count + " fields)").join("; ") + ". Total " + total + " fields."}>
-            {row.parts.map(part => <span key={part.label} className={"input-strip-part input-strip-" + part.tone} style={{ flex: part.count + " 0 0" }} title={part.description + " (" + part.count + " fields)"} aria-hidden="true">{part.label}{part.count > 2 && <span>{part.count}</span>}</span>)}
-            {total < 25 && <span className="input-strip-remainder" style={{ flex: (25 - total) + " 0 0" }} aria-hidden="true" />}
-          </span>
-          <span className="input-strip-width">{total}D</span>
-        </span>;
-      })}
-    </span>
-    <span className="input-strip-note">{schema.note}<span aria-hidden="true"> ↗</span></span>
-  </a>;
+const choices = [
+  { id: "headline", label: "Operational control", heading: "What does the complete record add?", description: "Compare the eleven operational inputs with the complete source-preserving record.", target: "headline" },
+  { id: "collapsed", label: "Scalar compression", heading: "Separate sources, or one mixed score?", description: "Compare the complete record with a single hand-built semantic score. Input width and context also differ.", target: "collapsed" },
+  { id: "noe", label: "Without trace inputs", heading: "What remains when E is removed?", description: "Neither input includes retained-trace fields or products containing E.", target: "noe" },
+  { id: "direct", label: "Matched width", heading: "Same width. Different coordinates.", description: "Both inputs contain 19 fields. The difference is whether five P/C coordinates stay separate or pass through a learned transform.", target: "early" },
+] as const;
+
+export function ComparisonInputExplorer() {
+  const [active, setActive] = useState<(typeof choices)[number]["id"]>("direct");
+  const choice = choices.find(item => item.id === active)!;
+  const schema = schemas[active];
+  return <section className="input-explorer" aria-label="Explore the comparison inputs">
+    <div className="input-explorer-nav" role="tablist" aria-label="Choose an input comparison">
+      {choices.map(item => <button key={item.id} type="button" role="tab" id={"input-tab-" + item.id} aria-selected={item.id === active} aria-controls="input-explorer-panel" onClick={() => setActive(item.id)}>{item.label}</button>)}
+    </div>
+    <div className="input-explorer-body" role="tabpanel" id="input-explorer-panel" aria-labelledby={"input-tab-" + active}>
+      <div className="input-explorer-copy">
+        <span className="input-explorer-eyebrow">Read the inputs</span>
+        <h4>{choice.heading}</h4>
+        <p>{choice.description}</p>
+        <a href={"?view=tutorial&lang=en&comparison=" + choice.target + "#atlas"}>Explore this experiment <span aria-hidden="true">↗</span></a>
+      </div>
+      <div className="input-explorer-diagram">
+        {schema.rows.map(row => {
+          const total = row.parts.reduce((n, part) => n + part.count, 0);
+          return <div className="input-explorer-model" key={row.label}>
+            <div className="input-explorer-model-heading"><strong>{row.label === "PEC" ? "Complete PEC" : row.label === "Learned" ? "Learned 5-D fusion" : row.label === "Direct" ? "Direct" : row.label === "Control" && active === "noe" ? "No-E control" : row.label}</strong><span>{total}<small> fields</small></span></div>
+            <div className="input-explorer-track" role="img" aria-label={row.label + ": " + row.parts.map(part => part.description + " (" + part.count + " fields)").join("; ")}>
+              {row.parts.map(part => <span key={part.label} className={"input-explorer-part input-strip-" + part.tone} data-block={part.label} style={{ flex: part.count + " 0 0" }} title={part.description} aria-hidden="true"><span className="input-explorer-group-label"><b>{part.label === "S" ? "Shared context" : part.label === "B" ? "Baseline" : part.label === "1" ? "1" : part.label === "P/C" ? "P / C" : part.label}</b>{part.count > 2 && <small>{part.count}</small>}</span><span className="input-explorer-cells">{Array.from({ length: part.count }, (_, index) => <i key={index} />)}</span></span>)}
+              {total < 25 && <span className="input-explorer-unused" style={{ flex: (25 - total) + " 0 0" }} aria-hidden="true" />}
+            </div>
+          </div>;
+        })}
+        <p className="input-explorer-caption">Colors match the feature record above; mixed representations are gray. Fields are grouped by source, not serialized order.</p>
+      </div>
+    </div>
+  </section>;
 }

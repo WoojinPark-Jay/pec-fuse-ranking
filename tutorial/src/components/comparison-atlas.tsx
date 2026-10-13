@@ -226,7 +226,10 @@ function FullRecordExplorer({ lang }: { lang: Lang }) {
 export function ComparisonAtlas({ lang }: { lang: Lang }) {
   const models = useMemo(() => modelSet(lang), [lang]);
   const comparisons = lang === "ko" ? koComparisons : enComparisons;
-  const [activeId, setActiveId] = useState("early");
+  const [activeId, setActiveId] = useState(() => {
+    const requested = new URLSearchParams(window.location.search).get("comparison");
+    return comparisons.some(item => item.id === requested) ? requested! : "early";
+  });
   const active = comparisons.find((item) => item.id === activeId) ?? comparisons[0];
   const left = models.find((model) => model.id === active.left) ?? models[0];
   const right = models.find((model) => model.id === active.right) ?? models[0];
