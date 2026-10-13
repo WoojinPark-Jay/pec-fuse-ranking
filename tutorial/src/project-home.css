@@ -418,3 +418,23 @@ img[alt*="algorithm" i] {
 @media(max-width:760px) {
   img[alt*="algorithm" i] { width: 100%; }
 }
+
+/* Instant, in-page architecture enlargement; reuse the already loaded image. */
+.figure-preview-trigger { display: block; width: 100%; padding: 0; border: 0; border-radius: 0; background: transparent; cursor: zoom-in; }
+.figure-preview-trigger:focus-visible { outline: 2px solid #1d6077; outline-offset: 5px; }
+.figure-preview-dialog { width: min(1600px, 96vw); max-width: 96vw; max-height: 92dvh; padding: 0; border: 1px solid #bcc2c5; background: #fff; color: #202b32; }
+.figure-preview-dialog::backdrop { background: rgb(15 22 28 / 65%); }
+.figure-preview-surface { display: flex; flex-direction: column; max-height: 90dvh; }
+.figure-preview-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #dce0e2; }
+.figure-preview-toolbar strong { font-size: 15px; }
+.figure-preview-toolbar strong span { margin-left: 10px; font-weight: 400; }
+.figure-preview-toolbar > div { display: flex; align-items: center; gap: 8px; }
+.figure-preview-toolbar button, .figure-preview-toolbar a { padding: 7px 10px; border: 1px solid #cbd1d4; border-radius: 0; background: #fff; color: #202b32; font: inherit; font-size: 13px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+.figure-preview-scroll { overflow: auto; min-height: 0; padding: 16px; overscroll-behavior: contain; }
+.architecture-figure .figure-preview-scroll img { display: block; width: 100%; max-width: none; height: auto; }
+.architecture-figure .figure-preview-dialog.is-zoomed .figure-preview-scroll img { width: max(1800px, 150%); }
+@media (max-width: 600px) {
+  .figure-preview-toolbar { padding: 10px; flex-wrap: wrap; }
+  .figure-preview-toolbar strong span { display: none; }
+  .figure-preview-scroll { padding: 8px; }
+}

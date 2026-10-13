@@ -74,9 +74,24 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
           </div>
           <figure className="paper-figure architecture-figure">
-            <a href="./paper-architecture.pdf?v=49" target="_blank" rel="noopener noreferrer" aria-label="Open Figure 1 as a sharp, zoomable vector PDF in a new tab" title="Click to open the vector PDF" style={{ display: 'block', cursor: 'zoom-in' }}>
+            <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
               <img src="./paper-architecture.png?v=49" alt="PEC-Fuse architecture from manuscript revision v49" />
-            </a>
+            </button>
+            <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => event.currentTarget.classList.remove('is-zoomed')}>
+              <div className="figure-preview-surface">
+                <div className="figure-preview-toolbar">
+                  <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
+                  <div>
+                    <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">Zoom / fit</button>
+                    <a href="./paper-architecture.pdf?v=49" target="_blank" rel="noopener noreferrer">Vector PDF</a>
+                    <button type="button" autoFocus aria-label="Close enlarged figure" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
+                  </div>
+                </div>
+                <div className="figure-preview-scroll">
+                  <img src="./paper-architecture.png?v=49" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
+                </div>
+              </div>
+            </dialog>
             <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=49" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
