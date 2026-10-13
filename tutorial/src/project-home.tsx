@@ -77,7 +77,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
               <img src="./paper-architecture.png?v=49" alt="PEC-Fuse architecture from manuscript revision v49" />
             </button>
-            <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => event.currentTarget.classList.remove('is-zoomed')}>
+            <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
               <div className="figure-preview-surface">
                 <div className="figure-preview-toolbar">
                   <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
