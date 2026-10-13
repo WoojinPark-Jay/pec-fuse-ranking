@@ -32,9 +32,9 @@ Article text is `title [SEP] abstract`, encoded into L2-normalized vectors.
 
 | Block | Construction |
 | --- | --- |
-| P proxy, 3 fields | Normalized mean-history alignment plus category/subcategory affinity |
+| P proxy, 3 fields | Cosine alignment with the normalized mean-history vector plus candidate category/subcategory history shares |
 | E, 3 fields | Logged-slate membership, reciprocal position, and position percentile |
-| C, 4 fields | Mean, maximum, top-three, and attention-weighted history similarities |
+| C, 4 fields | Mean, maximum, top-three mean, and attention-weighted mean of candidate-to-history similarities |
 | Controls, 8 fields | Training-derived article/category statistics, history/slate sizes, and text lengths |
 | Products, 6 fields | Explicit products of proxy source scores |
 

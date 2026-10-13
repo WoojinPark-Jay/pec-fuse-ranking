@@ -1,12 +1,12 @@
 {
-  "file_count": 158,
+  "file_count": 160,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "81a8047809d113b2ddc0958f5db20ccec580ed538479ad5706042119234f0b4d",
     "LICENSE": "16281b5ad05f44ed3c427fbb1bbf2d5b6cb0bf184c37e57de2d2e474059d9374",
     "Makefile": "69141a92d237e64d035c3b7cb735ae3727d1c009bec69a12135459256a8d1d2c",
-    "README.md": "88a9cba3bdbeb77c5fef1ee781bd09778d8fab57713b9c71f03e0ed1fc3d319a",
-    "access/README.md": "80c00f8474d9a706bcd2b517e87f2c8521e8d3ad2fd3768df53e0b6950fe591e",
+    "README.md": "b464a1b7584c9e152762bd3ac64e52987999e48a120e098d900c37dce0696155",
+    "access/README.md": "a9eac702eb840e8ff893239b4d09dedb04fc37e523ddfa2c1eed4234e67f19fd",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
     "access/data/core_test_metrics.csv": "46a6deed91d62880742fab06d208de1937a93ebcf9cc4b098d23a722d3e53eef",
     "access/data/core_user_bootstrap.csv": "cbb15d96b6fa2c1adb8876fe91ed99084967ecafb9bdb06b9d42bc5ebd63b83b",
@@ -73,11 +73,11 @@
     "configs/same_day_tie_order.json": "bd2712b9bd4a2e1eed47b4400eed52d78d6058815e2d8aa79acb12558972bc36",
     "configs/synthetic_candidate_aware_neural.json": "11253c13c7a43324627eb438b91aa31019ad8004c0c4f26dbca29288476c45e9",
     "configs/synthetic_mlp_fusion.json": "1dc2fc41ab46efe8b7e1a207624f3f8b9ab47acfd757aef1de136f05e8e18d59",
-    "docs/ACCESS_ALIGNMENT.md": "711bb54d0709bbf292279e32d0a3260e824057d97046b9540181a7448bd611e4",
+    "docs/ACCESS_ALIGNMENT.md": "2be92a7bd8da8c60a0391b1a9277d2b624302561a69c43cfe0c65f604cec91e6",
     "docs/ACCESS_RESULT_FILES.md": "eb5b9b3fa4102d33aeb9d5b66a733df58119e19adeee35a06b7699bd46018ada",
     "docs/DATA_AVAILABILITY.md": "251a810cc93b9a8c440a229435ce1b9660cfe7dd136df25617f62b934254118a",
     "docs/GETTING_STARTED.md": "5323aef896cd26310c26ad04c13876ab1db027f8d7054a9e29fb4a82d27b01d3",
-    "docs/MIND_PROXY_PROTOCOL.md": "0ff62ac8fba3b62cc5c1af94fc1237c5ec22e264eb1e6827d09e63376a5eba77",
+    "docs/MIND_PROXY_PROTOCOL.md": "694155bdb1529c080f2a155d28e277e32832a0e5906db633884af8bc32662fcc",
     "docs/PAPER_RQ_REPRODUCIBILITY_MAP.md": "b0f698a7fb297ffa192c7c54e81587e315b00f69bc6fc2a478f96865f04f8de3",
     "docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md": "9cfa211aa1edfe1c17d7221b179979a8164c54e26de6fb08b147dc24026556e1",
     "docs/REPRODUCIBILITY.md": "eaa7c8432cabf4ecb21ccc32f1f699b0df8e26c4739491c7c9d8572bddb21713",
@@ -132,7 +132,7 @@
     "tutorial/src/components/comparison-evidence.css": "6aa31dca2f3a7792c6c15e8f4adb8c5f3a3049bb3b5adcb820bba6265f4c6539",
     "tutorial/src/components/comparison-evidence.tsx": "aa73a4706a33e799c8bf06b2fbd0a7154fefa3a3be4aec18406720e2d2ca23e5",
     "tutorial/src/components/comparison-score-charts.css": "34bad1f31857bbed172a957c7ccd4788b9d886c7cbd51a54977b9653b78bc72c",
-    "tutorial/src/components/comparison-score-charts.tsx": "53cc225047b19e7d2548a2eaf7c13515434b6641743012379a4a3765152f87c5",
+    "tutorial/src/components/comparison-score-charts.tsx": "eac041675a51589048fe399a8ad7af263a8b9220cbf9a0adf5d1ab9ff8e30e1c",
     "tutorial/src/components/control-calculations.css": "6ed9ff548193d8e96019f9207f179a9d69ea11f9fd5e905d7e67c6ed15e091c1",
     "tutorial/src/components/control-calculations.tsx": "16f4eb884d43540923c593336f2dfa88df07aa1cebabe54f09434b119a7743f5",
     "tutorial/src/components/data-microscope.tsx": "c6f312d020c37c0d0229c781136f1a2e472fb8bf4f1e3b8415ef0e1f36a4ab68",
@@ -146,8 +146,8 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "db966e1504dd3047058e24b9f6aa3dbddc9659fadf9b99fb8541b087f1226442",
-    "tutorial/src/project-home.tsx": "ae9fbec251f4a77e761da6c0fd381450ddf09eb8cd6a258ee90d0ad4d705096e",
-    "tutorial/src/public-tutorial.tsx": "244c9f7cbe12b4de7677799881d22ecb4c49329565be87f7fd98ebf6e5cb001d",
+    "tutorial/src/project-home.tsx": "5a83adbf17dcf4c7ec49af8432c7c04974aff7151af42804505956358de7a58e",
+    "tutorial/src/public-tutorial.tsx": "fdc88cfd3197271f4ce7184e9df4c29e0448194041cd115ba9e9de2808ac18b2",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
@@ -158,7 +158,9 @@
     "tutorial/public/PEC-Fuse-manuscript-v49.pdf": "43f058c9bc41f23bff702373d63ae257f8b94f8e6d02db9a1e8a7db46393a786",
     "tutorial/public/paper-first-page-v49.png": "8e0a51145dfb5f90564cb9bd633a7d4141d0e7ecbb6dca70965b7ea7d00027d5",
     "tutorial/public/PEC-Fuse-manuscript-v50.pdf": "14fdae5055175fee1efe173bb44a5113ef7bd7f06851b48fed58632496571f6f",
-    "tutorial/public/paper-first-page-v50.png": "8e0a51145dfb5f90564cb9bd633a7d4141d0e7ecbb6dca70965b7ea7d00027d5"
+    "tutorial/public/paper-first-page-v50.png": "8e0a51145dfb5f90564cb9bd633a7d4141d0e7ecbb6dca70965b7ea7d00027d5",
+    "tutorial/public/PEC-Fuse-manuscript-v51.pdf": "a81d1152e01af209f990e851168c193e285f1be973fa163e175012699892ccb8",
+    "tutorial/public/paper-first-page-v51.png": "8e0a51145dfb5f90564cb9bd633a7d4141d0e7ecbb6dca70965b7ea7d00027d5"
   },
-  "revision": "ieee-access-v50-public-artifact-v20"
+  "revision": "ieee-access-v51-public-artifact-v21"
 }
