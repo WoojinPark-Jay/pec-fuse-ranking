@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies IEEE Access manuscript revision v48 and is the active aggregate release for PEC-Fuse. Existing aggregate values are preserved; tables and plot generators follow the current manuscript presentation.
+This directory accompanies IEEE Access manuscript revision v49 and is the active aggregate release for PEC-Fuse. Existing aggregate values are preserved; tables and plot generators follow the current manuscript presentation.
 
 ## Contents and paper mapping
 

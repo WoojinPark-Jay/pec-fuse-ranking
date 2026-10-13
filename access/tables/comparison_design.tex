@@ -1,6 +1,6 @@
 \begin{table*}[!t]
 \centering
-\caption{Inputs and widths of the implemented comparisons. B denotes the 11-field operational control; H adds P-count, C-count, and the combined E score to B. Scalar-audit Direct and multidimensional-audit Direct are distinct variants.}
+\caption{Implemented inputs and widths. $Z_{\mathrm{core},9}$ comprises profile-category weight, profile-publisher weight, history-category share, history-publisher share, log prior clicks, popularity, recency, log length, and the breaking indicator. The distinct sets are $B_{11}=Z_{\mathrm{core},9}\oplus(E_m,E_r)$ and $Z_{11}=Z_{\mathrm{core},9}\oplus(P_{\mathrm{count}},C_{\mathrm{count}})$; $S_{14}=Z_{11}\oplus E_3$. Here $\oplus$ denotes concatenation, and the two Direct rows are distinct variants.}
 \label{tab:comparison_design}
 \small
 \setlength{\tabcolsep}{5pt}
@@ -8,13 +8,15 @@
 \toprule
 Comparison & Scorer input & Width \\
 \midrule
-Operational control & B & 11 \\
-Scalar collapsed / learned early & B + one mixed semantic score & 12 \\
-Scalar-audit Direct & B + combined E + five P/C scores & 17 \\
-Multidimensional-audit Direct & H + five P/C scores & 19 \\
-Multidimensional fusion & H + learned hidden vector & $14+d$ \\
-Complete PEC & H + five P/C scores + six products & 25 \\
+Operational control & $B_{11}$ & 11 \\
+Scalar collapsed / learned early & $B_{11}\oplus$ one mixed semantic score & 12 \\
+Scalar-audit Direct & $B_{11}\oplus E_x\oplus$ five P/C scores & 17 \\
+Multidimensional-audit Direct & $S_{14}\oplus$ five P/C scores & 19 \\
+Multidimensional fusion & $S_{14}\oplus$ learned hidden vector & $14+d$ \\
+Complete PEC & $S_{14}\oplus$ five P/C scores $\oplus\psi_6$ & 25 \\
 No-E control / PEC / early & Their respective E-free inputs & 9 / 18 / 10 \\
+Joint-removal Context & History/item controls, including C-count & 8 \\
+Joint-removal Context + C & Same eight controls + four semantic C scores & 12 \\
 \bottomrule
 \end{tabular}
 \end{table*}
