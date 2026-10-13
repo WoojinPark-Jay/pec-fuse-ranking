@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v50, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v51, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
 
 ## Equal-width comparison availability
 
@@ -40,3 +40,7 @@ Discussion pairs each audit with its assessment dimension and explicitly names f
 ## v50 candidate-reselection figure clarity
 
 Both figure rows label Original and all five candidate-pool/tie-order seeds. The top row shows model NDCG@10 scores; the bottom row shows PEC-minus-reference differences with paired 95% user-bootstrap intervals. The caption distinguishes the initial test pool from reselection seeds. Fits and numerical results are unchanged.
+
+## v51 MIND feature-description clarity
+
+The manuscript explicitly distinguishes the three history-derived P fields from the four candidate-to-history similarity summaries in C. The definitions of E, shared-history provenance, and the boundary-audit interpretation are unchanged. No estimates or experimental procedures changed.
