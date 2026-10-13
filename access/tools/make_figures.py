@@ -126,7 +126,8 @@ for j,(reference,pec,comparison) in enumerate([
     ax.plot(x,full,'o',ms=5.4,mfc=BLUE,mec='white',mew=.65,
         label='Complete PEC',zorder=4)
     ax.set_ylim(.63,.825)
-    ax.set_ylabel('NDCG@10')
+    ax.tick_params(axis='x', labelbottom=True)
+    ax.set_ylabel('Model NDCG@10')
     ax.grid(axis='y',lw=.45)
     ax.set_axisbelow(True)
     ax.legend(loc='upper right',ncol=2,columnspacing=1,handletextpad=.4,fontsize=8)

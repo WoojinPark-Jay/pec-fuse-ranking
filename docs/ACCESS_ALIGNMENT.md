@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v49, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v50, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
 
 ## Equal-width comparison availability
 
@@ -36,3 +36,7 @@ The concluding synthesis now states that competitive ranking performance can coe
 ## v49 discussion and project-page alignment
 
 Discussion pairs each audit with its assessment dimension and explicitly names fixed-model reselection, P/E-derived scorer-input removal and matched 19-field width. The project page uses one selectable input diagram above the unchanged results table; source colors match the feature record, and experiment links select the corresponding tutorial comparison. Manuscript values and figures are unchanged. The comparison-design table fragment is synchronized with the manuscript.
+
+## v50 candidate-reselection figure clarity
+
+Both figure rows label Original and all five candidate-pool/tie-order seeds. The top row shows model NDCG@10 scores; the bottom row shows PEC-minus-reference differences with paired 95% user-bootstrap intervals. The caption distinguishes the initial test pool from reselection seeds. Fits and numerical results are unchanged.
