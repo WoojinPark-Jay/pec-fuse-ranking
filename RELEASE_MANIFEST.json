@@ -1,5 +1,5 @@
 {
-  "file_count": 152,
+  "file_count": 154,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "81a8047809d113b2ddc0958f5db20ccec580ed538479ad5706042119234f0b4d",
@@ -146,13 +146,15 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "f6f606253aa0709662f147922cf8a4d07d1a7df20ba0eb7557d440cd5f59fe46",
-    "tutorial/src/project-home.tsx": "9e114ade8db949d3f974d8f88a1428a7a411bcdac2518233f365bbf95b7611f0",
+    "tutorial/src/project-home.tsx": "db3c77890b806fb9da370505c08435e2e621a80d035182b26b0b02904141ac07",
     "tutorial/src/public-tutorial.tsx": "22efe64dc1b2cd15f63f537e7174482438903559f8baaaa160743d52024351d1",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
-    "tutorial/public/PEC-Fuse-manuscript-v48.pdf": "cc019c0070b738ef81a26c91e87a3248e80ff275872361ae4ddbf65a663eaa6d"
+    "tutorial/public/PEC-Fuse-manuscript-v48.pdf": "cc019c0070b738ef81a26c91e87a3248e80ff275872361ae4ddbf65a663eaa6d",
+    "tutorial/src/components/comparison-input-strips.tsx": "c03f3e3ca48c47bd4cb323ba92fc8495ba97747a3949cda82679fe9b363d9bf4",
+    "tutorial/src/components/comparison-input-strips.css": "233b1543edc5308f096cce70194fcb0b3c739bd838660bb225eb73873c2f5a9b"
   },
-  "revision": "ieee-access-v48-public-artifact-v17"
+  "revision": "ieee-access-v48-public-artifact-v18"
 }

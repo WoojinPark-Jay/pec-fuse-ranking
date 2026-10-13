@@ -1,4 +1,5 @@
 import "./project-home.css";
+import { ComparisonInputStrips } from "./components/comparison-input-strips";
 
 const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
@@ -131,13 +132,14 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
               <p>NDCG@10 differences for representative fixed-fit comparisons in both candidate regimes.</p>
             </div>
+            <p className="contrast-input-key">Input fields per candidate, grouped by source. All strips share a 25-field scale; colors identify blocks, not importance. Select a diagram to explore the inputs.</p>
             <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts">
               <div className="contrast-row contrast-header" role="row"><span role="columnheader">Comparison</span><span role="columnheader">Recent-window Δ [95% CI]</span><span role="columnheader">Same-day Δ [95% CI]</span></div>
-              <div className="contrast-row" role="row"><strong role="cell">PEC − control</strong><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − collapsed</strong><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − early fusion</strong><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">No-E PEC − no-E control</strong><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Direct 19-D − learned 5-D fusion</strong><span className="contrast-estimate" role="cell">+0.0041 <small>[0.0009, 0.0068]</small></span><span className="contrast-estimate is-uncertain" role="cell">+0.0030 <small>[−0.0028, 0.0088]</small><em>CI includes zero</em></span></div>
+              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>PEC − control</strong><ComparisonInputStrips kind="headline" /></div><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
+              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Audit PEC − collapsed</strong><ComparisonInputStrips kind="collapsed" /></div><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
+              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Audit PEC − early fusion</strong><ComparisonInputStrips kind="early" /></div><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
+              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>No-E PEC − no-E control</strong><ComparisonInputStrips kind="noe" /></div><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
+              <div className="contrast-row" role="row"><div role="cell" className="contrast-structure"><strong>Direct 19-D − learned 5-D fusion</strong><ComparisonInputStrips kind="direct" /></div><span className="contrast-estimate" role="cell">+0.0041 <small>[0.0009, 0.0068]</small></span><span className="contrast-estimate is-uncertain" role="cell">+0.0030 <small>[−0.0028, 0.0088]</small><em>CI includes zero</em></span></div>
             </div>
             <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
           </div>

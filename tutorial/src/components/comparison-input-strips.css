@@ -1,0 +1,43 @@
+/* Compact input diagrams for the project results table, not candidate matrices. */
+.project-page .contrast-table .contrast-row { grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr) minmax(0, 1fr); column-gap: 24px; }
+.project-page .contrast-table .contrast-row:not(.contrast-header) { padding-block: 14px; }
+.contrast-structure { min-width: 0; }
+.contrast-structure > strong { display: block; margin-bottom: 9px; font-size: 12px; line-height: 1.4; }
+.project-page .comparison-input-strips { display: block; color: inherit; text-decoration: none; }
+.input-strip-pair { display: grid; gap: 5px; }
+.input-strip-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) 30px; gap: 8px; align-items: center; }
+.input-strip-name { color: #65696d; font-size: 10px; line-height: 1.2; }
+.input-strip-track { display: flex; min-width: 0; height: 19px; gap: 2px; }
+.input-strip-part { display: flex; min-width: 0; align-items: center; justify-content: center; gap: 4px; color: #344247; font-size: 9px; font-weight: 650; line-height: 1; }
+.input-strip-part > span { opacity: .7; font-size: 8px; font-weight: 500; }
+.input-strip-context { background: #e9ecec; }
+.input-strip-semantic { background: #dcece5; }
+.input-strip-products { background: #e1ecf1; }
+.input-strip-mixed { background: #ebe5db; }
+.input-strip-remainder { min-width: 0; }
+.input-strip-width { color: #454b4e; font-size: 10px; font-variant-numeric: tabular-nums; text-align: right; }
+.input-strip-note { display: block; margin-top: 7px; color: #686e70; font-size: 10px; line-height: 1.4; }
+.input-strip-note > span { color: #526b74; }
+.comparison-input-strips:hover .input-strip-note { color: #253c46; text-decoration: underline; text-underline-offset: 3px; }
+.comparison-input-strips:focus-visible { outline: 2px solid #315b6b; outline-offset: 5px; }
+.project-page .contrast-estimate { display: flex; flex-wrap: wrap; gap: 3px 7px; align-items: baseline; }
+.project-page .contrast-estimate em { flex-basis: 100%; }
+.contrast-input-key { margin: 0 0 12px; color: #777875; font-size: 10px; line-height: 1.5; }
+@media(max-width: 800px) {
+  .project-page .contrast-table .contrast-row { column-gap: 16px; }
+  .input-strip-row { grid-template-columns: 52px minmax(0, 1fr) 26px; gap: 5px; }
+  .input-strip-part { font-size: 8px; gap: 2px; }
+}
+@media(max-width: 680px) {
+  .project-page .contrast-table { overflow: visible; }
+  .project-page .contrast-table .contrast-header { display: none; }
+  .project-page .contrast-table .contrast-row { min-width: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 18px; padding-inline: 0; }
+  .contrast-structure { grid-column: 1 / -1; }
+  .contrast-structure > strong { font-size: 13px; }
+  .input-strip-row { grid-template-columns: 64px minmax(0, 1fr) 30px; gap: 8px; }
+  .input-strip-part { font-size: 10px; }
+  .input-strip-note { font-size: 11px; }
+  .project-page .contrast-estimate::before { flex-basis: 100%; color: #737879; font-size: 9px; font-weight: 500; letter-spacing: .04em; }
+  .project-page .contrast-estimate:nth-child(2)::before { content: "RECENT-WINDOW"; }
+  .project-page .contrast-estimate:nth-child(3)::before { content: "SAME-DAY"; }
+}
