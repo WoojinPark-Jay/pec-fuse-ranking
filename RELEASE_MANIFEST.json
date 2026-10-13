@@ -1,5 +1,5 @@
 {
-  "file_count": 155,
+  "file_count": 156,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "81a8047809d113b2ddc0958f5db20ccec580ed538479ad5706042119234f0b4d",
@@ -145,8 +145,8 @@
     "tutorial/src/components/model-reading-guide.tsx": "409ce2f72b5528d7825df64876ef820b9825ebc349b573af19923446e1eef673",
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
-    "tutorial/src/project-home.css": "f019c0945ae847f9aa37c2eb75e5e87999abc35bb3f2c96d24c3d49f17a57d1e",
-    "tutorial/src/project-home.tsx": "333f875ad855aca028c1f23f79f13df073896ae27bbcc0edfb617d5cddd6d5d9",
+    "tutorial/src/project-home.css": "db966e1504dd3047058e24b9f6aa3dbddc9659fadf9b99fb8541b087f1226442",
+    "tutorial/src/project-home.tsx": "4b72f10766bcd8e7fcbfa11dc144a13154f3a2ee11c8b18ddee8f1444a172714",
     "tutorial/src/public-tutorial.tsx": "bd508a61e0e5cbe929c1eda50d3356737d16a833e7cb95d745b5b45a477b0dd3",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
@@ -155,7 +155,8 @@
     "tutorial/public/PEC-Fuse-manuscript-v48.pdf": "cc019c0070b738ef81a26c91e87a3248e80ff275872361ae4ddbf65a663eaa6d",
     "tutorial/src/components/comparison-input-strips.tsx": "3f397bc62fcb760077756165833e0547226f905bdf045e9ce6925655b8d55fef",
     "tutorial/src/components/comparison-input-strips.css": "83cd9dff9accd7513f395cf3485bf87e05dcb157b5532e67b638a909ba4c6179",
-    "tutorial/public/PEC-Fuse-manuscript-v49.pdf": "43f058c9bc41f23bff702373d63ae257f8b94f8e6d02db9a1e8a7db46393a786"
+    "tutorial/public/PEC-Fuse-manuscript-v49.pdf": "43f058c9bc41f23bff702373d63ae257f8b94f8e6d02db9a1e8a7db46393a786",
+    "tutorial/public/paper-first-page-v49.png": "8e0a51145dfb5f90564cb9bd633a7d4141d0e7ecbb6dca70965b7ea7d00027d5"
   },
   "revision": "ieee-access-v49-public-artifact-v19"
 }

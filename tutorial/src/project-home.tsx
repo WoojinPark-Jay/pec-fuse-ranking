@@ -123,7 +123,27 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
             <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
           </div>
-          <figure className="paper-figure algorithm-figure"><img src="./paper-algorithm-1.png?v=49" alt="Algorithm 1 from manuscript revision v49: Retrospective candidate construction and PEC ranking" /></figure>
+          <figure className="paper-figure algorithm-figure">
+            <button type="button" className="figure-preview-trigger" aria-label="Enlarge Algorithm 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
+              <img src="./paper-algorithm-1.png?v=49" alt="Algorithm 1 from manuscript revision v49: Retrospective candidate construction and PEC ranking" />
+            </button>
+            <figcaption>Click or tap to enlarge Algorithm 1 and inspect the full procedure.</figcaption>
+            <dialog className="figure-preview-dialog" aria-label="Algorithm 1: candidate construction and ranking" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
+              <div className="figure-preview-surface">
+                <div className="figure-preview-toolbar">
+                  <strong>Algorithm 1 <span>Candidate construction</span></strong>
+                  <div>
+                    <button type="button" aria-pressed="false" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }}>Zoom / fit</button>
+                    <button type="button" autoFocus aria-label="Close enlarged algorithm" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
+                  </div>
+                </div>
+                <p className="figure-zoom-hint">Use Zoom / fit, then scroll to inspect the details.</p>
+                <div className="figure-preview-scroll" tabIndex={0} role="region" aria-label="Scrollable enlarged algorithm">
+                  <img src="./paper-algorithm-1.png?v=49" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
+                </div>
+              </div>
+            </dialog>
+          </figure>
         </section>
 
         <section className="paper-section results-section" id="results">
@@ -148,7 +168,8 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
               <p>NDCG@10 differences for representative fixed-fit comparisons in both candidate regimes.</p>
             </div>
             <ComparisonInputExplorer />
-            <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts">
+            <p className="mobile-scroll-hint" id="contrast-scroll-hint">Swipe horizontally to compare both regimes. Keyboard: focus the table and use the arrow keys.</p>
+            <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts" aria-describedby="contrast-scroll-hint" tabIndex={0}>
               <div className="contrast-row contrast-header" role="row"><span role="columnheader">Comparison</span><span role="columnheader">Recent-window Δ [95% CI]</span><span role="columnheader">Same-day Δ [95% CI]</span></div>
               <div className="contrast-row" role="row"><strong role="cell">PEC − control</strong><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
               <div className="contrast-row" role="row"><strong role="cell">Audit PEC − collapsed</strong><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
@@ -180,9 +201,15 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">Open PDF</ExternalLink>
           </div>
-          <div className="paper-viewer">
-            <iframe src={`${PAPER_URL}#view=FitH`} title="PEC-Fuse current manuscript PDF" loading="lazy" />
-          </div>
+          <ExternalLink href={PAPER_URL} className="paper-preview">
+            <img src="./paper-first-page-v49.png" alt="First-page preview of the PEC-Fuse v49 manuscript" loading="lazy" />
+            <span className="paper-preview-copy">
+              <small>Manuscript v49 · 23 pages</small>
+              <strong>The complete paper, figures, and supporting analyses.</strong>
+              <span>A preview of the first page. Open the PDF to read, search, or download the full manuscript.</span>
+              <b>Open full PDF</b>
+            </span>
+          </ExternalLink>
         </section>
 
         <section className="demo-section" id="demo">
