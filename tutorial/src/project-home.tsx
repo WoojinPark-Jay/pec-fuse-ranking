@@ -164,13 +164,14 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         <section className="takeaways-section" aria-labelledby="takeaways-title">
           <div className="section-heading section-heading-centered">
             <p className="section-kicker">Summary</p>
-            <h2 id="takeaways-title">Principal findings</h2>
+            <h2 id="takeaways-title">What this study contributes</h2>
           </div>
           <div className="takeaway-grid">
-            <article><span>01</span><h3>Complete PEC improves the operational control</h3><p>NDCG@10 increases by 0.0662 in recent-window and 0.0218 in same-day evaluation; both user-clustered intervals exclude zero.</p></article>
-            <article><span>02</span><h3>Complete PEC outperforms the tested scalar baselines</h3><p>In the scalar audit, Complete PEC exceeds scalar collapse and learned early fusion in both regimes; all four paired intervals exclude zero.</p></article>
-            <article><span>03</span><h3>A compact Direct variant remains competitive</h3><p>The 19-field Direct record combines competitive ranking performance with explicit input-source provenance in the evaluated retrospective setting.</p></article>
+            <article><span>01</span><h3>Preserve evidence sources through to scoring</h3><p>PEC-Fuse keeps profile, retained-trace, and consumption evidence in distinct, source-labeled fields until scoring. Each input remains traceable to its source instead of being reduced to a single mixed score.</p></article>
+            <article><span>02</span><h3>Deliver stronger ranking with traceable inputs</h3><p>Complete PEC improves NDCG@10 over the operational control by 0.0662 in recent-window and 0.0218 in same-day evaluation. PEC inputs also improve ranking with the tested neural scorer.</p></article>
+            <article><span>03</span><h3>Retain the benefits in a compact representation</h3><p>The 19-field Direct record preserves source distinctions and remains competitive with Complete PEC. The six explicit interaction products show no established additional benefit, supporting a simpler implementation.</p></article>
           </div>
+          <p style={{ margin: '16px 0 0', fontSize: '0.875rem', color: '#656b70', lineHeight: 1.6 }}>Evaluated on retrospective candidate pools; the MIND proxy highlights the importance of platform-specific source semantics.</p>
         </section>
 
         <section className="paper-section manuscript-section" id="paper">
