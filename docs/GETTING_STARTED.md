@@ -69,20 +69,19 @@ Scalar-audit Direct is 17-D; shared-context Direct is 19-D. These are different 
 
 ## 4. Move to MIND after the small example
 
-The [MIND guide](MIND_PROXY_PROTOCOL.md) explains data placement, downloads, runtime options, and JSON output. Smaller `--train-limit`/`--dev-limit` values are useful for exploration but change the experiment. The encoder still represents the loaded news collection, so smaller behavior limits do not eliminate embedding cost. If a tiny subset lacks both classes or valid queries, enlarge it.
+The [MIND guide](MIND_PROXY_PROTOCOL.md) explains data placement, required local BGE vector caches, the fixed 60,000/30,000 behavior protocol, and output files. Changing limits, feature columns, candidate expansion, or cached vectors creates a different experiment.
 
-CLI values control the MIND run; configuration documents are not automatically loaded. Record the command, package versions, encoder revision, and output for each local run.
+The released runner records the command-relevant protocol, package versions, raw-data hashes, embedding-cache hashes, and output metadata. It refuses to overwrite an existing output directory.
 
 ## Common setup issues
 
 | Symptom | Action |
 | --- | --- |
 | `No module named pec_fuse` | Activate the intended environment and run `python -m pip install -e .` from the root. |
-| Missing `sentence_transformers` | Install `python -m pip install -e '.[mind]'`. |
+| Missing BGE vector cache | Prepare the exact `.npz` files listed in `MIND_PROXY_PROTOCOL.md`; the release does not redistribute embeddings. |
 | Missing `torch` for the neural example | Install `python -m pip install -e '.[neural]'`. |
 | Missing plotting dependencies | Install `python -m pip install -e '.[figures]'`. |
-| Missing TSV files | Check `news.tsv` and `behaviors.tsv` in both `train/` and `dev/` under `--mind-root`. |
-| Encoder download failure | Check network access and the selected model's availability/terms. |
+| Missing TSV files | Check `MINDsmall_train/` and `MINDsmall_dev/` under `--mind-root`. |
 | Hash mismatch after editing | Compare with a clean checkout of the same release; a locally changed file is no longer the distributed file. |
 
 Dependencies specify minimums, not a fully pinned historical environment. Library/model revisions may change numeric results. Keep downloaded data and local outputs in ignored directories; do not commit private rows.

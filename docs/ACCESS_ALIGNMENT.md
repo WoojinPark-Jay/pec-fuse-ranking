@@ -1,50 +1,27 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v52, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**. Existing aggregate CSV values are preserved. Table fragments and figure generators follow the current manuscript, including the equal-width Direct-versus-learned-5-D comparison and the Appendix C-B trace-only candidate-pool diagnostic.
+This release aligns the public artifact with IEEE Access manuscript revision v79, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
 
-## Equal-width comparison availability
+## Private-platform evidence
 
-`access/tables/direct_complete.tex` reports Direct minus learned 5-D NDCG@10: +0.0041 [0.0009, 0.0068] for recent-window and +0.0030 [-0.0028, 0.0088] for same-day. Both scorers have 19 inputs. These added intervals are distributed at manuscript precision in the table; a separate unrounded bootstrap record for this contrast is not included. They cannot be recovered by subtracting other interval endpoints. `fusion_seed_metrics.csv` supplies seed-specific absolute scores, not the paired per-query inputs needed to recalculate these intervals.
-
-Absolute scores are means of seed-specific aggregate metrics. Paired intervals first average within-query differences across five fixed seeds, then resample users. Reported deltas use unrounded values. These are representation-audit fits, not headline fits.
-
-## Primary evidence
-
-- Complete PEC versus operational control: `core_test_metrics.csv` and `core_user_bootstrap.csv`.
-- Complete PEC versus collapsed and learned scalar representations: core and supplementary aggregate records.
-- Learned fusion at widths 1, 2, 4, and 5: `fusion_protocol.json`, `fusion_selected_configs.json`, `fusion_seed_metrics.csv`, and `fusion_paired_intervals.csv`.
-- Shared-context Direct 19-D versus Complete 25-D: `direct_complete_user_bootstrap.csv`.
-- Joint profile/trace removal: all `joint_pe_*` records.
+- Headline Complete PEC versus operational control: `core_test_metrics.csv` and `core_user_bootstrap.csv`.
+- Learned and scalar compression audits: `fusion_*`, `direct_complete_user_bootstrap.csv`, and `access/tables/direct_complete.tex`.
+- Joint profile/trace removal: `joint_pe_*`.
 - Fixed-model same-day candidate reselection: `pool_manifest.json`, `pool_metrics.csv`, and `pool_paired_differences.csv`.
 - Candidate-aware neural input audit: `neural_user_bootstrap.csv`.
-- Public evidence-definition boundary: the three `mind_text_*_proxy_results.csv` files.
+
+The 19-field Direct record remains competitive with Complete PEC. Private Full-minus-Direct intervals include zero, so the private audit does not establish an additional benefit from the six explicit product fields. This is not an equivalence claim.
+
+## Public MIND boundary audit
+
+The active public protocol is recorded in `mind_expanded_protocol.json` and implemented by `scripts/run_mind_expanded_membership.py`. Its nested configurations contain 8, 14, 15, and 21 fields. BGE-M3 is the main encoder and BGE-base is the sensitivity encoder; no other encoder result is part of this release.
+
+`mind_expanded_results.csv` supplies absolute scores. `mind_expanded_user_bootstrap.json` supplies 10,000-replicate nominal paired user-clustered intervals. `mind_membership_diagnostics.json` and the two encoder-specific candidate audits document candidate origin and pool construction.
+
+Unlike the private audit, the MIND audit finds a positive Full-minus-Direct explicit-product gain for both encoders. This difference is reported as setting-dependent evidence, not as a contradiction: MIND P and C share history provenance, and MIND E is logged-slate membership rather than the private retained-trace block.
+
+Within the public proxy, P uses the normalized unweighted mean-history direction, while C mean is the arithmetic mean of individual candidate-history cosines. The definitions are intentionally distinct because using the normalized-history calculation for both coordinates would duplicate a field when public recency decay is unavailable. These labels describe representation roles, not independent public-data provenance.
 
 ## Interpretation boundary
 
-The artifact supports a source-preserving input and evaluation interface. It does not claim causal exposure correction, universal superiority of every 25-field component, or equivalence between MIND proxy evidence and private stated-profile provenance.
-
-The internal key `popularity_matched` denotes the manuscript's same-day candidate expansion and does not assert verified hard negatives.
-
-## v47 figure and notation refinement
-
-Figures 1-5 use the approved news icons, compact scorer artwork and restrained neutral rules. The manuscript keeps the same figure dimensions and inclusion sizes. Figure 1 explicitly defines reciprocal rank for retained and absent articles; fixed consumption-attention weights use `alpha_ij` consistently. No experimental values or candidate protocols changed. The public figure generators now follow the current manuscript layout. Vector copies are distributed under `tutorial/public/paper-*.pdf`.
-
-## v48 source-provenance conclusion
-
-The concluding synthesis now states that competitive ranking performance can coexist with explicit input-source provenance in bounded retrospective news re-ranking. The 19-field Direct record remains the compact implementation. This wording change does not claim transparent score attribution or measured user understanding. Experimental values, protocols and figures are unchanged.
-
-## v49 discussion and project-page alignment
-
-Discussion pairs each audit with its assessment dimension and explicitly names fixed-model reselection, P/E-derived scorer-input removal and matched 19-field width. The project page uses one selectable input diagram above the unchanged results table; source colors match the feature record, and experiment links select the corresponding tutorial comparison. Manuscript values and figures are unchanged. The comparison-design table fragment is synchronized with the manuscript.
-
-## v50 candidate-reselection figure clarity
-
-Both figure rows label Original and all five candidate-pool/tie-order seeds. The top row shows model NDCG@10 scores; the bottom row shows PEC-minus-reference differences with paired 95% user-bootstrap intervals. The caption distinguishes the initial test pool from reselection seeds. Fits and numerical results are unchanged.
-
-## v51 MIND feature-description clarity
-
-The manuscript explicitly distinguishes the three history-derived P fields from the four candidate-to-history similarity summaries in C. The definitions of E, shared-history provenance, and the boundary-audit interpretation are unchanged. No estimates or experimental procedures changed.
-
-## v52 MIND schema and model naming
-
-The public proxy has common Controls (8), P (3), E (3), C (4), and products (6). Controls+E has 11 fields, P+C has 15, and Full PEC has 24. The full-versus-P+C contrast changes E and all six products together. The legacy code key `exposure_only` is unchanged for compatibility; it means Controls+E, not the private trace-only diagnostic. Appendix C-F documents the construction. Estimates and experimental procedures are unchanged.
+The artifact supports a source-preserving input and evaluation interface. It does not claim causal exposure correction, universal superiority of every component, equivalence between MIND and private provenance, or numerical reproduction of private results without restricted rows. Headline fits, representation-audit fits, and public-proxy fits are separate and must not be interchanged.

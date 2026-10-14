@@ -5,7 +5,7 @@ const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
-const PAPER_URL = "./PEC-Fuse-manuscript-v52.pdf";
+const PAPER_URL = "./PEC-Fuse-manuscript-v79.pdf";
 
 function GitHubIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .8A11.2 11.2 0 0 0 8.46 22.62c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.11c.95 0 1.9.13 2.79.38 2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.7.12 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z" /></svg>;
@@ -27,7 +27,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label="Project page navigation">
-          <a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#paper">Paper</a><a href="#demo">Demo</a><a href="#citation">Citation</a>
+          <a href="#abstract">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#paper">Paper</a><a href="#demo">Demo</a><a href="#citation">Citation</a>
         </nav>
       </header>
 
@@ -60,11 +60,11 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section abstract-section" id="abstract">
-          <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Abstract</h2></div>
+          <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Project overview</h2></div>
           <div className="abstract-copy">
             <p>Operational news recommenders must combine stated profiles, recommendation traces, and clicks despite incomplete impression logs. We present PEC-Fuse, a source-preserving input interface that keeps profile alignment, recorded system action, and candidate-aware consumption distinct until scoring. An ordered schema and temporal evaluation support cached representations and different scorers.</p>
             <p>On retrospective platform logs, the complete 25-field PEC record improves normalized discounted cumulative gain at rank 10 (NDCG@10) over the operational control by 0.0662 and 0.0218 under recent-window and same-day candidate expansion, respectively; both paired user-clustered 95% confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At matched input width, it outperforms a learned 5-D representation in recent-window ranking, while the same-day difference remains uncertain.</p>
-            <p>Source-removal, neural-scoring, and fixed-model candidate-reselection checks assess robustness across evidence, scorer, and candidate conditions. The unversioned profile snapshot and date-level traces cannot verify whether P and E were available before each click. On MIND, where P is derived from click histories, P+C achieves higher NDCG@10 than P+E+C, marking a boundary of the complete interface in this setting. These findings support source-preserving evidence design for bounded news re-ranking under incomplete operational records.</p>
+            <p>Source-removal, neural-scoring, and fixed-model candidate-reselection checks assess robustness across evidence, scorer, and candidate conditions. The unversioned profile snapshot and date-level traces cannot verify whether profile and trace inputs were available before each click. In the expanded-pool MIND audit, the 21-field Full proxy is highest under BGE-M3 and BGE-base; nominal paired user-clustered intervals support both the full-record and explicit-product gains. MIND P and C are history-derived and E marks logged-slate membership, so the public result is a boundary audit rather than a matched replication of private provenance.</p>
           </div>
         </section>
 
@@ -75,7 +75,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure architecture-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-architecture.png?v=52" alt="PEC-Fuse architecture from manuscript revision v52" />
+              <img src="./paper-architecture.png?v=79" alt="PEC-Fuse architecture from manuscript revision v79" />
             </button>
             <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
               <div className="figure-preview-surface">
@@ -83,16 +83,16 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
                   <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
                   <div>
                     <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">Zoom / fit</button>
-                    <a href="./paper-architecture.pdf?v=52" target="_blank" rel="noopener noreferrer">Vector PDF</a>
+                    <a href="./paper-architecture.pdf?v=79" target="_blank" rel="noopener noreferrer">Vector PDF</a>
                     <button type="button" autoFocus aria-label="Close enlarged figure" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
                   </div>
                 </div>
                 <div className="figure-preview-scroll">
-                  <img src="./paper-architecture.png?v=52" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
+                  <img src="./paper-architecture.png?v=79" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
                 </div>
               </div>
             </dialog>
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=52" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
+            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=79" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
           <div className="record-preview">
@@ -125,7 +125,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure algorithm-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Algorithm 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-algorithm-1.png?v=52" alt="Algorithm 1 from manuscript revision v52: Retrospective candidate construction and PEC ranking" />
+              <img src="./paper-algorithm-1.png?v=79" alt="Algorithm 1 from manuscript revision v79: Retrospective candidate construction and PEC ranking" />
             </button>
             <figcaption>Click or tap to enlarge Algorithm 1 and inspect the full procedure.</figcaption>
             <dialog className="figure-preview-dialog" aria-label="Algorithm 1: candidate construction and ranking" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
@@ -139,7 +139,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
                 </div>
                 <p className="figure-zoom-hint">Use Zoom / fit, then scroll to inspect the details.</p>
                 <div className="figure-preview-scroll" tabIndex={0} role="region" aria-label="Scrollable enlarged algorithm">
-                  <img src="./paper-algorithm-1.png?v=52" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
+                  <img src="./paper-algorithm-1.png?v=79" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
                 </div>
               </div>
             </dialog>
@@ -162,6 +162,27 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="result-interpretation">Both paired user-clustered 95% confidence intervals exclude zero.</p>
           </div>
 
+          <div className="result-block mind-result-block">
+            <div className="result-block-heading"><div><strong>Public boundary audit</strong><small>Expanded-pool MIND evaluation · BGE-M3 · NDCG@10</small></div></div>
+            <div className="mind-result-grid">
+              <div className="mind-table mind-score-table" role="table" aria-label="MIND BGE-M3 NDCG at 10 results">
+                <div className="mind-row mind-header" role="row"><span role="columnheader">Configuration</span><span role="columnheader">Fields</span><span role="columnheader">NDCG@10</span></div>
+                <div className="mind-row" role="row"><span role="cell">Controls+E</span><span role="cell">8</span><span role="cell">0.3265</span></div>
+                <div className="mind-row" role="row"><span role="cell">P+C Direct</span><span role="cell">14</span><span role="cell">0.3409</span></div>
+                <div className="mind-row" role="row"><span role="cell">P+E+C Direct</span><span role="cell">15</span><span role="cell">0.3797</span></div>
+                <div className="mind-row mind-best" role="row"><strong role="cell">Full PEC proxy</strong><strong role="cell">21</strong><strong role="cell">0.3828</strong></div>
+              </div>
+              <div className="mind-table mind-delta-table" role="table" aria-label="MIND paired additions">
+                <div className="mind-row mind-header" role="row"><span role="columnheader">Added evidence</span><span role="columnheader">Difference [95% CI]</span></div>
+                <div className="mind-row" role="row"><span role="cell">P/C over Controls+E</span><span role="cell">+0.0531 <small>[0.0506, 0.0556]</small></span></div>
+                <div className="mind-row" role="row"><span role="cell">E under fixed P/C</span><span role="cell">+0.0388 <small>[0.0372, 0.0404]</small></span></div>
+                <div className="mind-row" role="row"><span role="cell">Explicit products over Direct</span><span role="cell">+0.0031 <small>[0.0019, 0.0043]</small></span></div>
+                <div className="mind-row mind-best" role="row"><strong role="cell">Full PEC over Controls+E</strong><strong role="cell">+0.0562 <small>[0.0536, 0.0588]</small></strong></div>
+              </div>
+            </div>
+            <p className="result-interpretation">Full PEC is highest under BGE-M3, and BGE-base shows the same positive directions. MIND P uses the normalized mean-history direction, whereas C mean averages individual candidate-history cosines so the coordinates do not duplicate one another. Both remain history-derived, and E marks logged-slate membership; this is a public boundary audit rather than a matched replication of the private schema.</p>
+          </div>
+
           <div className="contrast-block">
             <div className="contrast-heading">
               <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
@@ -179,7 +200,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             </div>
             <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
           </div>
-          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and the public MIND proxy remain in the paper and tutorial.</p>
+          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and encoder sensitivity remain in the paper and tutorial.</p>
         </section>
 
         <section className="takeaways-section" aria-labelledby="takeaways-title">
@@ -190,21 +211,21 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <div className="takeaway-grid">
             <article><span>01</span><h3>Preserve evidence sources through to scoring</h3><p>PEC-Fuse keeps profile, retained-trace, and consumption evidence in distinct, source-labeled fields until scoring. Each input remains traceable to its source instead of being reduced to a single mixed score.</p></article>
             <article><span>02</span><h3>Deliver stronger ranking with traceable inputs</h3><p>Complete PEC improves NDCG@10 over the operational control by 0.0662 in recent-window and 0.0218 in same-day evaluation. PEC inputs also improve ranking with the tested neural scorer.</p></article>
-            <article><span>03</span><h3>Retain the benefits in a compact representation</h3><p>The 19-field Direct record preserves source distinctions and remains competitive with Complete PEC. The six explicit interaction products show no established additional benefit, supporting a simpler implementation.</p></article>
+            <article><span>03</span><h3>Separate compactness from setting-dependent products</h3><p>The 19-field Direct record preserves source distinctions and remains competitive with Complete PEC on private data. Explicit products add no established private-data gain, but show positive gains in the MIND boundary audit, so their value is setting-dependent.</p></article>
           </div>
           <p style={{ margin: '16px 0 0', fontSize: '0.875rem', color: '#656b70', lineHeight: 1.6 }}>Evaluated on retrospective candidate pools; the MIND proxy highlights the importance of platform-specific source semantics.</p>
         </section>
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
-            <div><p className="section-kicker">Current manuscript · v52</p><h2>Read the paper</h2></div>
+            <div><p className="section-kicker">Current manuscript · v79</p><h2>Read the paper</h2></div>
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">Open PDF</ExternalLink>
           </div>
           <ExternalLink href={PAPER_URL} className="paper-preview">
-            <img src="./paper-first-page-v52.png" alt="First-page preview of the PEC-Fuse v52 manuscript" loading="lazy" />
+            <img src="./paper-first-page-v79.png" alt="First-page preview of the PEC-Fuse v79 manuscript" loading="lazy" />
             <span className="paper-preview-copy">
-              <small>Manuscript v52 · 23 pages</small>
+              <small>Manuscript v79 · 28 pages</small>
               <strong>The complete paper, figures, and supporting analyses.</strong>
               <span>A preview of the first page. Open the PDF to read, search, or download the full manuscript.</span>
               <b>Open full PDF</b>
@@ -260,13 +281,13 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section citation-section" id="citation">
-          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v52. Use the citation below until final publication metadata and a DOI are available.</p></div>
+          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v79. Use the citation below until final publication metadata and a DOI are available.</p></div>
           <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  note    = {Unpublished manuscript, revision v52},
-  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v52.pdf},
+  note    = {Unpublished manuscript, revision v79},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v79.pdf},
   year    = {2026}
 }`}</code></pre>
         </section>

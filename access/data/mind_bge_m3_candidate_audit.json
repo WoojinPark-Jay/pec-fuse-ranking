@@ -1,0 +1,70 @@
+{
+  "fit": {
+    "fingerprint": "201c9d7cbd51089c602f902172de6616be3d9ba92c7fc5234b2d3cf40aa0397f",
+    "rows": 2384360,
+    "queries": 51000,
+    "sources": {
+      "logged": {
+        "rows": 1874360,
+        "positives": 76487,
+        "positive_rate": 0.04080699545444845
+      },
+      "added": {
+        "rows": 510000,
+        "positives": 0,
+        "positive_rate": 0.0
+      }
+    }
+  },
+  "validation": {
+    "fingerprint": "78414036afd4078391c7dbdd54fb9a142f135c079800ecb765fcc4d7874df085",
+    "rows": 442292,
+    "queries": 9000,
+    "sources": {
+      "logged": {
+        "rows": 352292,
+        "positives": 13730,
+        "positive_rate": 0.038973351651470936
+      },
+      "added": {
+        "rows": 90000,
+        "positives": 0,
+        "positive_rate": 0.0
+      }
+    }
+  },
+  "refit": {
+    "fingerprint": "eb93c18b55571b9941846088ad35f9651cdd1b0583e4552c23e25e23bade685b",
+    "rows": 2826652,
+    "queries": 60000,
+    "sources": {
+      "logged": {
+        "rows": 2226652,
+        "positives": 90217,
+        "positive_rate": 0.04051688364414376
+      },
+      "added": {
+        "rows": 600000,
+        "positives": 0,
+        "positive_rate": 0.0
+      }
+    }
+  },
+  "dev": {
+    "fingerprint": "c3699bf9c637d69eaaa8ede6951977a63846f357b109e0acc2f8ea6ac39c8f59",
+    "rows": 1419923,
+    "queries": 30000,
+    "sources": {
+      "logged": {
+        "rows": 1119923,
+        "positives": 45563,
+        "positive_rate": 0.04068404702823319
+      },
+      "added": {
+        "rows": 300000,
+        "positives": 0,
+        "positive_rate": 0.0
+      }
+    }
+  }
+}

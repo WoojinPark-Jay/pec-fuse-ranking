@@ -1,67 +1,60 @@
-# MIND-small public-data example
+# Fixed Expanded-Pool MIND Boundary Audit
 
-This executable proxy maps the interface to public impression logs. It does not recreate independent stated preferences or the private-platform experiment.
+## Purpose and interpretation
 
-## Data and command
+The MIND experiment tests whether the source-preserving interface remains useful when public-data evidence has different semantics. It is not a matched replication of the private 25-field schema. MIND has no independent stated profile: P and C are both derived from pre-impression click history, while E is a single logged-slate membership indicator. E distinguishes logged candidates from added candidates; it is not a causal exposure label.
 
-Obtain MIND-small from the [dataset website](https://msnews.github.io/) under its terms. Download the **MIND-small training and validation** archives, not MIND-large or a test-only split. Extract training files into `train/` and validation files into `dev/`. These data are not bundled in the repository ZIP. The runner expects:
+## Required local inputs
+
+Place the official `MINDsmall_train/` and `MINDsmall_dev/` directories under one root. Each must retain its distributed `news.tsv` and `behaviors.tsv` files. The runner also expects these local caches:
 
 ```text
-data/MINDsmall/
-  train/news.tsv
-  train/behaviors.tsv
-  dev/news.tsv
-  dev/behaviors.tsv
+cache/mind_proxy_text/bge_m3_mind_news_vectors.npz
+cache/mind_proxy_text/bge_base_mind_news_vectors.npz
 ```
+
+The caches correspond to `BAAI/bge-m3` and `BAAI/bge-base-en-v1.5`. They are intentionally not distributed because model weights, article text, and cached embeddings retain their own terms and can be large. The released protocol records their SHA-256 hashes.
+
+## Fixed run
 
 ```bash
-python -m pip install -e '.[mind]'
-python scripts/run_mind_proxy.py \
-  --mind-root data/MINDsmall \
-  --encoder sentence-transformers/all-MiniLM-L6-v2 \
-  --train-limit 30000 --dev-limit 30000 \
-  --history-window 50 --unexposed-per-query 10 \
-  --popular-pool-size 5000 --batch-size 64 --seed 42
+python -m pip install -e .
+python scripts/run_mind_expanded_membership.py \
+  --mind-root /path/containing/MINDsmall_train_and_MINDsmall_dev \
+  --output outputs/mind_expanded_final \
+  --jobs 4
 ```
 
-Other manuscript encoders are `BAAI/bge-base-en-v1.5` and `BAAI/bge-m3`. Downloading and encoding can be expensive, especially for BGE-M3. SentenceTransformer chooses the available device; a GPU can reduce embedding time. Behavior limits do not restrict the loaded news collection.
+The output directory must not already exist. `--jobs` changes parallel execution only. Other protocol changes create a different experiment and should be reported as such.
 
-## Inputs and evidence mapping
+## Data split and candidate construction
 
-Article text is `title [SEP] abstract`, encoded into L2-normalized vectors.
+- The first 60,000 training behaviors are split chronologically into 51,000 fitting and 9,000 validation behaviors.
+- After configuration selection, the chosen estimator is refit on all 60,000 training behaviors and evaluated on 30,000 development behaviors.
+- CTR and popularity statistics use only the fitting partition during selection and all training behaviors during refit; development labels never enter feature statistics.
+- History uses the last 30 listed pre-impression clicks, retaining repeated events.
+- Each logged slate is expanded with up to 10 uniformly sampled articles from the 5,000 most-impressed training articles, excluding the entire logged slate and listed history.
+- A zero label means no observed click in the constructed pool. It is not verified dislike or verified non-exposure.
 
-| Block | Construction |
-| --- | --- |
-| P proxy, 3 fields | Cosine alignment with the normalized mean-history vector plus candidate category/subcategory history shares |
-| E, 3 fields | Logged-slate membership, reciprocal position, and position percentile |
-| C, 4 fields | Mean, maximum, top-three mean, and attention-weighted mean of candidate-to-history similarities |
-| Controls, 8 fields | Training-derived article/category statistics, history/slate sizes, and text lengths |
-| Products, 6 fields | Explicit products of proxy source scores |
+## Nested feature records
 
-All models include the same eight controls. The displayed names and retained code keys are:
+| Configuration | Fields | Contents |
+| --- | ---: | --- |
+| Controls+E | 8 | seven operational controls plus logged-slate membership E |
+| P+C Direct | 14 | seven controls, three history-derived P fields, and four candidate-to-history C fields |
+| P+E+C Direct | 15 | P+C Direct plus E |
+| Full PEC proxy | 21 | P+E+C Direct plus six deterministic product fields |
 
-| Displayed model | Code key | Input composition |
-| --- | --- | --- |
-| Controls + E | `exposure_only` | Controls 8 + E 3 = 11 |
-| P+C | `p_c_without_e` | Controls 8 + P 3 + C 4 = 15 |
-| Full PEC proxy | `full_pec_proxy` | Controls 8 + P 3 + E 3 + C 4 + products 6 = 24 |
+The seven controls are article CTR, log article impressions, category CTR, subcategory CTR, log history length, log title length, and log abstract length. P contains mean-history cosine, category share, and subcategory share. C contains mean, maximum, top-three mean, and attention-weighted candidate-to-history cosine. The six products are four E products and two P-C products.
 
-The legacy key `exposure_only` includes controls. It is not the private trace-only diagnostic. The full-versus-P+C comparison adds E **and all six products**, not E alone. These are not the private 11/19/25-field designs.
+Public P and C denote representation roles rather than independently recorded provenance. Because MIND has no stated-profile vector, the cosine with the normalized unweighted mean-history vector serves as the profile-like P alignment. Reusing the private normalized-history construction for public C mean after omitting unavailable recency decay would duplicate that coordinate. Public C mean is therefore the arithmetic mean of the individual candidate-history cosines: P preserves the direction of the aggregate history, whereas C mean retains its average alignment magnitude. This is an adapted proxy design, not an equivalence claim between private and public sources.
 
-P contains `P_proxy` (cosine with the normalized mean-history vector), `P_category_share`, and `P_subcategory_share` (fractions of retained history matching the candidate). C instead summarizes individual candidate-to-history cosines. Its attention weights use a similarity softmax at temperature 0.18, without private-history recency weighting. P and C share click-history provenance even though their calculations differ.
+This nesting identifies four planned contrasts: adding P/C to Controls+E, adding E to fixed P/C, adding six explicit products to Direct, and comparing Full with Controls+E. ExtraTrees can learn interactions without product columns, so the third contrast is specifically an explicit-product gain.
 
-The eight controls are article/category/subcategory CTR estimates, log article impression count, log history/slate size, and log title/abstract word count. CTR uses (clicks + 1)/(impressions + 2). The six products multiply P alignment, C mean, C attention and C maximum by E membership, plus P alignment times C mean and C attention.
+## Released results
 
-## Candidate construction and selection
+`access/data/mind_expanded_results.csv` contains the BGE-M3 main analysis and BGE-base sensitivity analysis. Under BGE-M3, NDCG@10 is 0.3265, 0.3409, 0.3797, and 0.3828 for the four records above. Full minus Direct is +0.0031 with nominal paired user-clustered 95% CI [0.0019, 0.0043]. BGE-base shows the same positive direction, with Full minus Direct +0.0109 [0.0096, 0.0122].
 
-Logged candidates retain their labels. Each query adds up to ten popular training articles outside its logged slate and history. These are weak negatives, not verified non-exposures. This is an expanded-pool evaluation, not the standard MIND leaderboard protocol. The legacy option `--unexposed-per-query` specifies additions; its name does not establish non-exposure.
+`access/data/mind_expanded_user_bootstrap.json` records 10,000 user-clustered percentile-bootstrap replicates, seed 20261014, 30,000 queries, and 25,003 users. The intervals condition on fitted models and the fixed candidate pool, use no multiplicity adjustment, and do not include training-seed or candidate-reselection uncertainty.
 
-Statistics and the popular article pool are computed from the designated training behavior subset. This includes its validation portion but excludes development labels. The first 85% of training behaviors fit selection models; the remaining 15% select among three ExtraTrees configurations by NDCG@10. Selected models refit on all designated training rows before development evaluation.
-
-## Outputs and interpretation
-
-The command prints JSON and writes `outputs/mind_proxy/sentence-transformers__all-MiniLM-L6-v2.json`. Other encoders use corresponding filenames; `--output-dir` changes the destination.
-
-Each model entry contains its feature list, selected configuration, validation NDCG@10, and query-averaged development NDCG@10, Recall@10, and MRR. **This runner outputs point estimates, not bootstrap intervals or neural-model results.** Private-platform bootstrap records are separate artifacts.
-
-Encoder-specific manuscript summaries are in `access/data/mind_text_*_proxy_results.csv`. Record the command, dataset version, dependency versions, and encoder revision with local output. The script does not persist embeddings or capture all environment metadata automatically. Configuration files are descriptive rather than automatically consumed by this CLI.
+The protocol, diagnostics, and candidate audits are distributed alongside the results. Per-query predictions and embedding caches are not released.

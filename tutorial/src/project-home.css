@@ -226,10 +226,21 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .result-block-heading div { display: grid; }
 .result-block-heading strong { font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: 21px; font-weight: 600; }
 .result-block-heading small { color: var(--muted); font-size: 12px; }
-.headline-results { width: calc(100% - 40px); margin-right: auto; margin-left: auto; }
-.headline-row { display: grid; grid-template-columns: 1.35fr .7fr .7fr 1.35fr; align-items: center; min-height: 58px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+.headline-results { width: min(720px, calc(100% - 120px)); margin-right: auto; margin-left: auto; }
+.headline-row { display: grid; grid-template-columns: 1.35fr .7fr .7fr 1.35fr; align-items: center; min-height: 50px; padding: 0 14px; border-bottom: 1px solid var(--line); font-size: .92rem; }
 .headline-header { min-height: 42px; color: #74716c; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .headline-row > span:not(.result-gain) { font-variant-numeric: tabular-nums; }
+.mind-result-block { margin-top: 22px; }
+.mind-result-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 24px; padding: 2px 20px 0; }
+.mind-table { border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; }
+.mind-row { display: grid; align-items: center; min-height: 40px; padding: 0 10px; border-bottom: 1px solid var(--line); column-gap: 10px; font-size: .82rem; }
+.mind-row:last-child { border-bottom: 0; }
+.mind-score-table .mind-row { grid-template-columns: 1.45fr .42fr .65fr; }
+.mind-delta-table .mind-row { grid-template-columns: 1.18fr 1fr; }
+.mind-header { min-height: 34px; color: #74716c; font-size: 9px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.mind-row > :not(:first-child) { text-align: right; }
+.mind-row small { display: block; color: #6b706f; font-size: .72rem; line-height: 1.25; }
+.mind-best { background: #edf4f3; color: #163f46; }
 .result-gain { color: var(--ku-crimson); font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .result-gain small { display: block; color: #716f6b; font-size: 11px; font-weight: 500; }
 .result-interpretation { margin: 14px 20px 0; color: var(--ku-crimson); font-size: 12px; font-weight: 700; }
@@ -375,6 +386,8 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 
 @media (max-width: 620px) {
   .headline-results { width: 100%; }
+  .mind-result-grid { grid-template-columns: 1fr; gap: 18px; padding: 0; }
+  .mind-row { padding: 7px 8px; }
   .project-page { font-size: 15px; }
   .project-nav { height: 58px; }
   .project-wordmark { font-size: 19px; }
@@ -452,4 +465,304 @@ img[alt*="algorithm" i] {
   .figure-preview-toolbar { padding: 10px; flex-wrap: wrap; }
   .figure-preview-toolbar strong span { display: none; }
   .figure-preview-scroll { padding: 8px; }
+}
+
+/* Visual consolidation: quieter hierarchy, one restrained accent, tighter data blocks. */
+.project-home,
+.project-page {
+  --page-ink: #242624;
+  --page-muted: #666a66;
+  --page-rule: #d8d8d2;
+  --page-rule-strong: #a9aaa5;
+  --page-accent: #7d3033;
+  --page-wash: #f3f3ef;
+}
+
+.project-home section,
+.project-page section {
+  padding-block: clamp(3rem, 5vw, 4.75rem);
+}
+
+.project-home .section-heading,
+.project-page .section-heading {
+  margin-bottom: clamp(1.5rem, 2.5vw, 2.25rem);
+}
+
+.project-home .section-heading h2,
+.project-page .section-heading h2 {
+  color: var(--page-ink);
+  font-size: clamp(1.85rem, 3vw, 2.65rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+}
+
+.project-home .section-heading p,
+.project-page .section-heading p {
+  max-width: 72ch;
+  color: var(--page-muted);
+  line-height: 1.6;
+}
+
+.project-home .section-kicker,
+.project-page .section-kicker {
+  color: var(--page-muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.09em;
+}
+
+.project-home [class*="card"],
+.project-page [class*="card"] {
+  box-shadow: none;
+}
+
+.result-block {
+  color: var(--page-ink, #242624);
+}
+
+.result-block h3 {
+  margin: 0 0 0.45rem;
+  color: var(--page-ink, #242624);
+  font-size: clamp(1.7rem, 2.3vw, 2.15rem);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+}
+
+.result-block > p {
+  margin-top: 0;
+  color: var(--page-muted, #666a66);
+  font-size: 0.96rem;
+  line-height: 1.55;
+}
+
+.result-block table {
+  color: var(--page-ink, #242624);
+  border-collapse: collapse;
+}
+
+.result-block table th {
+  padding: 0.68rem 0.78rem;
+  border-top: 1px solid var(--page-rule-strong, #a9aaa5);
+  border-bottom: 1px solid var(--page-rule, #d8d8d2);
+  color: #6c6f6b;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.065em;
+}
+
+.result-block table td {
+  padding: 0.72rem 0.78rem;
+  border-bottom: 1px solid #e1e1dc;
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+
+.result-block table tbody tr:last-child td {
+  border-bottom-color: var(--page-rule-strong, #a9aaa5);
+}
+
+.result-block:not(.mind-result-block) table {
+  width: min(650px, calc(100% - 150px));
+  margin-inline: auto;
+}
+
+.result-block:not(.mind-result-block) table tbody td:first-child {
+  font-weight: 650;
+}
+
+.result-block:not(.mind-result-block) table tbody td:last-child {
+  color: var(--page-accent, #7d3033);
+  font-weight: 650;
+}
+
+.result-block:not(.mind-result-block) > p:last-child,
+.mind-result-block > p:last-child {
+  margin: 1rem 0 0;
+  padding: 0.1rem 0 0.1rem 0.75rem;
+  border-left: 2px solid #b7aaa7;
+  color: #50534f;
+  font-size: 0.86rem;
+  font-weight: 560;
+  line-height: 1.55;
+}
+
+.mind-result-block {
+  margin-top: clamp(2rem, 3vw, 2.75rem) !important;
+  padding-top: clamp(1.9rem, 3vw, 2.5rem) !important;
+  border-top: 1px solid var(--page-rule, #d8d8d2) !important;
+}
+
+.mind-result-grid {
+  gap: clamp(1rem, 2vw, 1.5rem);
+  margin-top: 1.3rem;
+}
+
+.mind-result-block table th,
+.mind-result-block table td {
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+}
+
+.mind-result-block table tbody tr:last-child,
+.mind-result-block table tbody tr:last-child td {
+  background: var(--page-wash, #f3f3ef) !important;
+  color: #303330 !important;
+  font-weight: 650;
+}
+
+@media (max-width: 760px) {
+  .project-home section,
+  .project-page section {
+    padding-block: 2.75rem;
+  }
+
+  .result-block:not(.mind-result-block) table {
+    width: 100%;
+  }
+
+  .result-block table th,
+  .result-block table td {
+    padding: 0.62rem 0.5rem;
+  }
+}
+
+/* Nested sections stay compact; page rhythm belongs only to top-level sections. */
+.project-home section,
+.project-page section {
+  padding-block: 0;
+}
+
+.project-home > section,
+.project-page > section {
+  padding-block: clamp(2.6rem, 4.2vw, 4rem);
+}
+
+.contrast-block {
+  max-width: 960px;
+  margin-top: 20px;
+}
+
+.contrast-heading {
+  grid-template-columns: minmax(220px, 0.9fr) minmax(300px, 1.1fr);
+  gap: 22px;
+  margin-bottom: 11px;
+}
+
+.contrast-heading h3 {
+  font-size: 21px;
+  line-height: 1.15;
+}
+
+.contrast-table {
+  border-top-color: #9fa19c;
+}
+
+.contrast-row {
+  grid-template-columns: minmax(230px, 1.2fr) repeat(2, minmax(170px, 0.9fr));
+  min-height: 42px;
+  padding: 0 14px;
+}
+
+.contrast-header {
+  min-height: 34px;
+}
+
+.contrast-estimate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.contrast-estimate small {
+  display: block;
+  line-height: 1.25;
+}
+
+.contrast-estimate em {
+  margin-top: 1px;
+  line-height: 1.2;
+}
+
+.contrast-footnote {
+  margin-top: 8px;
+}
+
+.results-note {
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left-color: #b7aaa7;
+}
+
+#atlas .csc {
+  padding: clamp(14px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+#atlas .csc p {
+  line-height: 1.6 !important;
+  margin: 7px 0;
+}
+
+#atlas .csc-head h4 {
+  margin: 7px 0 14px;
+  line-height: 1.35;
+}
+
+#atlas .csc-legend {
+  margin: 12px 0;
+}
+
+#atlas .csc-legend > div {
+  padding: 10px 12px;
+  border-top-width: 1px;
+}
+
+#atlas .csc-toolbar {
+  margin-top: 16px;
+}
+
+#atlas .csc-groups {
+  gap: 12px;
+  margin: 14px 0;
+}
+
+#atlas .csc-group {
+  padding: 14px;
+  border-color: #d1d5d2;
+}
+
+#atlas .csc-group figcaption {
+  margin-bottom: 12px;
+}
+
+#atlas .csc-stat {
+  margin-top: 12px;
+  padding-top: 9px;
+}
+
+#atlas .csc-boundary {
+  margin-top: 12px;
+  padding: 11px 13px;
+}
+
+@media (max-width: 680px) {
+  .project-home > section,
+  .project-page > section {
+    padding-block: 2.4rem;
+  }
+
+  .contrast-heading {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .contrast-row {
+    grid-template-columns: 200px 180px 180px;
+    min-width: 560px;
+    padding: 0 9px;
+  }
 }

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pec-fuse"
-version = "0.1.0"
+version = "0.2.0"
 description = "Source-preserving evidence fusion for candidate-level ranking"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -19,10 +19,6 @@ dependencies = [
 figures = [
   "matplotlib>=3.8",
   "fonttools>=4.0",
-]
-mind = [
-  "sentence-transformers>=3.0",
-  "torch>=2.1",
 ]
 neural = [
   "torch>=2.1",

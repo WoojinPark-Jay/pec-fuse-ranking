@@ -2,7 +2,6 @@
 
 PYTHON ?= python
 MIND_ROOT ?= data/MINDsmall
-ENCODER ?= sentence-transformers/all-MiniLM-L6-v2
 
 demo:
 	PYTHONPATH=src $(PYTHON) scripts/run_synthetic_demo.py
@@ -17,4 +16,4 @@ figures:
 	$(PYTHON) access/tools/make_figures.py
 
 mind:
-	PYTHONPATH=src $(PYTHON) scripts/run_mind_proxy.py --mind-root "$(MIND_ROOT)" --encoder "$(ENCODER)"
+	$(PYTHON) scripts/run_mind_expanded_membership.py --mind-root "$(MIND_ROOT)" --output outputs/mind_expanded_final

@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies IEEE Access manuscript revision v52 and is the active aggregate release for PEC-Fuse. Existing aggregate values are preserved; tables and plot generators follow the current manuscript presentation.
+This directory accompanies IEEE Access manuscript revision v79 and is the active aggregate release for PEC-Fuse. Tables, aggregate records, and protocol files follow the current manuscript presentation.
 
 ## Contents and paper mapping
 
@@ -18,7 +18,8 @@ This directory accompanies IEEE Access manuscript revision v52 and is the active
 | `neural_user_bootstrap.csv`, `supplementary_user_bootstrap.csv` | Neural-input and supplementary comparisons |
 | `disagreement_user_bootstrap.csv`, `thresholds_*.json` | High-profile/trace-absence diagnostic |
 | `pool_metrics.csv`, `pool_paired_differences.csv`, `pool_manifest.json` | Fixed-model candidate-reselection scores, deltas, and intervals |
-| `mind_text_*_proxy_results.csv` | Three-encoder MIND boundary results |
+| `mind_expanded_results.csv`, `mind_expanded_user_bootstrap.json` | BGE-M3 main and BGE-base sensitivity results for the 8/14/15/21-field MIND boundary audit |
+| `mind_expanded_protocol.json`, `mind_membership_diagnostics.json`, `mind_*_candidate_audit.json` | Fixed MIND construction, provenance, and candidate-pool diagnostics |
 
 The `tables/` directory contains generated manuscript table fragments. Supporting fragments not included by the manuscript are not additional experiments. `tools/` contains plot generators, shared styling, and one paired-calculation script that requires restricted per-query inputs not distributed in this repository. Figure 1 is an independent vector architecture and is not regenerated here.
 
