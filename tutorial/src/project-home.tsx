@@ -27,7 +27,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label="Project page navigation">
-          <a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#paper">Paper</a><a href="#demo">Demo</a><a href="#citation">Citation</a>
+          <a href="#abstract">Overview</a><a href="#method">Method</a><a href="#results">Results</a><a href="#paper">Paper</a><a href="#demo">Demo</a><a href="#citation">Citation</a>
         </nav>
       </header>
 
@@ -60,7 +60,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section abstract-section" id="abstract">
-          <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Abstract</h2></div>
+          <div className="section-heading"><p className="section-kicker">Paper overview</p><h2>Project overview</h2></div>
           <div className="abstract-copy">
             <p>Operational news recommenders must combine stated profiles, recommendation traces, and clicks despite incomplete impression logs. We present PEC-Fuse, a source-preserving input interface that keeps profile alignment, recorded system action, and candidate-aware consumption distinct until scoring. An ordered schema and temporal evaluation support cached representations and different scorers.</p>
             <p>On retrospective platform logs, the complete 25-field PEC record improves normalized discounted cumulative gain at rank 10 (NDCG@10) over the operational control by 0.0662 and 0.0218 under recent-window and same-day candidate expansion, respectively; both paired user-clustered 95% confidence intervals exclude zero. A compact 19-field Direct variant remains competitive with the complete record. At matched input width, it outperforms a learned 5-D representation in recent-window ranking, while the same-day difference remains uncertain.</p>
