@@ -5,7 +5,7 @@
     "CITATION.cff": "7f01e2df57e907a8ab8572529bd75f2f88929ef4aaa1590455f28ec647d93aea",
     "LICENSE": "16281b5ad05f44ed3c427fbb1bbf2d5b6cb0bf184c37e57de2d2e474059d9374",
     "Makefile": "8a89c5287e57e93f6881d3d47bac6228a3706946e2bdce3a1a91394ddfb12a5b",
-    "README.md": "8feac2b9ec7181888ffce87799c01a1278d5422e890df7a2184a2b02b588786e",
+    "README.md": "88cf1063c4b83d5a36e1bf8a896b3766b3ecb75e67b27844a4968d81337a1c91",
     "access/README.md": "01aba257b404b38533007f7818fb88ab557b6ed764ab8010d068efec8d069f91",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
     "access/data/core_test_metrics.csv": "46a6deed91d62880742fab06d208de1937a93ebcf9cc4b098d23a722d3e53eef",
@@ -152,12 +152,12 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "d0e2cc9128e288bca441ba498022cf5afaec1381b36c4a6b02ee2a18e9dec789",
-    "tutorial/src/project-home.tsx": "230735db2b8916ca01b1253aa17682f04312f66d281ec640c2eba68e91b575b2",
+    "tutorial/src/project-home.tsx": "d99aae4494391c443190c995fbee3fa89d310dbad5c4a9887fb55afb63fe12f0",
     "tutorial/src/public-tutorial.tsx": "65bb14232088d4428f5148cea2c93f52e895ded490d0b1e530ae7ac4b9bac2b5",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v80-public-artifact-v26"
+  "revision": "ieee-access-v80-public-artifact-v28"
 }

@@ -163,4 +163,4 @@ The release includes executable ExtraTrees and candidate-aware neural synthetic 
 
 The repository code is released under the [MIT License](LICENSE). MIND and locally obtained encoder weights or vector caches retain their own licenses and terms. Please identify the repository URL and commit when referring to this software. A publication-specific citation will be added when final bibliographic details are available; the manuscript is not represented here as an accepted article.
 
-For questions or reproducibility issues, use [GitHub Issues](https://github.com/WoojinPark-Jay/pec-fuse-ranking/issues) and include the command, Python/package versions, and a non-private error example. Do not attach operational data or credentials.
+For questions or reproducibility issues, use the repository's Issues tab and include the command, Python/package versions, and a non-private error example. Do not attach operational data or credentials.
