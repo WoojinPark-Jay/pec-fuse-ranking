@@ -625,3 +625,144 @@ img[alt*="algorithm" i] {
     padding: 0.62rem 0.5rem;
   }
 }
+
+/* Nested sections stay compact; page rhythm belongs only to top-level sections. */
+.project-home section,
+.project-page section {
+  padding-block: 0;
+}
+
+.project-home > section,
+.project-page > section {
+  padding-block: clamp(2.6rem, 4.2vw, 4rem);
+}
+
+.contrast-block {
+  max-width: 960px;
+  margin-top: 20px;
+}
+
+.contrast-heading {
+  grid-template-columns: minmax(220px, 0.9fr) minmax(300px, 1.1fr);
+  gap: 22px;
+  margin-bottom: 11px;
+}
+
+.contrast-heading h3 {
+  font-size: 21px;
+  line-height: 1.15;
+}
+
+.contrast-table {
+  border-top-color: #9fa19c;
+}
+
+.contrast-row {
+  grid-template-columns: minmax(230px, 1.2fr) repeat(2, minmax(170px, 0.9fr));
+  min-height: 42px;
+  padding: 0 14px;
+}
+
+.contrast-header {
+  min-height: 34px;
+}
+
+.contrast-estimate {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.contrast-estimate small {
+  display: block;
+  line-height: 1.25;
+}
+
+.contrast-estimate em {
+  margin-top: 1px;
+  line-height: 1.2;
+}
+
+.contrast-footnote {
+  margin-top: 8px;
+}
+
+.results-note {
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left-color: #b7aaa7;
+}
+
+#atlas .csc {
+  padding: clamp(14px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+#atlas .csc p {
+  line-height: 1.6 !important;
+  margin: 7px 0;
+}
+
+#atlas .csc-head h4 {
+  margin: 7px 0 14px;
+  line-height: 1.35;
+}
+
+#atlas .csc-legend {
+  margin: 12px 0;
+}
+
+#atlas .csc-legend > div {
+  padding: 10px 12px;
+  border-top-width: 1px;
+}
+
+#atlas .csc-toolbar {
+  margin-top: 16px;
+}
+
+#atlas .csc-groups {
+  gap: 12px;
+  margin: 14px 0;
+}
+
+#atlas .csc-group {
+  padding: 14px;
+  border-color: #d1d5d2;
+}
+
+#atlas .csc-group figcaption {
+  margin-bottom: 12px;
+}
+
+#atlas .csc-stat {
+  margin-top: 12px;
+  padding-top: 9px;
+}
+
+#atlas .csc-boundary {
+  margin-top: 12px;
+  padding: 11px 13px;
+}
+
+@media (max-width: 680px) {
+  .project-home > section,
+  .project-page > section {
+    padding-block: 2.4rem;
+  }
+
+  .contrast-heading {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .contrast-row {
+    grid-template-columns: 200px 180px 180px;
+    min-width: 560px;
+    padding: 0 9px;
+  }
+}
