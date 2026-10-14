@@ -162,6 +162,27 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             <p className="result-interpretation">Both paired user-clustered 95% confidence intervals exclude zero.</p>
           </div>
 
+          <div className="result-block mind-result-block">
+            <div className="result-block-heading"><div><strong>Public boundary audit</strong><small>Expanded-pool MIND evaluation · BGE-M3 · NDCG@10</small></div></div>
+            <div className="mind-result-grid">
+              <div className="mind-table mind-score-table" role="table" aria-label="MIND BGE-M3 NDCG at 10 results">
+                <div className="mind-row mind-header" role="row"><span role="columnheader">Configuration</span><span role="columnheader">Fields</span><span role="columnheader">NDCG@10</span></div>
+                <div className="mind-row" role="row"><span role="cell">Controls+E</span><span role="cell">8</span><span role="cell">0.3265</span></div>
+                <div className="mind-row" role="row"><span role="cell">P+C Direct</span><span role="cell">14</span><span role="cell">0.3409</span></div>
+                <div className="mind-row" role="row"><span role="cell">P+E+C Direct</span><span role="cell">15</span><span role="cell">0.3797</span></div>
+                <div className="mind-row mind-best" role="row"><strong role="cell">Full PEC proxy</strong><strong role="cell">21</strong><strong role="cell">0.3828</strong></div>
+              </div>
+              <div className="mind-table mind-delta-table" role="table" aria-label="MIND paired additions">
+                <div className="mind-row mind-header" role="row"><span role="columnheader">Added evidence</span><span role="columnheader">Difference [95% CI]</span></div>
+                <div className="mind-row" role="row"><span role="cell">P/C over Controls+E</span><span role="cell">+0.0531 <small>[0.0506, 0.0556]</small></span></div>
+                <div className="mind-row" role="row"><span role="cell">E under fixed P/C</span><span role="cell">+0.0388 <small>[0.0372, 0.0404]</small></span></div>
+                <div className="mind-row" role="row"><span role="cell">Explicit products over Direct</span><span role="cell">+0.0031 <small>[0.0019, 0.0043]</small></span></div>
+                <div className="mind-row mind-best" role="row"><strong role="cell">Full PEC over Controls+E</strong><strong role="cell">+0.0562 <small>[0.0536, 0.0588]</small></strong></div>
+              </div>
+            </div>
+            <p className="result-interpretation">Full PEC is highest under BGE-M3, and BGE-base shows the same positive directions. Because MIND P and C are history-derived and E marks logged-slate membership, this is a public boundary audit rather than a matched replication of the private schema.</p>
+          </div>
+
           <div className="contrast-block">
             <div className="contrast-heading">
               <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
@@ -179,7 +200,7 @@ export function ProjectHome(_props: { lang: "en" | "ko" }) {
             </div>
             <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
           </div>
-          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and the public MIND proxy remain in the paper and tutorial.</p>
+          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and encoder sensitivity remain in the paper and tutorial.</p>
         </section>
 
         <section className="takeaways-section" aria-labelledby="takeaways-title">
