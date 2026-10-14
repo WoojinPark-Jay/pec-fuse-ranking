@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v73, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
+This release aligns the public artifact with IEEE Access manuscript revision v79, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
 
 ## Private-platform evidence
 
@@ -19,6 +19,8 @@ The active public protocol is recorded in `mind_expanded_protocol.json` and impl
 `mind_expanded_results.csv` supplies absolute scores. `mind_expanded_user_bootstrap.json` supplies 10,000-replicate nominal paired user-clustered intervals. `mind_membership_diagnostics.json` and the two encoder-specific candidate audits document candidate origin and pool construction.
 
 Unlike the private audit, the MIND audit finds a positive Full-minus-Direct explicit-product gain for both encoders. This difference is reported as setting-dependent evidence, not as a contradiction: MIND P and C share history provenance, and MIND E is logged-slate membership rather than the private retained-trace block.
+
+Within the public proxy, P uses the normalized unweighted mean-history direction, while C mean is the arithmetic mean of individual candidate-history cosines. The definitions are intentionally distinct because using the normalized-history calculation for both coordinates would duplicate a field when public recency decay is unavailable. These labels describe representation roles, not independent public-data provenance.
 
 ## Interpretation boundary
 

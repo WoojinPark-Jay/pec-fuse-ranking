@@ -16,6 +16,7 @@ export function MindProxyInputs({ lang }: { lang: "ko" | "en" }) {
       <div><b>Full PEC proxy · 21D</b><p>Direct 15 + Products 6</p></div>
     </div>
     <p>{ko ? "이 중첩 구조는 P/C 추가, E 추가, 명시적 product 추가 효과를 분리합니다. E는 노출의 인과적 증거가 아니라 후보가 logged slate에서 왔는지를 나타냅니다." : "The nesting separates P/C, E, and explicit-product additions. E is candidate-origin information, not causal evidence of exposure."}</p>
+    <p>{ko ? "공개 proxy에서 P와 C는 독립 출처가 아니라 표현 역할을 뜻합니다. MIND에는 stated profile이 없으므로 정규화된 무가중 평균 history 방향을 P 정합도로 사용합니다. 같은 계산을 C 평균에도 쓰면 좌표가 중복되기 때문에, C 평균은 후보와 각 history 기사 사이 cosine의 산술평균으로 정의합니다." : "In the public proxy, P and C name representation roles rather than independent sources. MIND has no stated profile, so normalized unweighted mean-history alignment occupies the profile-like P coordinate. Reusing that calculation for C mean would duplicate the field; C mean is therefore the arithmetic mean of individual candidate-history cosines."}</p>
     <details className="tutorial-disclosure"><summary>{ko ? "각 블록의 이름과 계산 방식" : "Feature blocks and how they are computed"}</summary><div className="ca-block-explainer">{blocks.map(([label,title,description]) => <div key={label}><b>{label} · {title}</b><p>{description}</p></div>)}</div></details>
   </div>;
 }
