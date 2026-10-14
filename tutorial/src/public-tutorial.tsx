@@ -187,6 +187,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
   note    = {Unpublished manuscript, revision v80},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v80.pdf},
   year    = {2026}
 }
 

@@ -5,6 +5,7 @@ const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
+const PAPER_URL = "./PEC-Fuse-manuscript-v80.pdf";
 
 function GitHubIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .8A11.2 11.2 0 0 0 8.46 22.62c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.11c.95 0 1.9.13 2.79.38 2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.7.12 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z" /></svg>;
@@ -28,7 +29,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label={t("프로젝트 페이지 탐색", "Project page navigation")}>
-          <a href="#abstract">{t("개요", "Overview")}</a><a href="#method">{t("방법", "Method")}</a><a href="#results">{t("결과", "Results")}</a><a href="#demo">{t("데모", "Demo")}</a><a href="#citation">{t("인용", "Citation")}</a>
+          <a href="#abstract">{t("개요", "Overview")}</a><a href="#method">{t("방법", "Method")}</a><a href="#results">{t("결과", "Results")}</a><a href="#paper">{t("논문", "Paper")}</a><a href="#demo">{t("데모", "Demo")}</a><a href="#citation">{t("인용", "Citation")}</a>
         </nav>
       </header>
 
@@ -52,6 +53,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </div>
 
           <div className="project-actions" aria-label="Project resources">
+            <ExternalLink href={PAPER_URL} className="project-button">{t("논문", "Paper")}</ExternalLink>
             <ExternalLink href={REPOSITORY_URL} className="project-button"><GitHubIcon />{t("코드", "Code")}</ExternalLink>
             <ExternalLink href={ARTIFACT_URL} className="project-button">{t("재현 아티팩트", "Reproducibility artifact")}</ExternalLink>
             <a className="project-button project-button-highlight" href={`?view=tutorial&lang=${lang}`}>{t("튜토리얼", "Tutorial")}</a>
@@ -216,6 +218,23 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           <p style={{ margin: '16px 0 0', fontSize: '0.875rem', color: '#656b70', lineHeight: 1.6 }}>Evaluated on retrospective candidate pools; the MIND proxy highlights the importance of platform-specific source semantics.</p>
         </section>
 
+        <section className="paper-section manuscript-section" id="paper">
+          <div className="section-heading manuscript-heading">
+            <div><p className="section-kicker">{t("현재 원고 · v80", "Current manuscript · v80")}</p><h2>{t("논문 읽기", "Read the paper")}</h2></div>
+            <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
+            <ExternalLink href={PAPER_URL} className="project-button">{t("PDF 열기", "Open PDF")}</ExternalLink>
+          </div>
+          <ExternalLink href={PAPER_URL} className="paper-preview">
+            <img src="./paper-first-page-v80.png" alt="First-page preview of the PEC-Fuse v80 manuscript" loading="lazy" />
+            <span className="paper-preview-copy">
+              <small>{t("원고 v80 · 28쪽", "Manuscript v80 · 28 pages")}</small>
+              <strong>{t("전체 논문, 그림, 보강 분석을 포함합니다.", "The complete paper, figures, and supporting analyses.")}</strong>
+              <span>{t("첫 페이지 미리보기입니다. PDF를 열어 전체 원고를 읽거나 검색하고 내려받을 수 있습니다.", "A preview of the first page. Open the PDF to read, search, or download the full manuscript.")}</span>
+              <b>{t("전체 PDF 열기", "Open full PDF")}</b>
+            </span>
+          </ExternalLink>
+        </section>
+
         <section className="demo-section" id="demo">
           <header className="demo-heading">
             <div className="demo-copy">
@@ -270,6 +289,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
   note    = {Unpublished manuscript, revision v80},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v80.pdf},
   year    = {2026}
 }`}</code></pre>
         </section>

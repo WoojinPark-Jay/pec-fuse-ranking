@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v80.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
 > [!TIP]
 > **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
@@ -16,7 +16,7 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 ## Interactive tutorial: start here
 
-The public [PEC-Fuse project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the canonical entry point for the method, code, tutorial, live demo, and reproducibility artifact. The [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
+The public [PEC-Fuse project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the canonical entry point for the paper, code, tutorial, live demo, and reproducibility artifact. The [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
 
 ## Method at a glance
 

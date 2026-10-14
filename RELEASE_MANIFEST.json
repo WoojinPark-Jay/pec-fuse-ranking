@@ -107,6 +107,7 @@
     "tutorial/package.json": "f3808c31b3db45369f51ae8e6d178d892321780d1a59f18f98042623233c955c",
     "tutorial/pnpm-lock.yaml": "57ca720fcf3ba74faecc92dee50a8af3d7eff53057335293da0758bd5055e387",
     "tutorial/pnpm-workspace.yaml": "ac02d96368617c760f093cfe61fdec64b6244007ab3553e0d6621f706f54a353",
+    "tutorial/public/PEC-Fuse-manuscript-v80.pdf": "8cb4ab58cbcdf6c76ee513782610dfb960da8e0af0f63a8aef9b70af037830b1",
     "tutorial/public/favicon.svg": "89918bc4bbeb6eb075a985f4f570260e1fd213f647ab4f93005ff0e7e2af76e8",
     "tutorial/public/insightea-logo-white-v2.png": "4f750881d2f870b89a02bad46beaa252e18360b2ad4c983eb3f82f529061d127",
     "tutorial/public/insightea-wordmark.png": "3a459bfe1d697918095df6619b49b9d453353bb8f395f151526fa45b149da487",
@@ -151,12 +152,12 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "d0e2cc9128e288bca441ba498022cf5afaec1381b36c4a6b02ee2a18e9dec789",
-    "tutorial/src/project-home.tsx": "dee064a39b347eab4aca6f9e4357b879c3b2c4f28d4d3a1dc219d8f56acc8553",
+    "tutorial/src/project-home.tsx": "d99aae4494391c443190c995fbee3fa89d310dbad5c4a9887fb55afb63fe12f0",
     "tutorial/src/public-tutorial.tsx": "65bb14232088d4428f5148cea2c93f52e895ded490d0b1e530ae7ac4b9bac2b5",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v80-public-artifact-v27"
+  "revision": "ieee-access-v80-public-artifact-v28"
 }
