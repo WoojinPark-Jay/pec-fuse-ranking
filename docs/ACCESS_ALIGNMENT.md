@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v79, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
+This release aligns the public artifact with IEEE Access manuscript revision v80, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
 
 ## Private-platform evidence
 
@@ -20,7 +20,9 @@ The active public protocol is recorded in `mind_expanded_protocol.json` and impl
 
 Unlike the private audit, the MIND audit finds a positive Full-minus-Direct explicit-product gain for both encoders. This difference is reported as setting-dependent evidence, not as a contradiction: MIND P and C share history provenance, and MIND E is logged-slate membership rather than the private retained-trace block.
 
-Within the public proxy, P uses the normalized unweighted mean-history direction, while C mean is the arithmetic mean of individual candidate-history cosines. The definitions are intentionally distinct because using the normalized-history calculation for both coordinates would duplicate a field when public recency decay is unavailable. These labels describe representation roles, not independent public-data provenance.
+Within the public proxy, P uses the normalized unweighted mean-history direction, while C mean is the arithmetic mean of individual candidate-history cosines. Consequently, `C_mean = ||mean_history||_2 * p`: the two fields induce the same candidate ordering within a query, while C mean retains the query-level history-concentration magnitude removed by normalization. They are related summaries of the same click history, not independent evidence sources. These labels describe representation roles, not independent public-data provenance.
+
+The four reported contrasts answer conditional predictive questions. Some are algebraically related through shared model endpoints; for example, Full minus Controls+E equals Full minus Direct plus Direct minus Controls+E. They must not be interpreted as independent component contributions because fitted configurations are independently selected and each feature addition is conditional on the retained blocks.
 
 ## Interpretation boundary
 

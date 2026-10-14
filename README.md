@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v79.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v80.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
 > [!TIP]
 > **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
@@ -12,7 +12,7 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
-**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v79**; this GitHub repository is the canonical source for the same code and aggregate records.
+**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v80**; this GitHub repository is the canonical source for the same code and aggregate records.
 
 ## Interactive tutorial: start here
 
@@ -93,7 +93,7 @@ This checks release-file SHA-256 hashes, feature order, and selected aggregate a
 
 ## Results and paper mapping
 
-This release is aligned with manuscript revision **v79**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue but does not explain the headline result. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+This release is aligned with manuscript revision **v80**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue but does not explain the headline result. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |
@@ -104,7 +104,7 @@ Both paired 95% intervals exclude zero; the full scores and intervals are in [co
 
 The compact 19-D Direct alternative is competitive with Complete PEC. The equal-width Direct versus learned 5-D comparison favors Direct in recent-window, while the same-day interval includes zero. This supports the tested source-preserving representation, not universal superiority over learned fusion. See the [current comparison table](access/tables/direct_complete.tex).
 
-The expanded-pool MIND boundary audit uses four nested public-proxy records with 8, 14, 15, and 21 fields. Under the main BGE-M3 encoder, Full PEC reaches 0.3828 NDCG@10 versus 0.3797 for Direct; the paired user-clustered explicit-product gain is +0.0031 [0.0019, 0.0043]. BGE-base shows the same positive direction. These are nominal 95% intervals from 10,000 bootstrap replicates. MIND P and C are both history-derived, and E records logged-slate membership rather than causal exposure, so this is a public boundary audit rather than a matched replication of the private schema.
+The expanded-pool MIND boundary audit uses four nested public-proxy records with 8, 14, 15, and 21 fields. Under the main BGE-M3 encoder, Full PEC reaches 0.3828 NDCG@10 versus 0.3797 for Direct; the paired user-clustered explicit-product gain is +0.0031 [0.0019, 0.0043]. BGE-base shows the same positive direction. These are nominal 95% intervals from 10,000 bootstrap replicates. MIND P and C are both history-derived, and E records logged-slate membership rather than causal exposure, so this is a public boundary audit rather than a matched replication of the private schema. For the public mean-history coordinate, $C_{\mathrm{mean}}=\lVert\bar{h}\rVert_2p$: P and C mean induce the same candidate ordering within a query, while C mean retains the query-level history-concentration magnitude removed by normalization. They are not independent evidence sources.
 
 | Question | Where to look |
 | --- | --- |
