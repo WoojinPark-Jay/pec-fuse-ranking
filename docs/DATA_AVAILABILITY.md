@@ -45,6 +45,8 @@ non-exposure.
 
 ## Public proxy
 
-MINDsmall can support a bounded public proxy using impression rank and prior
-click history. It does not contain an independent stated-preference source and
-therefore cannot replicate the private P channel. See `MIND_PROXY_PROTOCOL.md`.
+MINDsmall supports a bounded public proxy using logged-slate membership and prior
+click history. It does not contain an independent stated-preference source;
+both public P and C are history-derived, and E marks candidate origin rather
+than verified exposure. It therefore cannot replicate the private provenance
+structure. See `MIND_PROXY_PROTOCOL.md`.

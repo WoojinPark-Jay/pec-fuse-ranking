@@ -8,6 +8,6 @@
 | Does consumption evidence remain useful without profile and trace inputs? | consumption transforms in `features.py` | `joint_pe_*` |
 | Is the result tied to one same-day tie ordering? | `src/pec_fuse/tie_order.py` | `pool_manifest.json`, `pool_metrics.csv`, `pool_paired_differences.csv` |
 | Is the input useful outside ExtraTrees? | model-independent feature contract | `neural_user_bootstrap.csv` |
-| Does the complete interface transfer unchanged to MIND? | `src/pec_fuse/mind.py`, `scripts/run_mind_proxy.py` | `mind_text_*_proxy_results.csv` |
+| Do source-preserving public proxies help under changed MIND evidence semantics? | `scripts/run_mind_expanded_membership.py`, `docs/MIND_PROXY_PROTOCOL.md` | `mind_expanded_results.csv`, `mind_expanded_user_bootstrap.json`, and MIND audit JSON files |
 
 Private-platform experiments are represented by aggregate records rather than public row-level regeneration.

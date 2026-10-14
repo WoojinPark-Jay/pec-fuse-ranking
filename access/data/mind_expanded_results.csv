@@ -1,0 +1,9 @@
+encoder,model,fields,queries,zero_positive_queries,ndcg10,recall10,mrr,validation_ndcg10,config,reused_control
+bge_m3,Controls_E_8,8,30000,0,0.32653756965515895,0.5839373556345614,0.280124771143704,0.3114465018356271,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False
+bge_m3,PC_Direct_14,14,30000,0,0.3408853900362451,0.5799341518693725,0.3062966634420178,0.30600679751065635,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False
+bge_m3,PEC_Direct_15,15,30000,0,0.37967885251479916,0.6252745367214484,0.34049889456787497,0.35414566691585453,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False
+bge_m3,Full_PEC_proxy_21,21,30000,0,0.38275454295479916,0.6309192008345685,0.34215530238473923,0.36448405549241697,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False
+bge_base,Controls_E_8,8,30000,0,0.32653756965515895,0.5839373556345614,0.280124771143704,0.3114465018356271,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",True
+bge_base,PC_Direct_14,14,30000,0,0.34509127919352967,0.5765353035798624,0.3146429373082928,0.2991513098170483,"{""max_depth"": 12, ""min_samples_leaf"": 3, ""n_estimators"": 420}",False
+bge_base,PEC_Direct_15,15,30000,0,0.3805381622613932,0.6287995953066541,0.34054687229157315,0.35661794092554305,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False
+bge_base,Full_PEC_proxy_21,21,30000,0,0.3914502758066265,0.6391823042779661,0.3517341103906794,0.3685400305419288,"{""max_depth"": 10, ""min_samples_leaf"": 2, ""n_estimators"": 240}",False

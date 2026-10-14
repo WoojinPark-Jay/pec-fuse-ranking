@@ -1,0 +1,24 @@
+% Keep this result table intact; do not consume the bottom margin.
+\end{multicols}
+\begin{appendixtable}
+\renewcommand{\arraystretch}{1.16}
+\centering\small
+\caption{MIND expanded-pool scores under the same candidate rows and selection protocol. Bold marks the highest score within each encoder, within the matched comparison.}
+\label{tab:mind_sensitivity}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llrrrr@{}}
+\toprule
+Encoder & Configuration & Fields & NDCG@10 & Recall@10 & MRR \\
+\midrule
+BGE-M3 & Controls+E & 8 & 0.3265 & 0.5839 & 0.2801 \\
+BGE-M3 & P+C Direct & 14 & 0.3409 & 0.5799 & 0.3063 \\
+BGE-M3 & P+E+C Direct & 15 & 0.3797 & 0.6253 & 0.3405 \\
+BGE-M3 & Full PEC proxy & 21 & \textbf{0.3828} & \textbf{0.6309} & \textbf{0.3422} \\
+\addlinespace[4pt]
+BGE-base & Controls+E & 8 & 0.3265 & 0.5839 & 0.2801 \\
+BGE-base & P+C Direct & 14 & 0.3451 & 0.5765 & 0.3146 \\
+BGE-base & P+E+C Direct & 15 & 0.3805 & 0.6288 & 0.3405 \\
+BGE-base & Full PEC proxy & 21 & \textbf{0.3915} & \textbf{0.6392} & \textbf{0.3517} \\
+\bottomrule
+\end{tabular*}
+\end{appendixtable}
+\begin{multicols}{2}

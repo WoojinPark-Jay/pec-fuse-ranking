@@ -1,0 +1,137 @@
+{
+  "status": "complete",
+  "started_utc": "2026-10-14T02:06:16.974230+00:00",
+  "encoders": [
+    "bge_m3",
+    "bge_base"
+  ],
+  "model_columns": {
+    "Controls_E_8": [
+      "article_ctr",
+      "log_article_impressions",
+      "category_ctr",
+      "subcategory_ctr",
+      "log_history_length",
+      "log_title_characters",
+      "log_abstract_characters",
+      "E_slate_member"
+    ],
+    "PC_Direct_14": [
+      "article_ctr",
+      "log_article_impressions",
+      "category_ctr",
+      "subcategory_ctr",
+      "log_history_length",
+      "log_title_characters",
+      "log_abstract_characters",
+      "P_mean_vector_cosine",
+      "P_category_share",
+      "P_subcategory_share",
+      "C_mean",
+      "C_max",
+      "C_top3",
+      "C_attention"
+    ],
+    "PEC_Direct_15": [
+      "article_ctr",
+      "log_article_impressions",
+      "category_ctr",
+      "subcategory_ctr",
+      "log_history_length",
+      "log_title_characters",
+      "log_abstract_characters",
+      "P_mean_vector_cosine",
+      "P_category_share",
+      "P_subcategory_share",
+      "C_mean",
+      "C_max",
+      "C_top3",
+      "C_attention",
+      "E_slate_member"
+    ],
+    "Full_PEC_proxy_21": [
+      "article_ctr",
+      "log_article_impressions",
+      "category_ctr",
+      "subcategory_ctr",
+      "log_history_length",
+      "log_title_characters",
+      "log_abstract_characters",
+      "P_mean_vector_cosine",
+      "P_category_share",
+      "P_subcategory_share",
+      "C_mean",
+      "C_max",
+      "C_top3",
+      "C_attention",
+      "E_slate_member",
+      "P_sem_x_E",
+      "C_mean_x_E",
+      "C_max_x_E",
+      "C_attention_x_E",
+      "P_sem_x_C_mean",
+      "P_sem_x_C_attention"
+    ]
+  },
+  "grid": [
+    {
+      "n_estimators": 240,
+      "max_depth": 10,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 240,
+      "max_depth": 18,
+      "min_samples_leaf": 2
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": 12,
+      "min_samples_leaf": 3
+    },
+    {
+      "n_estimators": 420,
+      "max_depth": null,
+      "min_samples_leaf": 4
+    }
+  ],
+  "seed": 42,
+  "jobs": 4,
+  "train": 60000,
+  "fitting": 51000,
+  "validation": 9000,
+  "development": 30000,
+  "sampling": "First 60000 training file rows, stably sorted by timestamp, then chronological 85/15 split; first 30000 development file rows",
+  "history": "Last 30 listed pre-impression clicks; repeated events retained; empty history gives zero P/C",
+  "P": "Normalized mean-history vector cosine, category history share, subcategory history share",
+  "C": "Mean, maximum, top-three mean, softmax(similarity/0.18)-weighted mean of individual history cosines; no age decay",
+  "E": "Original logged slate membership only; shuffled file order is never a predictor",
+  "candidate_expansion": "Up to 10 uniform draws without replacement from top 5000 training-impressed articles; exclude whole logged slate and entire listed history; query-keyed seed42",
+  "weak_negatives": "Added candidates receive label0, not observed nonclicks or verified non-exposures",
+  "selection_statistics": "CTR and candidate pool from fitting51000 only; logged rows only",
+  "final_statistics": "CTR and candidate pool rebuilt from training60000 after selection; no development labels",
+  "ctr": "Laplace (clicks+1)/(impressions+2), unseen key=0.5; exposures include repeated logged candidates",
+  "encoding": "Reuse archived normalized BGE embeddings; input was title+abstract+category+subcategory, 512-character truncation, max sequence192; no new embedding fit",
+  "preprocessing": "Raw float32 tabular features, no fitted scaler; ExtraTrees does not require scaling",
+  "ties": "Fixed query-keyed random permutation, independent of labels, source and encoder, used only to break score ties",
+  "metrics": "Mean query NDCG@10, recall@10 and MRR; zero-positive queries included with zero scores",
+  "diagnostics": "Membership-first, membership-last and random-order scores; no fitted diagnostic selection",
+  "limitations": "Expanded-pool experiment; E reveals candidate origin correlated with imposed labels; not causal exposure or independent stated-profile replication",
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "sklearn": "1.5.2"
+  },
+  "source_hashes": {
+    "scripts/run_mind_expanded_membership.py": "fc2849a3a8dd51e4de254631f54db661bae57796a48a03b443b5607fedf6e8d7",
+    "MINDsmall_train/behaviors.tsv": "a424547c8fa17c9ea4879c2110221c2b2f2709f4f7615ede0b0d8e4765158658",
+    "MINDsmall_train/news.tsv": "cd49d7da275e9c405f627d75a0de9d4ec6ad43ff8a8db5d23a447591676e09d6",
+    "MINDsmall_dev/behaviors.tsv": "b6c460e33b1a8693252ded6e626da7d3ccf78920eea2ec11889020bb7d8443ef",
+    "MINDsmall_dev/news.tsv": "e5d144667558c449d16084fe6bfa01940c2f5d5785ea9f9110292bc3b94eb822"
+  },
+  "embedding_hashes": {
+    "bge_m3": "57aa630f514a4900754e2fda11f5c0f6b28acb97719755fa80a73ac34b09bdf0",
+    "bge_base": "b2999a7e447904857f2f795adb731f84825e26be0977062a586166cff5fc78f6"
+  },
+  "elapsed_seconds": 3659.1
+}

@@ -1,0 +1,335 @@
+{
+  "method": "Paired user-cluster percentile bootstrap; sample users with replacement, retain every query for each sampled user, query-weighted mean difference with replicate-specific denominator",
+  "replicates": 10000,
+  "seed": 20261014,
+  "queries": 30000,
+  "users": 25003,
+  "confidence": 0.95,
+  "multiplicity": "Nominal intervals, no multiplicity adjustment; correlated contrasts, no global significance claim",
+  "scope": "Conditional on fitted models and fixed candidate pool; no training-seed or candidate-reselection uncertainty",
+  "metric_file_sha256": {
+    "bge_m3_Controls_E_8_query_metrics.csv": "7c5b862ffa9fdc57b0566e067a03cae003ad7e9b1ce7993513b6f81fe8caf653",
+    "bge_m3_PC_Direct_14_query_metrics.csv": "cd7f4347c00bc33a007f1ec6ae476c410f51617cdc1a2ac9e3a2a021a9c4006d",
+    "bge_m3_PEC_Direct_15_query_metrics.csv": "1ffa34690c622c2bddacb66a34bbd4e8f786b0f605a78e1e9d1ef0a688578871",
+    "bge_m3_Full_PEC_proxy_21_query_metrics.csv": "cadc9746ce5e7365aa42519ce584a2effcbbb4ac5c73d4e1cb6ba4188c47a74c",
+    "bge_base_Controls_E_8_query_metrics.csv": "7c5b862ffa9fdc57b0566e067a03cae003ad7e9b1ce7993513b6f81fe8caf653",
+    "bge_base_PC_Direct_14_query_metrics.csv": "c142452658d6f06f37a4b78670ed8c5140ea4cc784b64e9cf7c02abe6f98111a",
+    "bge_base_PEC_Direct_15_query_metrics.csv": "efbeae4f4da40d51ab270e6059c216fa9f5ae0b26199e7cd19a6cde918629301",
+    "bge_base_Full_PEC_proxy_21_query_metrics.csv": "7f2f76d650390cc7faa86d79ad55866ef09b12218cbad8d4d669099e28bcd253"
+  },
+  "results": [
+    {
+      "encoder": "bge_m3",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "ndcg10",
+      "difference": 0.05314128285963959,
+      "ci95": [
+        0.050641525634243005,
+        0.05564741649634884
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "recall10",
+      "difference": 0.04133718108688696,
+      "ci95": [
+        0.03770912003624891,
+        0.045030433385637024
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "mrr",
+      "difference": 0.060374123424171686,
+      "ci95": [
+        0.05725070266329227,
+        0.06351598989930266
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "ndcg10",
+      "difference": 0.038793462478553975,
+      "ci95": [
+        0.037210085640153656,
+        0.040353099222617185
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "recall10",
+      "difference": 0.04534038485207604,
+      "ci95": [
+        0.042487326112159975,
+        0.04817367416303853
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "mrr",
+      "difference": 0.03420223112585674,
+      "ci95": [
+        0.03233917377231681,
+        0.036025827873338086
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "ndcg10",
+      "difference": 0.0030756904399999478,
+      "ci95": [
+        0.0018503143145149146,
+        0.004311386244642909
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "recall10",
+      "difference": 0.005644664113119996,
+      "ci95": [
+        0.0036778416695036746,
+        0.007690439186247188
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "mrr",
+      "difference": 0.0016564078168642817,
+      "ci95": [
+        7.048291439731952e-05,
+        0.003282536254122847
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "ndcg10",
+      "difference": 0.05621697329963939,
+      "ci95": [
+        0.05362692695122051,
+        0.05880181204468421
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "recall10",
+      "difference": 0.04698184520000696,
+      "ci95": [
+        0.04325428458288001,
+        0.05077064060215423
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_m3",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "mrr",
+      "difference": 0.06203053124103593,
+      "ci95": [
+        0.058965324145655564,
+        0.06519776023198941
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "ndcg10",
+      "difference": 0.054000592606233695,
+      "ci95": [
+        0.05158521607390007,
+        0.05647313763223616
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "recall10",
+      "difference": 0.04486223967209265,
+      "ci95": [
+        0.04126321334715792,
+        0.04856132832550678
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "PC_added",
+      "first": "PEC_Direct_15",
+      "second": "Controls_E_8",
+      "metric": "mrr",
+      "difference": 0.06042210114786996,
+      "ci95": [
+        0.05739959844847,
+        0.0634816650714222
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "ndcg10",
+      "difference": 0.03544688306786379,
+      "ci95": [
+        0.03388393393357682,
+        0.03699780269424143
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "recall10",
+      "difference": 0.05226429172679177,
+      "ci95": [
+        0.04940108918610029,
+        0.055111032941432825
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "E_added",
+      "first": "PEC_Direct_15",
+      "second": "PC_Direct_14",
+      "metric": "mrr",
+      "difference": 0.02590393498328026,
+      "ci95": [
+        0.024123596724153415,
+        0.027729397988196288
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "ndcg10",
+      "difference": 0.010912113545233271,
+      "ci95": [
+        0.00962529911599893,
+        0.0121705698457873
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "recall10",
+      "difference": 0.0103827089713119,
+      "ci95": [
+        0.008202749039350537,
+        0.012539179190891375
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "products_added",
+      "first": "Full_PEC_proxy_21",
+      "second": "PEC_Direct_15",
+      "metric": "mrr",
+      "difference": 0.011187238099106381,
+      "ci95": [
+        0.009526043323159298,
+        0.012836024551828654
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "ndcg10",
+      "difference": 0.06491270615146681,
+      "ci95": [
+        0.06234995464797203,
+        0.06754713702198009
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "recall10",
+      "difference": 0.055244948643404505,
+      "ci95": [
+        0.05130810353742671,
+        0.059264307587401595
+      ],
+      "excludes_zero": true
+    },
+    {
+      "encoder": "bge_base",
+      "comparison": "Full_minus_control",
+      "first": "Full_PEC_proxy_21",
+      "second": "Controls_E_8",
+      "metric": "mrr",
+      "difference": 0.0716093392469762,
+      "ci95": [
+        0.06845817131083634,
+        0.07486418368539469
+      ],
+      "excludes_zero": true
+    }
+  ],
+  "elapsed_seconds": 13.46653666603379
+}

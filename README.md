@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v52.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v72.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
 > [!TIP]
 > **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
@@ -12,7 +12,7 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
-**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The snapshot corresponds to IEEE Access manuscript revision **v52**; this GitHub repository is the canonical, actively maintained source.
+**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v72**; this GitHub repository is the canonical source for the same code and aggregate records.
 
 ## Interactive tutorial: start here
 
@@ -93,7 +93,7 @@ This checks release-file SHA-256 hashes, feature order, and selected aggregate a
 
 ## Results and paper mapping
 
-This release is aligned with manuscript revision **v52**. Appendix C-B adds a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue but does not explain the headline result. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+This release is aligned with manuscript revision **v72**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue but does not explain the headline result. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |
@@ -103,6 +103,8 @@ This release is aligned with manuscript revision **v52**. Appendix C-B adds a tr
 Both paired 95% intervals exclude zero; the full scores and intervals are in [core metrics](access/data/core_test_metrics.csv) and [paired comparisons](access/data/core_user_bootstrap.csv). These results concern the manuscript's retrospective candidate-pool evaluation.
 
 The compact 19-D Direct alternative is competitive with Complete PEC. The equal-width Direct versus learned 5-D comparison favors Direct in recent-window, while the same-day interval includes zero. This supports the tested source-preserving representation, not universal superiority over learned fusion. See the [current comparison table](access/tables/direct_complete.tex).
+
+The expanded-pool MIND boundary audit uses four nested public-proxy records with 8, 14, 15, and 21 fields. Under the main BGE-M3 encoder, Full PEC reaches 0.3828 NDCG@10 versus 0.3797 for Direct; the paired user-clustered explicit-product gain is +0.0031 [0.0019, 0.0043]. BGE-base shows the same positive direction. These are nominal 95% intervals from 10,000 bootstrap replicates. MIND P and C are both history-derived, and E records logged-slate membership rather than causal exposure, so this is a public boundary audit rather than a matched replication of the private schema.
 
 | Question | Where to look |
 | --- | --- |
@@ -117,16 +119,16 @@ The [artifact map](docs/PAPER_RQ_REPRODUCIBILITY_MAP.md), [result-file guide](do
 
 ## Public-data example
 
-Obtain MIND-small under its [dataset terms](https://msnews.github.io/) and arrange `news.tsv` and `behaviors.tsv` under both `data/MINDsmall/train/` and `data/MINDsmall/dev/`.
+Obtain MIND-small under its [dataset terms](https://msnews.github.io/) and place `MINDsmall_train/` and `MINDsmall_dev/` under one local root. Prepare the two documented BGE embedding caches locally; cached vectors are not distributed.
 
 ```bash
-python -m pip install -e '.[mind]'
-python scripts/run_mind_proxy.py \
+python -m pip install -e .
+python scripts/run_mind_expanded_membership.py \
   --mind-root data/MINDsmall \
-  --encoder sentence-transformers/all-MiniLM-L6-v2
+  --output outputs/mind_expanded_final
 ```
 
-This downloads an encoder and runs model selection and evaluation. It is substantially heavier than the synthetic example. Output is written to `outputs/mind_proxy/sentence-transformers__all-MiniLM-L6-v2.json`; the [protocol guide](docs/MIND_PROXY_PROTOCOL.md) explains the options and results.
+The runner consumes local BGE-M3 and BGE-base vector caches, executes the fixed chronological selection/refit protocol, and never overwrites an existing output directory. The [protocol guide](docs/MIND_PROXY_PROTOCOL.md) documents cache names, feature blocks, candidate expansion, and released results.
 
 MIND uses history-derived profile proxies and expanded logged slates. It is a public-data boundary study, not the private experiment or a standard MIND leaderboard evaluation.
 
@@ -143,8 +145,8 @@ This regenerates the protocol, aggregate plots, and synthetic feature example un
 
 | Path | Role |
 | --- | --- |
-| `src/pec_fuse/` | Feature construction, ExtraTrees and candidate-aware neural scorers, metrics, bootstrap, MIND proxy, tie-order utilities |
-| `scripts/` | ExtraTrees and neural synthetic demos, MIND run, aggregate checker, result summary |
+| `src/pec_fuse/` | Feature construction, ExtraTrees and candidate-aware neural scorers, metrics, bootstrap, and tie-order utilities |
+| `scripts/` | ExtraTrees and neural synthetic demos, fixed-protocol MIND runner, aggregate checker, and result summary |
 | `examples/synthetic/` | Non-private example rows |
 | `configs/` | Demo settings and documented audit/proxy configurations |
 | `tutorial/` | Source for the bilingual interactive paper tutorial |
@@ -159,6 +161,6 @@ The release includes executable ExtraTrees and candidate-aware neural synthetic 
 
 ## License, citation, and questions
 
-The repository code is released under the [MIT License](LICENSE). MIND and downloaded encoders retain their own licenses and terms. Please identify the repository URL and commit when referring to this software. A publication-specific citation will be added when final bibliographic details are available; the manuscript is not represented here as an accepted article.
+The repository code is released under the [MIT License](LICENSE). MIND and locally obtained encoder weights or vector caches retain their own licenses and terms. Please identify the repository URL and commit when referring to this software. A publication-specific citation will be added when final bibliographic details are available; the manuscript is not represented here as an accepted article.
 
 For questions or reproducibility issues, use [GitHub Issues](https://github.com/WoojinPark-Jay/pec-fuse-ranking/issues) and include the command, Python/package versions, and a non-private error example. Do not attach operational data or credentials.
