@@ -76,10 +76,10 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       </div>
       <div className="public-paper-meta">
         <span>{t("IEEE Access 투고 논문을 위한 대화형 해설", "Interactive companion to the IEEE Access manuscript")}</span>
-        <span>Software 0.2.0 · Manuscript v72</span>
+        <span>Software 0.2.0 · Manuscript v73</span>
         <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
         <span className="public-author-cluster">
-          <span>{t("Woojin Park · 제1저자 제작 · 원고 v72", "Tutorial by Woojin Park · First author · Manuscript v72")}</span>
+          <span>{t("Woojin Park · 제1저자 제작 · 원고 v73", "Tutorial by Woojin Park · First author · Manuscript v73")}</span>
           <span className="public-social-icons">
             <a className="public-social-icon" href={personalWebsite} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park 개인 웹사이트", "Woojin Park personal website")} title="Website"><SocialIcon kind="website" /></a>
             <a className="public-social-icon" href={githubProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park GitHub 프로필", "Woojin Park GitHub profile")} title="GitHub"><SocialIcon kind="github" /></a>
@@ -181,13 +181,13 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <div>
         <div className="public-section-label">CITE</div>
         <h2>{t("논문과 사용한 소프트웨어 버전을 함께 인용해 주세요", "Cite the paper together with the software version used")}</h2>
-        <p>{t("현재 논문은 미출판 원고 v72입니다. 정식 DOI와 게재 정보는 출판 후 추가할 예정이며, 그전에는 아래 원고 정보와 사용한 저장소 릴리스 또는 커밋을 함께 표기해 주세요.", "This is an unpublished manuscript, revision v72. Final publication metadata and a DOI will be added after publication. Until then, cite the manuscript together with the repository release or commit used.")}</p>
+        <p>{t("현재 논문은 미출판 원고 v73입니다. 정식 DOI와 게재 정보는 출판 후 추가할 예정이며, 그전에는 아래 원고 정보와 사용한 저장소 릴리스 또는 커밋을 함께 표기해 주세요.", "This is an unpublished manuscript, revision v73. Final publication metadata and a DOI will be added after publication. Until then, cite the manuscript together with the repository release or commit used.")}</p>
         <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  note    = {Unpublished manuscript, revision v72},
-  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v72.pdf},
+  note    = {Unpublished manuscript, revision v73},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v73.pdf},
   year    = {2026}
 }
 
