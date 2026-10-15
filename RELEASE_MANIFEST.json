@@ -107,7 +107,7 @@
     "tutorial/package.json": "f3808c31b3db45369f51ae8e6d178d892321780d1a59f18f98042623233c955c",
     "tutorial/pnpm-lock.yaml": "57ca720fcf3ba74faecc92dee50a8af3d7eff53057335293da0758bd5055e387",
     "tutorial/pnpm-workspace.yaml": "ac02d96368617c760f093cfe61fdec64b6244007ab3553e0d6621f706f54a353",
-    "tutorial/public/PEC-Fuse-manuscript-v80.pdf": "8cb4ab58cbcdf6c76ee513782610dfb960da8e0af0f63a8aef9b70af037830b1",
+    "tutorial/public/PEC-Fuse-manuscript-v80.pdf": "fc29736b812408713bb7b097095b68fb2a8d25c69b6dcb782fac39eefb31e48c",
     "tutorial/public/favicon.svg": "89918bc4bbeb6eb075a985f4f570260e1fd213f647ab4f93005ff0e7e2af76e8",
     "tutorial/public/insightea-logo-white-v2.png": "4f750881d2f870b89a02bad46beaa252e18360b2ad4c983eb3f82f529061d127",
     "tutorial/public/insightea-wordmark.png": "3a459bfe1d697918095df6619b49b9d453353bb8f395f151526fa45b149da487",
@@ -159,5 +159,5 @@
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v80-public-artifact-v28"
+  "revision": "ieee-access-v80-public-artifact-v29"
 }
