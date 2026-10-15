@@ -64,10 +64,6 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <div><b>PEC-Fuse</b><span>{t("논문 해설 · 인터랙티브 튜토리얼", "Interactive paper companion")}</span></div>
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>
-          <a href={`?lang=${lang}`}>{t("프로젝트", "Project")}</a>
-          <a href={repository}>GitHub</a>
-          <a href={`${repository}#quick-start`}>{t("실행", "Run")}</a>
-          <a href={`${repository}/tree/main/access`}>{t("결과", "Results")}</a>
           <span className="public-language" aria-label={t("언어 선택", "Language selection")}>
             <a href="?view=tutorial&lang=en" aria-label="English" title="English" aria-current={!ko ? "page" : undefined}><span aria-hidden="true">🇺🇸</span></a>
             <a href="?view=tutorial&lang=ko" aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}><span aria-hidden="true">🇰🇷</span></a>
