@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies IEEE Access manuscript revision v83 and is the active aggregate release for PEC-Fuse. Tables, aggregate records, and protocol files follow the current manuscript presentation.
+This directory accompanies IEEE Access manuscript revision v84 and is the active aggregate release for PEC-Fuse. Tables, aggregate records, and protocol files follow the current manuscript presentation.
 
 ## Contents and paper mapping
 
