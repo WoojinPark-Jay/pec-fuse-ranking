@@ -5,8 +5,8 @@
     "CITATION.cff": "7f01e2df57e907a8ab8572529bd75f2f88929ef4aaa1590455f28ec647d93aea",
     "LICENSE": "16281b5ad05f44ed3c427fbb1bbf2d5b6cb0bf184c37e57de2d2e474059d9374",
     "Makefile": "8a89c5287e57e93f6881d3d47bac6228a3706946e2bdce3a1a91394ddfb12a5b",
-    "README.md": "a5d992cb2851c09a9fb80bd91b684d9052466ac359dfb0d193675d439b6f0dd0",
-    "access/README.md": "13142ff825c8715aada2b52905dde87fa2c9283485748cf1558ec5af7f241ace",
+    "README.md": "13b3f26dd172b42488bb2040ff85c13d60d91f5584918bd18c9d9aee760fab9a",
+    "access/README.md": "d13ca016725d08823ccad9ec79d4cd78ac224886a69c6a8333571e119be85a24",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
     "access/data/core_test_metrics.csv": "46a6deed91d62880742fab06d208de1937a93ebcf9cc4b098d23a722d3e53eef",
     "access/data/core_user_bootstrap.csv": "cbb15d96b6fa2c1adb8876fe91ed99084967ecafb9bdb06b9d42bc5ebd63b83b",
@@ -77,7 +77,7 @@
     "configs/same_day_tie_order.json": "bd2712b9bd4a2e1eed47b4400eed52d78d6058815e2d8aa79acb12558972bc36",
     "configs/synthetic_candidate_aware_neural.json": "11253c13c7a43324627eb438b91aa31019ad8004c0c4f26dbca29288476c45e9",
     "configs/synthetic_mlp_fusion.json": "1dc2fc41ab46efe8b7e1a207624f3f8b9ab47acfd757aef1de136f05e8e18d59",
-    "docs/ACCESS_ALIGNMENT.md": "db64d85d82841f0dbf8d25e15932350c7290f3afd966d860cc38c0e29db870b7",
+    "docs/ACCESS_ALIGNMENT.md": "7c3998e59ca0d262c0d4c95f6057e3b3bdfac05519812f10b84432b4b9bbf9f7",
     "docs/ACCESS_RESULT_FILES.md": "519c83a76e6c1e86317d5f26baa4f4aed172b3e73de53f99ce602c725a30adf4",
     "docs/DATA_AVAILABILITY.md": "5c420029c07d2c0ab6509bff08e094fb005ba740b956e8444df0da4173aa9364",
     "docs/GETTING_STARTED.md": "eec3f2dd80665b69c21103420127e9efcd019d2c938c35d31d3036ec16bd5f86",
@@ -135,7 +135,7 @@
     "tutorial/src/components/comparison-input-strips.css": "83cd9dff9accd7513f395cf3485bf87e05dcb157b5532e67b638a909ba4c6179",
     "tutorial/src/components/comparison-input-strips.tsx": "3f397bc62fcb760077756165833e0547226f905bdf045e9ce6925655b8d55fef",
     "tutorial/src/components/comparison-score-charts.css": "34bad1f31857bbed172a957c7ccd4788b9d886c7cbd51a54977b9653b78bc72c",
-    "tutorial/src/components/comparison-score-charts.tsx": "50c5a897ba3fb6e55e641c9d3084488040b3631a9e77be6a2fa2210dca18a5f2",
+    "tutorial/src/components/comparison-score-charts.tsx": "bbca681f2b85255381a8709f81b31c56fe88a32a225c689516f52c256c83e71a",
     "tutorial/src/components/control-calculations.css": "6ed9ff548193d8e96019f9207f179a9d69ea11f9fd5e905d7e67c6ed15e091c1",
     "tutorial/src/components/control-calculations.tsx": "16f4eb884d43540923c593336f2dfa88df07aa1cebabe54f09434b119a7743f5",
     "tutorial/src/components/data-microscope.tsx": "c6f312d020c37c0d0229c781136f1a2e472fb8bf4f1e3b8415ef0e1f36a4ab68",
@@ -150,14 +150,14 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "6bdf00afc909f767e7b740970db8e82ac99775c5b3aaeb44047fb7cb43d74e56",
     "tutorial/src/project-home.css": "d0e2cc9128e288bca441ba498022cf5afaec1381b36c4a6b02ee2a18e9dec789",
-    "tutorial/src/project-home.tsx": "718c31a13dfea5d0d18d29ae509d88ac8de75d31a49012b9c5634ac3990de8e3",
-    "tutorial/src/public-tutorial.tsx": "7e5c450063ad108b7a3b0573412715c3e932ce85b5bf84dd0c340d700eb2c134",
+    "tutorial/src/project-home.tsx": "de6330d03cd0723226e3aa0b50cdc7a6f482a59367b6e930731ff941401e0fdd",
+    "tutorial/src/public-tutorial.tsx": "be1a365aa5892ad7d164132340e2f55c598587d2106bc9d4cb2cf13dcc32f7ea",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
-    "tutorial/public/PEC-Fuse-manuscript-v81.pdf": "c717c4bbb4977bfcee34d7a9de952240533dcad3bc32e46df1c030f2c11edf9e",
-    "tutorial/public/paper-first-page-v81.png": "9989ea1edde78b4ca4c76a809dd1bf690e911e8649a62177cf32d0842e1710b6"
+    "tutorial/public/PEC-Fuse-manuscript-v82.pdf": "b463a4e5c8a444f9cf9944f6173e9098e573007e97397d1df0268bf744dba345",
+    "tutorial/public/paper-first-page-v82.png": "c9492317824203ad4956d763287248a523039fe7ed44a57786dc35b29cf61d10"
   },
-  "revision": "ieee-access-v81-public-artifact-v31"
+  "revision": "ieee-access-v82-public-artifact-v32"
 }
