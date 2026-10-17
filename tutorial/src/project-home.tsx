@@ -5,7 +5,7 @@ const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
-const PAPER_URL = "./PEC-Fuse-manuscript-v83.pdf";
+const PAPER_URL = "./PEC-Fuse-manuscript-v84.pdf";
 
 function GitHubIcon() {
   return <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 .8A11.2 11.2 0 0 0 8.46 22.62c.56.1.77-.24.77-.54v-2.1c-3.13.68-3.79-1.33-3.79-1.33-.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.13-1.25-5.13-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.08 1.15A10.7 10.7 0 0 1 12 6.11c.95 0 1.9.13 2.79.38 2.14-1.45 3.08-1.15 3.08-1.15.62 1.55.23 2.7.12 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.64 5.27-5.15 5.55.4.35.76 1.04.76 2.1v3.09c0 .3.2.65.78.54A11.2 11.2 0 0 0 12 .8Z" /></svg>;
@@ -77,7 +77,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure architecture-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-architecture.png?v=83" alt="PEC-Fuse architecture from manuscript revision v83" />
+              <img src="./paper-architecture.png?v=84" alt="PEC-Fuse architecture from manuscript revision v84" />
             </button>
             <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
               <div className="figure-preview-surface">
@@ -85,16 +85,16 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                   <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
                   <div>
                     <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">Zoom / fit</button>
-                    <a href="./paper-architecture.pdf?v=83" target="_blank" rel="noopener noreferrer">Vector PDF</a>
+                    <a href="./paper-architecture.pdf?v=84" target="_blank" rel="noopener noreferrer">Vector PDF</a>
                     <button type="button" autoFocus aria-label="Close enlarged figure" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
                   </div>
                 </div>
                 <div className="figure-preview-scroll">
-                  <img src="./paper-architecture.png?v=83" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
+                  <img src="./paper-architecture.png?v=84" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
                 </div>
               </div>
             </dialog>
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=83" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
+            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=84" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
           <div className="record-preview">
@@ -127,7 +127,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure algorithm-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Algorithm 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-algorithm-1.png?v=83" alt="Algorithm 1 from manuscript revision v83: Retrospective candidate construction and PEC ranking" />
+              <img src="./paper-algorithm-1.png?v=84" alt="Algorithm 1 from manuscript revision v84: Retrospective candidate construction and PEC ranking" />
             </button>
             <figcaption>Click or tap to enlarge Algorithm 1 and inspect the full procedure.</figcaption>
             <dialog className="figure-preview-dialog" aria-label="Algorithm 1: candidate construction and ranking" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
@@ -141,7 +141,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                 </div>
                 <p className="figure-zoom-hint">Use Zoom / fit, then scroll to inspect the details.</p>
                 <div className="figure-preview-scroll" tabIndex={0} role="region" aria-label="Scrollable enlarged algorithm">
-                  <img src="./paper-algorithm-1.png?v=83" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
+                  <img src="./paper-algorithm-1.png?v=84" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
                 </div>
               </div>
             </dialog>
@@ -220,14 +220,14 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
-            <div><p className="section-kicker">{t("현재 원고 · v83", "Current manuscript · v83")}</p><h2>{t("논문 읽기", "Read the paper")}</h2></div>
+            <div><p className="section-kicker">{t("현재 원고 · v84", "Current manuscript · v84")}</p><h2>{t("논문 읽기", "Read the paper")}</h2></div>
             <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
             <ExternalLink href={PAPER_URL} className="project-button">{t("PDF 열기", "Open PDF")}</ExternalLink>
           </div>
           <ExternalLink href={PAPER_URL} className="paper-preview">
-            <img src="./paper-first-page-v83.png" alt="First-page preview of the PEC-Fuse v83 manuscript" loading="lazy" />
+            <img src="./paper-first-page-v84.png" alt="First-page preview of the PEC-Fuse v84 manuscript" loading="lazy" />
             <span className="paper-preview-copy">
-              <small>{t("원고 v83 · 28쪽", "Manuscript v83 · 28 pages")}</small>
+              <small>{t("원고 v84 · 28쪽", "Manuscript v84 · 28 pages")}</small>
               <strong>{t("전체 논문, 그림, 보강 분석을 포함합니다.", "The complete paper, figures, and supporting analyses.")}</strong>
               <span>{t("첫 페이지 미리보기입니다. PDF를 열어 전체 원고를 읽거나 검색하고 내려받을 수 있습니다.", "A preview of the first page. Open the PDF to read, search, or download the full manuscript.")}</span>
               <b>{t("전체 PDF 열기", "Open full PDF")}</b>
@@ -283,13 +283,13 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
         </section>
 
         <section className="paper-section citation-section" id="citation">
-          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v83. Use the citation below until final publication metadata and a DOI are available.</p></div>
+          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v84. Use the citation below until final publication metadata and a DOI are available.</p></div>
           <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  note    = {Unpublished manuscript, revision v83},
-  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v83.pdf},
+  note    = {Unpublished manuscript, revision v84},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v84.pdf},
   year    = {2026}
 }`}</code></pre>
         </section>
