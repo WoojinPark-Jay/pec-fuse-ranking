@@ -1,6 +1,6 @@
 # IEEE Access Manuscript Alignment
 
-This release aligns the public artifact with IEEE Access manuscript revision v81, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
+This release aligns the public artifact with IEEE Access manuscript revision v82, **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
 
 ## Private-platform evidence
 
