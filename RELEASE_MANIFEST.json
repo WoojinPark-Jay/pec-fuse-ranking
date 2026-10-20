@@ -1,5 +1,5 @@
 {
-  "file_count": 158,
+  "file_count": 159,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
@@ -144,7 +144,7 @@
     "tutorial/src/components/equation-walkthrough.css": "3dda7b2602d383243926dbe5106030c238cac667cb7500d5d9bdddaf2b26173f",
     "tutorial/src/components/equation-walkthrough.tsx": "f40e7ac4383ca032b611e42cc08d65db61f7b965aa42768c6020a9d1ca111dd9",
     "tutorial/src/components/live-ranking-demo.tsx": "4b2c62a36116570e051167963b684f803bb841b7d44296cefb3167a4bb7932b4",
-    "tutorial/src/components/mind-proxy-inputs.tsx": "e0676368a771b95961c36cdf6ec6e233db31a22b2eecdbe41638064f76b73946",
+    "tutorial/src/components/mind-proxy-inputs.tsx": "7c198b0ca32a29f772efaa24dd0dc98b5bd1737b06892544defc7709891eb322",
     "tutorial/src/components/model-learning-lab.css": "fdb899f59ccc7711906a2367bcb230ad7f5bd5609be512fd02cb6918893adb41",
     "tutorial/src/components/model-learning-lab.tsx": "ec698777270ad2b4e1811ba2b58e82012dcdf7bf3f5e3f16e8a8cd2df5081e2d",
     "tutorial/src/components/model-reading-guide.css": "c55c7f7279c1f8a60a2a2886e442a6bd75b7f429bbe90b892e4e6c8454994280",
@@ -158,7 +158,8 @@
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
     "tutorial/src/tutorial-release.css": "dea211f5f3f22124f33e2c86907c7d54066020d3658f8abd8b14121e734fa4b1",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
-    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
+    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
+    "tutorial/src/components/mind-proxy-inputs.css": "08e2c989b714c27a0749367fbfe42c3330b8962ec9cd19b4b7063dd3aa9af978"
   },
-  "revision": "ieee-access-v85-public-artifact-v36"
+  "revision": "ieee-access-v85-public-artifact-v37"
 }
