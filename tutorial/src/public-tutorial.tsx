@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import "./tutorial-release.css";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
 
 type Lang = "ko" | "en";
 const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
+const artifact = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34";
 const githubProfile = "https://github.com/WoojinPark-Jay";
 const linkedinProfile = "https://www.linkedin.com/in/woojinjaypark/";
 const personalWebsite = "https://woojinpark-jay.github.io";
@@ -25,6 +27,38 @@ function SocialIcon({ kind }: { kind: "website" | "github" | "linkedin" }) {
 export function PublicTutorial({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const t = (a: string, b: string) => ko ? a : b;
+  const [activeSection, setActiveSection] = useState("tutorial");
+
+  useEffect(() => {
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".public-toc a"));
+    const sections = links.map(link => document.getElementById(link.hash.slice(1))).filter((node): node is HTMLElement => Boolean(node));
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 60) + 32;
+        const current = sections
+          .filter(section => section.getBoundingClientRect().top <= offset)
+          .sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top)[0];
+        setActiveSection(current?.id ?? "tutorial");
+      });
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.querySelectorAll<HTMLAnchorElement>(".public-toc a").forEach(link => {
+      if (link.hash === `#${activeSection}`) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+  }, [activeSection]);
 
   useEffect(() => {
     let settleTimer = 0;
@@ -55,7 +89,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     };
   }, []);
 
-  return <>
+  return <div className="tutorial-release" lang={lang}>
     <a className="public-skip" href="#tutorial">{t("본문으로 건너뛰기", "Skip to tutorial")}</a>
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
@@ -65,8 +99,8 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>
           <span className="public-language" aria-label={t("언어 선택", "Language selection")}>
-            <a href="?view=tutorial&lang=en" aria-label="English" title="English" aria-current={!ko ? "page" : undefined}><span aria-hidden="true">🇺🇸</span></a>
-            <a href="?view=tutorial&lang=ko" aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}><span aria-hidden="true">🇰🇷</span></a>
+            <a href={`?view=tutorial&lang=en#${activeSection}`} aria-label="English" title="English" aria-current={!ko ? "page" : undefined}>EN</a>
+            <a href={`?view=tutorial&lang=ko#${activeSection}`} aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}>한국어</a>
           </span>
         </nav>
       </div>
@@ -98,16 +132,30 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <a className="public-live-demo-link" href="#live-demo">{t("데모", "Demo")}<i>LIVE</i></a>
     </nav>
 
-    <div id="tutorial">
+    <main id="tutorial">
+      <section className="tutorial-orientation" aria-label={t("읽기 안내", "Reading guide")}>
+        <div className="tutorial-orientation-title">
+          <span>{t("이 튜토리얼의 질문", "THE QUESTION")}</span>
+          <h2>{t("서로 다른 근거는 어떻게 하나의 순위가 될까요?", "How do different sources of evidence become one ranking?")}</h2>
+          <p>{t("한 후보 기사의 입력부터 시작해, 계산과 학습을 구분하고, 실제 실험이 뒷받침하는 범위까지 따라갑니다.", "Follow one candidate from its input fields to its score, then examine what the experiments support.")}</p>
+        </div>
+        <nav className="tutorial-paths" aria-label={t("목적별 읽기 경로", "Choose a reading path")}>
+          <a href="#microscope"><span>01</span><b>{t("처음 이해하기", "Understand the idea")}</b><small>{t("데이터 → 특성 → 점수", "Data → features → scores")}</small></a>
+          <a href="#atlas"><span>02</span><b>{t("실험 근거 살펴보기", "Examine the evidence")}</b><small>{t("비교 조건 → 결과 → 한계", "Conditions → results → limits")}</small></a>
+          <a href="#reproduce"><span>03</span><b>{t("직접 실행하기", "Run the examples")}</b><small>{t("아티팩트 → 합성 예제 → 재현 범위", "Artifact → examples → scope")}</small></a>
+        </nav>
+        <p className="tutorial-scope">{t("읽는 기준: 조작 가능한 예시는 합성 데이터입니다. 실험 결과는 원고의 고정된 평가에서 나온 수치이며, MIND는 비공개 데이터와 다른 출처 정의를 사용하는 공개 프록시입니다.", "Reading key: interactive examples use synthetic data. Reported results come from the manuscript's fixed evaluations. MIND is a public proxy with different source definitions from the private study.")}</p>
+      </section>
       <ComparisonAtlas lang={lang} />
-    </div>
+    </main>
 
     <LiveRankingDemo lang={lang} />
 
     <section className="public-release" id="reproduce">
       <div className="public-section-label">REPRODUCE</div>
-      <h2>{t("개념을 이해했다면, 공개 코드로 직접 재현해 보세요", "Reproduce the workflow with the public code")}</h2>
-      <p>{t("공개 저장소에는 기본 ExtraTrees 경로뿐 아니라 학습형 MLP 융합과 candidate-aware neural 모델의 정의·학습 루프도 포함되어 있습니다. 아래 세 경로는 모두 제공된 합성 입력에서 처음부터 실행할 수 있으며, MIND 공개 데이터 실험은 전체 재현 문서에서 별도로 안내합니다.", "The public repository now includes three executable paths: the ExtraTrees candidate pipeline, learned MLP fusion, and the candidate-aware neural scorer. All three can be trained from scratch on the supplied synthetic inputs; the public MIND study is documented separately in the full reproducibility guide.")}</p>
+      <h2>{t("공개 아티팩트로 계산과 학습을 직접 확인하세요", "Run the workflow from the public artifact")}</h2>
+      <p>{t("4open 아티팩트에서 ZIP을 내려받아 압축을 풀고, pyproject.toml이 있는 폴더에서 아래 명령을 실행하세요. ExtraTrees, 학습형 MLP 융합, 후보 인식 신경망의 세 합성 예제를 제공합니다. 논문 표의 재현 범위는 아래에서 별도로 구분합니다.", "Download the repository ZIP from the 4open artifact, extract it, and run these commands in the folder containing pyproject.toml. Three synthetic examples cover ExtraTrees, learned MLP fusion, and candidate-aware neural scoring. Their scope is distinguished from reproducing the manuscript tables below.")}</p>
+      <div className="public-link-row"><a href={`${artifact}/README.md`}>{t("아티팩트와 다운로드 안내", "Artifact and download instructions")}</a></div>
       <div className="public-command" role="group" aria-label={t("빠른 실행 명령", "Quick-start command")}>
         <code>python -m pip install -e .</code>
         <code>python scripts/run_synthetic_demo.py</code>
@@ -167,9 +215,14 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           </aside>
         </div>
       <div className="public-link-row">
-        <a href={`${repository}#quick-start`}>{t("전체 실행 절차", "Full quick start")}</a>
-        <a href={`${repository}/blob/main/docs/REPRODUCIBILITY.md`}>{t("재현 가능 범위", "Reproducibility scope")}</a>
-        <a href={`${repository}/blob/main/docs/DATA_AVAILABILITY.md`}>{t("데이터 제공 범위", "Data availability")}</a>
+        <a href={`${artifact}/docs/GETTING_STARTED.md`}>{t("전체 실행 절차", "Full quick start")}</a>
+        <a href={`${artifact}/docs/REPRODUCIBILITY.md`}>{t("재현 가능 범위", "Reproducibility scope")}</a>
+        <a href={`${artifact}/docs/DATA_AVAILABILITY.md`}>{t("데이터 제공 범위", "Data availability")}</a>
+      </div>
+      <div className="tutorial-reproduction-scope">
+        <h3>{t("MIND 결과를 실행하려면", "To run the MIND evaluation")}</h3>
+        <p>{t("MIND runner는 지정된 BGE-M3·BGE-base 캐시 벡터를 입력으로 받습니다. 캐시는 배포되지 않으며 runner도 이를 생성하지 않습니다. 원자료만으로 처음부터 실행하는 절차와는 범위가 다릅니다. 공개 aggregate와 protocol은 아티팩트에서 확인할 수 있습니다.", "The MIND runner requires the specified BGE-M3 and BGE-base vector caches. These caches are not distributed, and the runner does not generate them. Running from raw data alone is outside this entry point's scope. Aggregate results and the protocol are available in the artifact.")}</p>
+        <a href={`${artifact}/docs/MIND_PROXY_PROTOCOL.md`}>{t("MIND 프로토콜과 캐시 요구사항", "MIND protocol and cache requirements")}</a>
       </div>
     </section>
 
@@ -198,7 +251,7 @@ ${repository}`}</code></pre>
         <a className="public-profile-link" href={personalWebsite} target="_blank" rel="noopener noreferrer"><SocialIcon kind="website" /><span>{t("개인 웹사이트", "Personal website")}</span></a>
         <a className="public-profile-link" href={githubProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="github" /><span>GitHub profile</span></a>
         <a className="public-profile-link" href={linkedinProfile} target="_blank" rel="noopener noreferrer"><SocialIcon kind="linkedin" /><span>LinkedIn profile</span></a>
-        <a href={`${repository}/issues`}>{t("질문 및 재현 이슈", "Questions and reproducibility issues")}</a>
+        <a href={`${artifact}/docs/GETTING_STARTED.md`}>{t("실행 안내와 재현 문서", "Execution and reproducibility guide")}</a>
       </aside>
     </section>
 
@@ -213,5 +266,5 @@ ${repository}`}</code></pre>
         <span>Woojin Park · Taesu Cheong</span>
       </div>
     </footer>
-  </>;
+  </div>;
 }
