@@ -77,7 +77,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure architecture-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-architecture.png?v=85" alt="PEC-Fuse architecture from manuscript revision v86" />
+              <img src="./paper-architecture.png?v=86" alt="PEC-Fuse architecture from manuscript revision v86" />
             </button>
             <dialog className="figure-preview-dialog" aria-label="Figure 1: PEC-Fuse architecture" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
               <div className="figure-preview-surface">
@@ -85,16 +85,16 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                   <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
                   <div>
                     <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">Zoom / fit</button>
-                    <a href="./paper-architecture.pdf?v=85" target="_blank" rel="noopener noreferrer">Vector PDF</a>
+                    <a href="./paper-architecture.pdf?v=86" target="_blank" rel="noopener noreferrer">Vector PDF</a>
                     <button type="button" autoFocus aria-label="Close enlarged figure" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
                   </div>
                 </div>
                 <div className="figure-preview-scroll">
-                  <img src="./paper-architecture.png?v=85" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
+                  <img src="./paper-architecture.png?v=86" alt="Enlarged PEC-Fuse architecture: input representations, evidence construction, candidate records, and scoring and ranking" />
                 </div>
               </div>
             </dialog>
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=85" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
+            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=86" target="_blank" rel="noopener noreferrer">Open vector PDF ↗</a></figcaption>
           </figure>
 
           <div className="record-preview">
@@ -127,7 +127,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </div>
           <figure className="paper-figure algorithm-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Algorithm 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-algorithm-1.png?v=85" alt="Algorithm 1 from manuscript revision v86: Retrospective candidate construction and PEC ranking" />
+              <img src="./paper-algorithm-1.png?v=86" alt="Algorithm 1 from manuscript revision v86: Retrospective candidate construction and PEC ranking" />
             </button>
             <figcaption>Click or tap to enlarge Algorithm 1 and inspect the full procedure.</figcaption>
             <dialog className="figure-preview-dialog" aria-label="Algorithm 1: candidate construction and ranking" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
@@ -141,7 +141,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                 </div>
                 <p className="figure-zoom-hint">Use Zoom / fit, then scroll to inspect the details.</p>
                 <div className="figure-preview-scroll" tabIndex={0} role="region" aria-label="Scrollable enlarged algorithm">
-                  <img src="./paper-algorithm-1.png?v=85" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
+                  <img src="./paper-algorithm-1.png?v=86" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
                 </div>
               </div>
             </dialog>
