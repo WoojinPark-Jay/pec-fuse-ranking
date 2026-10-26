@@ -1,4 +1,7 @@
-"""Final standalone synthetic example design. No manuscript is modified."""
+"""V87 synthetic example: larger internal type at the original PDF page size.
+
+PDF, SVG, and PNG companions share one source.
+"""
 from pathlib import Path
 from decimal import Decimal
 import sys
@@ -9,6 +12,7 @@ from matplotlib.patches import Rectangle
 
 HERE=Path(__file__).resolve().parent
 OUT=HERE.parent/'figures'
+OUT.mkdir(parents=True, exist_ok=True)
 sys.path.insert(0,str(HERE))
 from figure_style import configure
 configure()
@@ -24,7 +28,11 @@ colors={'P':('#287595',tint('#B7E2F3')),'E':('#A76A30',tint('#FFDBAB')),
 fig=plt.figure(figsize=(17,13.4),facecolor='white')
 ax=fig.add_axes([0,0,1,1]);ax.set_xlim(0,1700);ax.set_ylim(1340,0);ax.axis('off')
 def txt(x,y,s,size=23,color=INK,bold=False,ha='left'):
-    ax.text(x,y,s,fontsize=size*.72,color=color,fontweight='bold' if bold else 'normal',ha=ha,va='center')
+    # Previously the smallest ordinary labels were 12.096 pt in this PDF.
+    # Preserve the canvas while increasing them to 17.5 pt (about 6.6 pt
+    # at the manuscript's existing 0.92-textwidth placement).
+    points = 17.5 if size <= 21 else (19 if size <= 23 else (21 if size <= 25 else (22 if size <= 27 else 24)))
+    ax.text(x,y,s,fontsize=points,color=color,fontweight='bold' if bold else 'normal',ha=ha,va='center',linespacing=1.05)
 def rule(y,x1=38,x2=1662):ax.plot([x1,x2],[y,y],lw=.8,color=BORDER)
 def box(x,y,w,h,fill='white',edge=BORDER):
     ax.add_patch(Rectangle((x,y),w,h,facecolor=fill,edgecolor=edge,lw=.75))
@@ -36,11 +44,11 @@ txt(38,133,'A. Candidate-level summary',25,bold=True)
 txt(1662,133,r'One query $q=(u,t)$',23,MUTED,ha='right')
 
 xs=[58,230,660,820,980,1150,1320,1530]
-headers=['Candidate','Article topic','Profile P','Trace member','Reciprocal rank','C mean','C attention','Record detail']
-for x,h in zip(xs,headers):txt(x,183,h,21,bold=True,ha='left' if x<300 else 'center')
+headers=['Candidate','Article topic','Profile P','Trace\nmember','Reciprocal\nrank','C mean','C\nattention','Record\ndetail']
+for x,h in zip(xs,headers):txt(x,176,h,21,bold=True,ha='left' if x<300 else 'center')
 rule(206)
-rows=[('A','Climate-policy news','0.82','0','0','0.31','0.40','Full record in B'),
-      ('B','Sports coverage','0.28','1','0.20','0.76','0.72','Selected fields in C'),
+rows=[('A','Climate-policy news','0.82','0','0','0.31','0.40','Full: B'),
+      ('B','Sports coverage','0.28','1','0.20','0.76','0.72','Selected: C'),
       ('C','Science reporting','0.63','1','0.50','0.44','0.51','Not shown')]
 for j,row in enumerate(rows):
     y=233+j*48
@@ -51,7 +59,7 @@ txt(38,426,'Source-grouped view; the estimator uses the order specified in the f
 
 groups=[
 ('P','Profile alignment', [('P','0.82')]),
-('E','Retained trace', [('Member','0'),('1 / rank','0'),('Combined E','0')]),
+('E','Retained trace', [('Member','0'),('1 / rank','0'),(r'$E_x$','0')]),
 ('C','Consumption', [('Mean','0.31'),('Max','0.58'),('Top-3','0.45'),('Attention','0.40')]),
 ('Z','Recorded controls', [('Pref. cat.','0.70'),('Pref. pub.','0.20'),('Hist. cat.','0.10'),('Hist. pub.','0.05'),
                            ('Log clicks','4.62'),('P count','0.90'),('C count','0.15'),('Popularity','0.42'),
@@ -106,6 +114,6 @@ rule(1218)
 txt(38,1252,r'For candidate B: $E_x=1+0.20=1.20$ and $P E_x=0.28\times1.20=0.336$.',22)
 txt(38,1286,'Combined E is a feature value, not an exposure probability.',20,MUTED)
 txt(38,1320,'Colors identify source blocks, not magnitude or importance. Values are illustrative and rounded.',20,MUTED)
-for ext in ['png','svg','pdf']:
+for ext in ['pdf','svg','png']:
     fig.savefig(OUT/('candidate_record_example.'+ext),dpi=170,facecolor='white')
 plt.close(fig)

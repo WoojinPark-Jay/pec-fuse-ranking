@@ -1,11 +1,11 @@
 {
-  "file_count": 165,
+  "file_count": 168,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "7f01e2df57e907a8ab8572529bd75f2f88929ef4aaa1590455f28ec647d93aea",
     "LICENSE": "16281b5ad05f44ed3c427fbb1bbf2d5b6cb0bf184c37e57de2d2e474059d9374",
     "Makefile": "8a89c5287e57e93f6881d3d47bac6228a3706946e2bdce3a1a91394ddfb12a5b",
-    "README.md": "0f7fa32499649615addfc7abd300c1022b59d0e8338c836eb37f80346a41734e",
+    "README.md": "d31697c2d6eaa7cb9fa4b9480d1865ae231df011c34ca8bda48e2f940f77b043",
     "access/README.md": "36863935dc33f0f9fea2f02b1a3357ce973279f4caa7f5cb34f5eeccd63190c2",
     "access/data/core_selected_configs.json": "99836afc4fb415cce13e5ca6f4de3dc25b7978eb45cead89bfca8ee2f89995e8",
     "access/data/core_test_metrics.csv": "46a6deed91d62880742fab06d208de1937a93ebcf9cc4b098d23a722d3e53eef",
@@ -72,10 +72,13 @@
     "access/tables/profile_contrast.tex": "23952243c893ea8de5750cb90892ca9f28fc49728d2041269bae1e36a8c1c66a",
     "access/tables/secondary_metrics.tex": "45a62ffdd3b6d8dbc64f210258c2416bc6f9591ebf1a32f74046d91b750169ac",
     "access/tables/trace.tex": "f88108217a38124a6ff526ced245e9b1a14f9ddcba8292e01b2bce590706cd57",
+    "access/tools/architecture_native_v86.svg": "0b0b6d3d7e017831f61822aeb44bd592171574a812e50f873153950052e785fe",
     "access/tools/compute_direct_ci_local.py": "f9b5b85d1d3d1a4f747b276b4a5e125bf801df2fb3bb37215c7c3d6830964228",
     "access/tools/figure_style.py": "2e303e6f51de656e6f36e115cb74ab9ceeeea3e015dd085c2e7ffcf71c61ad8c",
-    "access/tools/make_candidate_example.py": "ded7bb7b0f02cba765981b101f278aa2e7833461dfc9fa5acf8bfd7fff56624b",
-    "access/tools/make_figures.py": "25e3f283b61b85a79d077ccee3ff78ec274947461f30ffcac41bce1a8a3608a1",
+    "access/tools/make_architecture_v87.py": "dd47f4c72d6bac6644b39463886a535159c08cbc935d6763507bb4727ec09ade",
+    "access/tools/make_candidate_example.py": "9527c689ca6450e1b4744033d9e93e7b9af5002178efc79e256d499ddfa3ca0e",
+    "access/tools/make_figures.py": "a5ff9c8bf96844d01065f6142ab53672bede57d857838cd2253a01c276619645",
+    "access/tools/make_pool_reselection_v87.py": "16c4cb0c670ddbc021edb20f8aa5b9f2b8c75405f6acf9dd34e977e10dbffe85",
     "access/tools/make_protocol.py": "1f9834818fb6388a97cdaf4cb16e2acb1b8b065a80f7fac26792f7718c5eb129",
     "configs/extra_trees.json": "3fc234b4bf72f600692f682de67d036ae64ba897a292aba293c895008f36c1a1",
     "configs/private_candidate_aware_neural.json": "ab2a920f602904391b348dce8efa343bdcc99e1bd3a25dee9498d2d478e2d0f2",
@@ -92,7 +95,7 @@
     "docs/REPRODUCIBILITY.md": "67d28167c1001f1595d05ee7a42440e9c99ad1e3b8949730f38cabf94463716f",
     "docs/SAME_DAY_TIE_ORDER.md": "e0aec6ad895c70f52263cd8bfd137f17d9b1e63de8bb0df2ce4e60d528fb40e2",
     "examples/synthetic/candidate_inputs.csv": "8f11b715d46b9b8c1b675d3ce19ba0c41aa472495aaa978686ec5e40ddb8d0f0",
-    "pyproject.toml": "5c2bd4d117c8998bafa830c54728203c54c63529cab2cef2ff1e62ae2098ac5d",
+    "pyproject.toml": "088f648dbbb792430bf7612ffc81aa0000b549c6e929708e4cdc438ad6b0a8fe",
     "scripts/check_access_aggregates.py": "459a0e2820955b607b517c3cf3fe726d74b0207fa59f59b048a8b96fef8b1761",
     "scripts/render_access_summary.py": "6b1ba74951b81a56594f6478a48ddbfc1a012a84d18f188f7f4396b12012185b",
     "scripts/run_mind_expanded_membership.py": "fc2849a3a8dd51e4de254631f54db661bae57796a48a03b443b5607fedf6e8d7",
@@ -167,5 +170,5 @@
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
     "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
   },
-  "revision": "ieee-access-v87-public-artifact-v39"
+  "revision": "ieee-access-v87-public-artifact-v40"
 }

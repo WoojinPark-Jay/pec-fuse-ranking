@@ -12,6 +12,7 @@ from matplotlib.transforms import blended_transform_factory
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / 'figures'
+OUT.mkdir(parents=True, exist_ok=True)
 DATA = HERE.parent / 'data'
 sys.path.insert(0, str(HERE))
 from figure_style import configure
@@ -109,50 +110,7 @@ for regime in regimes:
 forest(records,labels,'evidence_checks',(-.004,.175),
     r'$\Delta$ NDCG@10: first model $-$ second',.255)
 
-metrics=rows('pool_metrics.csv')
-cis=rows('pool_paired_differences.csv')
-seeds=['original','7','13','42','101','202']
-x=np.arange(6)
-fig,axes=plt.subplots(2,2,figsize=(8.6,4.8),sharex=True)
-for j,(reference,pec,comparison) in enumerate([
-    ('headline_control','headline_pec','headline_pec-headline_control'),
-    ('collapsed','audit_pec','audit_pec-collapsed')]):
-    ax=axes[0,j]
-    base=np.array([float(next(r for r in metrics if r['seed']==s and r['model']==reference)['ndcg@10']) for s in seeds])
-    full=np.array([float(next(r for r in metrics if r['seed']==s and r['model']==pec)['ndcg@10']) for s in seeds])
-    ax.vlines(x,base,full,color=PALE,lw=2.8,zorder=2)
-    ax.plot(x,base,'s',ms=4.7,mfc='white',mec=MUTED,mew=1,
-        label='Control' if j==0 else 'Collapsed',zorder=3)
-    ax.plot(x,full,'o',ms=5.4,mfc=BLUE,mec='white',mew=.65,
-        label='Complete PEC',zorder=4)
-    ax.set_ylim(.63,.825)
-    ax.tick_params(axis='x', labelbottom=True)
-    ax.set_ylabel('Model NDCG@10')
-    ax.grid(axis='y',lw=.45)
-    ax.set_axisbelow(True)
-    ax.legend(loc='upper right',ncol=2,columnspacing=1,handletextpad=.4,fontsize=8)
-    panel_title(ax,['(a) Operational-control comparison','(b) Collapsed-fusion comparison'][j])
-    ax=axes[1,j]
-    for k,s in enumerate(seeds):
-        r=next(r for r in cis if r['seed']==s and r['comparison']==comparison and r['metric']=='ndcg@10')
-        d,lo,hi=[float(r[t]) for t in ['delta','ci_low','ci_high']]
-        key=interval(ax,k,d,lo,hi,vertical=True)
-        ax.annotate(f'{d:+.4f}',(k,hi),xytext=(0,5),textcoords='offset points',
-            ha='center',va='bottom',fontsize=7.7,color=INK)
-    ax.axhline(0,color=MUTED,lw=.85,ls=(0,(3,3)))
-    ax.grid(axis='y',lw=.45)
-    ax.set_axisbelow(True)
-    ax.set_ylim(-.004,.108)
-    panel_title(ax,['(c) Gain over operational control','(d) Gain over collapsed fusion'][j])
-    ax.set_xticks(x,['Original','7','13','42','101','202'])
-    ax.set_xlabel('Candidate-pool / tie-order seed',labelpad=8)
-    ax.set_ylabel(r'$\Delta$ NDCG@10')
-    for a in axes[:,j]:
-        a.set_xlim(-.48,5.45)
-        a.axvline(.5,color='#C9C9C9',lw=.65,ls=(0,(2,3)))
-fig.subplots_adjust(left=.085,right=.99,bottom=.185,top=.91,wspace=.28,hspace=.62)
-legend(fig,key,'Paired difference and 95% CI')
-save(fig,'pool_reselection')
+runpy.run_path(str(HERE/'make_pool_reselection_v87.py'))
 
 runpy.run_path(str(HERE/'make_protocol.py'))
 runpy.run_path(str(HERE/'make_candidate_example.py'))

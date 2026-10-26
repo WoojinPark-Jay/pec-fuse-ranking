@@ -19,6 +19,8 @@ dependencies = [
 figures = [
   "matplotlib>=3.8",
   "fonttools>=4.0",
+  "svglib>=2.0",
+  "reportlab>=4.0",
 ]
 neural = [
   "torch>=2.1",
