@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./tutorial-release.css";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
 
@@ -9,6 +8,40 @@ const artifact = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34";
 const githubProfile = "https://github.com/WoojinPark-Jay";
 const linkedinProfile = "https://www.linkedin.com/in/woojinjaypark/";
 const personalWebsite = "https://woojinpark-jay.github.io";
+
+const readingPages = [
+  { id: "tutorial", ko: "소개", en: "Overview", roots: ["top"] },
+  { id: "microscope", ko: "원자료", en: "Source records", roots: ["microscope"] },
+  { id: "candidate-budget", ko: "후보풀", en: "Candidate pool", roots: ["row"] },
+  { id: "record", ko: "특성", en: "Feature record", roots: ["record"] },
+  { id: "equations", ko: "계산", en: "Calculations", roots: ["equations"] },
+  { id: "model-lab", ko: "모델", en: "Models", roots: ["learn"] },
+  { id: "atlas", ko: "실험", en: "Experiments", roots: ["atlas", "decision"] },
+  { id: "live-demo", ko: "데모", en: "Live demo", roots: ["live-demo"] },
+  { id: "reproduce", ko: "실행 안내", en: "Run the examples", roots: ["reproduce"] },
+  { id: "cite", ko: "인용", en: "Citation", roots: ["cite"] },
+];
+const readingGroups = [
+  { ko: "소개", en: "Overview", pages: ["tutorial"] },
+  { ko: "데이터", en: "Data", pages: ["microscope", "candidate-budget"] },
+  { ko: "특성", en: "Features", pages: ["record", "equations"] },
+  { ko: "모델", en: "Models", pages: ["model-lab"] },
+  { ko: "실험", en: "Experiments", pages: ["atlas"] },
+  { ko: "데모", en: "Demo", pages: ["live-demo"] },
+  { ko: "자료", en: "Resources", pages: ["reproduce", "cite"] },
+];
+
+function hashTarget() {
+  try { return decodeURIComponent(window.location.hash.slice(1)); }
+  catch { return "tutorial"; }
+}
+
+function readingPageFor(id: string) {
+  const direct = readingPages.find(page => page.id === id || page.roots.includes(id));
+  if (direct) return direct.id;
+  const target = document.getElementById(id);
+  return readingPages.find(page => page.roots.some(root => target?.closest(`[id="${root}"]`)))?.id ?? "tutorial";
+}
 
 function SocialIcon({ kind }: { kind: "website" | "github" | "linkedin" }) {
   if (kind === "github") return (
@@ -27,75 +60,46 @@ function SocialIcon({ kind }: { kind: "website" | "github" | "linkedin" }) {
 export function PublicTutorial({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const t = (a: string, b: string) => ko ? a : b;
-  const [activeSection, setActiveSection] = useState("tutorial");
+  const [activeSection, setActiveSection] = useState(() => readingPageFor(hashTarget()));
+  const pageIndex = readingPages.findIndex(page => page.id === activeSection);
+  const readingGroup = readingGroups.find(group => group.pages.includes(activeSection))!;
 
   useEffect(() => {
-    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>(".public-toc a"));
-    const sections = links.map(link => document.getElementById(link.hash.slice(1))).filter((node): node is HTMLElement => Boolean(node));
     let frame = 0;
-    const update = () => {
+    const navigate = () => {
+      const id = hashTarget();
+      setActiveSection(readingPageFor(id));
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
-        const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 60) + 32;
-        const current = sections
-          .filter(section => section.getBoundingClientRect().top <= offset)
-          .sort((a, b) => b.getBoundingClientRect().top - a.getBoundingClientRect().top)[0];
-        setActiveSection(current?.id ?? "tutorial");
+        frame = requestAnimationFrame(() => {
+          if (!id) return;
+          const target = document.getElementById(id);
+          if (!target) return;
+          let parent = target.parentElement;
+          while (parent) {
+            if (parent instanceof HTMLDetailsElement) parent.open = true;
+            parent = parent.parentElement;
+          }
+          const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 60) + 24;
+          window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset), behavior: "instant" });
+        });
       });
     };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    navigate();
+    window.addEventListener("hashchange", navigate);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("hashchange", navigate);
     };
   }, []);
 
-  useEffect(() => {
-    document.querySelectorAll<HTMLAnchorElement>(".public-toc a").forEach(link => {
-      if (link.hash === `#${activeSection}`) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
-    });
-  }, [activeSection]);
-
-  useEffect(() => {
-    let settleTimer = 0;
-
-    const alignHashTarget = () => {
-      const id = decodeURIComponent(window.location.hash.slice(1));
-      if (!id) return;
-      const target = document.getElementById(id);
-      if (!target) return;
-      const toc = document.querySelector<HTMLElement>(".public-toc");
-      const offset = (toc?.getBoundingClientRect().height ?? 0) + 12;
-      const top = window.scrollY + target.getBoundingClientRect().top - offset;
-      window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
-    };
-
-    const alignAfterRender = () => {
-      window.requestAnimationFrame(() => window.requestAnimationFrame(alignHashTarget));
-      window.clearTimeout(settleTimer);
-      settleTimer = window.setTimeout(alignHashTarget, 350);
-    };
-
-    alignAfterRender();
-    document.fonts?.ready.then(alignHashTarget);
-    window.addEventListener("hashchange", alignAfterRender);
-    return () => {
-      window.clearTimeout(settleTimer);
-      window.removeEventListener("hashchange", alignAfterRender);
-    };
-  }, []);
-
-  return <div className="tutorial-release" lang={lang}>
+  return <div className="tutorial-release tutorial-reader" data-page={activeSection} lang={lang}>
     <a className="public-skip" href="#tutorial">{t("본문으로 건너뛰기", "Skip to tutorial")}</a>
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
         <div className="public-brand">
           <span className="public-mark" role="img" aria-label="PEC-Fuse feature blocks: P, E, C, Z, and psi"><i className="public-mark-p">P</i><i className="public-mark-e">E</i><i className="public-mark-c">C</i><i className="public-mark-z">Z</i><i className="public-mark-psi">ψ</i></span>
-          <div><b>PEC-Fuse</b><span>{t("논문 해설 · 인터랙티브 튜토리얼", "Interactive paper companion")}</span></div>
+          <div><b>PEC-Fuse</b><span>{t("인터랙티브 가이드", "Interactive guide")}</span></div>
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>
           <span className="public-language" aria-label={t("언어 선택", "Language selection")}>
@@ -104,50 +108,37 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           </span>
         </nav>
       </div>
-      <div className="public-paper-meta">
-        <span>{t("IEEE Access 투고 논문을 위한 대화형 해설", "Interactive companion to the IEEE Access manuscript")}</span>
-        <span>Software 0.2.0 · Manuscript v90</span>
-        <span>{t("합성 예시 · 브라우저 내 계산", "Synthetic examples · in-browser calculations")}</span>
-        <span className="public-author-cluster">
-          <span>{t("Woojin Park · 제1저자 제작 · 원고 v90", "Tutorial by Woojin Park · First author · Manuscript v90")}</span>
-          <span className="public-social-icons">
-            <a className="public-social-icon" href={personalWebsite} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park 개인 웹사이트", "Woojin Park personal website")} title="Website"><SocialIcon kind="website" /></a>
-            <a className="public-social-icon" href={githubProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park GitHub 프로필", "Woojin Park GitHub profile")} title="GitHub"><SocialIcon kind="github" /></a>
-            <a className="public-social-icon" href={linkedinProfile} target="_blank" rel="noopener noreferrer" aria-label={t("Woojin Park LinkedIn 프로필", "Woojin Park LinkedIn profile")} title="LinkedIn"><SocialIcon kind="linkedin" /></a>
-          </span>
-        </span>
-      </div>
     </header>
 
     <nav className="public-toc" aria-label={t("튜토리얼 목차", "Tutorial contents")}>
-      <a href="#tutorial">{t("시작", "Start")}</a>
-      <a href="#microscope">{t("데이터", "Data")}</a>
-      <a href="#candidate-budget">{t("후보풀", "Candidate pool")}</a>
-      <a href="#record">{t("특성", "Features")}</a>
-      <a href="#equations">{t("수식", "Equations")}</a>
-      <a href="#model-lab">{t("모델", "Models")}</a>
-      <a href="#atlas">{t("실험", "Experiments")}</a>
-      <a href="#reproduce">{t("재현", "Reproduce")}</a>
-      <a href="#cite">{t("인용", "Cite")}</a>
-      <a className="public-live-demo-link" href="#live-demo">{t("데모", "Demo")}<i>LIVE</i></a>
+      {readingGroups.map(group => <a key={group.en} href={`#${group.pages[0]}`} aria-current={group === readingGroup ? "page" : undefined}>{t(group.ko, group.en)}</a>)}
     </nav>
+    {readingGroup.pages.length > 1 && <nav className="reader-subnav" aria-label={t("이 장의 내용", "In this chapter")}>
+      {readingGroup.pages.map(id => { const page = readingPages.find(item => item.id === id)!; return <a key={id} href={`#${id}`} aria-current={id === activeSection ? "page" : undefined}>{t(page.ko, page.en)}</a>; })}
+    </nav>}
 
     <main id="tutorial">
-      <section className="tutorial-orientation" aria-label={t("읽기 안내", "Reading guide")}>
+      <section className="tutorial-orientation" hidden={activeSection !== "tutorial"} aria-label={t("읽기 안내", "Reading guide")}>
         <div className="tutorial-orientation-title">
-          <span>{t("이 튜토리얼의 질문", "THE QUESTION")}</span>
-          <h2>{t("서로 다른 근거는 어떻게 하나의 순위가 될까요?", "How do different sources of evidence become one ranking?")}</h2>
-          <p>{t("한 후보 기사의 입력부터 시작해, 계산과 학습을 구분하고, 실제 실험이 뒷받침하는 범위까지 따라갑니다.", "Follow one candidate from its input fields to its score, then examine what the experiments support.")}</p>
+          <span>{t("원고 v91 · 시각적 해설", "MANUSCRIPT v91 / A VISUAL GUIDE")}</span>
+          <h1>{t("서로 다른 근거가\n하나의 순위가 되기까지.", "From evidence to a ranked list.")}</h1>
+          <p>{t("후보 기사 하나를 따라가며 입력, 계산, 모델과 실험을 이해하세요. 한 번에 한 주제씩 살펴볼 수 있습니다.", "Follow one candidate through the inputs, calculations, and experiments. One idea at a time.")}</p>
+          <a className="reader-start" href="#microscope">{t("가이드 시작하기", "Start with the data")} <span aria-hidden="true">→</span></a>
         </div>
+        <aside className="reader-primer" aria-label={t("후보 하나의 다섯 입력 블록", "Five input blocks for one candidate")}>
+          <span>{t("후보 기사 하나", "ONE CANDIDATE ARTICLE")}</span>
+          <div className="reader-blocks">{[{symbol:"P",count:1,label:t("프로필","Profile")},{symbol:"E",count:3,label:t("기록","Trace")},{symbol:"C",count:4,label:t("이력","History")},{symbol:"Z",count:11,label:t("통제","Controls")},{symbol:"ψ",count:6,label:t("곱셈 항","Products")}].map(block => <div key={block.symbol}><b>{block.symbol}</b><span>{block.label}</span><small>{block.count}</small></div>)}</div>
+          <div className="reader-primer-output"><span>{t("25개 특성", "25 features")}</span><i aria-hidden="true">→</i><strong>{t("모델 점수", "Model score")}</strong><i aria-hidden="true">→</i><span>{t("질의 내 순위", "Rank within query")}</span></div>
+          <p>{t("서로 다른 출처를 유지하고, 점수화할 때 결합합니다.", "Keep the sources distinct. Combine them at scoring.")}</p>
+        </aside>
         <nav className="tutorial-paths" aria-label={t("목적별 읽기 경로", "Choose a reading path")}>
           <a href="#microscope"><span>01</span><b>{t("처음 이해하기", "Understand the idea")}</b><small>{t("데이터 → 특성 → 점수", "Data → features → scores")}</small></a>
           <a href="#atlas"><span>02</span><b>{t("실험 근거 살펴보기", "Examine the evidence")}</b><small>{t("비교 조건 → 결과 → 한계", "Conditions → results → limits")}</small></a>
           <a href="#reproduce"><span>03</span><b>{t("직접 실행하기", "Run the examples")}</b><small>{t("아티팩트 → 합성 예제 → 재현 범위", "Artifact → examples → scope")}</small></a>
         </nav>
-        <p className="tutorial-scope">{t("읽는 기준: 조작 가능한 예시는 합성 데이터입니다. 실험 결과는 원고의 고정된 평가에서 나온 수치이며, MIND는 비공개 데이터와 다른 출처 정의를 사용하는 공개 프록시입니다.", "Reading key: interactive examples use synthetic data. Reported results come from the manuscript's fixed evaluations. MIND is a public proxy with different source definitions from the private study.")}</p>
+        <p className="tutorial-scope">{t("예시는 합성 데이터이며, 논문의 실험 결과와 구분됩니다. MIND는 별도의 출처 정의를 사용하는 공개 프록시입니다.", "Interactive examples are synthetic, separate from reported results. MIND uses an adapted public-proxy schema.")}</p>
       </section>
       <ComparisonAtlas lang={lang} />
-    </main>
 
     <LiveRankingDemo lang={lang} />
 
@@ -230,13 +221,13 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <div>
         <div className="public-section-label">CITE</div>
         <h2>{t("논문과 사용한 소프트웨어 버전을 함께 인용해 주세요", "Cite the paper together with the software version used")}</h2>
-        <p>{t("현재 논문은 미출판 원고 v90입니다. 정식 DOI와 게재 정보는 출판 후 추가할 예정이며, 그전에는 아래 원고 정보와 사용한 저장소 릴리스 또는 커밋을 함께 표기해 주세요.", "This is an unpublished manuscript, revision v90. Final publication metadata and a DOI will be added after publication. Until then, cite the manuscript together with the repository release or commit used.")}</p>
+        <p>{t("현재 논문은 미출판 원고 v91입니다. 정식 DOI와 게재 정보는 출판 후 추가할 예정이며, 그전에는 아래 원고 정보와 사용한 저장소 릴리스 또는 커밋을 함께 표기해 주세요.", "This is an unpublished manuscript, revision v91. Final publication metadata and a DOI will be added after publication. Until then, cite the manuscript together with the repository release or commit used.")}</p>
         <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
   author  = {Park, Woojin and Cheong, Taesu},
-  note    = {Unpublished manuscript, revision v90},
-  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v90.pdf},
+  note    = {Unpublished manuscript, revision v91},
+  url     = {https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v91.pdf},
   year    = {2026}
 }
 
@@ -255,10 +246,12 @@ ${repository}`}</code></pre>
       </aside>
     </section>
 
-    <a className="public-backtotop" href="#top" aria-label={t("맨 위로 이동", "Back to top")}>
-      <span aria-hidden="true">↑</span>
-      <b>{t("맨 위로", "Top")}</b>
-    </a>
+    <nav className="reader-pagination" aria-label={t("가이드 순서", "Guide navigation")}>
+      {pageIndex > 0 ? <a href={`#${readingPages[pageIndex - 1].id}`}><small>{t("이전", "Previous")}</small><span>← {t(readingPages[pageIndex - 1].ko, readingPages[pageIndex - 1].en)}</span></a> : <span />}
+      <span className="reader-page-count">{String(pageIndex + 1).padStart(2, "0")} / {readingPages.length}</span>
+      {pageIndex < readingPages.length - 1 ? <a href={`#${readingPages[pageIndex + 1].id}`}><small>{t("다음", "Next")}</small><span>{t(readingPages[pageIndex + 1].ko, readingPages[pageIndex + 1].en)} →</span></a> : <a href="#tutorial"><small>{t("처음으로", "Back to")}</small><span>{t("전체 소개", "Overview")} ↑</span></a>}
+    </nav>
+    </main>
 
     <footer className="public-footer">
       <div className="public-footer-copy">

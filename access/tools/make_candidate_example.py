@@ -47,8 +47,8 @@ xs=[58,230,660,820,980,1150,1320,1530]
 headers=['Candidate','Article topic','Profile P','Trace\nmember','Reciprocal\nrank','C mean','C\nattention','Record\ndetail']
 for x,h in zip(xs,headers):txt(x,176,h,21,bold=True,ha='left' if x<300 else 'center')
 rule(206)
-rows=[('A','Climate-policy news','0.82','0','0','0.31','0.40','Full: B'),
-      ('B','Sports coverage','0.28','1','0.20','0.76','0.72','Selected: C'),
+rows=[('A','Climate-policy news','0.82','0','0','0.31','0.40','Full: Panel B'),
+      ('B','Sports coverage','0.28','1','0.20','0.76','0.72','Selected: Panel C'),
       ('C','Science reporting','0.63','1','0.50','0.44','0.51','Not shown')]
 for j,row in enumerate(rows):
     y=233+j*48
@@ -60,14 +60,14 @@ txt(38,426,'Source-grouped view; the estimator uses the order specified in the f
 groups=[
 ('P','Profile alignment', [('P','0.82')]),
 ('E','Retained trace', [('Member','0'),('1 / rank','0'),(r'$E_x$','0')]),
-('C','Consumption', [('Mean','0.31'),('Max','0.58'),('Top-3','0.45'),('Attention','0.40')]),
-('Z','Recorded controls', [('Pref. cat.','0.70'),('Pref. pub.','0.20'),('Hist. cat.','0.10'),('Hist. pub.','0.05'),
-                           ('Log clicks','4.62'),('P count','0.90'),('C count','0.15'),('Popularity','0.42'),
-                           ('Recency','0.25'),('Log length','6.55'),('Breaking','0')]),
+('C','Consumption', [('Mean','0.31'),('Max','0.58'),('Top-3','0.45'),('Attn.','0.40')]),
+('Z','Recorded controls', [('Pref.\ncat.','0.70'),('Pref.\npub.','0.20'),('Hist.\ncat.','0.10'),('Hist.\npub.','0.05'),
+                           ('Log\nclicks','4.62'),('P\ncount','0.90'),('C\ncount','0.15'),('Pop.\nscore','0.42'),
+                           ('Recency','0.25'),('Log\nlength','6.55'),('Breaking','0')]),
 ('Products','Interactions', [(r'$P E_x$','0'),(r'$C_{mean}E_x$','0'),(r'$P C_{mean}$','0.2542'),
-                            (r'$C_{att}E_x$','0'),(r'$C_{max}E_x$','0'),(r'$P C_{att}$','0.3280')])]
+                            (r'$C_{\mathrm{attn}}E_x$','0'),(r'$C_{max}E_x$','0'),(r'$P C_{\mathrm{attn}}$','0.3280')])]
 for j,(key,label,fields) in enumerate(groups):
-    y=463+j*82
+    y=453+j*78+(32 if key=='Products' else 0)
     accent,fill=colors[key]
     # No decorative left-side bars. Only value cells carry source-color fills.
     display=key if key!='Products' else r'$\psi$'
@@ -76,9 +76,10 @@ for j,(key,label,fields) in enumerate(groups):
     txt(106,y+49,f'{len(fields)} field'+('s' if len(fields)!=1 else ''),20,MUTED)
     for k,(name,value) in enumerate(fields):
         x=370+k*117
-        box(x,y,112,64,fill,BORDER)
-        txt(x+56,y+18,name,16.8,INK,ha='center')
-        txt(x+56,y+46,value,23,INK,False,ha='center')
+        # Give wrapped control labels their own header area, preserving type size.
+        box(x,y,112,94 if key=='Z' else 64,fill,BORDER)
+        txt(x+56,y+(29 if key=='Z' else 18),name,16.8,INK,ha='center')
+        txt(x+56,y+(72 if key=='Z' else 46),value,23,INK,False,ha='center')
     if key=='P':txt(509,y+32,'Profile-to-candidate cosine similarity.',21,MUTED)
     if key=='E':txt(748,y+32,'No retained-trace entry; not proof of non-exposure.',21,MUTED)
     if key=='C':txt(868,y+32,'Distinct summaries of prior consumption.',21,MUTED)
@@ -93,8 +94,8 @@ rule(951)
 txt(38,985,'C. Trace-dependent features: candidates A and B',25,bold=True)
 txt(38,1023,'Selected fields only; both candidates use the same 25-field schema.',21,MUTED)
 txt(58,1067,'Candidate',21,bold=True)
-contrast_headers=['Trace member','Reciprocal rank','Combined E',
-                  r'$P E_x$',r'$C_{mean}E_x$',r'$C_{att}E_x$']
+contrast_headers=['Trace member','Reciprocal rank','Combined trace\nscore $E_x$',
+                  r'$P E_x$',r'$C_{mean}E_x$',r'$C_{\mathrm{attn}}E_x$']
 for k,name in enumerate(contrast_headers):
     txt(445+k*220,1067,name,21,bold=True,ha='center')
 rule(1092)
@@ -112,7 +113,7 @@ for j,row in enumerate(rows[:2]):
         txt(x+105,y+24,value,23,ha='center')
 rule(1218)
 txt(38,1252,r'For candidate B: $E_x=1+0.20=1.20$ and $P E_x=0.28\times1.20=0.336$.',22)
-txt(38,1286,'Combined E is a feature value, not an exposure probability.',20,MUTED)
+txt(38,1286,r'Combined trace score $E_x$ is a feature value, not an exposure probability.',20,MUTED)
 txt(38,1320,'Colors identify source blocks, not magnitude or importance. Values are illustrative and rounded.',20,MUTED)
 for ext in ['pdf','svg','png']:
     fig.savefig(OUT/('candidate_record_example.'+ext),dpi=170,facecolor='white')

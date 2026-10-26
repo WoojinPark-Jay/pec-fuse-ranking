@@ -160,9 +160,9 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
       <div className="dm-groups">{groups.map(g=><section key={g.key} className={`is-${g.key}`}><header><b>{groupTitle(g.key,lang)}</b><span>{g.fields.length}D</span></header><div>{g.fields.map(([id,name,value])=><p key={name}><small>{String(id).padStart(2,"0")}</small><code>{name}</code><strong>{fmt(Number(value))}</strong></p>)}</div></section>)}</div>
       <div className="dm-row-total"><span>1 + 3 + 4 + 11 + 6</span><b>{isKo?`= 후보 ${candidate.id}의 특성 25개`:`= 25 fields for candidate ${candidate.id}`}</b><small>{isKo?"특성의 순서와 의미는 모든 후보에서 같고, 값만 후보마다 달라집니다.":"The schema is shared; values differ by candidate."}</small></div>
     </div>
-    <ControlCalculations key={`${scenarioId}-${candidate.id}`} lang={lang} scenarioId={scenarioId} candidateId={candidate.id} reference={groups[3].fields} />
+    <details className="tutorial-disclosure reader-calculator"><summary>{isKo ? "심화: 통제 특성 11개 직접 계산하기" : "Go deeper: calculate the 11 control features"}</summary><ControlCalculations key={`${scenarioId}-${candidate.id}`} lang={lang} scenarioId={scenarioId} candidateId={candidate.id} reference={groups[3].fields} /></details>
     <aside className="dm-takeaway"><b>{isKo?"핵심":"Key point"}</b><p>{isKo?"사용자 한 명을 숫자 25개로 요약하는 것이 아닙니다. 사용자–날짜 질의마다 여러 후보가 생기고, 후보마다 별도의 25차원 행을 만듭니다. 모델은 각 행에 점수를 낸 뒤 같은 질의 안에서만 정렬합니다.":"A user does not become one 25-number vector. Each user-date query has several candidates; every candidate becomes a separate 25-D row, is scored, and is ranked only within that query."}</p></aside>
-    <section className="dm-final-demo" id="final-demo">
+    <details className="tutorial-disclosure reader-ranking-detail"><summary>{isKo ? "심화: 입력 행에서 최종 순위까지" : "Go deeper: from the input row to the final ranking"}</summary><section className="dm-final-demo" id="final-demo">
       <header><div><span>END-TO-END SCENARIO DEMO</span><h3>{isKo?"후보별 입력값이 최종 기사 순위가 되는 과정":"How candidate inputs become one ranked list"}</h3><p>{isKo?"위에서 선택한 사용자, 질의, 후보를 그대로 사용합니다. 입력 구성을 바꾸면 후보 행의 너비 d가 달라지지만, 후보마다 행 하나와 모델 점수 하나가 생기는 구조는 같습니다.":"This reuses the selected user, query, and candidate above. Changing the input configuration changes width d; every candidate still has one row and one score."}</p></div><nav aria-label={isKo?"입력 구성 선택":"Choose an input configuration"}>{(["control","direct","complete"] as DemoMode[]).map(mode=><button key={mode} type="button" aria-pressed={demoMode===mode} onClick={()=>setDemoMode(mode)}>{mode==="control"?"Control 11-D":mode==="direct"?"Direct 19-D":"Complete 25-D"}</button>)}</nav></header>
       <div className="dm-e2e">
         <div className="dm-e2e-step"><span>{isKo?"1 · 사용자–날짜":"1 · USER–DATE"}</span><b>{scenario.user}</b><strong>{scenario.date}</strong><p>{isKo?`프로필 1개 · 이전 클릭 ${scenario.history.length}개 · 보존 추천 ${scenario.trace.length}개`:`one profile · ${scenario.history.length} prior clicks · ${scenario.trace.length} trace items`}</p></div>
@@ -210,6 +210,6 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
         <div><span>{isKo?"모든 후보 행":"All candidate rows"}</span><b>X<sub>q</sub>=[x<sub>q,1</sub>; … ; x<sub>q,N</sub>]</b></div><i>f<sub>θ</sub> row by row →</i><div><span>{isKo?"후보별 score vector":"One score per candidate"}</span><b>s<sub>q</sub>=[s<sub>q,1</sub>, … , s<sub>q,N</sub>]</b></div><i>argsort ↓ →</i><div><span>{isKo?"최종 순위":"Final ranking"}</span><b>π<sub>q</sub>=argsort(s<sub>q</sub>)</b></div>
       </div>
       <p className="dm-output-note">{isKo?"이 값은 후보별 class-1 출력 형태의 순위 점수입니다. 보정된 CTR도, 사용자 전체를 요약한 값도 아닙니다. 서로 다른 질의의 점수 크기를 직접 비교하지 않고 같은 질의 안에서만 정렬합니다.":"The score is a candidate-level, class-1-probability-shaped ranking value, not calibrated CTR or one summary value for the user. Scores are ordered within the same query, not compared across queries."}</p>
-    </section>
+    </section></details>
   </section>;
 }

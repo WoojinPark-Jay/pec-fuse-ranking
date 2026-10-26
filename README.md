@@ -4,7 +4,7 @@ Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusio
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v90.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v91.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
 > [!TIP]
 > **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
@@ -12,7 +12,7 @@ PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), 
 
 **Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
-**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v90**; this GitHub repository is the canonical source for the same code and aggregate records.
+**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v91**; this GitHub repository is the canonical source for the same code and aggregate records.
 
 ## Interactive tutorial: start here
 
@@ -93,7 +93,7 @@ This checks release-file SHA-256 hashes, feature order, and selected aggregate a
 
 ## Results and paper mapping
 
-This release is aligned with manuscript revision **v90**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue, but the two tested restricted trace-only scores do not reproduce headline performance. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+This release is aligned with manuscript revision **v91**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), so trace membership is an exploitable pool cue, but the two tested restricted trace-only scores do not reproduce headline performance. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |
@@ -170,6 +170,6 @@ For questions or reproducibility issues, use the repository's Issues tab and inc
 
 `RELEASE_INFO.json` identifies the current manuscript and artifact revisions. The software version (0.2.0), historical experiment dates, checkpoint identifiers, and provenance source hashes are separate identifiers; they are not rewritten to match the manuscript number. `access/RUNNER_PROVENANCE.json` distinguishes the containing release from the first packaging of runner metadata.
 
-After regenerating Figure 1 or the protocol figure, run `python access/tools/clean_unused_pdf_fonts.py input.pdf output.pdf` with pypdf installed. This removes only non-embedded font resources that never paint text, and refuses to remove a font used by a text-show operator. The published v90 figures have passed this cleanup and before/after raster comparison.
+After regenerating Figure 1 or the protocol figure, run `python access/tools/clean_unused_pdf_fonts.py input.pdf output.pdf` with pypdf installed. This removes only non-embedded font resources that never paint text, and refuses to remove a font used by a text-show operator. The published v91 figures have passed this cleanup and before/after raster comparison.
 
 Run `python scripts/check_release_integrity.py` to check manifest hashes, release-version fields, active manuscript links, and the historical-file allowlist. Historical SVG/generator filenames retain their original revision identifiers intentionally.

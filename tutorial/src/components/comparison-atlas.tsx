@@ -229,7 +229,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
   const comparisons = lang === "ko" ? koComparisons : enComparisons;
   const [activeId, setActiveId] = useState(() => {
     const requested = new URLSearchParams(window.location.search).get("comparison");
-    return comparisons.some(item => item.id === requested) ? requested! : "early";
+    return comparisons.some(item => item.id === requested) ? requested! : comparisons[0].id;
   });
   const active = comparisons.find((item) => item.id === activeId) ?? comparisons[0];
   const left = models.find((model) => model.id === active.left) ?? models[0];
@@ -237,7 +237,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
   const groups = Array.from(new Set(comparisons.map((item) => item.group)));
   const isKo = lang === "ko";
 
-  return <main className="comparison-atlas" lang={lang}>
+  return <div className="comparison-atlas" lang={lang}>
     <header className="ca-topbar">
       <a href="/notes/pec-fuse">PEC-FUSE / RESEARCH NOTES</a>
       <nav aria-label={isKo ? "페이지와 언어" : "Page and language"}>
@@ -371,11 +371,12 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       </section>
 
       <section className="ca-section ca-atlas-section" id="atlas">
-        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "왼쪽에서 비교 질문을 고른 뒤, 오른쪽을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a comparison question on the left, then read the right panel from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
-        <ComparisonReadingGuide lang={lang} />
+        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "비교 목록이나 선택 메뉴에서 질문을 고른 뒤, 내용을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a question from the comparison list or selection menu, then read from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
+        <details className="tutorial-disclosure reader-comparison-guide"><summary>{isKo ? "비교를 읽는 방법" : "How to read these comparisons"}</summary><ComparisonReadingGuide lang={lang} /></details>
+        <label className="reader-comparison-select">{isKo ? "비교 선택" : "Choose a comparison"}<select value={active.id} onChange={event => setActiveId(event.target.value)}>{comparisons.map(item => <option key={item.id} value={item.id}>{item.number} · {item.title}</option>)}</select></label>
         <div className="ca-atlas-layout">
           <aside className="ca-selector" aria-label={isKo ? "비교 목록" : "Comparison list"}>
-            {groups.map((group) => <div key={group}><h3>{group}</h3>{comparisons.filter((item) => item.group === group).map((item) => <button type="button" key={item.id} className={item.id === active.id ? "is-active" : ""} onClick={() => setActiveId(item.id)}><span>{item.number}</span><b>{item.title}</b><small>{item.short}</small></button>)}</div>)}
+            {groups.map((group) => <div key={group}><h3>{group}</h3>{comparisons.filter((item) => item.group === group).map((item) => <button type="button" key={item.id} aria-pressed={item.id === active.id} className={item.id === active.id ? "is-active" : ""} onClick={() => setActiveId(item.id)}><span>{item.number}</span><b>{item.title}</b><small>{item.short}</small></button>)}</div>)}
           </aside>
           <div className="ca-comparison-stage" aria-live="polite">
             <header><span>{active.number} · {active.group}</span><h3>{active.title}</h3><p>{active.short}</p></header>
@@ -401,16 +402,16 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
                 <details className="tutorial-disclosure" key={active.id}><summary>{isKo ? "두 모델의 전체 입력 행 펼치기" : "Expand the complete input rows for both models"}</summary><ComparisonDataPreview lang={lang} comparisonId={active.id} leftId={left.id} leftName={left.name} rightId={right.id} rightName={right.name} /></details>
               </div>
               }
-              <div className="ca-flow-step is-protocol">
+              <details className="ca-flow-step is-protocol tutorial-disclosure"><summary>{isKo ? "실험 조건과 해석 범위" : "Study design and interpretation"}</summary>
                 <div className="ca-flow-label"><b>04</b><div><span>{isKo ? "마지막으로 비교 조건을 점검하세요" : "Finally, verify the comparison design"}</span><p>{isKo ? "무엇을 같게 두고 무엇만 바꿨는지 확인한 뒤 결과의 해석 범위를 정합니다." : "Confirm what stayed fixed and what changed before interpreting the result."}</p></div></div>
                 <ComparisonProtocol lang={lang} item={active} />
-              </div>
+              </details>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="ca-section" id="decision">
+      <details className="ca-section tutorial-disclosure" id="decision"><summary>{isKo ? "질문으로 실험 찾기" : "Find an experiment by question"}</summary>
         <div className="ca-heading"><span>06 / READING PATH</span><h2>{isKo ? "궁금한 질문에 맞는 실험 찾기" : "Find the experiment that answers your question"}</h2></div>
         <div className="ca-decision-grid">
           {(isKo ? [
@@ -431,9 +432,9 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
             ["Is it specific to tree models?", "07 · neural audit"],
             ["Is it one lucky candidate draw?", "08 · candidate reselection"],
             ["Does the same pattern always hold publicly?", "09 · MIND boundary"],
-          ]).map(([question, answer]) => <button key={question} type="button" onClick={() => { const number = answer.slice(0, 2); const target = comparisons.find((item) => item.number === number); if (target) setActiveId(target.id); document.getElementById("atlas")?.scrollIntoView({ behavior: "smooth" }); }}><span>{question}</span><b>{answer}</b></button>)}
+          ]).map(([question, answer]) => <button key={question} type="button" onClick={() => { const number = answer.slice(0, 2); const target = comparisons.find((item) => item.number === number); if (target) setActiveId(target.id); window.location.hash = "atlas"; document.getElementById("atlas")?.scrollIntoView({ behavior: "smooth" }); }}><span>{question}</span><b>{answer}</b></button>)}
         </div>
-      </section>
+      </details>
 
       <footer className="ca-footer">
         <p>{isKo ? "이 페이지의 수치는 현재 PEC-Fuse IEEE Access 원고의 보고값을 읽기 위한 지도입니다. 예시 후보 값은 설명용 합성값입니다." : "Reported effects follow the current PEC-Fuse IEEE Access manuscript; candidate-level values on this page are synthetic teaching examples."}</p>
@@ -446,5 +447,5 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         </div></details>
       </footer>
     </article>
-  </main>;
+  </div>;
 }
