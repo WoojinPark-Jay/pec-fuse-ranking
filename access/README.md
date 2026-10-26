@@ -1,6 +1,6 @@
 # IEEE Access aggregate release
 
-This directory accompanies IEEE Access manuscript revision v87 and is the active aggregate release for PEC-Fuse. Tables, aggregate records, and protocol files follow the current manuscript presentation.
+This directory accompanies IEEE Access manuscript revision v88 and is the active aggregate release for PEC-Fuse. Tables, aggregate records, and protocol files follow the current manuscript presentation.
 
 ## Contents and paper mapping
 
@@ -36,3 +36,9 @@ Run `python scripts/check_access_aggregates.py` from the repository root to chec
 ## Reproduction boundary
 
 This release contains aggregate records, configurations, public feature/evaluation code, generated table and figure code, and synthetic examples. It excludes private source rows, article text, embeddings, user/query-level predictions, credentials, and fitted private models. Recomputing private-platform intervals or retraining private experiments requires authorized private inputs. All distributed files are covered by the root `RELEASE_MANIFEST.json` SHA-256 inventory.
+
+## Execution provenance for the private diagnostics
+
+The trace-only diagnostic includes the recovered executed source in `tools/e_only_same_day_archived.py`. Its recorded output matches the archived cohort, coefficients, and all five aggregate metric rows. `data/package_evidence_provenance.json` records the original fit partition, classifier settings, SHA-256 tie procedure, and matching input fingerprint. The archived script requires the authorized private feature frame; it is separate from the public synthetic quick start.
+
+`data/scalar_oof_protocol.json` links the scalar-fusion procedure to the recovered launch and completion records and the matching pre-launch `run_core.py` source. Dated package observations are listed separately from execution-source evidence; they are not presented as per-process dependency lockfiles. This documentation update does not change experimental results or rerun models.

@@ -1,9 +1,9 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "protocol_id": "private_scalar_early_fusion_oof",
   "prepared_on": "2026-10-26",
   "review_item": "P03",
-  "documentation_status": "Reconstructed from inspected local implementation and archived corrected-run records; not a newly executed experiment.",
+  "documentation_status": "Documented from implementation snapshots, the recovered corrected-core launch command and completed execution output, selected configurations, and dated runtime observations; reported results are unchanged.",
   "scope": {
     "variants": [
       "learned_early_fusion",
@@ -151,7 +151,7 @@
       "validation_fraction": 0.15,
       "random_state": 42
     },
-    "unspecified_parameters": "Historical installed scikit-learn defaults; exact runtime version was not established from inspected records."
+    "unspecified_parameters": "Parameters not overridden by the archived constructors use scikit-learn estimator defaults. Dated observations of scikit-learn 1.5.2 are recorded under runtime_evidence; explicit settings and selected configurations are listed here."
   },
   "downstream": {
     "estimator": "sklearn.ensemble.ExtraTreesClassifier",
@@ -343,22 +343,59 @@
       "headline_replication_exact": true,
       "supplementary_and_artifact_sync_complete": false
     },
-    "interpretation": "protocol.json retains status running; the separate core_complete.json records completed. Both are historical evidence, not a new execution certification."
+    "interpretation": "The initial protocol and the separate completion record document the run lifecycle; the recovered console output also reports CORE COMPLETE."
   },
-  "historical_runtime_versions": {
-    "python": null,
-    "numpy": null,
-    "pandas": null,
-    "scikit_learn": null
-  },
-  "coverage_limits": [
-    {
-      "id": "SCALAR_RUNTIME_VERSIONS",
-      "detail": "Exact historical Python, numpy, pandas, and scikit-learn versions were not established from the inspected corrected-core protocol/completion records. They remain unspecified; no MIND runtime versions are borrowed."
+  "execution_evidence": {
+    "launch_timestamp_utc": "2026-09-10T08:37:14.124Z",
+    "interpreter": "Anaconda Python, invoked by absolute executable path",
+    "entry_point_relative_to_research_project": "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/run_core.py",
+    "environment_variables": {
+      "PYTHONPATH": "research project root",
+      "PEC_FUSE_SOURCE_DATA_DIR": "authorized private processed-data directory"
     },
-    {
-      "id": "SOURCE_SNAPSHOT_VS_EXECUTED_HASH",
-      "detail": "Source hashes identify the local implementations inspected for this correction, not cryptographically attested historical executed versions. No experiment was rerun."
-    }
-  ]
+    "completion_observed_at_utc": "2026-09-10T08:52:45.415Z",
+    "completion_message": "17:52:30 CORE COMPLETE; all signs retained; manuscript unchanged",
+    "creation_record_timestamp_utc": "2026-09-10T08:36:33.334Z",
+    "creation_record_source_sha256": "778d42b95eb9bdbd24406bc4bdaaf7c4d76d3d7e58a250c8b0854adde3b2a782",
+    "creation_record_bytes_equal_archived_run_core": true,
+    "source_comparison_scope": "The byte comparison covers run_core.py as created immediately before launch; imported modules are separately identified by the source_snapshots list."
+  },
+  "runtime_evidence": {
+    "evidence_type": "Dated interpreter/package observations from archived command outputs.",
+    "runtime_identifier": "Anaconda Python installation used by the corrected-core launch command; the same executable was resolved by the E-only-day shell check.",
+    "observations": [
+      {
+        "observed_at_utc": "2026-08-28T09:33:10.777Z",
+        "packages": {
+          "numpy": "1.26.4"
+        },
+        "basis": "Explicit sys.executable and numpy.__version__ output."
+      },
+      {
+        "observed_at_utc": "2026-09-09T13:13:36.340Z",
+        "packages": {
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Version query through the Anaconda interpreter, one day before the corrected-core run."
+      },
+      {
+        "observed_at_utc": "2026-09-20T13:50:20.594Z",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "2.2.3",
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Interpreter path and three package versions printed in the same command output."
+      },
+      {
+        "observed_at_utc": "2026-10-11T15:41:35.567Z",
+        "packages": {
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Shell-resolved python path and scikit-learn version, on the E-only execution date."
+      }
+    ],
+    "interpretation": "The observations identify the scientific runtime at the stated dates and corroborate the recorded execution commands. They are dated environment observations, not a dependency lockfile captured inside each training process; the exact historical Python build is not pinned by these outputs."
+  },
+  "source_hash_semantics": "Source-snapshot hashes identify the documented implementations. The execution_evidence section additionally links the archived run_core.py bytes to its pre-launch creation record."
 }

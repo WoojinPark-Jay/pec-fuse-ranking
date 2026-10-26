@@ -1,10 +1,10 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "prepared_on": "2026-10-26",
-  "purpose": "Public aggregate provenance and source-derived procedural metadata for final-review corrections P02 and P03.",
+  "purpose": "Trace-only and scalar-fusion diagnostics: original aggregate results, recovered execution procedures, and dated environment observations.",
   "release_scope": "Aggregate records and documentation only; no private inputs, individual predictions, model weights, or new experiment execution.",
   "source_path_basis": "Paths identify archived sources relative to the research project, not runnable paths promised inside the public package.",
-  "source_hash_semantics": "observed_source_sha256 identifies inspected snapshots, not attested historical execution bytes.",
+  "source_hash_semantics": "Snapshot hashes identify inspected source files. Recovered execution-source records and their byte comparisons are identified explicitly in the relevant diagnostic sections.",
   "e_only_same_day": {
     "review_item": "P02",
     "released_file": "e_only_same_day_metrics.csv",
@@ -36,7 +36,9 @@
       "time_window": "May-June test pool as described by the manuscript",
       "private_source_cache": "reports/experiments/same_day_loo_popularity_2026_09_10/PRIVATE_feature_frame.pkl",
       "private_source_cache_sha256_recorded_in_archive": "0216764c3c399c91aca6501960e6ad911ab5da621ac610247b61db29a22a62b4",
-      "private_cache_independently_rehashed": false
+      "private_cache_independently_rehashed": true,
+      "private_cache_rehash_date": "2026-10-26",
+      "private_cache_rehash_matches_archive": true
     },
     "membership_census": [
       {
@@ -80,20 +82,79 @@
       "same_day_recommended": -2.5796648351457634,
       "reciprocal_rank": 1.4382434881090402
     },
-    "manuscript_declared_procedure": {
+    "interpretation": "The two tested restricted trace-only scores do not reproduce headline performance; this does not exclude every possible E-only scorer. Extra archived CSV diagnostics are retained as provenance, not new experiments.",
+    "manuscript_procedure_alignment": {
       "source": "Reviewed v86 appendices/c_results.tex:13",
       "training": "Class-balanced logistic model fitted on January-April rows.",
       "nontrace_first": "Trace-absent candidates rank before trace members.",
       "tie_breaking": "Fixed label-independent hash of query and article identifiers; private-data diagnostic only, not the MIND tie procedure.",
-      "verification_limit": "The original CSV/summary do not independently specify generating code, exact tie-hash algorithm/seed, logistic hyperparameters, or runtime versions."
+      "corroboration": "The recovered executed command confirms class-balanced fitting, the date partition, and the exact label-independent SHA-256 tie procedure."
     },
-    "interpretation": "The two tested restricted trace-only scores do not reproduce headline performance; this does not exclude every possible E-only scorer. Extra archived CSV diagnostics are retained as provenance, not new experiments."
+    "recovered_execution": {
+      "started_at_utc": "2026-10-11T07:43:58.353Z",
+      "output_recorded_at_utc": "2026-10-11T07:44:01.154Z",
+      "released_source_relative_to_bundle": "tools/e_only_same_day_archived.py",
+      "executed_python_body_sha256": "c79f64e68f5ea065bd4bd8677609ba302b8ab3362de5dd71135b915fb99b1833",
+      "source_copy_policy": "Exact Python heredoc body recovered from the archived successful execution command, with its trailing newline preserved. The file is an archived research-root script, not a synthetic-data quick-start entry point.",
+      "input_requirement": "A trusted, authorized private feature-frame pickle at the original research-relative path; no private frame is distributed.",
+      "output_correspondence": {
+        "complete_execution_summary_equals_archived_summary": true,
+        "comparison_includes": [
+          "cohort and field mapping",
+          "all five metric rows",
+          "three logistic coefficients",
+          "candidate-source and membership counts",
+          "private input fingerprint"
+        ]
+      },
+      "temporal_partition": {
+        "actual_branch": "date (no split column in the executed input)",
+        "fit": "date <= 2026-04-30",
+        "test": "date > 2026-04-30",
+        "fit_rows": 37728,
+        "test_rows": 21207
+      },
+      "inputs_in_order": [
+        "same_day_recommended",
+        "reciprocal_rank"
+      ],
+      "preprocessing": "Numeric conversion with nonnumeric/missing input values filled with zero; no feature standardization before logistic fitting.",
+      "estimator": "sklearn.linear_model.LogisticRegression",
+      "explicit_constructor_settings": {
+        "class_weight": "balanced",
+        "solver": "liblinear",
+        "random_state": 42,
+        "max_iter": 1000
+      },
+      "reference_defaults": {
+        "scikit_learn_version": "1.5.2",
+        "C": 1.0,
+        "penalty": "l2",
+        "fit_intercept": true,
+        "tol": 0.0001,
+        "basis": "Defaults inspected in scikit-learn 1.5.2 on 2026-10-26; the archived command leaves these parameters implicit. Historical version observations are separately dated under runtime_evidence."
+      },
+      "score": "predict_proba(X_test)[:, 1]",
+      "tie_breaking": {
+        "serialized_key": "f'{query_id}|{news_id}'.encode('utf-8')",
+        "digest": "SHA-256",
+        "value": "int.from_bytes(digest[:8], 'big') / 2**64",
+        "score_adjustment": "add tie_value * 1e-12",
+        "ordering": "descending adjusted score, pandas stable mergesort",
+        "remaining_exact_ties": "original input order",
+        "random_hash_seed": null,
+        "label_independent": true,
+        "distinction": "This is the trace-only diagnostic procedure, not the integer-mixing tie rule used by other private ranking runners."
+      },
+      "evaluation": "Within-query ranking; NDCG@10, Recall@10, and reciprocal rank of the first positive, averaged over queries with at least one positive.",
+      "new_model_execution_performed": false
+    }
   },
   "scalar_oof": {
     "review_item": "P03",
     "released_file": "scalar_oof_protocol.json",
-    "released_sha256": "fba4a06c1542780cd284e6ff35eeac8f4f43cea2153f68101414546825bd33bc",
-    "documentation_basis": "Inspected scalar/no-E implementations, corrected run_core.py call sites, selected aggregate configurations, and archived protocol/completion records.",
+    "released_sha256": "467632cb40f3c3be9aba2f0022963983ad25976d97e42b5b02b4d1cebea9affe",
+    "documentation_basis": "Source snapshots, recovered launch and completion records, verified pre-launch run_core.py bytes, selected aggregate configurations, and dated runtime observations.",
     "source_snapshots": [
       {
         "path_relative_to_research_project": "scripts/run_learned_early_fusion_baseline.py",
@@ -142,20 +203,44 @@
         "role": "Archived completion record"
       }
     ],
-    "not_an_execution_log": true
+    "execution_evidence_location": "scalar_oof_protocol.json: execution_evidence"
   },
-  "unconfirmed_details": [
-    {
-      "id": "E_ONLY_EXECUTION_DETAIL",
-      "detail": "The archived E-only CSV and summary do not identify the generating implementation, exact tie-hash algorithm/seed, logistic solver/regularization, or runtime dependency versions. January-April class-balanced fitting and label-independent query/article-hash tie breaking are manuscript declarations, not independently recovered execution settings."
-    },
-    {
-      "id": "SCALAR_RUNTIME_VERSIONS",
-      "detail": "Exact historical Python, numpy, pandas, and scikit-learn versions were not established from the inspected corrected-core protocol/completion records. They remain unspecified; no MIND runtime versions are borrowed."
-    },
-    {
-      "id": "SOURCE_SNAPSHOT_VS_EXECUTED_HASH",
-      "detail": "Source hashes identify the local implementations inspected for this correction, not cryptographically attested historical executed versions. No experiment was rerun."
-    }
-  ]
+  "runtime_evidence": {
+    "evidence_type": "Dated interpreter/package observations from archived command outputs.",
+    "runtime_identifier": "Anaconda Python installation used by the corrected-core launch command; the same executable was resolved by the E-only-day shell check.",
+    "observations": [
+      {
+        "observed_at_utc": "2026-08-28T09:33:10.777Z",
+        "packages": {
+          "numpy": "1.26.4"
+        },
+        "basis": "Explicit sys.executable and numpy.__version__ output."
+      },
+      {
+        "observed_at_utc": "2026-09-09T13:13:36.340Z",
+        "packages": {
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Version query through the Anaconda interpreter, one day before the corrected-core run."
+      },
+      {
+        "observed_at_utc": "2026-09-20T13:50:20.594Z",
+        "packages": {
+          "numpy": "1.26.4",
+          "pandas": "2.2.3",
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Interpreter path and three package versions printed in the same command output."
+      },
+      {
+        "observed_at_utc": "2026-10-11T15:41:35.567Z",
+        "packages": {
+          "scikit_learn": "1.5.2"
+        },
+        "basis": "Shell-resolved python path and scikit-learn version, on the E-only execution date."
+      }
+    ],
+    "interpretation": "The observations identify the scientific runtime at the stated dates and corroborate the recorded execution commands. They are dated environment observations, not a dependency lockfile captured inside each training process; the exact historical Python build is not pinned by these outputs."
+  },
+  "release_interpretation": "The recorded procedures, aggregate outputs, and source checks support the documented private-data diagnostics. Historical runtime observations retain their dates and are kept distinct from source-byte comparisons. No metrics, confidence intervals, or manuscript conclusions were changed by this documentation update."
 }
