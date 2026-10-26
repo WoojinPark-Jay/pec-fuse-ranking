@@ -75,7 +75,7 @@ for j,(key,label,fields) in enumerate(groups):
     txt(106,y+20,label,22,bold=True)
     txt(106,y+49,f'{len(fields)} field'+('s' if len(fields)!=1 else ''),20,MUTED)
     for k,(name,value) in enumerate(fields):
-        x=340+k*120
+        x=370+k*117
         box(x,y,112,64,fill,BORDER)
         txt(x+56,y+18,name,16.8,INK,ha='center')
         txt(x+56,y+46,value,23,INK,False,ha='center')
