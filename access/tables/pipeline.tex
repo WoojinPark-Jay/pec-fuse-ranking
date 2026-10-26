@@ -8,11 +8,11 @@
 \Ensure Ranked lists $\{\pi_q\}$ and query-level evaluation metrics $\{m_q\}$
 \For{each $q=(u,t)\in\mathcal Q$}
   \State $Y_q\gets$ articles clicked by $u$ on $t$; $R_q\gets$ retained items with valid ranks for $(u,t)$
-  \State $R_q^-\gets$ sample up to 24 items from $R_q\setminus Y_q$
+  \State $R_q^-\gets$ seeded sample without replacement of up to 24 items from $R_q\setminus Y_q$ \Comment{Pool seed 42}
   \State $K_q\gets$ articles in window $[t-3,t]$ if $g=\mathrm{recent}$, otherwise $[t,t]$
-  \State $b_q\gets\min(24,\max(4,4|Y_q|))$; $K_q\gets K_q\setminus(Y_q\cup R_q)$
-  \State $N_q\gets\operatorname{Select}_g(K_q,b_q;v)$ \Comment{Random sampling or frozen-popularity/file-order selection}
-  \State $\mathcal A_q\gets\operatorname{unique}(Y_q\cup R_q^-\cup N_q)$
+  \State $b_q\gets\min(24,\max(4,4|Y_q|))$; $K_q\gets K_q\setminus(Y_q\cup R_q)$ \Comment{Eligible introduced articles}
+  \State $N_q\gets\operatorname{Select}_g(K_q,b_q;v)$ \Comment{Selected introduced candidates}
+  \State $\mathcal A_q\gets\operatorname{unique}(Y_q\cup R_q^-\cup N_q)$ \Comment{Final candidate pool}
   \State $H_q^{\mathrm{count}}\gets$ all eligible clicks by $u$ strictly before $t$; $H_q^{\mathrm{sem}}\gets$ their latest 50 events
   \For{each candidate $i\in\mathcal A_q$}
     \State Construct $P_{u,i},\mathbf E_{q,i},\mathbf C_{q,i},\mathbf z_{q,i}$ from the corresponding sources
@@ -24,5 +24,5 @@
 \State \Return $\{\pi_q,m_q:q\in\mathcal Q\}$
 \end{algorithmic}
 \vspace{2pt}
-\footnotesize $\operatorname{Select}_g$ samples without replacement in recent-window; same-day sorts by $v$ and breaks ties by source-file order. Budgets are capped by available items. Positives define this retrospective evaluation pool, not a prospective retrieval procedure. User-cluster uncertainty is computed from the returned query metrics.
+\footnotesize Here, $b_q$ is the introduced-candidate budget, and $|Y_q|=n_q^+$ is the number of observed positive articles for query $q$. $\operatorname{Select}_g$ samples without replacement in recent-window; same-day sorts by $v$ and breaks ties by source-file order. Budgets are capped by available items. Positives define this retrospective evaluation pool, not a prospective retrieval procedure. User-cluster uncertainty is computed from the returned query metrics.
 \end{algorithm*}

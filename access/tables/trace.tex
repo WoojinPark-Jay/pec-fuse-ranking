@@ -1,19 +1,20 @@
 \begin{table}[!htbp]
+\renewcommand{\arraystretch}{1.10}
 \caption{Trace checks (NDCG@10 differences). The first contrast is PEC versus control after filtering; the second compares independently selected E-free models; the third compares full PEC with no-E PEC on identical rows.}
 \label{tab:trace}
 \centering
 \small
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lll@{}}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lll@{}}
 \toprule
 Contrast & Regime & $\Delta$ [95\% CI] \\
 \midrule
-$E=0$ slice & Recent & +0.0660 [0.0517,0.0792] \\
-$E=0$ slice & Same-day & +0.0222 [0.0066,0.0373] \\
-No-E/control & Recent & +0.0655 [0.0474,0.0826] \\
-No-E/control & Same-day & +0.0874 [0.0694,0.1058] \\
-Full/no-E PEC & Recent & +0.1085 [0.0900,0.1260] \\
-Full/no-E PEC & Same-day & +0.1382 [0.1133,0.1638] \\
+$E=0$ slice & Recent & +0.0660 [0.0517, 0.0792] \\
+$E=0$ slice & Same-day & +0.0222 [0.0066, 0.0373] \\
+No-E/control & Recent & +0.0655 [0.0474, 0.0826] \\
+No-E/control & Same-day & +0.0874 [0.0694, 0.1058] \\
+Full/no-E PEC & Recent & +0.1085 [0.0900, 0.1260] \\
+Full/no-E PEC & Same-day & +0.1382 [0.1133, 0.1638] \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

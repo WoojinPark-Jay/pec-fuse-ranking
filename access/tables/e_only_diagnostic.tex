@@ -1,0 +1,27 @@
+\end{multicols}
+\begin{appendixtable}
+\renewcommand{\arraystretch}{1.16}
+\centering
+\caption{Trace-only diagnostic on the same-day test pool. Positive rates are row-level. The two restricted scores use no profile, consumption, metadata, or semantic inputs. Headline model values are included only to show scale on the identical 1,040-query test condition.}
+\label{tab:e_only_diagnostic}
+\small
+\setlength{\tabcolsep}{8pt}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrr@{}}
+\toprule
+\multicolumn{4}{l}{\textit{A. Label distribution by retained-trace membership}} \\
+Trace status & Candidate rows & Positive rows & Positive rate \\
+\midrule
+$E_m=0$ (trace-absent) & 13,455 & 3,179 & 23.63\% \\
+$E_m=1$ (trace member) & 7,752 & 104 & 1.34\% \\
+\midrule
+\multicolumn{4}{l}{\textit{B. Ranking performance on the same candidate rows}} \\
+Score or model & Inputs & Queries & NDCG@10 \\
+\midrule
+Non-trace-first rule & $E_m$ & 1,040 & 0.5000 \\
+E-only logistic & $E_m,E_r$ & 1,040 & 0.5007 \\
+Operational control & 11 operational fields & 1,040 & 0.7499 \\
+Complete PEC & 25-field record & 1,040 & 0.7717 \\
+\bottomrule
+\end{tabular*}
+\end{appendixtable}
+\begin{multicols}{2}

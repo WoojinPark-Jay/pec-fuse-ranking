@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "prepared_on": "2026-10-26",
+  "purpose": "Public aggregate provenance and source-derived procedural metadata for final-review corrections P02 and P03.",
+  "release_scope": "Aggregate records and documentation only; no private inputs, individual predictions, model weights, or new experiment execution.",
+  "source_path_basis": "Paths identify archived sources relative to the research project, not runnable paths promised inside the public package.",
+  "source_hash_semantics": "observed_source_sha256 identifies inspected snapshots, not attested historical execution bytes.",
+  "e_only_same_day": {
+    "review_item": "P02",
+    "released_file": "e_only_same_day_metrics.csv",
+    "released_sha256": "0d8f1e8188bd69a57c2119e1677ac5374ecf07fbc8092784fe1e3d7bbaeb3a0f",
+    "copy_policy": "Original CSV copied unchanged, retaining all five aggregate diagnostic rows.",
+    "sources": [
+      {
+        "path_relative_to_research_project": "reports/internal_audits/e_source_2026_10_11/e_only_same_day_metrics.csv",
+        "observed_source_sha256": "0d8f1e8188bd69a57c2119e1677ac5374ecf07fbc8092784fe1e3d7bbaeb3a0f",
+        "role": "Original aggregate metrics"
+      },
+      {
+        "path_relative_to_research_project": "reports/internal_audits/e_source_2026_10_11/summary.json",
+        "observed_source_sha256": "2d129245e75ea1c74b36da4c5b09615fd3a4d52f30c6b21075b8e0a8891b69fd",
+        "role": "Cohort, field identifiers, coefficients, and private cache fingerprint"
+      },
+      {
+        "path_relative_to_research_project": "reports/internal_audits/e_source_2026_10_11/e_membership_positive_rates.csv",
+        "observed_source_sha256": "d4f9765d15fd2889b4433bc244ba48c901ed83a16166364812c6834dd5cdc193",
+        "role": "Retained-trace membership census"
+      }
+    ],
+    "cohort": {
+      "candidate_regime": "popularity_matched (same-day expansion)",
+      "candidate_rows": 21207,
+      "queries": 1040,
+      "users": 369,
+      "positive_rows": 3283,
+      "time_window": "May-June test pool as described by the manuscript",
+      "private_source_cache": "reports/experiments/same_day_loo_popularity_2026_09_10/PRIVATE_feature_frame.pkl",
+      "private_source_cache_sha256_recorded_in_archive": "0216764c3c399c91aca6501960e6ad911ab5da621ac610247b61db29a22a62b4",
+      "private_cache_independently_rehashed": false
+    },
+    "membership_census": [
+      {
+        "scope": "test",
+        "_E_member_binary": 0,
+        "rows": 13455,
+        "positives": 3179,
+        "positive_rate": 0.23626904496469714
+      },
+      {
+        "scope": "test",
+        "_E_member_binary": 1,
+        "rows": 7752,
+        "positives": 104,
+        "positive_rate": 0.013415892672858616
+      }
+    ],
+    "table_22_model_mapping": [
+      {
+        "csv_model": "nontrace_first",
+        "manuscript_name": "Non-trace-first rule",
+        "inputs": [
+          "same_day_recommended"
+        ],
+        "ndcg10_unrounded": 0.4999898466111817,
+        "ndcg10_display": "0.5000"
+      },
+      {
+        "csv_model": "trained_E_membership_rank_logistic",
+        "manuscript_name": "E-only logistic",
+        "inputs": [
+          "same_day_recommended",
+          "reciprocal_rank"
+        ],
+        "ndcg10_unrounded": 0.5006627097681815,
+        "ndcg10_display": "0.5007"
+      }
+    ],
+    "archived_logistic_coefficients": {
+      "intercept": 0.5894629641180075,
+      "same_day_recommended": -2.5796648351457634,
+      "reciprocal_rank": 1.4382434881090402
+    },
+    "manuscript_declared_procedure": {
+      "source": "Reviewed v86 appendices/c_results.tex:13",
+      "training": "Class-balanced logistic model fitted on January-April rows.",
+      "nontrace_first": "Trace-absent candidates rank before trace members.",
+      "tie_breaking": "Fixed label-independent hash of query and article identifiers; private-data diagnostic only, not the MIND tie procedure.",
+      "verification_limit": "The original CSV/summary do not independently specify generating code, exact tie-hash algorithm/seed, logistic hyperparameters, or runtime versions."
+    },
+    "interpretation": "The two tested restricted trace-only scores do not reproduce headline performance; this does not exclude every possible E-only scorer. Extra archived CSV diagnostics are retained as provenance, not new experiments."
+  },
+  "scalar_oof": {
+    "review_item": "P03",
+    "released_file": "scalar_oof_protocol.json",
+    "released_sha256": "fba4a06c1542780cd284e6ff35eeac8f4f43cea2153f68101414546825bd33bc",
+    "documentation_basis": "Inspected scalar/no-E implementations, corrected run_core.py call sites, selected aggregate configurations, and archived protocol/completion records.",
+    "source_snapshots": [
+      {
+        "path_relative_to_research_project": "scripts/run_learned_early_fusion_baseline.py",
+        "observed_source_sha256": "72a9b5016ca405afbbcf2e62e893aa36c27ef673d34cc8b3c654ddacc0accef3",
+        "role": "Scalar fuser, OOF assembly, and ordinary downstream grid",
+        "lines": "46-140;143-150"
+      },
+      {
+        "path_relative_to_research_project": "scripts/run_no_exposure_early_fusion_baseline.py",
+        "observed_source_sha256": "55ae7ee89299235ea245677ef8b5e240724b9f9612240c32759b97b87a8a1218",
+        "role": "No-E field filter, fuser, and OOF assembly",
+        "lines": "40-57;60-67;90-155"
+      },
+      {
+        "path_relative_to_research_project": "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/run_core.py",
+        "observed_source_sha256": "778d42b95eb9bdbd24406bc4bdaaf7c4d76d3d7e58a250c8b0854adde3b2a782",
+        "role": "Corrected-cutoff selection/refit execution",
+        "lines": "66-76;203-222;249-264"
+      },
+      {
+        "path_relative_to_research_project": "scripts/run_submission_diagnostics.py",
+        "observed_source_sha256": "7a8b00c898fcb9e8bfa614c209823a0972bf7fdbebdd1ca595cec8a7bb14b62a",
+        "role": "Corrected-run ExtraTrees implementation",
+        "lines": "28-31;42-54"
+      },
+      {
+        "path_relative_to_research_project": "scripts/run_advanced_model_experiments.py",
+        "observed_source_sha256": "61878641cfc52842acc13bcef508ba81c8b161053c123b1f1b13acc94310a590",
+        "role": "Downstream training-partition standardization",
+        "lines": "68-73"
+      },
+      {
+        "path_relative_to_research_project": "scripts/run_bge_m3_tuned_ranker_experiments.py",
+        "observed_source_sha256": "81a0723850fbf8e60c8b2474d45390b4e9da9624261ec968827736b767f9b27c",
+        "role": "Ordered control inputs",
+        "lines": "30-42"
+      },
+      {
+        "path_relative_to_research_project": "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/protocol.json",
+        "observed_source_sha256": "16c3d338de4215e0f582b0c083c0d5a811ad7e978424f2a1134c39fd6c77f2fe",
+        "role": "Archived corrected-core protocol"
+      },
+      {
+        "path_relative_to_research_project": "reports/experiments/cutoff_corrected_diagnostics_2026_09_10/core_complete.json",
+        "observed_source_sha256": "680bc88ed48aab0270ac9e39f1e742f84feeda196aac704b47e495d81006bcb2",
+        "role": "Archived completion record"
+      }
+    ],
+    "not_an_execution_log": true
+  },
+  "unconfirmed_details": [
+    {
+      "id": "E_ONLY_EXECUTION_DETAIL",
+      "detail": "The archived E-only CSV and summary do not identify the generating implementation, exact tie-hash algorithm/seed, logistic solver/regularization, or runtime dependency versions. January-April class-balanced fitting and label-independent query/article-hash tie breaking are manuscript declarations, not independently recovered execution settings."
+    },
+    {
+      "id": "SCALAR_RUNTIME_VERSIONS",
+      "detail": "Exact historical Python, numpy, pandas, and scikit-learn versions were not established from the inspected corrected-core protocol/completion records. They remain unspecified; no MIND runtime versions are borrowed."
+    },
+    {
+      "id": "SOURCE_SNAPSHOT_VS_EXECUTED_HASH",
+      "detail": "Source hashes identify the local implementations inspected for this correction, not cryptographically attested historical executed versions. No experiment was rerun."
+    }
+  ]
+}

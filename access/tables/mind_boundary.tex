@@ -2,11 +2,11 @@
 \caption{Expanded-pool MIND evaluation with BGE-M3 on 30,000 development impressions. All configurations share seven controls; only Full includes explicit products. Bold marks the highest score. Differences use unrounded scores and nominal paired user-clustered 95\% bootstrap intervals.}
 \label{tab:mind_boundary}
 \centering\small
-\renewcommand{\arraystretch}{1.12}
+\renewcommand{\arraystretch}{.98}
 \setlength{\tabcolsep}{3pt}
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrr@{}}
 \toprule
-\multicolumn{3}{@{}l}{\textit{A. Ranking performance}}\\[2pt]
+\multicolumn{3}{@{}l}{\textit{A. Ranking performance}}\\[1pt]
 Configuration & Fields & NDCG@10 \\
 \midrule
 Controls+E & 8 & 0.3265 \\
@@ -15,15 +15,15 @@ P+E+C Direct & 15 & 0.3797 \\
 Full PEC proxy & 21 & \textbf{0.3828} \\
 \bottomrule
 \end{tabular*}
-\par\vspace{5pt}
+\par\vspace{2pt}
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lr@{}}
 \toprule
-\multicolumn{2}{@{}l}{\textit{B. Paired comparisons}}\\[2pt]
+\multicolumn{2}{@{}l}{\textit{B. Paired comparisons}}\\[1pt]
 Comparison & $\Delta$ NDCG@10 [95\% CI]\\
 \midrule
-\shortstack[l]{P+E+C Direct\\$-$ Controls+E} & +0.0531 [0.0506, 0.0556] \\[3pt]
-\shortstack[l]{P+E+C Direct\\$-$ P+C Direct} & +0.0388 [0.0372, 0.0404] \\[3pt]
-\shortstack[l]{Full $-$\\P+E+C Direct} & +0.0031 [0.0019, 0.0043] \\[3pt]
+\shortstack[l]{P+E+C Direct\\$-$ Controls+E} & +0.0531 [0.0506, 0.0556] \\[1pt]
+\shortstack[l]{P+E+C Direct\\$-$ P+C Direct} & +0.0388 [0.0372, 0.0404] \\[1pt]
+\shortstack[l]{Full $-$\\P+E+C Direct} & +0.0031 [0.0019, 0.0043] \\[1pt]
 Full $-$ Controls+E & +0.0562 [0.0536, 0.0588] \\
 \bottomrule
 \end{tabular*}

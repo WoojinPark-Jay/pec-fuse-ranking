@@ -1,11 +1,12 @@
 \begin{table}[t]
+\renewcommand{\arraystretch}{1.10}
 \caption{Exploratory profile-support contrast, PEC minus collapsed NDCG@10. Groups use clicked outcomes. High-minus-other intervals concern the contrast, not either group alone.}\label{tab:profile_contrast}
 \centering\small
-\begin{tabular}{@{}lrr@{}}\toprule
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrr@{}}\toprule
 Quantity & Recent & Same-day\\\midrule
 High-P/$E=0$ queries & 700 & 650\\
 High-P/$E=0$ gain & +0.0216 & +0.0261\\
 Other-query gain & -0.0039 & -0.0149\\
 High minus other & +0.0255 & +0.0409\\
-95\% CI & [0.0088,0.0437] & [0.0201,0.0611]\\\bottomrule
-\end{tabular}\end{table}
+95\% CI & [0.0088, 0.0437] & [0.0201, 0.0611]\\\bottomrule
+\end{tabular*}\end{table}

@@ -1,15 +1,16 @@
-\begin{table}[!htbp]
-\caption{Headline NDCG@10 on the original test pools after cutoff correction. Deltas use unrounded scores.}
+\begin{table}[!h]
+\renewcommand{\arraystretch}{1.10}
+\caption{Headline NDCG@10 on the fixed test pools. Deltas use unrounded scores. Bold marks the higher score within each regime.}
 \label{tab:headline}
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lccc@{}}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccc@{}}
 \toprule
 Regime & Control & PEC & $\Delta$ [95\% CI] \\
 \midrule
-Recent-window & 0.7309 & 0.7971 & +0.0662 [0.0523,0.0793] \\
-Same-day & 0.7499 & 0.7717 & +0.0218 [0.0080,0.0363] \\
+Recent-window & 0.7309 & \textbf{0.7971} & +0.0662 [0.0523, 0.0793] \\
+Same-day & 0.7499 & \textbf{0.7717} & +0.0218 [0.0080, 0.0363] \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

@@ -1,23 +1,28 @@
-\begin{table}[H]
+\end{multicols}
+\begin{appendixtable}
+\renewcommand{\arraystretch}{1.16}
 \centering
-\caption{Same-day: absolute test metrics for the archived fits (1,040 queries). A scalar-audit PEC score is not the headline fit.}
+\caption{Same-day: absolute test metrics for the archived fits (1,040 queries). A scalar-audit PEC score is not the headline fit. Bold marks the highest score within each separated fit group.}
 \label{tab:core_metrics_same}
 \small
 \setlength{\tabcolsep}{5pt}
-\begin{tabular}{lrrrr}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrr@{}}
 \toprule
 Fit & Fields & NDCG@10 & Recall@10 & MRR \\
 \midrule
 Headline control & 11 & 0.7499 & 0.8725 & 0.7801 \\
-Headline PEC & 25 & 0.7717 & 0.8875 & 0.8002 \\
+Headline PEC & 25 & \textbf{0.7717} & \textbf{0.8875} & \textbf{0.8002} \\
+\addlinespace[4pt]
 Scalar-audit control & 11 & 0.7499 & 0.8725 & 0.7801 \\
-Scalar-audit Direct & 17 & 0.7717 & 0.8865 & 0.7991 \\
-Scalar-audit PEC & 25 & 0.7710 & 0.8855 & 0.8016 \\
+Scalar-audit Direct & 17 & \textbf{0.7717} & \textbf{0.8865} & 0.7991 \\
+Scalar-audit PEC & 25 & 0.7710 & 0.8855 & \textbf{0.8016} \\
 Collapsed P/C & 12 & 0.7603 & 0.8788 & 0.7864 \\
 Learned early fusion & 12 & 0.7584 & 0.8737 & 0.7940 \\
+\addlinespace[4pt]
 No-E control & 9 & 0.5461 & 0.7182 & 0.5787 \\
-No-E PEC & 18 & 0.6335 & 0.7842 & 0.6596 \\
+No-E PEC & 18 & \textbf{0.6335} & \textbf{0.7842} & \textbf{0.6596} \\
 No-E early fusion & 10 & 0.6047 & 0.7549 & 0.6351 \\
 \bottomrule
-\end{tabular}
-\end{table}
+\end{tabular*}
+\end{appendixtable}
+\begin{multicols}{2}

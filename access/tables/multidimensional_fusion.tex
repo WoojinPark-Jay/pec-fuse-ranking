@@ -1,17 +1,18 @@
 \begin{table}[!htbp]
-\caption{Complete PEC minus learned fusion (NDCG@10 differences), averaged over five training seeds. The 2,000 paired user-clustered bootstrap replicates resample seed-averaged per-query differences. Bold indicates 95\% intervals excluding zero. Each width is independently validation-selected on the shared grid.}
+\renewcommand{\arraystretch}{1.10}
+\caption{Complete PEC minus learned fusion (NDCG@10 differences), averaged over five training seeds. The 2,000 paired user-clustered bootstrap replicates resample seed-averaged per-query differences. Intervals are nominal; no multiplicity adjustment is applied across widths. Each width is independently validation-selected on the shared grid.}
 \label{tab:multidimensional_fusion}
 \centering
 \small
 \setlength{\tabcolsep}{2pt}
-\begin{tabular}{@{}lll@{}}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lll@{}}
 \toprule
 Width & Recent-window & Same-day \\
 \midrule
-1-D & \textbf{+0.0157 [0.0099,0.0216]} & \textbf{+0.0174 [0.0110,0.0236]} \\
-2-D & \textbf{+0.0144 [0.0078,0.0210]} & \textbf{+0.0079 [0.0023,0.0136]} \\
-4-D & \textbf{+0.0097 [0.0050,0.0137]} & +0.0015 [-0.0040,0.0070] \\
-5-D & \textbf{+0.0050 [0.0007,0.0091]} & +0.0046 [-0.0010,0.0102] \\
+1-D & +0.0157 [0.0099, 0.0216] & +0.0174 [0.0110, 0.0236] \\
+2-D & +0.0144 [0.0078, 0.0210] & +0.0079 [0.0023, 0.0136] \\
+4-D & +0.0097 [0.0050, 0.0137] & +0.0015 [-0.0040, 0.0070] \\
+5-D & +0.0050 [0.0007, 0.0091] & +0.0046 [-0.0010, 0.0102] \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}

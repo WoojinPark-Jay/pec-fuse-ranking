@@ -1,10 +1,11 @@
 \begin{table*}[!t]
+\renewcommand{\arraystretch}{1.10}
 \centering
 \caption{Implemented inputs and widths. $Z_{\mathrm{core},9}$ comprises profile-category weight, profile-publisher weight, history-category share, history-publisher share, log prior clicks, popularity, recency, log length, and the breaking indicator. The distinct sets are $B_{11}=Z_{\mathrm{core},9}\oplus(E_m,E_r)$ and $Z_{11}=Z_{\mathrm{core},9}\oplus(P_{\mathrm{count}},C_{\mathrm{count}})$; $S_{14}=Z_{11}\oplus E_3$. Here $\oplus$ denotes concatenation, and the two Direct rows are distinct variants.}
 \label{tab:comparison_design}
 \small
 \setlength{\tabcolsep}{5pt}
-\begin{tabular}{llr}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llr@{}}
 \toprule
 Comparison & Scorer input & Width \\
 \midrule
@@ -18,5 +19,5 @@ No-E control / PEC / early & Their respective E-free inputs & 9 / 18 / 10 \\
 Joint-removal Context & History/item controls, including C-count & 8 \\
 Joint-removal Context + C & Same eight controls + four semantic C scores & 12 \\
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table*}

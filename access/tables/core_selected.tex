@@ -1,10 +1,12 @@
-\begin{table*}[!t]
+\end{multicols}
+\begin{appendixtable}
+\renewcommand{\arraystretch}{1.16}
 \centering
 \caption{Configurations and input widths of archived headline, scalar-compression, and no-E fits. Models are independently selected within their named protocols.}
 \label{tab:core_selected}
 \small
 \setlength{\tabcolsep}{5pt}
-\begin{tabular}{llrrrr}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}llrrrr@{}}
 \toprule
 Regime & Fit & Fields & Trees & Depth & Min. leaf \\
 \midrule
@@ -29,5 +31,6 @@ Same-day & No-E control & 9 & 240 & 18 & 6 \\
 Same-day & No-E PEC & 18 & 640 & Unlimited & 6 \\
 Same-day & No-E early fusion & 10 & 640 & Unlimited & 6 \\
 \bottomrule
-\end{tabular}
-\end{table*}
+\end{tabular*}
+\end{appendixtable}
+\begin{multicols}{2}

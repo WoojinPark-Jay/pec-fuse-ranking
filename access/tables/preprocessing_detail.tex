@@ -1,9 +1,11 @@
-\begin{table*}[!t]
+\end{multicols}
+\begin{appendixtable}
 \centering
 \caption{Implemented preprocessing and semantic inputs. Limits describe the recorded implementation, not additional tuning on the test set.}
 \label{tab:preprocessing_detail}
 \small
 \setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.16}
 \begin{tabular}{p{0.16\textwidth}p{0.76\textwidth}}
 \toprule
 Stage & Operation \\
@@ -18,4 +20,5 @@ Semantic history & Use up to 50 most recent click events strictly before the que
 Empty history & Set the four consumption summaries to zero. \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{appendixtable}
+\begin{multicols}{2}
