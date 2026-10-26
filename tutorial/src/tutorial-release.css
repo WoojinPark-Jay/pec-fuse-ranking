@@ -417,3 +417,125 @@
 .tutorial-reader #model-reading-guide.mrg .mrg-role-questions p { color: #526158 !important; }
 .tutorial-reader .mind-cases > button > span { color: #435b50; font-size: 11px; }
 .tutorial-reader #tutorial .dm-case-head { padding: 20px 22px; }
+
+/* MIND is a separate evidence path, not a relabelled private record. */
+.tutorial-reader #tutorial .reader-data-context {
+  display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: start;
+  gap: 14px 24px; max-width: 1160px; margin: 30px auto 0; padding: 20px 24px;
+  border: 1px solid var(--reading-rule); border-left: 3px solid var(--reading-accent);
+  background: var(--reading-soft); color: var(--reading-ink);
+}
+.tutorial-reader #tutorial .reader-data-context strong { font-size: 12px; line-height: 1.8; }
+.tutorial-reader #tutorial .reader-data-context p { margin: 0; font-size: 13px; line-height: 1.8; }
+.tutorial-reader #tutorial .reader-data-context a { font-size: 13px; line-height: 1.8; color: #315c49; text-underline-offset: 4px; }
+.tutorial-reader[data-page="mind-guide"] #tutorial > .comparison-atlas { display: none; }
+.tutorial-reader #mind-guide { max-width: 1224px; margin: auto; padding: 48px 32px 0; color: var(--reading-ink); }
+.tutorial-reader #mind-guide .mj-heading > span { font-size: 11px; font-weight: 600; letter-spacing: .12em; color: #526158; }
+.tutorial-reader #mind-guide .mj-heading h2 { margin: 14px 0 18px; font: 500 clamp(30px,3.4vw,44px)/1.25 "Iowan Old Style","Noto Serif KR",Georgia,serif; letter-spacing: -.035em; }
+.tutorial-reader #mind-guide .mj-heading > p { max-width: 80ch; margin: 0; }
+.tutorial-reader #mind-guide p { color: var(--reading-copy); font-size: 15px; line-height: 1.85; }
+.tutorial-reader #mind-guide a { color: #315c49; text-underline-offset: 4px; }
+.tutorial-reader #mind-guide code { white-space: normal; overflow-wrap: anywhere; font-size: 13px; line-height: 1.7; color: #314b42; }
+.tutorial-reader #mind-guide .mj-contrast { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 28px 0 32px; }
+.tutorial-reader #mind-guide .mj-contrast > div { display: flex; flex-wrap: wrap; gap: 8px 20px; padding: 18px 20px; border: 1px solid var(--reading-rule); background: #f6f7f3; }
+.tutorial-reader #mind-guide .mj-contrast > div:last-child { border-color: #91a899; background: #eef3ee; }
+.tutorial-reader #mind-guide .mj-contrast span { font-size: 13px; color: #435b50; }
+.tutorial-reader #mind-guide .mj-steps { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; padding: 0 0 28px; border-bottom: 1px solid var(--reading-rule); }
+.tutorial-reader #mind-guide .mj-steps a { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 16px 18px; border: 1px solid var(--reading-rule); border-radius: 4px; background: #fff; text-decoration: none; }
+.tutorial-reader #mind-guide .mj-steps a[aria-current] { background: #eaf1e9; border-color: #63816c; box-shadow: inset 0 -2px #315c49; }
+.tutorial-reader #mind-guide .mj-steps span { font-size: 11px; color: #526158; }
+.tutorial-reader #mind-guide .mj-steps b { font-size: 14px; line-height: 1.5; }
+.tutorial-reader #mind-guide .mj-panel { padding-top: 32px; scroll-margin-top: 90px; }
+.tutorial-reader #mind-guide .mj-panel > h3 { max-width: 46ch; margin: 0 0 18px; font-size: clamp(22px,2.3vw,28px); line-height: 1.45; letter-spacing: -.025em; }
+.tutorial-reader #mind-guide .mj-panel h4 { margin: 12px 0; font-size: 17px; line-height: 1.5; }
+.tutorial-reader #mind-guide :is(.mj-source-grid,.mj-pool-flow,.mj-model-flow) { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; margin: 28px 0; }
+.tutorial-reader #mind-guide :is(.mj-source-grid,.mj-model-flow) > article,
+.tutorial-reader #mind-guide .mj-pool-flow > div { min-width: 0; padding: 24px; border: 1px solid var(--reading-rule); border-radius: 5px; background: #fff; }
+.tutorial-reader #mind-guide .mj-source-grid strong { display: block; padding-top: 14px; border-top: 1px solid var(--reading-rule); color: #315c49; font-size: 13px; line-height: 1.7; }
+.tutorial-reader #mind-guide :is(.mj-pool-flow,.mj-model-flow) > :is(div,article) > span { display: block; margin-bottom: 14px; font-size: 11px; color: #526158; letter-spacing: .08em; }
+.tutorial-reader #mind-guide .mj-pool-flow b { display: block; font-size: 17px; line-height: 1.5; }
+.tutorial-reader #mind-guide .mj-note { padding: 22px 26px; margin: 28px 0; border-left: 3px solid #6d8c74; background: #f0f4ee; }
+.tutorial-reader #mind-guide .mj-note b { color: #315c49; font-size: 14px; }
+.tutorial-reader #mind-guide .mj-note p { margin: 10px 0 0; }
+.tutorial-reader #mind-guide .mj-caption { font-size: 12px; color: #526158; }
+.tutorial-reader #mind-guide .mj-candidates { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+.tutorial-reader #mind-guide .mj-candidates button { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; padding: 22px; background: #fff; border: 1px solid #b6c5ba; border-radius: 5px; text-align: left; color: #25352e; cursor: pointer; }
+.tutorial-reader #mind-guide .mj-candidates button[aria-pressed="true"] { background: #edf3eb; border: 2px solid #315c49; padding: 21px; }
+.tutorial-reader #mind-guide .mj-candidates span { font-size: 13px; line-height: 1.6; }
+.tutorial-reader #mind-guide .mj-candidate-detail { padding: 22px 24px; background: #f5f6f2; border: 1px solid var(--reading-rule); }
+.tutorial-reader #mind-guide .mj-candidate-detail p { margin-bottom: 0; }
+.tutorial-reader #mind-guide .mj-math { margin: 26px 0; padding: 20px 24px; border: 1px solid var(--reading-rule); border-radius: 4px; background: #fff; }
+.tutorial-reader #mind-guide .mj-math summary { min-height: 24px; color: #315c49; font-size: 14px; font-weight: 600; line-height: 1.7; cursor: pointer; }
+.tutorial-reader #mind-guide .mj-math-example { padding-top: 8px; }
+.tutorial-reader #mind-guide .mj-math-branches { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 20px 0; }
+.tutorial-reader #mind-guide .mj-math-branches > div { padding: 18px 20px; border: 1px solid #c5d4d8; background: #eef5f5; }
+.tutorial-reader #mind-guide .mj-math-branches > div:last-child { border-color: #cad8c9; background: #f0f5ed; }
+.tutorial-reader #mind-guide .mj-math-branches p { margin-bottom: 0; }
+.tutorial-reader #mind-guide .mj-timeline { list-style: decimal; padding-left: 28px; margin: 28px 0; }
+.tutorial-reader #mind-guide .mj-timeline li { padding: 8px 0 20px 12px; margin: 0 0 16px; border-bottom: 1px solid var(--reading-rule); }
+.tutorial-reader #mind-guide .mj-timeline p { margin-bottom: 0; }
+.tutorial-reader #mind-guide .mj-question-list { margin: 26px 0; }
+.tutorial-reader #mind-guide .mj-question-list article { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 16px; align-items: start; padding: 22px 0; border-top: 1px solid var(--reading-rule); }
+.tutorial-reader #mind-guide .mj-question-list article > code { padding: 10px; background: #edf3eb; text-align: center; }
+.tutorial-reader #mind-guide .mj-question-list h4 { margin: 0 0 8px; }
+.tutorial-reader #mind-guide .mj-question-list p { margin: 0; font-size: 13px; }
+.tutorial-reader #mind-guide .mj-result-link { display: inline-block; padding: 14px 20px; border: 1px solid #315c49; border-radius: 4px; background: #edf3eb; font-size: 14px; line-height: 1.7; text-decoration: none; }
+.tutorial-reader #mind-guide .mj-sources { display: flex; flex-wrap: wrap; gap: 14px 24px; padding: 24px 0; font-size: 12px; }
+.tutorial-reader #mind-guide .mj-pagination { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: start; padding: 24px 0; margin-top: 24px; border-top: 1px solid var(--reading-rule); font-size: 13px; }
+.tutorial-reader #mind-guide .mj-pagination > span { color: #526158; }
+.tutorial-reader #mind-guide .mj-pagination a:last-child { text-align: right; }
+.tutorial-reader .mind-walkthrough-link { padding: 18px 20px; border-left: 3px solid #6d8c74; background: #f0f4ee; }
+.tutorial-reader .mind-walkthrough-link a { color: #315c49; font-size: 14px; text-underline-offset: 4px; }
+@media (max-width: 1200px) {
+  .tutorial-reader #tutorial .reader-data-context { margin-inline: 32px; grid-template-columns: minmax(0,1fr); gap: 8px; }
+}
+@media (max-width: 900px) {
+  .tutorial-reader #mind-guide :is(.mj-source-grid,.mj-pool-flow,.mj-model-flow) { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 680px) {
+  .tutorial-reader #mind-guide { padding: 32px 20px 0; }
+  .tutorial-reader #tutorial .reader-data-context { margin: 24px 20px 0; padding: 18px 20px; }
+  .tutorial-reader #mind-guide .mj-steps { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 20px; }
+  .tutorial-reader #mind-guide .mj-steps a { flex: 0 0 112px; padding: 14px; }
+  .tutorial-reader #mind-guide :is(.mj-contrast,.mj-candidates,.mj-math-branches) { grid-template-columns: minmax(0,1fr); }
+  .tutorial-reader #mind-guide .mj-question-list article { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  .tutorial-reader #mind-guide .mj-question-list article > code { width: fit-content; }
+  .tutorial-reader #mind-guide :is(.mj-note,.mj-math) { padding: 18px 20px; }
+  .tutorial-reader #mind-guide .mj-pagination { font-size: 12px; }
+}
+
+/* Narrow-screen audit: keep words and full result labels readable. */
+.tutorial-reader #mind-guide:lang(ko) :is(h2,h3,h4,p,b,strong) { word-break: keep-all; overflow-wrap: anywhere; }
+@media (max-width: 680px) {
+  .tutorial-reader #tutorial .bs-sum { grid-template-columns: minmax(0,1fr); gap: 8px; }
+  .tutorial-reader #tutorial .bs-sum > span { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 8px 12px; padding: 8px 12px; }
+  .tutorial-reader #tutorial .bs-sum > i { justify-self: center; line-height: 1; }
+  .tutorial-reader #tutorial .prd-reader-view-flow { grid-template-columns: minmax(0,1fr); gap: 18px; }
+  .tutorial-reader #tutorial .prd-reader-view-flow > i { justify-self: center; transform: rotate(90deg); }
+  .tutorial-reader #tutorial .prd-demo-phone p :is(small,b) { white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+  .tutorial-reader #tutorial .prd-demo-phone p small { font-size: 11px; line-height: 1.6; }
+  .tutorial-reader #tutorial .prd-demo-phone p b { font-size: 13px; line-height: 1.6; }
+}
+@media (max-width: 680px) {
+  .tutorial-reader #tutorial .prd-persona-tabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+  .tutorial-reader #tutorial .prd-persona-tabs button { min-width: 0; width: 100%; }
+  .tutorial-reader #tutorial .prd-output-summary { display: grid; grid-template-columns: minmax(0,1fr); justify-items: start; gap: 16px; width: 100%; max-width: 100%; }
+  .tutorial-reader #tutorial .prd-winner { width: 100%; min-width: 0; }
+}
+
+/* The reader preview also lives in a narrow desktop sidebar. */
+.tutorial-reader #tutorial .prd-reader-view-flow {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+.tutorial-reader #tutorial .prd-reader-view-flow > i {
+  justify-self: center;
+  transform: rotate(90deg);
+}
+.tutorial-reader #tutorial .prd-demo-phone p :is(small, b) {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  overflow-wrap: anywhere;
+}
+.tutorial-reader #tutorial .prd-demo-phone p small { line-height: 1.6; }

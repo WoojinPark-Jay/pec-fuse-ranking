@@ -384,7 +384,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
             <div className="ca-comparison-flow">
               <div className="ca-flow-step is-input">
                 <div className="ca-flow-label"><b>01</b><div><span>{isKo ? "먼저, 입력 구조를 비교하세요" : "Start with the input structure"}</span><p>{isKo ? "같은 후보 기사 한 행이 두 모델에서 어떤 숫자 블록으로 표현되는지 봅니다." : "See how the same candidate article is represented as numeric blocks in each model."}</p></div></div>
-                {active.id === "mind" ? <MindProxyInputs lang={lang} /> : <>
+                {active.id === "mind" ? <><p className="mind-walkthrough-link"><a href={`?view=tutorial&lang=${lang}#mind-data`}>{isKo ? "8/14/15/21개 입력이 왜 나오는지 궁금하다면: MIND 원자료부터 따라가기 →" : "Why 8/14/15/21 fields? Follow MIND from its source records →"}</a></p><MindProxyInputs lang={lang} /></> : <>
                 <div className="ca-model-pair">
                   <section key={left.id}><div className="ca-model-title"><span>{isKo ? "비교 기준" : "Reference"}</span><b>{left.name}</b><strong>{left.width}D</strong></div><FieldMatrix model={left} side="left" lang={lang} /><VectorBar model={left} /><p>{left.note}</p></section>
                   <div className="ca-versus">VS</div>

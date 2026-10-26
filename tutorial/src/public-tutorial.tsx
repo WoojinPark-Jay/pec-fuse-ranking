@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
+import { MindJourney } from "./components/mind-journey";
 
 type Lang = "ko" | "en";
 const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
@@ -16,6 +17,7 @@ const readingPages = [
   { id: "record", ko: "특성", en: "Feature record", roots: ["record"] },
   { id: "equations", ko: "계산", en: "Calculations", roots: ["equations"] },
   { id: "model-lab", ko: "모델", en: "Models", roots: ["learn"] },
+  { id: "mind-guide", ko: "MIND 경로", en: "MIND walkthrough", roots: ["mind-data", "mind-pool", "mind-inputs", "mind-models", "mind-results"] },
   { id: "atlas", ko: "실험", en: "Experiments", roots: ["atlas", "decision"] },
   { id: "live-demo", ko: "데모", en: "Live demo", roots: ["live-demo"] },
   { id: "reproduce", ko: "실행 안내", en: "Run the examples", roots: ["reproduce"] },
@@ -26,6 +28,7 @@ const readingGroups = [
   { ko: "데이터", en: "Data", pages: ["microscope", "candidate-budget"] },
   { ko: "특성", en: "Features", pages: ["record", "equations"] },
   { ko: "모델", en: "Models", pages: ["model-lab"] },
+  { ko: "MIND", en: "MIND", pages: ["mind-guide"] },
   { ko: "실험", en: "Experiments", pages: ["atlas"] },
   { ko: "데모", en: "Demo", pages: ["live-demo"] },
   { ko: "자료", en: "Resources", pages: ["reproduce", "cite"] },
@@ -126,7 +129,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <a className="reader-start" href="#microscope">{t("가이드 시작하기", "Start with the data")} <span aria-hidden="true">→</span></a>
         </div>
         <aside className="reader-primer" aria-label={t("후보 하나의 다섯 입력 블록", "Five input blocks for one candidate")}>
-          <span>{t("후보 기사 하나", "ONE CANDIDATE ARTICLE")}</span>
+          <span>{t("PRIVATE 경로 · 후보 기사 하나", "PRIVATE PATH / ONE CANDIDATE ARTICLE")}</span>
           <div className="reader-blocks">{[{symbol:"P",count:1,label:t("프로필","Profile")},{symbol:"E",count:3,label:t("기록","Trace")},{symbol:"C",count:4,label:t("이력","History")},{symbol:"Z",count:11,label:t("통제","Controls")},{symbol:"ψ",count:6,label:t("곱셈 항","Products")}].map(block => <div key={block.symbol}><b>{block.symbol}</b><span>{block.label}</span><small>{block.count}</small></div>)}</div>
           <div className="reader-primer-output"><span>{t("25개 특성", "25 features")}</span><i aria-hidden="true">→</i><strong>{t("모델 점수", "Model score")}</strong><i aria-hidden="true">→</i><span>{t("질의 내 순위", "Rank within query")}</span></div>
           <p>{t("서로 다른 출처를 유지하고, 점수화할 때 결합합니다.", "Keep the sources distinct. Combine them at scoring.")}</p>
@@ -136,7 +139,17 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <a href="#atlas"><span>02</span><b>{t("실험 근거 살펴보기", "Examine the evidence")}</b><small>{t("비교 조건 → 결과 → 한계", "Conditions → results → limits")}</small></a>
           <a href="#reproduce"><span>03</span><b>{t("직접 실행하기", "Run the examples")}</b><small>{t("아티팩트 → 합성 예제 → 재현 범위", "Artifact → examples → scope")}</small></a>
         </nav>
-        <p className="tutorial-scope">{t("예시는 합성 데이터이며, 논문의 실험 결과와 구분됩니다. MIND는 별도의 출처 정의를 사용하는 공개 프록시입니다.", "Interactive examples are synthetic, separate from reported results. MIND uses an adapted public-proxy schema.")}</p>
+        <p className="tutorial-scope">{t("기본 가이드는 private의 25개 입력을 합성 예시로 설명합니다. MIND는 impression 단위 질의와 별도의 21개 입력을 사용합니다.", "The main guide illustrates the private 25-field record with synthetic examples. MIND instead uses impression-level queries and a separate 21-field record.")} <a href="#mind-data">{t("MIND를 원자료부터 따라가기 →", "Follow MIND from its source records →")}</a></p>
+      </section>
+      {["microscope", "candidate-budget", "record", "equations", "model-lab", "live-demo"].includes(activeSection) && <aside className="reader-data-context" aria-label={t("현재 설명의 데이터 범위", "Data scope of this explanation")}>
+        <strong>{t("현재: PRIVATE 경로", "CURRENT PATH: PRIVATE")}</strong>
+        <p>{activeSection === "model-lab"
+          ? t("이 장의 신경망·학습형 융합 비교와 MIND의 인코더 비교는 다른 실험입니다. MIND에서는 고정 BGE 벡터로 피처를 만든 뒤 ExtraTrees를 학습합니다.", "The neural and learned-fusion comparisons here are separate from MIND's encoder comparison. MIND constructs features from fixed BGE vectors and then fits ExtraTrees.")
+          : t("사용자–날짜 질의와 private의 25개 입력을 설명합니다. MIND는 원자료, 후보 구성, P/E의 의미가 다르므로 별도 경로에서 확인하세요.", "This explains user-date queries and the private 25-field record. MIND has different source records, candidate construction, and P/E semantics; follow its separate walkthrough.")}</p>
+        <a href={activeSection === "model-lab" ? "#mind-models" : activeSection === "candidate-budget" ? "#mind-pool" : ["record", "equations"].includes(activeSection) ? "#mind-inputs" : "#mind-data"}>{t("MIND에서는 어떻게 달라지나요? →", "What changes for MIND? →")}</a>
+      </aside>}
+      <section id="mind-guide" className="mind-journey" hidden={activeSection !== "mind-guide"} aria-label={t("MIND 원자료부터 평가까지", "MIND from records to evaluation")}>
+        <MindJourney lang={lang} />
       </section>
       <ComparisonAtlas lang={lang} />
 
