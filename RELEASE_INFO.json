@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "manuscript_revision": "v89",
+  "artifact_revision": "ieee-access-v89-public-artifact-v42",
+  "released_on": "2026-10-26",
+  "package_kind": "reproducibility_repository",
+  "software_version": "0.2.0",
+  "tutorial_package_version": "0.1.0",
+  "manuscript_pdf": "tutorial/public/PEC-Fuse-manuscript-v89.pdf",
+  "manuscript_pdf_sha256": "7bf6d05d8492212aedc4af83677dc961b69b49d09d4589a5e9dba44d09299bcd",
+  "manuscript_pages": 28,
+  "historical_unlinked_files": {
+    "tutorial/public/PEC-Fuse-manuscript-v86.pdf": "203207bc74cde9a6eb84d04fd51a38696fa12375bf15e5761fed2cf943df50b2",
+    "tutorial/public/paper-first-page-v86.png": "e31b9d11ee9e32f5834c2fb2f717a4b20790578f83dcf01d71d9982a21c51e53",
+    "tutorial/public/paper-first-page-v88.png": "c195a4ba7e0925789e9a282d96038dd18661d4d279314c9e7e57bf36f3ee0a9e",
+    "tutorial/public/PEC-Fuse-manuscript-v88.pdf": "35d14c9309ce43fc1ce9f90883570d43bd2231dff886dd6cd1640b7877bf7411"
+  },
+  "version_semantics": "Manuscript and artifact identify this release. Software/package versions and historical experiment, generator, and checkpoint identifiers are independent and intentionally preserved.",
+  "administrative_pending": [
+    "Confirmed author names, affiliations, corresponding author details, and biographies"
+  ],
+  "validation_scope": "Packaging, version identity, manuscript/aggregate consistency, PDF rendering and font resources; no training or raw-data experiment rerun."
+}

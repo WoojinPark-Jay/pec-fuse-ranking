@@ -1,0 +1,16 @@
+{
+  "executed_source_hash": "2eae2c9db105df951a4e52e6771613f9d5add9c81a52df37661c596cbe0b6b88",
+  "previous_bundle_runner_hash": "d149c9748ddf7087d8b42a5ca162bc53b9254e9479f06b323ac3e844fc9acbeb",
+  "distributed_runner_hash": "fc2849a3a8dd51e4de254631f54db661bae57796a48a03b443b5607fedf6e8d7",
+  "distributed_runner": "tools/run_mind_expanded_membership.py",
+  "canonical_repository_runner": "scripts/run_mind_expanded_membership.py",
+  "changes_from_previous_bundle": "Source-hash metadata now uses stable repository-relative runner and explicit train/dev raw-file paths. Experimental computation unchanged.",
+  "previous_bundle_change_from_executed_source": "docstring wording only (preserved from previous protocol provenance)",
+  "manuscript_revision": "v89",
+  "artifact_revision": "ieee-access-v89-public-artifact-v42",
+  "revision_field_semantics": "These two revision fields identify the containing release. Executed-source and previous-runner hashes retain their historical meaning and are not regenerated.",
+  "runner_metadata_first_packaged_in": {
+    "manuscript_revision": "v86",
+    "artifact_revision": "ieee-access-v86-public-artifact-v38"
+  }
+}
