@@ -105,6 +105,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <div><b>PEC-Fuse</b><span>{t("인터랙티브 가이드", "Interactive guide")}</span></div>
         </div>
         <nav aria-label={t("프로젝트 링크", "Project links")}>
+          <a href={`?lang=${lang}`} aria-label={t("프로젝트 메인 페이지로 이동", "Go to project home")}>{t("프로젝트", "Project")}</a>
           <span className="public-language" aria-label={t("언어 선택", "Language selection")}>
             <a href={`?view=tutorial&lang=en#${activeSection}`} aria-label="English" title="English" aria-current={!ko ? "page" : undefined}>EN</a>
             <a href={`?view=tutorial&lang=ko#${activeSection}`} aria-label="한국어" title="한국어" aria-current={ko ? "page" : undefined}>한국어</a>

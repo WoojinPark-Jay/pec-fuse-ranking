@@ -7,7 +7,7 @@
   "changes_from_previous_bundle": "Source-hash metadata now uses stable repository-relative runner and explicit train/dev raw-file paths. Experimental computation unchanged.",
   "previous_bundle_change_from_executed_source": "docstring wording only (preserved from previous protocol provenance)",
   "manuscript_revision": "v91",
-  "artifact_revision": "ieee-access-v91-public-artifact-v46",
+  "artifact_revision": "ieee-access-v91-public-artifact-v47",
   "revision_field_semantics": "These two revision fields identify the containing release. Executed-source and previous-runner hashes retain their historical meaning and are not regenerated.",
   "runner_metadata_first_packaged_in": {
     "manuscript_revision": "v86",
