@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
-import { MindJourney } from "./components/mind-journey";
 
 type Lang = "ko" | "en";
 const repository = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
@@ -64,7 +63,6 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const t = (a: string, b: string) => ko ? a : b;
   const [activeSection, setActiveSection] = useState(() => readingPageFor(hashTarget()));
-  const pageIndex = readingPages.findIndex(page => page.id === activeSection);
   const readingGroup = readingGroups.find(group => group.pages.includes(activeSection))!;
 
   useEffect(() => {
@@ -76,7 +74,8 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       frame = requestAnimationFrame(() => {
         frame = requestAnimationFrame(() => {
           if (!id) return;
-          const target = document.getElementById(id);
+          const page = readingPages.find(item => item.id === id);
+          const target = document.getElementById(id) ?? (page && document.getElementById(page.roots[0]));
           if (!target) return;
           let parent = target.parentElement;
           while (parent) {
@@ -96,7 +95,25 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     };
   }, []);
 
-  return <div className="tutorial-release tutorial-reader" data-page={activeSection} lang={lang}>
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 56) + 32;
+      let current = "tutorial";
+      for (const page of readingPages.slice(1)) {
+        const element = document.getElementById(page.roots[0]) ?? document.getElementById(page.id);
+        if (element && element.getBoundingClientRect().top <= offset) current = page.id;
+      }
+      setActiveSection(current);
+    };
+    const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", queue); window.removeEventListener("resize", queue); };
+  }, []);
+
+  return <div className="tutorial-release tutorial-reader tutorial-continuous" data-page={activeSection} lang={lang}>
     <a className="public-skip" href="#tutorial">{t("본문으로 건너뛰기", "Skip to tutorial")}</a>
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
@@ -117,16 +134,14 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <nav className="public-toc" aria-label={t("튜토리얼 목차", "Tutorial contents")}>
       {readingGroups.map(group => <a key={group.en} href={`#${group.pages[0]}`} aria-current={group === readingGroup ? "page" : undefined}>{t(group.ko, group.en)}</a>)}
     </nav>
-    {readingGroup.pages.length > 1 && <nav className="reader-subnav" aria-label={t("이 장의 내용", "In this chapter")}>
-      {readingGroup.pages.map(id => { const page = readingPages.find(item => item.id === id)!; return <a key={id} href={`#${id}`} aria-current={id === activeSection ? "page" : undefined}>{t(page.ko, page.en)}</a>; })}
-    </nav>}
+
 
     <main id="tutorial">
-      <section className="tutorial-orientation" hidden={activeSection !== "tutorial"} aria-label={t("읽기 안내", "Reading guide")}>
+      <section className="tutorial-orientation" aria-label={t("읽기 안내", "Reading guide")}>
         <div className="tutorial-orientation-title">
           <span>{t("원고 v91 · 시각적 해설", "MANUSCRIPT v91 / A VISUAL GUIDE")}</span>
           <h1>{t("서로 다른 근거가\n하나의 순위가 되기까지.", "From evidence to a ranked list.")}</h1>
-          <p>{t("후보 기사 하나를 따라가며 입력, 계산, 모델과 실험을 이해하세요. 한 번에 한 주제씩 살펴볼 수 있습니다.", "Follow one candidate through the inputs, calculations, and experiments. One idea at a time.")}</p>
+          <p>{t("후보 기사 하나를 따라가며 입력, 계산, 모델과 실험을 이해하세요. 아래로 이어서 읽거나 상단 목차로 원하는 부분에 이동하세요.", "Follow one candidate through the inputs, calculations, and experiments. Read continuously or use the fixed contents bar to jump to a section.")}</p>
           <a className="reader-start" href="#microscope">{t("가이드 시작하기", "Start with the data")} <span aria-hidden="true">→</span></a>
         </div>
         <aside className="reader-primer" aria-label={t("후보 하나의 다섯 입력 블록", "Five input blocks for one candidate")}>
@@ -141,16 +156,6 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           <a href="#reproduce"><span>03</span><b>{t("직접 실행하기", "Run the examples")}</b><small>{t("아티팩트 → 합성 예제 → 재현 범위", "Artifact → examples → scope")}</small></a>
         </nav>
         <p className="tutorial-scope">{t("기본 가이드는 private의 25개 입력을 합성 예시로 설명합니다. MIND는 impression 단위 질의와 별도의 21개 입력을 사용합니다.", "The main guide illustrates the private 25-field record with synthetic examples. MIND instead uses impression-level queries and a separate 21-field record.")} <a href="#mind-data">{t("MIND를 원자료부터 따라가기 →", "Follow MIND from its source records →")}</a></p>
-      </section>
-      {["microscope", "candidate-budget", "record", "equations", "model-lab", "live-demo"].includes(activeSection) && <aside className="reader-data-context" aria-label={t("현재 설명의 데이터 범위", "Data scope of this explanation")}>
-        <strong>{t("현재: PRIVATE 경로", "CURRENT PATH: PRIVATE")}</strong>
-        <p>{activeSection === "model-lab"
-          ? t("이 장의 신경망·학습형 융합 비교와 MIND의 인코더 비교는 다른 실험입니다. MIND에서는 고정 BGE 벡터로 피처를 만든 뒤 ExtraTrees를 학습합니다.", "The neural and learned-fusion comparisons here are separate from MIND's encoder comparison. MIND constructs features from fixed BGE vectors and then fits ExtraTrees.")
-          : t("사용자–날짜 질의와 private의 25개 입력을 설명합니다. MIND는 원자료, 후보 구성, P/E의 의미가 다르므로 별도 경로에서 확인하세요.", "This explains user-date queries and the private 25-field record. MIND has different source records, candidate construction, and P/E semantics; follow its separate walkthrough.")}</p>
-        <a href={activeSection === "model-lab" ? "#mind-models" : activeSection === "candidate-budget" ? "#mind-pool" : ["record", "equations"].includes(activeSection) ? "#mind-inputs" : "#mind-data"}>{t("MIND에서는 어떻게 달라지나요? →", "What changes for MIND? →")}</a>
-      </aside>}
-      <section id="mind-guide" className="mind-journey" hidden={activeSection !== "mind-guide"} aria-label={t("MIND 원자료부터 평가까지", "MIND from records to evaluation")}>
-        <MindJourney lang={lang} />
       </section>
       <ComparisonAtlas lang={lang} />
 
@@ -260,11 +265,7 @@ ${repository}`}</code></pre>
       </aside>
     </section>
 
-    <nav className="reader-pagination" aria-label={t("가이드 순서", "Guide navigation")}>
-      {pageIndex > 0 ? <a href={`#${readingPages[pageIndex - 1].id}`}><small>{t("이전", "Previous")}</small><span>← {t(readingPages[pageIndex - 1].ko, readingPages[pageIndex - 1].en)}</span></a> : <span />}
-      <span className="reader-page-count">{String(pageIndex + 1).padStart(2, "0")} / {readingPages.length}</span>
-      {pageIndex < readingPages.length - 1 ? <a href={`#${readingPages[pageIndex + 1].id}`}><small>{t("다음", "Next")}</small><span>{t(readingPages[pageIndex + 1].ko, readingPages[pageIndex + 1].en)} →</span></a> : <a href="#tutorial"><small>{t("처음으로", "Back to")}</small><span>{t("전체 소개", "Overview")} ↑</span></a>}
-    </nav>
+    <nav className="reader-pagination" aria-label={t("가이드 이동", "Guide navigation")}><a href="#tutorial">{t("소개로 돌아가기 ↑", "Back to overview ↑")}</a><a href={`?lang=${lang}`}>{t("프로젝트 메인", "Project home")}</a></nav>
     </main>
 
     <footer className="public-footer">

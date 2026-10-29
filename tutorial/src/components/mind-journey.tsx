@@ -24,8 +24,18 @@ export function MindJourney({ lang }: { lang: Lang }) {
     const followHash = () => {
       if (window.location.hash === "#mind-guide" || steps.some(item => `#${item.id}` === window.location.hash)) setStep(stepFromHash());
     };
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 56) + 32;
+      let current = 0;
+      steps.forEach((item, index) => { const node = document.getElementById(item.id); if (node && node.getBoundingClientRect().top <= offset) current = index; });
+      setStep(current);
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener("hashchange", followHash);
-    return () => window.removeEventListener("hashchange", followHash);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("hashchange", followHash); window.removeEventListener("scroll", onScroll); };
   }, []);
   const examples = [
     { id: "A", member: 1, label: 1, origin: t("원래 slate · 클릭", "Original slate · clicked") },
@@ -45,7 +55,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
       {steps.map((item, index) => <a key={item.id} href={`#${item.id}`} aria-current={step === index ? "step" : undefined}><span>0{index + 1}</span><b>{t(item.ko, item.en)}</b></a>)}
     </nav>
 
-    <section id="mind-data" className="mj-panel" hidden={step !== 0} aria-labelledby="mind-data-title">
+    <section id="mind-data" className="mj-panel" aria-labelledby="mind-data-title">
       <h3 id="mind-data-title">{t("01. 한 사람의 클릭 이력에서 시작합니다", "01. Start with one reader and three prior clicks")}</h3>
       <MindWorkedExample lang={lang} step={0} candidate={candidate} onCandidate={setCandidate} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
@@ -59,7 +69,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
           </details>
     </section>
 
-    <section id="mind-pool" className="mj-panel" hidden={step !== 1} aria-labelledby="mind-pool-title">
+    <section id="mind-pool" className="mj-panel" aria-labelledby="mind-pool-title">
       <h3 id="mind-pool-title">{t("02. 후보의 출처 E와 정답 y를 분리합니다", "02. Separate candidate origin E from target y")}</h3>
       <MindWorkedExample lang={lang} step={1} candidate={candidate} onCandidate={setCandidate} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
@@ -71,7 +81,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
           </details>
     </section>
 
-    <section id="mind-inputs" className="mj-panel" hidden={step !== 2} aria-labelledby="mind-inputs-title">
+    <section id="mind-inputs" className="mj-panel" aria-labelledby="mind-inputs-title">
       <h3 id="mind-inputs-title">{t("03. 같은 후보를 실제 숫자 칸으로 바꿉니다", "03. Turn the same candidate into numeric fields")}</h3>
       <MindWorkedExample lang={lang} step={2} candidate={candidate} onCandidate={setCandidate} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
@@ -81,7 +91,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
           </details>
     </section>
 
-    <section id="mind-models" className="mj-panel" hidden={step !== 3} aria-labelledby="mind-models-title">
+    <section id="mind-models" className="mj-panel" aria-labelledby="mind-models-title">
       <h3 id="mind-models-title">{t("04. 피처를 점수로, 점수를 순위로 바꿉니다", "04. From features to scores, from scores to ranks")}</h3>
       <MindWorkedExample lang={lang} step={3} candidate={candidate} onCandidate={setCandidate} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
@@ -92,7 +102,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
           </details>
     </section>
 
-    <section id="mind-results" className="mj-panel" hidden={step !== 4} aria-labelledby="mind-results-title">
+    <section id="mind-results" className="mj-panel" aria-labelledby="mind-results-title">
       <h3 id="mind-results-title">{t("05. 실습을 마치고 실제 논문 결과를 읽습니다", "05. Leave the toy example and read the reported results")}</h3>
       <MindWorkedExample lang={lang} step={4} candidate={candidate} onCandidate={setCandidate} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>

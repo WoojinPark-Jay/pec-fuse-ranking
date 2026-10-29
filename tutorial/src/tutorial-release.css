@@ -32,24 +32,21 @@
 .tutorial-reader .reader-subnav a { padding-bottom:4px; color:var(--reading-copy); text-decoration:none; border-bottom:1px solid transparent; font-size:12px; }
 .tutorial-reader .reader-subnav a[aria-current] { color:var(--reading-accent); border-color:var(--reading-accent); }
 
-/* Retain interactive state while showing only the selected chapter. */
+/* Continuous reading; only interactive subviews retain their own visibility rules. */
 .tutorial-reader #tutorial { min-height:calc(100svh - 220px); }
-.tutorial-reader #tutorial .ca-shell>* { display:none; visibility:hidden; }
 .tutorial-reader .ca-topbar { display:none; }
-.tutorial-reader[data-page="tutorial"] #tutorial .ca-shell>.ca-intro,
-.tutorial-reader[data-page="tutorial"] #tutorial .ca-shell>.tutorial-disclosure,
-.tutorial-reader[data-page="tutorial"] #tutorial .ca-shell>.ca-footer,
-.tutorial-reader[data-page="microscope"] #tutorial .ca-shell>#microscope,
-.tutorial-reader[data-page="candidate-budget"] #tutorial .ca-shell>#row,
-.tutorial-reader[data-page="record"] #tutorial .ca-shell>#record,
-.tutorial-reader[data-page="equations"] #tutorial .ca-shell>#equations,
-.tutorial-reader[data-page="model-lab"] #tutorial .ca-shell>#learn,
-.tutorial-reader[data-page="atlas"] #tutorial .ca-shell>#atlas,
-.tutorial-reader[data-page="atlas"] #tutorial .ca-shell>#decision { display:block; visibility:visible; }
-.tutorial-reader #tutorial>:is(.prd-demo,.public-release,.public-citation) { display:none; visibility:hidden; }
-.tutorial-reader[data-page="live-demo"] #tutorial>.prd-demo,
-.tutorial-reader[data-page="reproduce"] #tutorial>.public-release { display:block; visibility:visible; }
-.tutorial-reader[data-page="cite"] #tutorial>.public-citation { display:grid; visibility:visible; }
+.tutorial-reader #tutorial .ca-shell > .ca-section,
+.tutorial-reader #tutorial .ca-shell > #microscope { margin-top:64px; padding-top:48px; border-top:1px solid var(--reading-rule); }
+.tutorial-continuous #tutorial .ca-shell > #mind-guide { max-width:none; margin-inline:0; padding-inline:0; }
+.tutorial-continuous #mind-guide .mj-panel { margin-top:48px; padding-top:40px; border-top:1px solid var(--reading-rule); }
+.tutorial-continuous #mind-guide .mw-route,
+.tutorial-continuous #mind-guide .mj-pagination { display:none; }
+.tutorial-continuous #tutorial :is(section,div)[id] { scroll-margin-top:88px; }
+.tutorial-continuous #tutorial > :is(.prd-demo,.public-release,.public-citation) { margin-top:64px; }
+@media(max-width:600px) {
+  .tutorial-continuous #tutorial .ca-shell > .ca-section,
+  .tutorial-continuous #tutorial .ca-shell > #microscope { margin-top:40px; padding-top:32px; }
+}
 
 /* One introduction instead of repeated onboarding banners. */
 .tutorial-reader .tutorial-orientation { display:grid; grid-template-columns:1.13fr 1fr; align-items:center; gap:36px 72px; max-width:1224px; margin:auto; padding:72px 32px 0; }

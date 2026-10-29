@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { MindJourney } from "./mind-journey";
 import { MindProxyInputs } from "./mind-proxy-inputs";
 import { DataMicroscope } from "./data-microscope";
 import { ComparisonEvidence, ComparisonProtocol } from "./comparison-evidence";
@@ -369,6 +370,8 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         <p className="ca-caption">{isKo ? "ExtraTrees의 출력은 보정된 CTR이 아니라 같은 query 안에서 정렬하기 위한 score입니다. 모델 선택은 April query-level NDCG@10으로 하고, 최종 수치는 May–June query에서 계산합니다." : "The ExtraTrees output is a within-query ranking score, not calibrated CTR. April query-level NDCG@10 selects the configuration; final metrics use May–June queries."}</p>
         <ScorerExplainer lang={lang} />
       </section>
+
+      <section className="ca-section mind-journey" id="mind-guide" aria-label={isKo ? "MIND 원자료부터 평가까지" : "MIND from records to evaluation"}><MindJourney lang={lang} /></section>
 
       <section className="ca-section ca-atlas-section" id="atlas">
         <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "비교 목록이나 선택 메뉴에서 질문을 고른 뒤, 내용을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a question from the comparison list or selection menu, then read from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
