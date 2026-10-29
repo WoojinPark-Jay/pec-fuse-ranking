@@ -115,6 +115,32 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
 
   return <div className="tutorial-release tutorial-reader tutorial-continuous" data-page={activeSection} lang={lang}>
     <a className="public-skip" href="#tutorial">{t("본문으로 건너뛰기", "Skip to tutorial")}</a>
+    <aside className="reader-rail" aria-label={t("페이지 길잡이", "Page guide")}>
+      <span className="reader-rail-label">{t("읽기 길잡이", "ON THIS PAGE")}</span>
+      <nav aria-label={t("섹션 바로가기", "Section shortcuts")}>
+        {readingGroups.map((group, index) => <div className="reader-rail-group" key={group.en} data-active={group === readingGroup}>
+          <a href={`#${group.pages[0]}`} aria-current={group === readingGroup ? "location" : undefined}><span>{String(index + 1).padStart(2, "0")}</span><b>{t(group.ko, group.en)}</b></a>
+          {group === readingGroup && <div className="reader-rail-children">
+            {(group.pages[0] === "mind-guide"
+              ? [{id:"mind-data",ko:"원자료",en:"Records"},{id:"mind-pool",ko:"후보 구성",en:"Candidates"},{id:"mind-inputs",ko:"입력 피처",en:"Features"},{id:"mind-models",ko:"학습과 평가",en:"Fit & evaluate"},{id:"mind-results",ko:"결과 읽기",en:"Results"}]
+              : group.pages.map(id => readingPages.find(page => page.id === id)!))
+              .map(page => <a key={page.id} href={`#${page.id}`} aria-current={page.id === activeSection ? "location" : undefined}>{t(page.ko, page.en)}</a>)}
+          </div>}
+        </div>)}
+      </nav>
+      <a className="reader-rail-top" href="#top"><span aria-hidden="true">↑</span>{t("맨 위로", "Back to top")}</a>
+    </aside>
+    <div className="reader-floating-tools">
+      <details className="reader-pocket-guide">
+        <summary>{t("목차", "Contents")}<span aria-hidden="true">＋</span></summary>
+        <nav aria-label={t("빠른 목차", "Quick contents")} onClick={event => {
+          if ((event.target as HTMLElement).closest("a")) event.currentTarget.closest("details")?.removeAttribute("open");
+        }}>
+          {readingPages.map(page => <a key={page.id} href={`#${page.id}`} aria-current={page.id === activeSection ? "location" : undefined}>{t(page.ko, page.en)}</a>)}
+        </nav>
+      </details>
+      <a className="reader-back-top" href="#top" aria-label={t("페이지 맨 위로 이동", "Back to the top of the page")}><span aria-hidden="true">↑</span>{t("맨 위로", "Top")}</a>
+    </div>
     <header className="public-masthead" id="top">
       <div className="public-masthead-inner">
         <div className="public-brand">

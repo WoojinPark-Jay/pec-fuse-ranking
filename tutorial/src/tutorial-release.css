@@ -536,3 +536,39 @@
   overflow-wrap: anywhere;
 }
 .tutorial-reader #tutorial .prd-demo-phone p small { line-height: 1.6; }
+
+/* Persistent navigation for the continuous guide; never cover the reading column. */
+.tutorial-reader .reader-rail { display:none; }
+.tutorial-reader .reader-floating-tools { position:fixed; right:20px; bottom:calc(20px + env(safe-area-inset-bottom,0px)); z-index:45; display:flex; align-items:flex-end; gap:8px; font-size:13px; }
+.tutorial-reader .reader-back-top,
+.tutorial-reader .reader-pocket-guide>summary { display:flex; align-items:center; justify-content:center; gap:12px; min-height:46px; padding:12px 17px; border:1px solid #bbc9bb; border-radius:8px; background:#fffefa; color:#284d40; font-weight:650; text-decoration:none; box-shadow:0 3px 16px #24382b14; cursor:pointer; line-height:1.5; }
+.tutorial-reader .reader-back-top>span { font-size:22px; line-height:1; }
+.tutorial-reader .reader-pocket-guide { position:relative; }
+.tutorial-reader .reader-pocket-guide>summary { list-style:none; }
+.tutorial-reader .reader-pocket-guide>summary::-webkit-details-marker { display:none; }
+.tutorial-reader .reader-pocket-guide[open]>summary { background:#eaf0e5; }
+.tutorial-reader .reader-pocket-guide>nav { position:absolute; bottom:calc(100% + 10px); right:0; display:grid; width:230px; max-width:calc(100vw - 40px); max-height:min(65svh,520px); overflow-y:auto; overscroll-behavior:contain; padding:10px; border:1px solid #cbd6c7; border-radius:10px; background:#fffefa; box-shadow:0 8px 28px #24382b20; }
+.tutorial-reader .reader-pocket-guide nav a { display:block; min-height:40px; padding:10px 14px; color:#405448; text-decoration:none; border-radius:5px; line-height:1.5; }
+.tutorial-reader .reader-pocket-guide nav a[aria-current] { background:#eaf0e5; color:#234534; font-weight:700; }
+.tutorial-reader .public-footer { padding-bottom:100px; }
+@media(min-width:1600px) {
+  .tutorial-release.tutorial-continuous { padding-left:224px; }
+  .tutorial-reader .reader-floating-tools .reader-pocket-guide { display:none; }
+  .tutorial-reader .reader-rail { display:block; position:fixed; left:22px; top:100px; bottom:32px; width:184px; z-index:35; overflow-y:auto; overscroll-behavior:contain; padding:6px 6px 20px; scrollbar-width:thin; }
+  .tutorial-reader .reader-rail-label { display:block; margin:0 0 22px 20px; color:#647361; font-size:10px; font-weight:650; letter-spacing:.12em; }
+  .tutorial-reader .reader-rail-group { position:relative; margin-left:10px; border-left:1px solid #cdd7c9; padding:0 0 12px 15px; }
+  .tutorial-reader .reader-rail-group::before { content:""; position:absolute; left:-5px; top:17px; width:9px; height:9px; border-radius:50%; background:#cdd7c9; outline:3px solid #fdfdfb; }
+  .tutorial-reader .reader-rail-group[data-active=true]::before { background:#315c49; box-shadow:0 0 0 5px #dce8d9; }
+  .tutorial-reader .reader-rail-group>a { display:flex; align-items:baseline; gap:10px; padding:10px 8px; border-radius:5px; color:#526158; text-decoration:none; font-size:12px; line-height:1.5; }
+  .tutorial-reader .reader-rail-group>a>span { font:11px/1.5 monospace; }
+  .tutorial-reader .reader-rail-group>a[aria-current] { background:#eaf0e5; color:#234534; }
+  .tutorial-reader .reader-rail-children { display:grid; gap:3px; padding:6px 0 2px 8px; }
+  .tutorial-reader .reader-rail-children a { padding:7px 6px; color:#526158; text-decoration:none; font-size:12px; line-height:1.6; overflow-wrap:anywhere; }
+  .tutorial-reader .reader-rail-children a[aria-current] { color:#234534; font-weight:700; text-decoration:underline; text-underline-offset:4px; }
+  .tutorial-reader .reader-rail-top { display:flex; gap:14px; align-items:center; margin-top:18px; padding:12px 16px; color:#315c49; font-size:13px; font-weight:650; text-decoration:none; }
+  .tutorial-reader .reader-rail-top>span { font-size:23px; }
+}
+@media(max-width:600px) {
+  .tutorial-reader .reader-floating-tools { right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px)); }
+  .tutorial-reader .reader-back-top,.tutorial-reader .reader-pocket-guide>summary { padding:10px 14px; }
+}
