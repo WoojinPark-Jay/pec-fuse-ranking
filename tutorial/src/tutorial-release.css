@@ -425,7 +425,6 @@
 .tutorial-reader #tutorial .reader-data-context strong { font-size: 12px; line-height: 1.8; }
 .tutorial-reader #tutorial .reader-data-context p { margin: 0; font-size: 13px; line-height: 1.8; }
 .tutorial-reader #tutorial .reader-data-context a { font-size: 13px; line-height: 1.8; color: #315c49; text-underline-offset: 4px; }
-.tutorial-reader[data-page="mind-guide"] #tutorial > .comparison-atlas { display: none; }
 .tutorial-reader #mind-guide { max-width: 1224px; margin: auto; padding: 48px 32px 0; color: var(--reading-ink); }
 .tutorial-reader #mind-guide .mj-heading > span { font-size: 11px; font-weight: 600; letter-spacing: .12em; color: #526158; }
 .tutorial-reader #mind-guide .mj-heading h2 { margin: 14px 0 18px; font: 500 clamp(30px,3.4vw,44px)/1.25 "Iowan Old Style","Noto Serif KR",Georgia,serif; letter-spacing: -.035em; }
