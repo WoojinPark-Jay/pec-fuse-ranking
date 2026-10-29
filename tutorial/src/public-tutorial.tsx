@@ -67,7 +67,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
 
   useEffect(() => {
     let frame = 0;
-    const navigate = () => {
+    const navigate = (animate = false) => {
       const id = hashTarget();
       setActiveSection(readingPageFor(id));
       cancelAnimationFrame(frame);
@@ -75,7 +75,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
         frame = requestAnimationFrame(() => {
           if (!id) return;
           const page = readingPages.find(item => item.id === id);
-          const target = document.getElementById(id) ?? (page && document.getElementById(page.roots[0]));
+          const target = (page && document.getElementById(page.roots[0])) ?? document.getElementById(id);
           if (!target) return;
           let parent = target.parentElement;
           while (parent) {
@@ -83,15 +83,32 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
             parent = parent.parentElement;
           }
           const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 60) + 24;
-          window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset), behavior: "instant" });
+          const motion = animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset), behavior: motion ? "smooth" : "instant" });
         });
       });
     };
+    const followHash = () => navigate(true);
+    const followLink = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>(".tutorial-reader a[href^='#']") : null;
+      const hash = link?.getAttribute("href");
+      if (!hash || hash === "#") return;
+      let id: string;
+      try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
+      const page = readingPages.find(item => item.id === id);
+      if (!document.getElementById(id) && !(page && document.getElementById(page.roots[0]))) return;
+      event.preventDefault();
+      if (window.location.hash !== hash) window.history.pushState(null, "", hash);
+      navigate(true);
+    };
     navigate();
-    window.addEventListener("hashchange", navigate);
+    window.addEventListener("hashchange", followHash);
+    document.addEventListener("click", followLink);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener("hashchange", navigate);
+      window.removeEventListener("hashchange", followHash);
+      document.removeEventListener("click", followLink);
     };
   }, []);
 
