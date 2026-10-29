@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "manuscript_revision": "v91",
-  "artifact_revision": "ieee-access-v91-public-artifact-v47",
-  "released_on": "2026-10-27",
+  "manuscript_revision": "v92",
+  "artifact_revision": "ieee-access-v92-public-artifact-v48",
+  "released_on": "2026-10-29",
   "package_kind": "reproducibility_repository",
   "software_version": "0.2.0",
   "tutorial_package_version": "0.1.0",
-  "manuscript_pdf": "tutorial/public/PEC-Fuse-manuscript-v91.pdf",
-  "manuscript_pdf_sha256": "84eb07afcc3efe141d738c8896ae8517e4970fcd11c2739caf93d217c99ac230",
+  "manuscript_pdf": "tutorial/public/PEC-Fuse-manuscript-v92.pdf",
+  "manuscript_pdf_sha256": "838079fcb7ff1a71fed327adda62b70560d5f5b40b698398ffbc1d77361d9807",
   "manuscript_pages": 28,
   "historical_unlinked_files": {
     "tutorial/public/PEC-Fuse-manuscript-v86.pdf": "203207bc74cde9a6eb84d04fd51a38696fa12375bf15e5761fed2cf943df50b2",
@@ -17,7 +17,9 @@
     "tutorial/public/PEC-Fuse-manuscript-v89.pdf": "7bf6d05d8492212aedc4af83677dc961b69b49d09d4589a5e9dba44d09299bcd",
     "tutorial/public/paper-first-page-v89.png": "15d664a14ec71068f9c33a5d6f7c3b9f9f8bc2bb4ffc361a039d236c0b5bd6bb",
     "tutorial/public/PEC-Fuse-manuscript-v90.pdf": "7adbb1f5f7aa0f0844cb081c5277884c8e3d9d4ffd6a7bfb4109ddcb5b6e598f",
-    "tutorial/public/paper-first-page-v90.png": "15d664a14ec71068f9c33a5d6f7c3b9f9f8bc2bb4ffc361a039d236c0b5bd6bb"
+    "tutorial/public/paper-first-page-v90.png": "15d664a14ec71068f9c33a5d6f7c3b9f9f8bc2bb4ffc361a039d236c0b5bd6bb",
+    "tutorial/public/PEC-Fuse-manuscript-v91.pdf": "84eb07afcc3efe141d738c8896ae8517e4970fcd11c2739caf93d217c99ac230",
+    "tutorial/public/paper-first-page-v91.png": "15d664a14ec71068f9c33a5d6f7c3b9f9f8bc2bb4ffc361a039d236c0b5bd6bb"
   },
   "version_semantics": "Manuscript and artifact identify this release. Software/package versions and historical experiment, generator, and checkpoint identifiers are independent and intentionally preserved.",
   "administrative_pending": [
