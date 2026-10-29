@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ComparisonAtlas } from "./components/comparison-atlas";
 import { LiveRankingDemo } from "./components/live-ranking-demo";
 
@@ -63,12 +63,14 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const t = (a: string, b: string) => ko ? a : b;
   const [activeSection, setActiveSection] = useState(() => readingPageFor(hashTarget()));
+  const navigation = useRef<{ top: number; until: number } | null>(null);
   const readingGroup = readingGroups.find(group => group.pages.includes(activeSection))!;
 
   useEffect(() => {
     let frame = 0;
     const navigate = (animate = false) => {
       const id = hashTarget();
+      navigation.current = { top: -1, until: performance.now() + 2500 };
       setActiveSection(readingPageFor(id));
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
@@ -84,7 +86,9 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
           }
           const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 60) + 24;
           const motion = animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-          window.scrollTo({ top: Math.max(0, window.scrollY + target.getBoundingClientRect().top - offset), behavior: motion ? "smooth" : "instant" });
+          const top = Math.max(0, Math.min(document.documentElement.scrollHeight - window.innerHeight, window.scrollY + target.getBoundingClientRect().top - offset));
+          navigation.current = { top, until: performance.now() + 2500 };
+          window.scrollTo({ top, behavior: motion ? "smooth" : "instant" });
         });
       });
     };
@@ -116,6 +120,11 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     let frame = 0;
     const update = () => {
       frame = 0;
+      const pending = navigation.current;
+      if (pending) {
+        if (Math.abs(window.scrollY - pending.top) < 2 || performance.now() >= pending.until) navigation.current = null;
+        else return;
+      }
       const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 56) + 32;
       let current = "tutorial";
       for (const page of readingPages.slice(1)) {
@@ -125,9 +134,12 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       setActiveSection(current);
     };
     const queue = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const interrupt = () => { navigation.current = null; };
+    window.addEventListener("wheel", interrupt, { passive: true });
+    window.addEventListener("touchstart", interrupt, { passive: true });
     window.addEventListener("scroll", queue, { passive: true });
     window.addEventListener("resize", queue);
-    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", queue); window.removeEventListener("resize", queue); };
+    return () => { cancelAnimationFrame(frame); window.removeEventListener("scroll", queue); window.removeEventListener("resize", queue); window.removeEventListener("wheel", interrupt); window.removeEventListener("touchstart", interrupt); };
   }, []);
 
   return <div className="tutorial-release tutorial-reader tutorial-continuous" data-page={activeSection} lang={lang}>
@@ -137,14 +149,14 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
       <nav aria-label={t("섹션 바로가기", "Section shortcuts")}>
         {readingGroups.map((group, index) => <div className="reader-rail-group" key={group.en} data-active={group === readingGroup}>
           <a href={`#${group.pages[0]}`} aria-current={group === readingGroup ? "location" : undefined}><span>{String(index + 1).padStart(2, "0")}</span><b>{t(group.ko, group.en)}</b></a>
-          {group === readingGroup && <div className="reader-rail-children">
-            {(group.pages[0] === "mind-guide"
-              ? [{id:"mind-data",ko:"원자료",en:"Records"},{id:"mind-pool",ko:"후보 구성",en:"Candidates"},{id:"mind-inputs",ko:"입력 피처",en:"Features"},{id:"mind-models",ko:"학습과 평가",en:"Fit & evaluate"},{id:"mind-results",ko:"결과 읽기",en:"Results"}]
-              : group.pages.map(id => readingPages.find(page => page.id === id)!))
-              .map(page => <a key={page.id} href={`#${page.id}`} aria-current={page.id === activeSection ? "location" : undefined}>{t(page.ko, page.en)}</a>)}
-          </div>}
         </div>)}
       </nav>
+      <div className="reader-rail-children" aria-label={t("현재 섹션의 세부 목차", "Current section links")}>
+            {(readingGroup.pages[0] === "mind-guide"
+              ? [{id:"mind-data",ko:"원자료",en:"Records"},{id:"mind-pool",ko:"후보 구성",en:"Candidates"},{id:"mind-inputs",ko:"입력 피처",en:"Features"},{id:"mind-models",ko:"학습과 평가",en:"Fit & evaluate"},{id:"mind-results",ko:"결과 읽기",en:"Results"}]
+              : readingGroup.pages.map(id => readingPages.find(page => page.id === id)!))
+              .map(page => <a key={page.id} href={`#${page.id}`} aria-current={page.id === activeSection ? "location" : undefined}>{t(page.ko, page.en)}</a>)}
+      </div>
       <a className="reader-rail-top" href="#top"><span aria-hidden="true">↑</span>{t("맨 위로", "Back to top")}</a>
     </aside>
     <div className="reader-floating-tools">

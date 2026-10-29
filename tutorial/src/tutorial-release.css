@@ -477,7 +477,7 @@
 .tutorial-reader #mind-guide .mj-question-list p { margin: 0; font-size: 13px; }
 .tutorial-reader #mind-guide .mj-result-link { display: inline-block; padding: 14px 20px; border: 1px solid #315c49; border-radius: 4px; background: #edf3eb; font-size: 14px; line-height: 1.7; text-decoration: none; }
 .tutorial-reader #mind-guide .mj-sources { display: flex; flex-wrap: wrap; gap: 14px 24px; padding: 24px 0; font-size: 12px; }
-.tutorial-reader #mind-guide .mj-pagination { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: start; padding: 24px 0; margin-top: 24px; border-top: 1px solid var(--reading-rule); font-size: 13px; }
+.tutorial-reader #mind-guide .mj-pagination { display: none; }
 .tutorial-reader #mind-guide .mj-pagination > span { color: #526158; }
 .tutorial-reader #mind-guide .mj-pagination a:last-child { text-align: right; }
 .tutorial-reader .mind-walkthrough-link { padding: 18px 20px; border-left: 3px solid #6d8c74; background: #f0f4ee; }
@@ -561,7 +561,7 @@
   .tutorial-reader .reader-rail-group>a { display:flex; align-items:baseline; gap:10px; padding:10px 8px; border-radius:5px; color:#526158; text-decoration:none; font-size:12px; line-height:1.5; }
   .tutorial-reader .reader-rail-group>a>span { font:11px/1.5 monospace; }
   .tutorial-reader .reader-rail-group>a[aria-current] { background:#eaf0e5; color:#234534; }
-  .tutorial-reader .reader-rail-children { display:grid; gap:3px; padding:6px 0 2px 8px; }
+  .tutorial-reader .reader-rail-children { display:grid; gap:3px; padding:12px 0 2px 18px; border-top:1px solid #cdd7c9; overflow-anchor:none; }
   .tutorial-reader .reader-rail-children a { padding:7px 6px; color:#526158; text-decoration:none; font-size:12px; line-height:1.6; overflow-wrap:anywhere; }
   .tutorial-reader .reader-rail-children a[aria-current] { color:#234534; font-weight:700; text-decoration:underline; text-underline-offset:4px; }
   .tutorial-reader .reader-rail-top { display:flex; gap:14px; align-items:center; margin-top:18px; padding:12px 16px; color:#315c49; font-size:13px; font-weight:650; text-decoration:none; }
