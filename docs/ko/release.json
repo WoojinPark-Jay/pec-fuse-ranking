@@ -1,0 +1,14 @@
+{
+  "learning_revision": "ko-reading-v1-2026-11-01",
+  "manuscript_revision": "v92",
+  "artifact_reference": "ieee-access-v92-public-artifact-v48",
+  "main_bilingual_units": 306,
+  "appendix_bilingual_units": 199,
+  "scope": "Main selected sentence pairs with section backgrounds; Appendix A-D prose and equation units; exact source-table references; not a complete continuous translation of every citation and caption.",
+  "entry": "PEC_FUSE_V92_KOREAN_READING_COURSE.html",
+  "visibility_change": false,
+  "experiment_rerun": false,
+  "publication_scope": "Educational HTML/CSS/JS and sanitized guide metadata only; no Overleaf ZIP, TeX source, private data, or historical guides.",
+  "source_files_published": false,
+  "overleaf_bundle_published": false
+}
