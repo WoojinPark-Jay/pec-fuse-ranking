@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { MindDataMicroscope } from "./mind-data-microscope";
 import { MindProxyInputs } from "./mind-proxy-inputs";
 import { MindWorkedExample } from "./mind-worked-example";
 
@@ -58,6 +59,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
     <section id="mind-data" className="mj-panel" aria-labelledby="mind-data-title">
       <h3 id="mind-data-title">{t("01. 한 사람의 클릭 이력에서 시작합니다", "01. Start with one reader and three prior clicks")}</h3>
       <MindWorkedExample lang={lang} step={0} candidate={candidate} onCandidate={setCandidate} />
+      <MindDataMicroscope lang={lang} />
       <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
       <p>{t("MINDsmall의 behaviors.tsv 한 행에는 사용자 ID, 시각, 이전 클릭 이력, 그리고 그 impression의 기사 후보와 클릭 라벨이 들어 있습니다. 같은 사용자의 다른 impression은 별도 질의이며, 각 질의 안에서만 순위를 매깁니다.", "A row in MINDsmall's behaviors.tsv contains the user ID, timestamp, prior click history, and that impression's candidates and click labels. Different impressions from the same user remain separate ranking queries.")}</p>
       <div className="mj-source-grid">
