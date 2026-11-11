@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import "./mind-data-microscope.css";
@@ -21,7 +21,9 @@ type Field = {
   useEn: string;
   boundaryKo: string;
   boundaryEn: string;
-  route: string;
+  route?: string;
+  routeKo?: string;
+  routeEn?: string;
   used?: boolean;
 };
 
@@ -30,25 +32,27 @@ type Calculation = {
   labelEn: string;
   formula: string;
   substitution: string;
-  result: string;
+  result?: string;
+  resultKo?: string;
+  resultEn?: string;
   detailKo: string;
   detailEn: string;
 };
 
 const calculationDetails: Record<string, Calculation> = {
-  impression_id: { labelKo: "그룹 생성 규칙", labelEn: "GROUPING RULE", formula: String.raw`q=\text{one impression}`, substitution: String.raw`\texttt{I-20485}\longrightarrow q_{20485}`, result: "후보 A·B·…를 같은 query로 묶음", detailKo: "산술 계산은 하지 않습니다. 같은 impression_id의 후보끼리만 점수를 비교하고 순위를 매깁니다.", detailEn: "No arithmetic is applied. Candidates sharing an impression ID are scored and ranked within that query." },
-  user_id: { labelKo: "군집 생성 규칙", labelEn: "CLUSTERING RULE", formula: String.raw`\mathcal Q_u=\{q:q\text{ belongs to user }u\}`, substitution: String.raw`u=\texttt{U-017}\Rightarrow\mathcal Q_u=\{q_1,q_2,\ldots\}`, result: "bootstrap에서 이 query 묶음을 함께 재표집", detailKo: "한 사용자의 여러 impression을 독립 표본처럼 흩어 놓지 않고 하나의 군집으로 다룹니다. scorer 입력에는 들어가지 않습니다.", detailEn: "All impressions from one user form one uncertainty cluster rather than independent samples. This ID is not a scorer feature." },
-  time: { labelKo: "시간 분할 규칙", labelEn: "TEMPORAL SPLIT", formula: String.raw`60{,}000=51{,}000_{\mathrm{fit}}+9{,}000_{\mathrm{validation}}`, substitution: String.raw`\operatorname{sort}_{\mathrm{time}}(\text{first 60,000 train rows})`, result: "앞 85% fitting · 뒤 15% validation", detailKo: "시각으로 정렬한 뒤 앞부분으로 모델을 맞추고 뒷부분으로 설정을 고릅니다. 후보의 recency 점수나 history별 시간 감쇠값으로 쓰지는 않습니다.", detailEn: "Rows are sorted by time, with the earlier 85% used for fitting and later 15% for validation. The timestamp is not a candidate recency or history-decay feature." },
-  history: { labelKo: "이력 절단 규칙", labelEn: "HISTORY WINDOW", formula: String.raw`H_q=\operatorname{last}_{30}(\text{listed prior clicks})`, substitution: String.raw`[H_1,H_2,H_3]\longrightarrow H_q=[H_1,H_2,H_3]`, result: "P 3개 · C 4개 · log history length 생성", detailKo: "30개보다 길면 가장 뒤의 30개만 의미 피처 계산에 씁니다. 빈 history이면 P와 C 일곱 값을 모두 0으로 둡니다.", detailEn: "Only the last 30 listed items build semantic fields. Empty history produces zero for all three P and four C fields." },
-  impressions: { labelKo: "파싱과 분리", labelEn: "PARSE AND SEPARATE", formula: String.raw`\texttt{newsID-label}\longrightarrow(i,y_i),\qquad E_i=1`, substitution: String.raw`\texttt{A-1\ B-0}\longrightarrow[(A,1),(B,0)]`, result: "후보=[A,B] · y=[1,0] · E=[1,1]", detailKo: "뒤의 1/0은 정답 y이고, 원래 slate에 있었다는 사실은 별도 입력 E입니다. 따라서 A와 B는 E가 같지만 y가 다릅니다.", detailEn: "The suffix is target y, while original-slate membership is input E. A and B therefore share E but have different labels." },
-  news_id: { labelKo: "테이블 결합", labelEn: "TABLE JOIN", formula: String.raw`\text{behavior.newsID}\;\Join\;\text{news.newsID}`, substitution: String.raw`A\longrightarrow(\text{category, subcategory, title, abstract})`, result: "기사 A의 텍스트·분류·벡터를 연결", detailKo: "ID 문자열 자체를 모델에 넣지 않고 다른 기사 정보를 찾아오는 키로만 사용합니다.", detailEn: "The string ID is only a join key; it is not entered into the model." },
-  category: { labelKo: "세 갈래 변환", labelEn: "THREE DOWNSTREAM USES", formula: String.raw`c_i\longrightarrow\{P_{\mathrm{cat}},\;\mathrm{CTR}_{c_i},\;f_{\mathrm{enc}}(c_i)\}`, substitution: String.raw`c_i=\text{News}`, result: "동일 category 비율 · category CTR · 기사 벡터", detailKo: "원문 category를 숫자로 직접 넣지 않고 history 일치 비율, 학습 측 CTR, 인코더 입력으로 각각 변환합니다.", detailEn: "The raw category is transformed into a history share, training-side CTR, and encoder text rather than entered directly." },
-  subcategory: { labelKo: "세 갈래 변환", labelEn: "THREE DOWNSTREAM USES", formula: String.raw`s_i\longrightarrow\{P_{\mathrm{subcat}},\;\mathrm{CTR}_{s_i},\;f_{\mathrm{enc}}(s_i)\}`, substitution: String.raw`s_i=\text{Politics}`, result: "동일 subcategory 비율 · subcategory CTR · 기사 벡터", detailKo: "상위 category와 별개로 더 세밀한 일치 비율과 CTR을 만듭니다.", detailEn: "The finer label independently produces a history share and CTR." },
-  title: { labelKo: "벡터와 길이 생성", labelEn: "VECTOR AND LENGTH", formula: String.raw`\mathbf v_i=f_{\mathrm{BGE}}(c_i\Vert s_i\Vert title_i\Vert abstract_i),\quad z=\ln(1+|title_i|)`, substitution: String.raw`|\texttt{Carbon\ tax\ bill\ passes}|=22`, result: "cached BGE vector · ln(23)=3.1355", detailKo: "실제 runner는 저장된 BGE 벡터를 불러옵니다. ExtraTrees는 제목 문자열이 아니라 벡터에서 만든 P/C와 문자 수 로그를 받습니다.", detailEn: "The runner loads archived BGE vectors. ExtraTrees receives vector-derived P/C fields and log character length, not the raw title." },
-  abstract: { labelKo: "벡터와 길이 생성", labelEn: "VECTOR AND LENGTH", formula: String.raw`\mathbf v_i=f_{\mathrm{BGE}}(\cdots\Vert abstract_i),\quad z=\ln(1+|abstract_i|)`, substitution: String.raw`|abstract_i|=120`, result: "cached BGE vector · ln(121)=4.7958", detailKo: "표시한 문장은 설명용 발췌이며 계산 예시는 runner 입력 120자를 가정합니다. 전체 기사 본문은 사용하지 않습니다.", detailEn: "The displayed sentence is an excerpt; the worked value assumes a 120-character runner input. Full article bodies are not used." },
-  url: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{url}\longrightarrow\varnothing`, substitution: String.raw`\texttt{https://www.msn.com/\ldots}`, result: "최종 입력 21개에 포함되지 않음", detailKo: "URL이나 도메인에서 어떤 숫자도 만들지 않습니다.", detailEn: "No numeric feature is derived from the URL or domain." },
-  title_entities: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{title\_entities}\longrightarrow\varnothing`, substitution: String.raw`\texttt{JSON\ annotations}`, result: "최종 입력 21개에 포함되지 않음", detailKo: "entity embedding이나 지식그래프 피처를 추가하지 않습니다.", detailEn: "No entity embedding or knowledge-graph feature is added." },
-  abstract_entities: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{abstract\_entities}\longrightarrow\varnothing`, substitution: String.raw`\texttt{JSON\ annotations}`, result: "최종 입력 21개에 포함되지 않음", detailKo: "원파일에는 있지만 scorer는 읽지 않습니다.", detailEn: "The field exists in the source file but is not read by the scorer." },
+  impression_id: { labelKo: "그룹 생성 규칙", labelEn: "GROUPING RULE", formula: String.raw`q=\text{one impression}`, substitution: String.raw`\texttt{I-20485}\longrightarrow q_{20485}`, resultKo: "후보 A·B·…를 같은 query로 묶음", resultEn: "Group candidates A, B, … into one query", detailKo: "산술 계산은 하지 않습니다. 같은 impression_id의 후보끼리만 점수를 비교하고 순위를 매깁니다.", detailEn: "No arithmetic is applied. Candidates sharing an impression ID are scored and ranked within that query." },
+  user_id: { labelKo: "군집 생성 규칙", labelEn: "CLUSTERING RULE", formula: String.raw`\mathcal Q_u=\{q:q\text{ belongs to user }u\}`, substitution: String.raw`u=\texttt{U-017}\Rightarrow\mathcal Q_u=\{q_1,q_2,\ldots\}`, resultKo: "bootstrap에서 이 query 묶음을 함께 재표집", resultEn: "Resample this query cluster together in the bootstrap", detailKo: "한 사용자의 여러 impression을 독립 표본처럼 흩어 놓지 않고 하나의 군집으로 다룹니다. scorer 입력에는 들어가지 않습니다.", detailEn: "All impressions from one user form one uncertainty cluster rather than independent samples. This ID is not a scorer feature." },
+  time: { labelKo: "시간 분할 규칙", labelEn: "TEMPORAL SPLIT", formula: String.raw`60{,}000=51{,}000_{\mathrm{fit}}+9{,}000_{\mathrm{validation}}`, substitution: String.raw`\operatorname{sort}_{\mathrm{time}}(\text{first 60,000 train rows})`, resultKo: "앞 85% fitting · 뒤 15% validation", resultEn: "Earlier 85% for fitting · later 15% for validation", detailKo: "시각으로 정렬한 뒤 앞부분으로 모델을 맞추고 뒷부분으로 설정을 고릅니다. 후보의 recency 점수나 history별 시간 감쇠값으로 쓰지는 않습니다.", detailEn: "Rows are sorted by time, with the earlier 85% used for fitting and later 15% for validation. The timestamp is not a candidate recency or history-decay feature." },
+  history: { labelKo: "이력 절단 규칙", labelEn: "HISTORY WINDOW", formula: String.raw`H_q=\operatorname{last}_{30}(\text{listed prior clicks})`, substitution: String.raw`[H_1,H_2,H_3]\longrightarrow H_q=[H_1,H_2,H_3]`, resultKo: "P 3개 · C 4개 · log history length 생성", resultEn: "Produce 3 P fields · 4 C fields · log history length", detailKo: "30개보다 길면 가장 뒤의 30개만 의미 피처 계산에 씁니다. 빈 history이면 P와 C 일곱 값을 모두 0으로 둡니다.", detailEn: "Only the last 30 listed items build semantic fields. Empty history produces zero for all three P and four C fields." },
+  impressions: { labelKo: "파싱과 분리", labelEn: "PARSE AND SEPARATE", formula: String.raw`\texttt{newsID-label}\longrightarrow(i,y_i),\qquad E_i=1`, substitution: String.raw`\texttt{A-1\ B-0}\longrightarrow[(A,1),(B,0)]`, resultKo: "후보=[A,B] · y=[1,0] · E=[1,1]", resultEn: "candidates=[A,B] · y=[1,0] · E=[1,1]", detailKo: "뒤의 1/0은 정답 y이고, 원래 slate에 있었다는 사실은 별도 입력 E입니다. 따라서 A와 B는 E가 같지만 y가 다릅니다.", detailEn: "The suffix is target y, while original-slate membership is input E. A and B therefore share E but have different labels." },
+  news_id: { labelKo: "테이블 결합", labelEn: "TABLE JOIN", formula: String.raw`\text{behavior.newsID}\;\Join\;\text{news.newsID}`, substitution: String.raw`A\longrightarrow(\text{category, subcategory, title, abstract})`, resultKo: "기사 A의 텍스트·분류·벡터를 연결", resultEn: "Attach article A's text, taxonomy, and vector", detailKo: "ID 문자열 자체를 모델에 넣지 않고 다른 기사 정보를 찾아오는 키로만 사용합니다.", detailEn: "The string ID is only a join key; it is not entered into the model." },
+  category: { labelKo: "세 갈래 변환", labelEn: "THREE DOWNSTREAM USES", formula: String.raw`c_i\longrightarrow\{P_{\mathrm{cat}},\;\mathrm{CTR}_{c_i},\;f_{\mathrm{enc}}(c_i)\}`, substitution: String.raw`c_i=\text{News}`, resultKo: "동일 category 비율 · category CTR · 기사 벡터", resultEn: "category-match share · category CTR · article vector", detailKo: "원문 category를 숫자로 직접 넣지 않고 history 일치 비율, 학습 측 CTR, 인코더 입력으로 각각 변환합니다.", detailEn: "The raw category is transformed into a history share, training-side CTR, and encoder text rather than entered directly." },
+  subcategory: { labelKo: "세 갈래 변환", labelEn: "THREE DOWNSTREAM USES", formula: String.raw`s_i\longrightarrow\{P_{\mathrm{subcat}},\;\mathrm{CTR}_{s_i},\;f_{\mathrm{enc}}(s_i)\}`, substitution: String.raw`s_i=\text{Politics}`, resultKo: "동일 subcategory 비율 · subcategory CTR · 기사 벡터", resultEn: "subcategory-match share · subcategory CTR · article vector", detailKo: "상위 category와 별개로 더 세밀한 일치 비율과 CTR을 만듭니다.", detailEn: "The finer label independently produces a history share and CTR." },
+  title: { labelKo: "벡터와 길이 생성", labelEn: "VECTOR AND LENGTH", formula: String.raw`\mathbf v_i=f_{\mathrm{BGE}}(c_i\Vert s_i\Vert title_i\Vert abstract_i),\quad z=\ln(1+|title_i|)`, substitution: String.raw`|\texttt{Carbon\ tax\ bill\ passes}|=22`, resultKo: "캐시 BGE 벡터 · ln(23)=3.1355", resultEn: "cached BGE vector · ln(23)=3.1355", detailKo: "실제 runner는 저장된 BGE 벡터를 불러옵니다. ExtraTrees는 제목 문자열이 아니라 벡터에서 만든 P/C와 문자 수 로그를 받습니다.", detailEn: "The runner loads archived BGE vectors. ExtraTrees receives vector-derived P/C fields and log character length, not the raw title." },
+  abstract: { labelKo: "벡터와 길이 생성", labelEn: "VECTOR AND LENGTH", formula: String.raw`\mathbf v_i=f_{\mathrm{BGE}}(\cdots\Vert abstract_i),\quad z=\ln(1+|abstract_i|)`, substitution: String.raw`|abstract_i|=120`, resultKo: "캐시 BGE 벡터 · ln(121)=4.7958", resultEn: "cached BGE vector · ln(121)=4.7958", detailKo: "표시한 문장은 설명용 발췌이며 계산 예시는 runner 입력 120자를 가정합니다. 전체 기사 본문은 사용하지 않습니다.", detailEn: "The displayed sentence is an excerpt; the worked value assumes a 120-character runner input. Full article bodies are not used." },
+  url: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{url}\longrightarrow\varnothing`, substitution: String.raw`\texttt{https://www.msn.com/\ldots}`, resultKo: "최종 입력 21개에 포함되지 않음", resultEn: "Not included in the final 21-field input", detailKo: "URL이나 도메인에서 어떤 숫자도 만들지 않습니다.", detailEn: "No numeric feature is derived from the URL or domain." },
+  title_entities: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{title\_entities}\longrightarrow\varnothing`, substitution: String.raw`\texttt{JSON\ annotations}`, resultKo: "최종 입력 21개에 포함되지 않음", resultEn: "Not included in the final 21-field input", detailKo: "entity embedding이나 지식그래프 피처를 추가하지 않습니다.", detailEn: "No entity embedding or knowledge-graph feature is added." },
+  abstract_entities: { labelKo: "이 proxy의 처리", labelEn: "PROXY HANDLING", formula: String.raw`\texttt{abstract\_entities}\longrightarrow\varnothing`, substitution: String.raw`\texttt{JSON\ annotations}`, resultKo: "최종 입력 21개에 포함되지 않음", resultEn: "Not included in the final 21-field input", detailKo: "원파일에는 있지만 scorer는 읽지 않습니다.", detailEn: "The field exists in the source file but is not read by the scorer." },
 
   article_ctr: { labelKo: "Laplace-smoothed CTR", labelEn: "LAPLACE-SMOOTHED CTR", formula: String.raw`\mathrm{CTR}_i=\frac{clicks_i+1}{impressions_i+2}`, substitution: String.raw`\frac{9+1}{40+2}=\frac{10}{42}`, result: "0.2381", detailKo: "validation 선택 때는 fitting 51,000개, 최종 평가 때는 train 60,000개 logged slate만 집계합니다. Development 라벨은 들어가지 않습니다.", detailEn: "Statistics use 51,000 fitting impressions for selection and all 60,000 training impressions after refit. Development labels never enter." },
   log_article_impressions: { labelKo: "Count 로그 압축", labelEn: "LOG COUNT", formula: String.raw`z_i=\ln(1+impressions_i)`, substitution: String.raw`\ln(1+40)=\ln(41)`, result: "3.7136", detailKo: "로그는 큰 count 차이를 완화하지만 기사 인기 순서는 보존합니다.", detailEn: "The log compresses large count gaps while preserving count order." },
@@ -97,35 +101,35 @@ const newsFields: Field[] = [
 ];
 
 const rowFields: Field[] = [
-  ["article_ctr", "Article CTR", "0.2381", "control", "학습 측 기사 클릭·impression 집계의 Laplace-smoothed CTR", "(article clicks+1)/(article impressions+2)"],
-  ["log_article_impressions", "Log article impressions", "3.7136", "control", "기사의 학습 측 impression 수를 log(1+x)로 압축", "training article count → log(1+x)"],
-  ["category_ctr", "Category CTR", "0.1509", "control", "후보 category의 smoothed CTR", "category counts → smoothed CTR"],
-  ["subcategory_ctr", "Subcategory CTR", "0.2317", "control", "후보 subcategory의 smoothed CTR", "subcategory counts → smoothed CTR"],
-  ["log_history_length", "Log history length", "1.3863", "control", "사용한 history 길이의 log(1+x)", "history → log(1+length)"],
-  ["log_title_characters", "Log title characters", "3.1355", "control", "제목 문자 수의 log(1+x)", "title → character count → log"],
-  ["log_abstract_characters", "Log abstract characters", "4.7958", "control", "초록 문자 수의 log(1+x)", "abstract → character count → log"],
-  ["P_mean_vector_cosine", "P mean-vector cosine", "0.7474", "P", "정규화한 평균 history 방향과 후보의 cosine", "history vectors + candidate vector → P₁"],
-  ["P_category_share", "P category share", "0.6667", "P", "history 중 후보와 같은 category의 비율", "history taxonomy + candidate category → P₂"],
-  ["P_subcategory_share", "P subcategory share", "0.3333", "P", "history 중 후보와 같은 subcategory의 비율", "history taxonomy + candidate subcategory → P₃"],
-  ["C_mean", "C mean", "0.6000", "C", "후보와 개별 history 기사 cosine의 산술평균", "candidate-history cosines → mean"],
-  ["C_max", "C maximum", "1.0000", "C", "후보와 history 기사 cosine의 최댓값", "candidate-history cosines → maximum"],
-  ["C_top3", "C top-three", "0.6000", "C", "상위 min(3, |H|)개 cosine의 평균", "candidate-history cosines → top-three mean"],
-  ["C_attention", "C attention", "0.9476", "C", "softmax(similarity/0.18) 가중 cosine 평균", "candidate-history cosines → attention"],
-  ["E_slate_member", "E slate membership", "1", "E", "원래 logged slate 소속이면 1, 추가 후보이면 0", "impressions membership → E"],
-  ["P_sem_x_E", "P × E", "0.7474", "product", "P alignment와 E의 고정 곱", "P₁ × E"],
-  ["C_mean_x_E", "C mean × E", "0.6000", "product", "C mean과 E의 고정 곱", "C mean × E"],
-  ["C_max_x_E", "C max × E", "1.0000", "product", "C max와 E의 고정 곱", "C max × E"],
-  ["C_attention_x_E", "C attention × E", "0.9476", "product", "C attention과 E의 고정 곱", "C attention × E"],
-  ["P_sem_x_C_mean", "P × C mean", "0.4484", "product", "P alignment와 C mean의 고정 곱", "P₁ × C mean"],
-  ["P_sem_x_C_attention", "P × C attention", "0.7083", "product", "P alignment와 C attention의 고정 곱", "P₁ × C attention"],
-].map(([name, label, sample, group, meaning, route]) => ({
+  ["article_ctr", "Article CTR", "0.2381", "control", "학습 측 기사 클릭·노출 집계의 Laplace-smoothed CTR", "Laplace-smoothed CTR from training-side article clicks and impressions", "기사 클릭·노출 집계 → 평활 CTR", "article click/impression counts → smoothed CTR"],
+  ["log_article_impressions", "Log article impressions", "3.7136", "control", "기사의 학습 측 노출 횟수를 log(1+x)로 압축한 값", "Log-compressed training-side impression count for the article", "기사 노출 횟수 → log(1+x)", "article impression count → log(1+x)"],
+  ["category_ctr", "Category CTR", "0.1509", "control", "후보와 같은 category의 학습 측 smoothed CTR", "Training-side smoothed CTR for the candidate's category", "category 클릭·노출 집계 → 평활 CTR", "category click/impression counts → smoothed CTR"],
+  ["subcategory_ctr", "Subcategory CTR", "0.2317", "control", "후보와 같은 subcategory의 학습 측 smoothed CTR", "Training-side smoothed CTR for the candidate's subcategory", "subcategory 클릭·노출 집계 → 평활 CTR", "subcategory click/impression counts → smoothed CTR"],
+  ["log_history_length", "Log history length", "1.3863", "control", "실제 의미 피처 계산에 사용한 history 길이의 log(1+x)", "Log-transformed length of the history used for semantic features", "최대 30개 history → 길이 → log(1+x)", "at-most-30 history → length → log(1+x)"],
+  ["log_title_characters", "Log title characters", "3.1355", "control", "제목 문자 수를 log(1+x)로 변환한 값", "Log-transformed title character count", "제목 → 문자 수 → log(1+x)", "title → character count → log(1+x)"],
+  ["log_abstract_characters", "Log abstract characters", "4.7958", "control", "초록 문자 수를 log(1+x)로 변환한 값", "Log-transformed abstract character count", "초록 → 문자 수 → log(1+x)", "abstract → character count → log(1+x)"],
+  ["P_mean_vector_cosine", "P mean-vector cosine", "0.7474", "P", "정규화한 평균 history 방향과 후보 벡터 사이의 cosine", "Cosine between the candidate vector and normalized mean-history direction", "history 벡터 평균·정규화 + 후보 벡터 → P₁", "mean and normalize history vectors + candidate vector → P₁"],
+  ["P_category_share", "P category share", "0.6667", "P", "history 중 후보와 같은 category를 가진 기사의 비율", "Share of history articles matching the candidate category", "history 분류 + 후보 category → P₂", "history taxonomy + candidate category → P₂"],
+  ["P_subcategory_share", "P subcategory share", "0.3333", "P", "history 중 후보와 같은 subcategory를 가진 기사의 비율", "Share of history articles matching the candidate subcategory", "history 분류 + 후보 subcategory → P₃", "history taxonomy + candidate subcategory → P₃"],
+  ["C_mean", "C mean", "0.6000", "C", "후보와 각 history 기사 사이 cosine의 산술평균", "Arithmetic mean of candidate-to-history cosine similarities", "후보별 history cosine → 평균", "candidate-history cosines → mean"],
+  ["C_max", "C maximum", "1.0000", "C", "후보와 history 기사 사이 cosine 중 최댓값", "Maximum candidate-to-history cosine similarity", "후보별 history cosine → 최댓값", "candidate-history cosines → maximum"],
+  ["C_top3", "C top-three", "0.6000", "C", "상위 min(3, |H|)개 cosine의 평균", "Mean of the largest min(3, |H|) candidate-to-history cosines", "후보별 history cosine → 상위 최대 3개 평균", "candidate-history cosines → top-three mean"],
+  ["C_attention", "C attention", "0.9476", "C", "softmax(similarity/0.18)로 가중한 cosine 평균", "Cosine mean weighted by softmax(similarity/0.18)", "후보별 history cosine → softmax 가중평균", "candidate-history cosines → softmax-weighted mean"],
+  ["E_slate_member", "E slate membership", "1", "E", "원래 logged slate 소속이면 1, 추가 후보이면 0인 출처 표시", "Origin indicator: 1 for the logged slate and 0 for an added candidate", "원래 impressions 소속 여부 → E", "original-impression membership → E"],
+  ["P_sem_x_E", "P × E", "0.7474", "product", "P₁ alignment와 E의 고정 곱", "Deterministic product of P₁ alignment and E", "P₁ × E", "P₁ × E"],
+  ["C_mean_x_E", "C mean × E", "0.6000", "product", "C mean과 E의 고정 곱", "Deterministic product of C mean and E", "C mean × E", "C mean × E"],
+  ["C_max_x_E", "C max × E", "1.0000", "product", "C max와 E의 고정 곱", "Deterministic product of C max and E", "C max × E", "C max × E"],
+  ["C_attention_x_E", "C attention × E", "0.9476", "product", "C attention과 E의 고정 곱", "Deterministic product of C attention and E", "C attention × E", "C attention × E"],
+  ["P_sem_x_C_mean", "P × C mean", "0.4484", "product", "P₁ alignment와 C mean의 고정 곱", "Deterministic product of P₁ alignment and C mean", "P₁ × C mean", "P₁ × C mean"],
+  ["P_sem_x_C_attention", "P × C attention", "0.7083", "product", "P₁ alignment와 C attention의 고정 곱", "Deterministic product of P₁ alignment and C attention", "P₁ × C attention", "P₁ × C attention"],
+].map(([name, label, sample, group, meaningKo, meaningEn, routeKo, routeEn]) => ({
   name, labelKo: label, labelEn: label, sample, dataType: "float32", group: group as Group,
-  meaningKo: meaning, meaningEn: meaning,
+  meaningKo, meaningEn,
   useKo: "이 숫자 한 칸이 후보별 ExtraTrees 입력 행에 그대로 들어갑니다.",
   useEn: "This scalar occupies one cell in the candidate-level ExtraTrees row.",
   boundaryKo: group === "product" ? "새 원자료나 학습된 hidden coordinate가 아니라 이미 계산한 필드의 곱입니다." : group === "P" ? "MIND의 P는 stated profile이 아니라 history-derived proxy입니다." : group === "E" ? "인과적 exposure나 실제 examination을 확인한 값이 아닙니다." : "이 값 하나가 클릭 확률이나 최종 ranking score는 아닙니다.",
   boundaryEn: group === "product" ? "A product of existing fields, not new raw data or a learned hidden coordinate." : group === "P" ? "MIND P is a history-derived proxy, not a stated profile." : group === "E" ? "This does not verify causal exposure or examination." : "This single field is neither a click probability nor the final ranking score.",
-  route,
+  routeKo, routeEn,
 }));
 
 const sourceInfo: Record<Source, { ko: string; en: string; noteKo: string; noteEn: string; fields: Field[] }> = {
@@ -134,14 +138,37 @@ const sourceInfo: Record<Source, { ko: string; en: string; noteKo: string; noteE
   row: { ko: "최종 후보 행 · 21개", en: "Candidate row · 21 fields", noteKo: "원컬럼을 join하고 통계·벡터 계산을 마친 뒤 ExtraTrees가 받는 float32 스칼라 21개입니다.", noteEn: "Twenty-one float32 scalars passed to ExtraTrees after joins, statistics, and vector calculations.", fields: rowFields },
 };
 
+const rawRouteKo: Record<string, string> = {
+  impression_id: "원본 query ID → query 묶음 생성",
+  user_id: "원본 user ID → 불확실성 추정용 군집",
+  time: "기록 시각 → 시간 순서 학습·검증 분할",
+  history: "이전 클릭 ID → P · C · log history length",
+  impressions: "slate 기사 ID → E / 뒤의 라벨 → y",
+  news_id: "기사 ID → 기사 정보 결합",
+  category: "category → P₂ · category CTR · embedding 텍스트",
+  subcategory: "subcategory → P₃ · subcategory CTR · embedding 텍스트",
+  title: "제목 → 캐시 벡터 · 제목 문자 수 로그",
+  abstract: "초록 → 캐시 벡터 · 초록 문자 수 로그",
+  url: "원파일에 존재 → 이 proxy에서는 미사용",
+  title_entities: "원파일에 존재 → 이 proxy에서는 미사용",
+  abstract_entities: "원파일에 존재 → 이 proxy에서는 미사용",
+};
+
 export function MindDataMicroscope({ lang }: { lang: Lang }) {
   const ko = lang === "ko";
   const [source, setSource] = useState<Source>("behavior");
   const [selected, setSelected] = useState(0);
+  const readoutRef = useRef<HTMLElement>(null);
   const current = sourceInfo[source];
   const field = current.fields[selected] ?? current.fields[0];
   const calculation = calculationDetails[field.name];
   const chooseSource = (next: Source) => { setSource(next); setSelected(0); };
+  const chooseField = (index: number) => {
+    setSelected(index);
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      requestAnimationFrame(() => readoutRef.current?.scrollIntoView({ block: "start", behavior: "auto" }));
+    }
+  };
   const fieldNumber = String(selected + 1).padStart(2, "0");
   const grouped = useMemo(() => current.fields.map((item, index) => ({ item, index })), [current]);
 
@@ -151,9 +178,9 @@ export function MindDataMicroscope({ lang }: { lang: Lang }) {
     <p className="mdi-table-note">{ko ? current.noteKo : current.noteEn}</p>
 
     <div className="mdi-layout">
-      <div className={`mdi-column-list is-${source}`} role="listbox" aria-label={ko ? "컬럼 목록" : "Column list"}>{grouped.map(({ item, index }) => <button type="button" key={item.name} className={`is-${item.group}`} aria-selected={selected === index} onClick={() => setSelected(index)}><span>{String(index + 1).padStart(2, "0")}</span><div><b>{ko ? item.labelKo : item.labelEn}</b><code>{item.name}</code></div><em>{item.used === false ? (ko ? "미사용" : "UNUSED") : item.group === "raw" ? "RAW" : item.group.toUpperCase()}</em></button>)}</div>
+      <div className={`mdi-column-list is-${source}`} role="listbox" aria-label={ko ? "컬럼 목록" : "Column list"}>{grouped.map(({ item, index }) => <button type="button" key={item.name} className={`is-${item.group}`} aria-selected={selected === index} onClick={() => chooseField(index)}><span>{String(index + 1).padStart(2, "0")}</span><div><b>{ko ? item.labelKo : item.labelEn}</b><code>{item.name}</code></div><em>{item.used === false ? (ko ? "미사용" : "UNUSED") : item.group === "raw" ? "RAW" : item.group.toUpperCase()}</em></button>)}</div>
 
-      <article className={`mdi-readout is-${field.group}`} aria-live="polite">
+      <article ref={readoutRef} className={`mdi-readout is-${field.group}`} aria-live="polite">
         <header><span>{fieldNumber} / {current.fields.length} · {field.group === "raw" ? "RAW COLUMN" : `${field.group.toUpperCase()} FIELD`}</span><h5>{ko ? field.labelKo : field.labelEn}</h5><code>{field.name}</code></header>
         <div className="mdi-sample"><span>{ko ? "이 예시 행의 원값" : "SAMPLE VALUE"}</span><strong>{field.sample}</strong><small>{field.dataType}</small></div>
         <dl>
@@ -165,10 +192,10 @@ export function MindDataMicroscope({ lang }: { lang: Lang }) {
           <header><span>{ko ? "계산 방법" : "CALCULATION"}</span><b>{ko ? calculation.labelKo : calculation.labelEn}</b></header>
           <div className="mdi-calc-step"><span>1</span><div><small>{ko ? "일반식 또는 변환 규칙" : "FORMULA OR TRANSFORM"}</small><MathBlock tex={calculation.formula} /></div></div>
           <div className="mdi-calc-step"><span>2</span><div><small>{ko ? "이 예시의 숫자 대입" : "WORKED SUBSTITUTION"}</small><MathBlock tex={calculation.substitution} /></div></div>
-          <div className="mdi-calc-result"><span>{ko ? "최종 결과" : "RESULT"}</span><strong>{calculation.result}</strong></div>
+          <div className="mdi-calc-result"><span>{ko ? "최종 결과" : "RESULT"}</span><strong>{ko ? (calculation.resultKo ?? calculation.result) : (calculation.resultEn ?? calculation.result)}</strong></div>
           <p>{ko ? calculation.detailKo : calculation.detailEn}</p>
         </section>}
-        <div className="mdi-route"><span>{ko ? "데이터 경로" : "DATA ROUTE"}</span><b>{field.route}</b></div>
+        <div className="mdi-route"><span>{ko ? "데이터 경로" : "DATA ROUTE"}</span><b>{ko ? (field.routeKo ?? rawRouteKo[field.name] ?? field.route) : (field.routeEn ?? field.route)}</b></div>
       </article>
     </div>
 
