@@ -4,7 +4,6 @@ import { useState, type ReactNode } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 import "./equation-walkthrough.css";
-import { MindEquationGuide } from "./mind-equation-guide";
 
 type Mode="attention"|"mean"|"summaries"|"popularity"|"profile"|"trace"|"trees"|"ndcg"|"recallmrr";
 const f=(n:number,d=6)=>n.toFixed(d);
@@ -189,6 +188,6 @@ export function EquationWalkthrough({lang}:{lang:"ko"|"en"}) {
       <Step n={3} title={t("MRR: 첫 positive가 나온 순위의 역수","MRR: reciprocal rank of the first positive")}><MathLine tex={String.raw`\mathrm{RR}=${firstPositiveIndex>=0?"\\frac{1}{"+(firstPositiveIndex+1)+"}=\\mathbf{"+f(reciprocalRank)+"}":"0\\quad\\text{"+t('정답 없음','no positive')+"}"}`} /><div className="ql-rank-ruler">{labels.map((y,j)=><span key={j} className={y===1?"is-positive":""}><b>{j+1}</b><small>{y===1?"y=1":"y=0"}</small>{j===firstPositiveIndex&&<em>{t("첫 positive","first positive")}</em>}</span>)}</div><p>{t("첫 positive가 1위면 MRR=1, 2위면 0.5, 4위면 0.25입니다. 그 뒤에 positive가 더 있어도 MRR 값은 바뀌지 않습니다. 여러 query의 MRR은 각 query의 reciprocal rank를 평균한 값입니다.","MRR is one for a first positive at rank one, 0.5 at rank two, and 0.25 at rank four. Later positives do not change it. Across queries, MRR is the mean of their reciprocal ranks.")}</p></Step>
       <Step n={4} title={t("세 평가 지표가 같은 순위를 서로 다르게 읽습니다","The three metrics read the same ranking differently")}><div className="ql-metric-compare"><article><span>NDCG@{k}</span><b>{idcg?f(dcg/idcg,3):"—"}</b><div><i style={{width:`${idcg?100*dcg/idcg:0}%`}}/></div><p>{t("모든 positive의 위치에 할인 적용","Discounts the positions of all positives")}</p></article><article><span>Recall@{k}</span><b>{positiveCount?f(recallAtK,3):"—"}</b><div><i style={{width:`${positiveCount?100*recallAtK:0}%`}}/></div><p>{t("top-k가 찾은 positive의 비율","Fraction of positives recovered in top-k")}</p></article><article><span>MRR</span><b>{f(reciprocalRank,3)}</b><div><i style={{width:`${100*reciprocalRank}%`}}/></div><p>{t("첫 positive의 위치만 반영","Uses only the first positive's rank")}</p></article></div><p>{t("논문의 모델 선택은 validation NDCG@10을 우선하고, 동률이면 Recall@10, 그다음 MRR을 사용합니다. 따라서 세 지표는 별도 모델 입력이 아니라 같은 완성 순위를 서로 다른 관점에서 평가하는 값입니다.","Model selection prioritizes validation NDCG@10, then uses Recall@10 and MRR as tie-breakers. These metrics are not model inputs; they evaluate the same completed ranking from different perspectives.")}</p></Step>
     </>}
-    </div><MindEquationGuide lang={lang}/><footer className="ql-footer"><span>{t("입력 특성 계산","Construct input features")}<b>P · E · C · Z</b></span><i>→</i><span>{t("후보별 모델 점수","Score each candidate")}<b>ExtraTrees s(x)</b></span><i>→</i><span>{t("완성된 순위 평가","Evaluate the ranked list")}<b>DCG / NDCG</b></span></footer>
+    </div><footer className="ql-footer"><span>{t("입력 특성 계산","Construct input features")}<b>P · E · C · Z</b></span><i>→</i><span>{t("후보별 모델 점수","Score each candidate")}<b>ExtraTrees s(x)</b></span><i>→</i><span>{t("완성된 순위 평가","Evaluate the ranked list")}<b>DCG / NDCG</b></span></footer>
   </section>;
 }

@@ -1,32 +1,28 @@
-import { StrictMode } from "react";
+import { lazy, StrictMode, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import { ProjectHome } from "./project-home";
-import { PublicTutorial } from "./public-tutorial";
+import { tutorialHashes } from "./tutorial-routes";
 import "./public.css";
 import "./components/compare.css";
 import "./project-home.css";
 import "./tutorial-refinement.css";
-import "./tutorial-release.css";
+import "./research-companion.css";
+
+const ProjectHome = lazy(() => import("./project-home").then((module) => ({ default: module.ProjectHome })));
+const PublicTutorial = lazy(() => import("./public-tutorial").then((module) => ({ default: module.PublicTutorial })));
 
 const params = new URLSearchParams(window.location.search);
-const lang = params.get("lang") === "ko" ? "ko" : "en";
-const tutorialHashes = new Set([
-  "tutorial",
-  "microscope",
-  "candidate-budget",
-  "record",
-  "equations",
-  "model-lab",
-  "atlas",
-  "reproduce",
-  "cite",
-]);
+// Korean copy is retained in source for future use, but the public site is English-only for now.
+const lang = "en" as const;
 const requestedHash = window.location.hash.slice(1);
 const showTutorial = params.get("view") === "tutorial" || tutorialHashes.has(requestedHash);
 document.documentElement.lang = lang;
+document.documentElement.dataset.view = showTutorial ? "tutorial" : "project";
+document.title = showTutorial ? "PEC-Fuse | Research Companion" : "PEC-Fuse | Research Project";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {showTutorial ? <PublicTutorial lang={lang} /> : <ProjectHome lang={lang} />}
+    <Suspense fallback={<div className="app-loading" role="status">Loading PEC-Fuse</div>}>
+      {showTutorial ? <PublicTutorial lang={lang} /> : <ProjectHome lang={lang} />}
+    </Suspense>
   </StrictMode>,
 );

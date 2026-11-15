@@ -49,7 +49,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
     <header className="mj-heading">
       <span>PUBLIC DATA / MINDsmall</span>
       <h2>{t("기사 한 건이 MIND의 입력과 순위가 되기까지", "Follow one article from MIND records to ranking")}</h2>
-      <p>{t("처음에는 수식이나 프로토콜을 외울 필요가 없습니다. 같은 사용자와 후보 A·B·C를 따라가며 숫자를 직접 확인하고, 마지막에 실제 논문 결과와 연결합니다.", "No need to memorize the protocol first. Follow one reader and candidates A, B, and C, inspect their numeric features, then connect the example to the reported experiment.")}</p>
+      <p>{t("한 사용자와 후보 A·B·C를 따라가며 원자료, 숫자 특성과 순위를 확인한 뒤 실제 논문 결과와 연결합니다.", "Follow one reader and candidates A, B, and C from source records to numeric features and ranking, then connect the worked example to the reported experiment.")}</p>
       <div className="mj-contrast"><div><b>Private</b><span>{t("사용자–날짜 질의 · complete 25개 입력", "User-date query · complete 25-field record")}</span></div><div><b>MIND</b><span>{t("Impression 단위 질의 · full proxy 21개 입력", "Impression-level query · full 21-field proxy")}</span></div></div>
     </header>
     <nav className="mj-steps" aria-label={t("MIND 설명 단계", "MIND walkthrough steps")}>

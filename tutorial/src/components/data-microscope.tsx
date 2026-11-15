@@ -209,7 +209,7 @@ export function DataMicroscope({ lang }: { lang: Lang }) {
       <div className="dm-score-demo">
         <div><span>{isKo?"모든 후보 행":"All candidate rows"}</span><b>X<sub>q</sub>=[x<sub>q,1</sub>; … ; x<sub>q,N</sub>]</b></div><i>f<sub>θ</sub> row by row →</i><div><span>{isKo?"후보별 score vector":"One score per candidate"}</span><b>s<sub>q</sub>=[s<sub>q,1</sub>, … , s<sub>q,N</sub>]</b></div><i>argsort ↓ →</i><div><span>{isKo?"최종 순위":"Final ranking"}</span><b>π<sub>q</sub>=argsort(s<sub>q</sub>)</b></div>
       </div>
-      <p className="dm-output-note">{isKo?"이 값은 후보별 class-1 출력 형태의 순위 점수입니다. 보정된 CTR도, 사용자 전체를 요약한 값도 아닙니다. 서로 다른 질의의 점수 크기를 직접 비교하지 않고 같은 질의 안에서만 정렬합니다.":"The score is a candidate-level, class-1-probability-shaped ranking value, not calibrated CTR or one summary value for the user. Scores are ordered within the same query, not compared across queries."}</p>
+      <p className="dm-output-note">{isKo?"이 값은 후보별 class-1 출력으로 만든 순위 점수입니다. 보정된 CTR도, 사용자 전체를 요약한 값도 아닙니다. 서로 다른 질의의 점수 크기를 직접 비교하지 않고 같은 질의 안에서만 정렬합니다.":"This is a candidate-level class-1 score used for ranking, not calibrated CTR or a user-level summary. Scores are ordered within the same query, not compared across queries."}</p>
     </section></details>
   </section>;
 }

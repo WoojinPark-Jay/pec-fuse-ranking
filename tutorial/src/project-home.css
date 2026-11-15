@@ -20,6 +20,8 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 }
 .project-page a { color: inherit; }
 .project-page img { display: block; max-width: 100%; }
+.project-skip { position:fixed; z-index:120; top:8px; left:12px; transform:translateY(-150%); padding:10px 14px; background:var(--ink); color:white!important; text-decoration:none; }
+.project-skip:focus { transform:none; }
 
 .project-nav {
   position: sticky;
@@ -212,6 +214,8 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .example-c { background: #e9f3ed; }
 .example-psi { background: #edf3f6; }
 .record-example a { color: var(--ku-crimson); font-weight: 700; text-underline-offset: 3px; }
+.project-method-link { margin:28px 0 0; text-align:center; }
+.project-method-link a { color:var(--ku-crimson); font-size:13px; font-weight:700; text-underline-offset:5px; }
 .algorithm-intro { max-width: 720px; margin: 38px auto 18px; text-align: center; }
 .algorithm-intro h3 { margin: 0; font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: 26px; font-weight: 500; }
 .algorithm-intro p:not(.section-kicker) { color: var(--muted); }
@@ -368,7 +372,8 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 
 @media (max-width: 900px) {
   .project-nav { padding: 0 20px; }
-  .project-nav nav { display: none; }
+  .project-nav nav { display:flex; gap:0; }
+  .project-nav nav>a { display:none; }
   .abstract-section { grid-template-columns: 1fr; gap: 10px; }
   .abstract-section .section-heading { padding-left: 0; }
   .citation-section { grid-template-columns: 1fr; gap: 20px; }

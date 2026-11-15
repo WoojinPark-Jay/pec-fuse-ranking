@@ -5,7 +5,7 @@ import { MindJourney } from "./mind-journey";
 import { MindProxyInputs } from "./mind-proxy-inputs";
 import { DataMicroscope } from "./data-microscope";
 import { ComparisonEvidence, ComparisonProtocol } from "./comparison-evidence";
-import { BeginnerGuide, CandidateBudgetLab, ComparisonDataPreview, ComparisonReadingGuide, EquationLab, ScorerExplainer } from "./comparison-details";
+import { CandidateBudgetLab, ComparisonDataPreview, ComparisonReadingGuide, EquationLab, ScorerExplainer } from "./comparison-details";
 
 type Lang = "ko" | "en";
 type BlockKind = "B" | "H" | "P" | "E" | "C" | "Z" | "psi" | "F";
@@ -225,7 +225,7 @@ function FullRecordExplorer({ lang }: { lang: Lang }) {
   </div>;
 }
 
-export function ComparisonAtlas({ lang }: { lang: Lang }) {
+export function ComparisonAtlas({ lang, chapter }: { lang: Lang; chapter: "data" | "features" | "models" | "mind" | "experiments" }) {
   const models = useMemo(() => modelSet(lang), [lang]);
   const comparisons = lang === "ko" ? koComparisons : enComparisons;
   const [activeId, setActiveId] = useState(() => {
@@ -239,46 +239,8 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
   const isKo = lang === "ko";
 
   return <div className="comparison-atlas" lang={lang}>
-    <header className="ca-topbar">
-      <a href="/notes/pec-fuse">PEC-FUSE / RESEARCH NOTES</a>
-      <nav aria-label={isKo ? "페이지와 언어" : "Page and language"}>
-        <a href="/notes/pec-fuse/compare" aria-current={isKo ? "page" : undefined}><span aria-hidden="true">🇰🇷</span> 한국어</a>
-        <a href="/notes/pec-fuse/compare/en" aria-current={!isKo ? "page" : undefined}><span aria-hidden="true">🇬🇧</span> English</a>
-        <a href={isKo ? "/notes/pec-fuse" : "/notes/pec-fuse/en"}>{isKo ? "수식·알고리즘 노트" : "Math & algorithm notes"}</a>
-        <a href="/notes/pec-fuse/paper">{isKo ? "논문 전문 해설" : "Paper commentary"}</a>
-      </nav>
-    </header>
-
     <article className="ca-shell">
-      <header className="ca-intro">
-        <p className="ca-kicker ca-kicker-identity"><span className="ca-feature-key" aria-hidden="true"><i>P</i><i>E</i><i>C</i><i>Z</i><i>ψ</i></span><span>PEC-FUSE · INTERACTIVE TUTORIAL</span></p>
-        <h1 className={isKo ? "is-ko" : "is-en"}>{isKo ? "PEC-Fuse, 단계별로 살펴보기" : "PEC-Fuse, step by step"}</h1>
-        <p className="ca-deck">{isKo ? "한 사용자와 날짜를 하나의 질의로 정의하고, 기사 후보를 구성하는 단계부터 시작합니다. 이후 각 특성의 출처와 계산 과정, 학습되는 요소, 실험에서 달라지는 조건을 차례로 확인합니다." : "Start with a single user-date query and build its candidate set. Then trace each feature to its source, separate computed quantities from learned components, and identify the condition changed in every experiment."}</p>
-        <nav className="ca-route" aria-label={isKo ? "주요 섹션 바로가기" : "Jump to a section"}><b>{isKo ? "빠른 이동" : "Jump to"}</b><a href="#microscope">{isKo ? "데이터 사례" : "Data example"}</a><a href="#final-demo">{isKo ? "전체 순위 과정" : "End-to-end ranking"}</a><a href="#row">{isKo ? "후보 구성" : "Candidate construction"}</a><a href="#record">{isKo ? "특성 계산" : "Feature computation"}</a><a href="#learn">{isKo ? "모델 이해" : "Model guide"}</a><a href="#atlas">{isKo ? "실험 비교" : "Experiments"}</a></nav>
-        <div className="ca-overview-head"><span>FOUR-STEP OVERVIEW</span><h2>{isKo ? "먼저, 전체 분석 절차를 네 단계로 봅니다" : "First, see the complete workflow in four steps"}</h2><p>{isKo ? "먼저 전체 흐름을 잡고, 아래에서 후보 기사 하나를 따라가 보세요. 자세한 계산은 필요할 때 펼쳐 볼 수 있습니다." : "Start here, then follow one candidate through the examples below. Detailed calculations remain available when you need them."}</p></div>
-        <div className="ca-first-read">
-          <div><span>1</span><b>{isKo ? "평가할 하루를 정합니다" : "Define the ranking query"}</b><p>{isKo ? "사용자 한 명과 날짜 하나를 평가 단위로 묶고, 그날 클릭한 기사와 비교 후보를 모읍니다." : "Pair one user with one date, then collect the clicked articles and the candidates they will be ranked against."}</p></div>
-          <div><span>2</span><b>{isKo ? "기사마다 입력 행을 만듭니다" : "Build one input row per article"}</b><p>{isKo ? "각 후보 기사에 P·E·C·Z·ψ를 계산합니다. 후보가 15개라면 입력 행도 15개입니다." : "Compute P, E, C, Z, and ψ for every candidate. Fifteen candidates produce fifteen input rows."}</p></div>
-          <div><span>3</span><b>{isKo ? "모델을 학습하고 후보를 점수화합니다" : "Fit the model and score candidates"}</b><p>{isKo ? "학습 데이터에서는 클릭 여부로 점수 규칙을 배웁니다. 평가할 때는 후보별 점수를 계산해 같은 질의 안에서 정렬합니다." : "Click labels supervise fitting. At evaluation time, the fitted model scores each candidate and ranks them within the query."}</p></div>
-          <div><span>4</span><b>{isKo ? "한 조건씩 바꿔 비교합니다" : "Change one condition at a time"}</b><p>{isKo ? "각 비교에서 입력·표현·학습기·후보 선택 중 무엇이 바뀌는지 확인하고, 나머지 지정된 조건은 유지합니다." : "Identify what each comparison changes: inputs, representation, learner, or candidate selection; keep the other specified conditions fixed."}</p></div>
-        </div>
-        <div className="ca-term-strip" aria-label={isKo ? "핵심 용어" : "Core terms"}>
-          <div><b>{isKo ? "질의" : "Query"}</b><span>q=(u,t)</span><p>{isKo ? "사용자 한 명의 특정 날짜에 대한 순위 문제" : "A ranking problem for one user on one date"}</p></div>
-          <div><b>{isKo ? "후보 행" : "Candidate row"}</b><span>x<sub>q,i</sub></span><p>{isKo ? "후보 기사 한 개를 설명하는 숫자 묶음" : "The numeric description of one candidate article"}</p></div>
-          <div><b>{isKo ? "정답 라벨" : "Target label"}</b><span>y<sub>q,i</sub></span><p>{isKo ? "학습과 평가에 쓰는 관측 클릭 여부" : "Observed click status used for fitting and evaluation"}</p></div>
-          <div><b>{isKo ? "모델 점수" : "Model score"}</b><span>s<sub>q,i</sub></span><p>{isKo ? "같은 질의 안에서 후보를 정렬하는 값" : "The value used to rank candidates within a query"}</p></div>
-        </div>
-        <a className="ca-demo-bridge" href="#live-demo" aria-label={isKo ? "라이브 추천 데모로 이동" : "Jump to the live recommendation demo"}>
-          <div className="ca-demo-visual" aria-hidden="true"><span>👩🏻‍🔬</span><span>🧑🏽‍💼</span><span>👩🏻‍⚕️</span><i>→</i><strong>📱</strong></div>
-          <div className="ca-demo-copy">
-            <div><span>LIVE</span><small>INTERACTIVE RANKING DEMO</small></div>
-            <b>{isKo ? "세부 내용을 읽기 전에, 전체 흐름부터 살펴보세요" : "See the whole picture before the details"}</b>
-            <p>{isKo ? "저자의 팁: 독자와 모델을 하나씩 바꿔 보면 입력 근거가 추천 순위로 이어지는 과정을 먼저 한눈에 파악할 수 있어, 뒤의 특성과 수식을 따라가기가 한결 쉬워집니다." : "Author's tip: try one reader and one model first. Seeing how evidence becomes a ranked list will make the later feature and equation walkthrough easier to follow."}</p>
-          </div>
-          <span className="ca-demo-action">{isKo ? "간단히 체험하기" : "Take a quick tour"}<i aria-hidden="true">→</i></span>
-        </a>
-      </header>
-
+      {chapter === "data" && <>
       <DataMicroscope lang={lang} />
 
       <section className="ca-section" id="row">
@@ -318,9 +280,9 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <footer>{isKo ? "해석: trace membership은 활용 가능한 pool cue이지만, 이 진단만으로 후보풀 의존성이 제거되거나 E의 가능한 성능 상한이 정해지는 것은 아닙니다." : "Interpretation: trace membership is an exploitable pool cue, but this diagnostic neither removes candidate-pool dependence nor establishes an upper bound on E."}</footer>
         </section>
       </section>
+      </>}
 
-      <details className="tutorial-disclosure"><summary>{isKo ? "전체 흐름 다시 보기: 데이터에서 순위까지" : "Optional recap: from records to ranking"}</summary><BeginnerGuide lang={lang} /></details>
-
+      {chapter === "features" && <>
       <section className="ca-section" id="record">
         <div className="ca-heading"><span>02 / ROW ANATOMY</span><h2>{isKo ? "원자료에서 후보별 25개 특성까지" : "From source records to 25 candidate features"}</h2><p>{isKo ? "후보 기사 하나마다 숫자 행 하나를 만듭니다. 서로 다른 출처의 정보는 같은 행에 놓되 P·E·C·Z·ψ 블록으로 구분합니다." : "Build one numeric row per candidate article. Different sources share a row while retaining distinct P, E, C, Z, and ψ blocks."}</p></div>
         <div className="ca-provenance">
@@ -350,7 +312,9 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
       </section>
 
       <EquationLab lang={lang} />
+      </>}
 
+      {chapter === "models" &&
       <section className="ca-section" id="learn">
         <div className="ca-heading"><span>04 / WHAT IS LEARNED</span><h2>{isKo ? "고정값, 계산값, 학습값을 분리해서 읽기" : "Separate fixed, computed, and learned quantities"}</h2></div>
         <div className="ca-learning-line">
@@ -363,16 +327,17 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
         <div className="ca-training-example">
           <div><span>{isKo ? "입력 행" : "Input rows"}</span><b>x<sub>q,A</sub>, x<sub>q,B</sub>, x<sub>q,C</sub></b><small>{isKo ? "각 후보의 d개 특성" : "d features per candidate"}</small></div>
           <i>+</i><div><span>{isKo ? "학습 label" : "Training label"}</span><b>1, 0, 0</b><small>{isKo ? "A만 관측 클릭" : "only A was clicked"}</small></div>
-          <i>→</i><div><span>{isKo ? "모델 출력" : "Model output"}</span><b>0.71, 0.42, 0.18</b><small>{isKo ? "확률 형태의 ranking score" : "probability-shaped ranking scores"}</small></div>
+          <i>→</i><div><span>{isKo ? "모델 출력" : "Model output"}</span><b>0.71, 0.42, 0.18</b><small>{isKo ? "보정 CTR이 아닌 class-1 순위 점수" : "class-1 ranking scores, not calibrated CTR"}</small></div>
           <i>→</i><div><span>{isKo ? "query 내 순위" : "Within-query rank"}</span><b>A › B › C</b><small>{isKo ? "다른 query와 점수 크기 비교 안 함" : "not compared across queries"}</small></div>
         </div>
         <div className="ca-timeline"><div><b>Jan–Mar</b><span>{isKo ? "후보 설정 학습" : "fit candidates"}</span></div><div><b>April</b><span>{isKo ? "validation 선택" : "validation selection"}</span></div><div><b>Jan–Apr</b><span>{isKo ? "선택 설정 refit" : "refit selected setup"}</span></div><div><b>May–Jun</b><span>{isKo ? "고정 모델 test scoring" : "fixed-model test scoring"}</span></div></div>
         <p className="ca-caption">{isKo ? "ExtraTrees의 출력은 보정된 CTR이 아니라 같은 query 안에서 정렬하기 위한 score입니다. 모델 선택은 April query-level NDCG@10으로 하고, 최종 수치는 May–June query에서 계산합니다." : "The ExtraTrees output is a within-query ranking score, not calibrated CTR. April query-level NDCG@10 selects the configuration; final metrics use May–June queries."}</p>
         <ScorerExplainer lang={lang} />
-      </section>
+      </section>}
 
-      <section className="ca-section mind-journey" id="mind-guide" aria-label={isKo ? "MIND 원자료부터 평가까지" : "MIND from records to evaluation"}><MindJourney lang={lang} /></section>
+      {chapter === "mind" && <section className="ca-section mind-journey" id="mind-guide" aria-label={isKo ? "MIND 원자료부터 평가까지" : "MIND from records to evaluation"}><MindJourney lang={lang} /></section>}
 
+      {chapter === "experiments" && <>
       <section className="ca-section ca-atlas-section" id="atlas">
         <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "비교 목록이나 선택 메뉴에서 질문을 고른 뒤, 내용을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a question from the comparison list or selection menu, then read from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
         <details className="tutorial-disclosure reader-comparison-guide"><summary>{isKo ? "비교를 읽는 방법" : "How to read these comparisons"}</summary><ComparisonReadingGuide lang={lang} /></details>
@@ -438,7 +403,6 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           ]).map(([question, answer]) => <button key={question} type="button" onClick={() => { const number = answer.slice(0, 2); const target = comparisons.find((item) => item.number === number); if (target) setActiveId(target.id); window.location.hash = "atlas"; document.getElementById("atlas")?.scrollIntoView({ behavior: "smooth" }); }}><span>{question}</span><b>{answer}</b></button>)}
         </div>
       </details>
-
       <footer className="ca-footer">
         <p>{isKo ? "이 페이지의 수치는 현재 PEC-Fuse IEEE Access 원고의 보고값을 읽기 위한 지도입니다. 예시 후보 값은 설명용 합성값입니다." : "Reported effects follow the current PEC-Fuse IEEE Access manuscript; candidate-level values on this page are synthetic teaching examples."}</p>
         <details className="ca-glossary"><summary>{isKo ? "처음 볼 때 자주 헷갈리는 용어" : "Terms that are easy to confuse"}</summary><div>
@@ -449,6 +413,7 @@ export function ComparisonAtlas({ lang }: { lang: Lang }) {
           <p><b>CI</b>{isKo ? "사용자 단위 bootstrap으로 구한 차이의 불확실성 범위입니다. 0을 포함하면 방향이 확실하지 않습니다." : "An uncertainty interval for the difference from user-cluster bootstrap. Including zero means the direction is unresolved."}</p>
         </div></details>
       </footer>
+      </>}
     </article>
   </div>;
 }

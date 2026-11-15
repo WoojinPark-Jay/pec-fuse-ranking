@@ -1,5 +1,4 @@
 import "./project-home.css";
-import { ComparisonInputExplorer } from "./components/comparison-input-strips";
 
 const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
@@ -24,12 +23,13 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
   const t = (koText: string, enText: string) => ko ? koText : enText;
   return (
     <div className="project-page">
+      <a className="project-skip" href="#abstract">{t("본문으로 건너뛰기", "Skip to content")}</a>
       <header className="project-nav">
         <a className="project-wordmark" href="#top" aria-label="PEC-Fuse home">
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label={t("프로젝트 페이지 탐색", "Project page navigation")}>
-          <a href="#abstract">{t("개요", "Overview")}</a><a href="#method">{t("방법", "Method")}</a><a href="#results">{t("결과", "Results")}</a><a href="#paper">{t("논문", "Paper")}</a><a href="#demo">{t("데모", "Demo")}</a><a href="#citation">{t("인용", "Citation")}</a>
+          <a href="#abstract">{t("개요", "Overview")}</a><a href="#method">{t("방법", "Method")}</a><a href="#results">{t("결과", "Results")}</a><a href="#paper">{t("논문", "Paper")}</a><a href="#citation">{t("인용", "Citation")}</a>
         </nav>
       </header>
 
@@ -72,8 +72,8 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
 
         <section className="paper-section" id="method">
           <div className="section-heading section-heading-centered">
-            <p className="section-kicker">Method</p><h2>Source-preserving evidence construction</h2>
-            <p>The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.</p>
+            <p className="section-kicker">{t("방법", "Method")}</p><h2>{t("출처를 보존하는 근거 구성", "Source-preserving evidence construction")}</h2>
+            <p>{t("아키텍처는 표현 생성, 근거 구성과 최종 점수화를 분리합니다. 아래 그림은 원고의 Figure 1입니다.", "The architecture separates representation, evidence construction, and final scoring. The figure below is Figure 1 from the manuscript.")}</p>
           </div>
           <figure className="paper-figure architecture-figure">
             <button type="button" className="figure-preview-trigger" aria-label="Enlarge Figure 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
@@ -84,9 +84,9 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                 <div className="figure-preview-toolbar">
                   <strong>Figure 1 <span>PEC-Fuse architecture</span></strong>
                   <div>
-                    <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">Zoom / fit</button>
-                    <a href="./paper-architecture.pdf?v=92" target="_blank" rel="noopener noreferrer">Figure PDF</a>
-                    <button type="button" autoFocus aria-label="Close enlarged figure" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
+                    <button type="button" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }} aria-pressed="false">{t("확대 / 맞춤", "Zoom / fit")}</button>
+                    <a href="./paper-architecture.pdf?v=92" target="_blank" rel="noopener noreferrer">{t("그림 PDF", "Figure PDF")}</a>
+                    <button type="button" autoFocus aria-label={t("확대 그림 닫기", "Close enlarged figure")} onClick={(event) => event.currentTarget.closest('dialog')?.close()}>{t("닫기", "Close")}</button>
                   </div>
                 </div>
                 <div className="figure-preview-scroll">
@@ -94,23 +94,23 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
                 </div>
               </div>
             </dialog>
-            <figcaption><strong>Figure 1.</strong> Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking. <a href="./paper-architecture.pdf?v=92" target="_blank" rel="noopener noreferrer">Open figure PDF ↗</a></figcaption>
+            <figcaption><strong>Figure 1.</strong> {t("공유된 고정 표현에서 출처별 근거를 구성하고, 25차원 후보 레코드와 질의 내 순위화로 이어집니다.", "Shared frozen representations feed source-specific evidence construction, a fixed 25-dimensional candidate record, and within-query ranking.")} <a href="./paper-architecture.pdf?v=92" target="_blank" rel="noopener noreferrer">{t("그림 PDF 열기 ↗", "Open figure PDF ↗")}</a></figcaption>
           </figure>
 
           <div className="record-preview">
             <div className="record-preview-heading">
-              <div><p className="section-kicker">Feature record</p><h3>Structure of the 25-field candidate record</h3></div>
-              <p>Each candidate article keeps five source-grouped blocks instead of collapsing them into one value before scoring.</p>
+              <div><p className="section-kicker">{t("특성 레코드", "Feature record")}</p><h3>{t("25-field 후보 레코드의 구조", "Structure of the 25-field candidate record")}</h3></div>
+              <p>{t("각 후보 기사는 점수화 전에 정보를 하나로 압축하지 않고, 출처별 다섯 블록을 유지합니다.", "Each candidate article keeps five source-grouped blocks instead of collapsing them into one value before scoring.")}</p>
             </div>
             <div className="record-blocks" aria-label="Complete PEC candidate record: P 1 field, E 3 fields, C 4 fields, Z 11 fields, and psi 6 fields">
-              <div className="record-block block-p"><b>P</b><span>1 field</span><small>Profile alignment</small></div>
-              <div className="record-block block-e"><b>E</b><span>3 fields</span><small>Retained trace</small></div>
-              <div className="record-block block-c"><b>C</b><span>4 fields</span><small>Prior consumption</small></div>
-              <div className="record-block block-z"><b>Z</b><span>11 fields</span><small>Recorded controls</small></div>
-              <div className="record-block block-psi"><b>ψ</b><span>6 fields</span><small>Deterministic products</small></div>
+              <div className="record-block block-p"><b>P</b><span>1 field</span><small>{t("프로필 정합도", "Profile alignment")}</small></div>
+              <div className="record-block block-e"><b>E</b><span>3 fields</span><small>{t("보존 추천 기록", "Retained trace")}</small></div>
+              <div className="record-block block-c"><b>C</b><span>4 fields</span><small>{t("이전 소비 이력", "Prior consumption")}</small></div>
+              <div className="record-block block-z"><b>Z</b><span>11 fields</span><small>{t("기록 기반 통제", "Recorded controls")}</small></div>
+              <div className="record-block block-psi"><b>ψ</b><span>6 fields</span><small>{t("고정 곱셈 항", "Deterministic products")}</small></div>
             </div>
             <div className="record-example">
-              <div className="record-example-title"><small>Illustrative candidate</small><strong>Climate-policy article</strong></div>
+              <div className="record-example-title"><small>{t("설명용 후보", "Illustrative candidate")}</small><strong>{t("기후 정책 기사", "Climate-policy article")}</strong></div>
               <div className="record-example-values" aria-label="Illustrative values from one candidate record">
                 <span className="example-p"><b>P</b><small>Profile alignment</small><strong>0.82</strong></span>
                 <span className="example-e"><b>E</b><small>Retained trace</small><strong>Absent</strong></span>
@@ -121,51 +121,27 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
             </div>
           </div>
 
-          <div className="algorithm-intro">
-            <p className="section-kicker">Candidate construction</p><h3>Retrospective candidate construction and ranking</h3>
-            <p>Algorithm 1 specifies candidate assembly, feature serialization, scoring, and query-level evaluation.</p>
-          </div>
-          <figure className="paper-figure algorithm-figure">
-            <button type="button" className="figure-preview-trigger" aria-label="Enlarge Algorithm 1 on this page" aria-haspopup="dialog" onClick={(event) => event.currentTarget.parentElement?.querySelector('dialog')?.showModal()}>
-              <img src="./paper-algorithm-1.png?v=92" alt="Algorithm 1 from manuscript revision v92: Retrospective candidate construction and PEC ranking" />
-            </button>
-            <figcaption>Click or tap to enlarge Algorithm 1 and inspect the full procedure.</figcaption>
-            <dialog className="figure-preview-dialog" aria-label="Algorithm 1: candidate construction and ranking" onClick={(event) => { if (event.target === event.currentTarget) event.currentTarget.close(); }} onClose={(event) => { event.currentTarget.classList.remove('is-zoomed'); event.currentTarget.querySelector('button[aria-pressed]')?.setAttribute('aria-pressed', 'false'); }}>
-              <div className="figure-preview-surface">
-                <div className="figure-preview-toolbar">
-                  <strong>Algorithm 1 <span>Candidate construction</span></strong>
-                  <div>
-                    <button type="button" aria-pressed="false" onClick={(event) => { const zoomed = event.currentTarget.closest('dialog')?.classList.toggle('is-zoomed'); event.currentTarget.setAttribute('aria-pressed', String(Boolean(zoomed))); }}>Zoom / fit</button>
-                    <button type="button" autoFocus aria-label="Close enlarged algorithm" onClick={(event) => event.currentTarget.closest('dialog')?.close()}>Close</button>
-                  </div>
-                </div>
-                <p className="figure-zoom-hint">Use Zoom / fit, then scroll to inspect the details.</p>
-                <div className="figure-preview-scroll" tabIndex={0} role="region" aria-label="Scrollable enlarged algorithm">
-                  <img src="./paper-algorithm-1.png?v=92" alt="Full Algorithm 1: retrospective candidate construction and PEC ranking" />
-                </div>
-              </div>
-            </dialog>
-          </figure>
+          <p className="project-method-link"><a href={`?view=tutorial&lang=${lang}#data`}>{t("후보 구성과 Algorithm 1을 단계별로 보기 →", "Walk through candidate construction and Algorithm 1 →")}</a></p>
         </section>
 
         <section className="paper-section results-section" id="results">
           <div className="section-heading section-heading-centered">
-            <p className="section-kicker">Results</p><h2>Primary result and representation comparison</h2>
-            <p>The manuscript's headline comparison reports the complete PEC record against the selected operational control on the two fixed test pools.</p>
+            <p className="section-kicker">{t("결과", "Results")}</p><h2>{t("핵심 결과와 공개 데이터 경계", "Primary result and public-data boundary")}</h2>
+            <p>{t("핵심 비교는 두 개의 고정 test pool에서 Complete PEC와 선택된 operational control을 평가합니다.", "The headline comparison evaluates the complete PEC record against the selected operational control on two fixed test pools.")}</p>
           </div>
 
           <div className="result-block">
-            <div className="result-block-heading"><div><strong>Primary result</strong><small>Complete PEC versus the selected operational control · NDCG@10</small></div></div>
+            <div className="result-block-heading"><div><strong>{t("핵심 결과", "Primary result")}</strong><small>Complete PEC versus operational control · NDCG@10</small></div></div>
             <div className="headline-results" role="table" aria-label="Headline NDCG at 10 results">
               <div className="headline-row headline-header" role="row"><span role="columnheader">Candidate regime</span><span role="columnheader">Control</span><span role="columnheader">PEC</span><span role="columnheader">Difference [95% CI]</span></div>
               <div className="headline-row" role="row"><strong role="cell">Recent-window</strong><span role="cell">0.7309</span><span role="cell">0.7971</span><span className="result-gain" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span></div>
               <div className="headline-row" role="row"><strong role="cell">Same-day</strong><span role="cell">0.7499</span><span role="cell">0.7717</span><span className="result-gain" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
             </div>
-            <p className="result-interpretation">Both paired user-clustered 95% confidence intervals exclude zero.</p>
+            <p className="result-interpretation">{t("두 paired user-clustered 95% 신뢰구간 모두 0을 포함하지 않습니다.", "Both paired user-clustered 95% confidence intervals exclude zero.")}</p>
           </div>
 
           <div className="result-block mind-result-block">
-            <div className="result-block-heading"><div><strong>Public boundary audit</strong><small>Expanded-pool MIND evaluation · BGE-M3 · NDCG@10</small></div></div>
+            <div className="result-block-heading"><div><strong>{t("공개 데이터 경계 audit", "Public boundary audit")}</strong><small>Expanded-pool MIND · BGE-M3 · NDCG@10</small></div></div>
             <div className="mind-result-grid">
               <div className="mind-table mind-score-table" role="table" aria-label="MIND BGE-M3 NDCG at 10 results">
                 <div className="mind-row mind-header" role="row"><span role="columnheader">Configuration</span><span role="columnheader">Fields</span><span role="columnheader">NDCG@10</span></div>
@@ -185,43 +161,13 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
             <p className="result-interpretation">{t("Full PEC는 BGE-M3에서 가장 높고 BGE-base도 같은 양의 방향을 보입니다. 공개 proxy에서 C mean = ||mean history|| × p이므로 두 값은 한 query 안에서 같은 후보 순서를 만들지만, C mean은 query-level history 집중도 크기를 보존합니다. 둘은 같은 click history의 관련된 요약이지 독립 evidence가 아닙니다. 일부 contrast는 공통 endpoint를 통해 산술적으로 연결되며, 예를 들어 Full−Controls+E = (Full−Direct) + (Direct−Controls+E)입니다. 그러나 각 fit은 독립적으로 선택되고 각 추가 효과는 남아 있는 블록에 조건부이므로 독립적인 구성요소 기여로 해석하지 않습니다.", "Full PEC is highest under BGE-M3, and BGE-base shows the same positive directions. In the public proxy, C mean = ||mean history|| × p: both fields induce the same candidate ordering within a query, while C mean retains query-level history concentration. They are related summaries of the same click history, not independent evidence sources. Some contrasts are algebraically related through shared model endpoints; for example, Full−Controls+E = (Full−Direct) + (Direct−Controls+E). Because each fit is selected independently and each addition is conditional on the retained blocks, these contrasts are not independent component contributions. E marks logged-slate membership, so this is a public boundary audit rather than a matched replication of the private schema.")}</p>
           </div>
 
-          <div className="contrast-block">
-            <div className="contrast-heading">
-              <div><p className="section-kicker">Broader evidence</p><h3>Selected paired contrasts</h3></div>
-              <p>NDCG@10 differences for representative fixed-fit comparisons in both candidate regimes.</p>
-            </div>
-            <ComparisonInputExplorer />
-            <p className="mobile-scroll-hint" id="contrast-scroll-hint">Swipe horizontally to compare both regimes. Keyboard: focus the table and use the arrow keys.</p>
-            <div className="contrast-table" role="table" aria-label="Selected paired NDCG at 10 contrasts" aria-describedby="contrast-scroll-hint" tabIndex={0}>
-              <div className="contrast-row contrast-header" role="row"><span role="columnheader">Comparison</span><span role="columnheader">Recent-window Δ [95% CI]</span><span role="columnheader">Same-day Δ [95% CI]</span></div>
-              <div className="contrast-row" role="row"><strong role="cell">PEC − control</strong><span className="contrast-estimate" role="cell">+0.0662 <small>[0.0523, 0.0793]</small></span><span className="contrast-estimate" role="cell">+0.0218 <small>[0.0080, 0.0363]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − collapsed</strong><span className="contrast-estimate" role="cell">+0.0133 <small>[0.0047, 0.0215]</small></span><span className="contrast-estimate" role="cell">+0.0107 <small>[0.0009, 0.0206]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Audit PEC − early fusion</strong><span className="contrast-estimate" role="cell">+0.0121 <small>[0.0048, 0.0198]</small></span><span className="contrast-estimate" role="cell">+0.0125 <small>[0.0011, 0.0248]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">No-E PEC − no-E control</strong><span className="contrast-estimate" role="cell">+0.0655 <small>[0.0474, 0.0826]</small></span><span className="contrast-estimate" role="cell">+0.0874 <small>[0.0694, 0.1058]</small></span></div>
-              <div className="contrast-row" role="row"><strong role="cell">Direct 19-D − learned 5-D fusion</strong><span className="contrast-estimate" role="cell">+0.0041 <small>[0.0009, 0.0068]</small></span><span className="contrast-estimate is-uncertain" role="cell">+0.0030 <small>[−0.0028, 0.0088]</small><em>CI includes zero</em></span></div>
-            </div>
-            <p className="contrast-footnote">Positive differences favor the first model. Intervals are nominal user-clustered 95% bootstrap CIs; no multiplicity adjustment is applied.</p>
-          </div>
-          <p className="results-note">Full Recall@10 and MRR intervals, candidate-aware neural scoring, candidate reselection, and encoder sensitivity remain in the paper and tutorial.</p>
-        </section>
-
-        <section className="takeaways-section" aria-labelledby="takeaways-title">
-          <div className="section-heading section-heading-centered">
-            <p className="section-kicker">Summary</p>
-            <h2 id="takeaways-title">What this study contributes</h2>
-          </div>
-          <div className="takeaway-grid">
-            <article><span>01</span><h3>Preserve evidence sources through to scoring</h3><p>PEC-Fuse keeps profile, retained-trace, and consumption evidence in distinct, source-labeled fields until scoring. Each input remains traceable to its source instead of being reduced to a single mixed score.</p></article>
-            <article><span>02</span><h3>Deliver stronger ranking with traceable inputs</h3><p>Complete PEC improves NDCG@10 over the operational control by 0.0662 in recent-window and 0.0218 in same-day evaluation. PEC inputs also improve ranking with the tested neural scorer.</p></article>
-            <article><span>03</span><h3>Separate compactness from setting-dependent products</h3><p>The 19-field Direct record preserves source distinctions and remains competitive with Complete PEC on private data. Explicit products add no established private-data gain, but show positive gains in the MIND boundary audit, so their value is setting-dependent.</p></article>
-          </div>
-          <p style={{ margin: '16px 0 0', fontSize: '0.875rem', color: '#656b70', lineHeight: 1.6 }}>Evaluated on retrospective candidate pools; the MIND proxy highlights the importance of platform-specific source semantics.</p>
+          <p className="results-note"><a href={`?view=tutorial&lang=${lang}#experiments`}>{t("전체 비교, Recall@10·MRR, 신경망 audit와 후보 재선정 결과 보기 →", "Open the full comparisons, Recall@10 and MRR, neural audit, and candidate reselection →")}</a></p>
         </section>
 
         <section className="paper-section manuscript-section" id="paper">
           <div className="section-heading manuscript-heading">
             <div><p className="section-kicker">{t("현재 원고 · v92", "Current manuscript · v92")}</p><h2>{t("논문 읽기", "Read the paper")}</h2></div>
-            <p>PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces.</p>
+            <p>{t("PEC-Fuse 원고 v92의 전체 본문, 그림과 보강 분석을 확인할 수 있습니다.", "Read the complete PEC-Fuse manuscript, figures, and supporting analyses.")}</p>
             <ExternalLink href={PAPER_URL} className="project-button">{t("PDF 열기", "Open PDF")}</ExternalLink>
           </div>
           <ExternalLink href={PAPER_URL} className="paper-preview">
@@ -235,55 +181,8 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
           </ExternalLink>
         </section>
 
-        <section className="demo-section" id="demo">
-          <header className="demo-heading">
-            <div className="demo-copy">
-              <p className="section-kicker">Interactive analysis</p>
-              <h2>Inspect a complete within-query ranking trace.</h2>
-              <p>Choose a synthetic reader and an illustrative scoring rule, then trace one candidate from source-labeled inputs to its toy score and final rank.</p>
-            </div>
-            <a className="demo-link" href="?view=tutorial&lang=en#live-demo">Explore the live ranking demo <span aria-hidden="true">→</span></a>
-          </header>
-          <figure className="demo-preview">
-            <div className="preview-context">
-              <div className="preview-meta preview-reader">
-                <span className="preview-avatar" aria-hidden="true">🧑🏻</span>
-                <span><small>Reader</small><strong>Jin</strong><em>General news reader</em></span>
-              </div>
-              <div className="preview-route" aria-hidden="true">
-                <i>→</i>
-                <div className="preview-phone">
-                  <header><b>PEC-Fuse</b><em>For you</em></header>
-                  <span><i>⚽</i><small><b>1</b> Second-half switch</small></span>
-                  <span><i>🚇</i><small><b>2</b> Rail redesign</small></span>
-                  <span><i>🏙️</i><small><b>3</b> Housing rules</small></span>
-                </div>
-              </div>
-              <div className="preview-meta preview-model"><small>Illustrative scoring rule</small><strong>Interactions (toy)</strong><span>P · E · C · Z · ψ</span></div>
-            </div>
-            <div className="preview-feed">
-              <div className="preview-feed-header"><strong>Within-query ranking</strong><span>Interactions · toy score</span></div>
-              <div className="preview-story">
-                <b className="story-rank">1</b><span><small>Sports</small><strong>The second-half switch that changed the final</strong></span><output className="story-score">0.812</output>
-              </div>
-              <div className="preview-story preview-story-selected">
-                <b className="story-rank">2</b><span><small>Local</small><strong>What the rail redesign could mean for your commute</strong></span><output className="story-score">0.764</output>
-              </div>
-              <div className="preview-story">
-                <b className="story-rank">3</b><span><small>Urban policy</small><strong>What the new public-housing rules change locally</strong></span><output className="story-score">0.691</output>
-              </div>
-            </div>
-            <div className="preview-evidence">
-              <div className="evidence-title"><small>Selected candidate</small><strong>Local news · rank 2 of 8</strong></div>
-              <div className="evidence-values"><span><b>P</b> Profile</span><span><b>E</b> Trace</span><span><b>C</b> History</span><span><b>Z</b> Controls</span></div>
-              <div className="preview-score"><strong>Score → rank</strong></div>
-            </div>
-            <figcaption>Synthetic illustration. Scores are for interface explanation only and are not manuscript results.</figcaption>
-          </figure>
-        </section>
-
         <section className="paper-section citation-section" id="citation">
-          <div className="section-heading"><p className="section-kicker">Paper</p><h2>Citation</h2><p>This is an unpublished manuscript, revision v92. Use the citation below until final publication metadata and a DOI are available.</p></div>
+          <div className="section-heading"><p className="section-kicker">{t("논문", "Paper")}</p><h2>{t("인용", "Citation")}</h2><p>{t("현재 미출판 원고 v92입니다. 정식 게재 정보와 DOI가 발급되기 전까지 아래 정보를 사용해 주세요.", "This is an unpublished manuscript, revision v92. Use the citation below until final publication metadata and a DOI are available.")}</p></div>
           <pre><code>{`@unpublished{park2026pecfuse,
   title   = {PEC-Fuse: Source-Preserving Evidence Fusion for
              News Ranking with Partial Recommendation Traces},
