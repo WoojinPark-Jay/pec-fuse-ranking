@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { MindDataMicroscope } from "./mind-data-microscope";
-import { MindProxyInputs } from "./mind-proxy-inputs";
 import { MindWorkedExample } from "./mind-worked-example";
 
 type Lang = "ko" | "en";
@@ -28,7 +27,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
     let frame = 0;
     const update = () => {
       frame = 0;
-      const offset = (document.querySelector(".public-toc")?.getBoundingClientRect().height ?? 56) + 32;
+      const offset = (document.querySelector(".research-header")?.getBoundingClientRect().height ?? 56) + 32;
       let current = 0;
       steps.forEach((item, index) => { const node = document.getElementById(item.id); if (node && node.getBoundingClientRect().top <= offset) current = index; });
       setStep(current);
@@ -60,7 +59,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
       <h3 id="mind-data-title">{t("01. 한 사람의 클릭 이력에서 시작합니다", "01. Start with one reader and three prior clicks")}</h3>
       <MindWorkedExample lang={lang} step={0} candidate={candidate} onCandidate={setCandidate} />
       <MindDataMicroscope lang={lang} />
-      <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
+      <details className="mj-reference"><summary>{t("더 깊이 보기: 원자료와 P·C·E의 출처", "Go deeper: source records and the origins of P, C, and E")}</summary>
       <p>{t("MINDsmall의 behaviors.tsv 한 행에는 사용자 ID, 시각, 이전 클릭 이력, 그리고 그 impression의 기사 후보와 클릭 라벨이 들어 있습니다. 같은 사용자의 다른 impression은 별도 질의이며, 각 질의 안에서만 순위를 매깁니다.", "A row in MINDsmall's behaviors.tsv contains the user ID, timestamp, prior click history, and that impression's candidates and click labels. Different impressions from the same user remain separate ranking queries.")}</p>
       <div className="mj-source-grid">
         <article><code>behaviors.tsv</code><h4>{t("이전에 클릭한 기사 ID", "Prior clicked article IDs")}</h4><p>{t("기록된 이력의 마지막 30개 클릭을 사용하며 반복 클릭도 유지합니다. 독립적으로 작성된 프로필은 없습니다.", "Use the last 30 listed pre-impression clicks, retaining repeated events. There is no independently stated profile.")}</p><strong>{t("같은 history → P와 C", "One history → both P and C")}</strong></article>
@@ -74,7 +73,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
     <section id="mind-pool" className="mj-panel" aria-labelledby="mind-pool-title">
       <h3 id="mind-pool-title">{t("02. 후보의 출처 E와 정답 y를 분리합니다", "02. Separate candidate origin E from target y")}</h3>
       <MindWorkedExample lang={lang} step={1} candidate={candidate} onCandidate={setCandidate} />
-      <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
+      <details className="mj-reference"><summary>{t("더 깊이 보기: 후보 추출과 약한 음성 라벨", "Go deeper: candidate sampling and weak-negative labels")}</summary>
       <div className="mj-pool-flow"><div><span>01</span><b>{t("원래 slate", "Logged slate")}</b><p>{t("원래 클릭·미클릭 후보와 라벨 유지", "Retain original clicked and unclicked candidates and their labels")}</p></div><div><span>02</span><b>{t("추가 후보 추출", "Sample additions")}</b><p>{t("학습 측 impression 빈도 상위 5,000개 기사에서 최대 10개를 균등 비복원 추출", "Up to ten uniform draws without replacement from the 5,000 most-impressed training-side articles")}</p></div><div><span>03</span><b>{t("확장 후보군", "Expanded pool")}</b><p>{t("원래 slate 전체와 전체 listed history의 기사는 추출 대상에서 제외", "Exclude the entire logged slate and entire listed history from the draws")}</p></div></div>
       <p className="mj-caption">{t("아래 세 기사는 구조를 설명하는 합성 예시입니다. 실제 평가 행이나 보고된 예측값이 아닙니다.", "The three articles below are a synthetic structural example, not evaluation rows or reported predictions.")}</p>
       <div className="mj-candidates" role="group" aria-label={t("예시 후보 선택", "Select an example candidate")}>{examples.map((item, index) => <button type="button" key={item.id} aria-pressed={candidate === index} onClick={() => setCandidate(index)}><b>{t("기사", "Article")} {item.id}</b><span>{item.origin}</span><code>E={item.member} · y={item.label}</code></button>)}</div>
@@ -86,17 +85,16 @@ export function MindJourney({ lang }: { lang: Lang }) {
     <section id="mind-inputs" className="mj-panel" aria-labelledby="mind-inputs-title">
       <h3 id="mind-inputs-title">{t("03. 같은 후보를 실제 숫자 칸으로 바꿉니다", "03. Turn the same candidate into numeric fields")}</h3>
       <MindWorkedExample lang={lang} step={2} candidate={candidate} onCandidate={setCandidate} />
-      <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
+      <details className="mj-reference"><summary>{t("더 깊이 보기: 입력 구성과 P·C의 관계", "Go deeper: feature records and the P/C relationship")}</summary>
       <p>{t("공통 controls 7개에 history-derived P 3개, C 4개, slate membership E 1개, 고정 곱 6개를 조합합니다. 8→14→15→21의 단일 추가 순서가 아닙니다. P/C를 볼 때는 8↔15, E를 볼 때는 14↔15, 곱을 볼 때는 15↔21을 비교합니다.", "Combine seven shared controls with three history-derived P fields, four C fields, one E membership field, and six fixed products. This is not a single 8→14→15→21 addition chain: compare 8↔15 for P/C, 14↔15 for E, and 15↔21 for products.")}</p>
-      <details className="mj-math"><summary>{t("P와 C mean: 같은 이력인데 왜 값이 다를까요?", "P and C mean: why can the same history give different values?")}</summary><div className="mj-math-example"><p>{t("계산용 합성 예시: 단위 이력 벡터 h₁=(1,0), h₂=(0,1), 후보 v=(1,0).", "Synthetic arithmetic example: unit history vectors h₁=(1,0), h₂=(0,1), candidate v=(1,0).")}</p><code>{t("평균 이력", "Mean history")} h̄=(0.5,0.5), ‖h̄‖₂≈0.7071</code><div className="mj-math-branches"><div><b>p ≈ 0.7071</b><p>{t("평균 이력을 정규화한 방향과 후보의 정합도", "Candidate alignment with the normalized mean-history direction")}</p></div><div><b>C<sub>mean</sub> = (1+0)/2 = 0.5</b><p>{t("후보와 각 이력 벡터의 cosine을 그대로 평균", "Arithmetic mean of the individual candidate-history cosines")}</p></div></div><p>C<sub>mean</sub> = ‖h̄‖₂ p. {t("평균 이력의 크기가 0이 아니면 같은 query 안에서 두 값은 동일한 후보 순서를 만듭니다. C mean에는 이력 집중도 크기가 남습니다. 빈 이력의 P/C는 0으로 처리합니다.", "For nonzero mean-history norm, the fields induce the same within-query ordering; C mean retains the history-concentration magnitude. Empty-history P/C fields are set to zero.")}</p></div></details>
-      <MindProxyInputs lang={lang} />
+      <p>{t("p는 정규화한 평균 이력 방향과 후보의 cosine이며, C mean은 후보와 각 이력 기사의 cosine을 평균한 값입니다.", "p is the candidate cosine with the normalized mean-history direction; C mean averages the candidate's cosines with individual history articles.")} C<sub>mean</sub> = ‖h̄‖₂ p. {t("평균 이력의 크기가 0이 아니면 같은 query 안에서 두 값은 동일한 후보 순서를 만듭니다. C mean에는 이력 집중도 크기가 남습니다. 빈 이력의 P/C는 0으로 처리합니다.", "For nonzero mean-history norm, the fields induce the same within-query ordering; C mean retains the history-concentration magnitude. Empty-history P/C fields are set to zero.")}</p>
           </details>
     </section>
 
     <section id="mind-models" className="mj-panel" aria-labelledby="mind-models-title">
       <h3 id="mind-models-title">{t("04. 피처를 점수로, 점수를 순위로 바꿉니다", "04. From features to scores, from scores to ranks")}</h3>
       <MindWorkedExample lang={lang} step={3} candidate={candidate} onCandidate={setCandidate} />
-      <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
+      <details className="mj-reference"><summary>{t("더 깊이 보기: 학습·검증·평가와 벡터 캐시", "Go deeper: fitting, validation, evaluation, and vector caches")}</summary>
       <div className="mj-model-flow"><article><span>{t("고정", "FIXED")}</span><h4>BGE-M3 / BGE-base</h4><p>{t("저장된 정규화 기사 벡터를 사용합니다. 이 실험에서 텍스트 인코더를 새로 학습하거나 end-to-end로 미세조정하지 않습니다.", "Use archived normalized article vectors. This experiment neither trains the text encoder anew nor fine-tunes it end to end.")}</p></article><article><span>{t("계산", "COMPUTED")}</span><h4>{t("8 / 14 / 15 / 21개 피처", "8 / 14 / 15 / 21 fields")}</h4><p>{t("Cosine, 이력 비율, slate membership, controls와 곱을 계산합니다. Raw float32 입력을 사용하며 학습된 scaler는 적용하지 않습니다.", "Compute cosines, history shares, slate membership, controls, and products. Inputs are raw float32 features, without a fitted scaler.")}</p></article><article><span>{t("학습", "FITTED")}</span><h4>ExtraTrees</h4><p>{t("각 입력 구성마다 공통 4개 설정을 탐색하고 검증 NDCG@10으로 선택합니다. 모델의 학습과 선택은 구성별로 수행합니다.", "Search the same four configurations for each input record and select by validation NDCG@10. Fits and configuration selection are performed per record.")}</p></article></div>
       <aside className="mj-note"><b>{t("인코더를 바꿀 때 달라지는 것", "What changes with the encoder")}</b><p>{t("캐시된 인코더를 바꾸면 의미 기반 P/C 값과 그 파생 곱이 달라집니다. 공통 control 7개, 카테고리 비율, E는 그대로입니다. 임베딩을 쓰지 않는 Controls+E 결과는 두 인코더에서 재사용하고, 나머지 구성은 인코더별로 학습·선택합니다.", "Changing the cached encoder changes semantic P/C values and their derived products, not the seven controls, category shares, or E. The embedding-free Controls+E result is reused across encoders; the other configurations are fitted and selected for each encoder.")}</p></aside>
       <ol className="mj-timeline"><li><b>{t("51,000 fitting + 9,000 validation", "51,000 fitting + 9,000 validation")}</b><p>{t("첫 60,000개 train 행을 시각순으로 정렬해 분할합니다. 선택 단계의 CTR 통계와 추가 후보 추출 대상은 fitting 51,000개에서만 만듭니다.", "Sort the first 60,000 train rows chronologically and split them. Selection-stage CTR statistics and the candidate-sampling universe use only the 51,000 fitting rows.")}</p></li><li><b>{t("60,000개 train으로 refit", "Refit on all 60,000 train rows")}</b><p>{t("선택한 설정으로 다시 학습하고 통계·추출 대상도 train 전체에서 다시 만듭니다. Development 라벨은 피처 통계에 사용하지 않습니다.", "Refit the selected configuration and rebuild statistics and the sampling universe from all training rows. Development labels never enter feature statistics.")}</p></li><li><b>{t("30,000개 development impression 평가", "Evaluate 30,000 development impressions")}</b><p>{t("동일한 고정 후보군에서 질의 내 순위를 매겨 NDCG@10·Recall@10·MRR을 계산합니다. BGE-base는 인코더 민감도 비교이며 private의 neural challenger와는 별개입니다.", "Rank within each query in the same fixed pool and compute NDCG@10, Recall@10, and MRR. BGE-base checks encoder sensitivity; it is separate from the private neural challenger.")}</p></li></ol>
@@ -107,7 +105,7 @@ export function MindJourney({ lang }: { lang: Lang }) {
     <section id="mind-results" className="mj-panel" aria-labelledby="mind-results-title">
       <h3 id="mind-results-title">{t("05. 실습을 마치고 실제 논문 결과를 읽습니다", "05. Leave the toy example and read the reported results")}</h3>
       <MindWorkedExample lang={lang} step={4} candidate={candidate} onCandidate={setCandidate} />
-      <details className="mj-reference"><summary>{t("더 깊이 보기: 정확한 정의와 실험 프로토콜", "Go deeper: exact definitions and experimental protocol")}</summary>
+      <details className="mj-reference"><summary>{t("더 깊이 보기: 모델 간 비교와 불확실성", "Go deeper: model contrasts and uncertainty")}</summary>
       <div className="mj-question-list">{[
         ["8 → 15", t("E를 유지하고 P/C를 더하면?", "What does P/C add with E retained?"), "Controls+E → P+E+C Direct"],
         ["14 → 15", t("P/C를 유지하고 E를 더하면?", "What does E add with P/C retained?"), "P+C Direct → P+E+C Direct"],

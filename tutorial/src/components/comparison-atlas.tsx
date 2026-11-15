@@ -244,7 +244,7 @@ export function ComparisonAtlas({ lang, chapter }: { lang: Lang; chapter: "data"
       <DataMicroscope lang={lang} />
 
       <section className="ca-section" id="row">
-        <div className="ca-heading"><span>01 / QUERY TO ROWS</span><h2>{isKo ? "하나의 질의에서 후보 행을 만드는 과정" : "How one query becomes candidate rows"}</h2><p>{isKo ? "먼저 평가할 기사를 정하고, 그다음 기사마다 모델 입력을 만듭니다. 후보 구성과 순위 학습은 서로 다른 단계입니다." : "First define the articles to evaluate, then build one model input per article. Candidate construction and ranking are separate stages."}</p></div>
+        <div className="ca-heading"><span>CANDIDATE CONSTRUCTION</span><h2>{isKo ? "하나의 질의에서 후보 행을 만드는 과정" : "How one query becomes candidate rows"}</h2><p>{isKo ? "먼저 평가할 기사를 정하고, 그다음 기사마다 모델 입력을 만듭니다. 후보 구성과 순위 학습은 서로 다른 단계입니다." : "First define the articles to evaluate, then build one model input per article. Candidate construction and ranking are separate stages."}</p></div>
         <div className="ca-pool-flow">
           <div className="ca-pool is-positive"><b>Y<sub>q</sub></b><strong>2</strong><span>{isKo ? "당일 클릭 기사" : "target-day clicks"}</span><small>label 1</small></div>
           <span className="ca-union">∪</span>
@@ -284,7 +284,7 @@ export function ComparisonAtlas({ lang, chapter }: { lang: Lang; chapter: "data"
 
       {chapter === "features" && <>
       <section className="ca-section" id="record">
-        <div className="ca-heading"><span>02 / ROW ANATOMY</span><h2>{isKo ? "원자료에서 후보별 25개 특성까지" : "From source records to 25 candidate features"}</h2><p>{isKo ? "후보 기사 하나마다 숫자 행 하나를 만듭니다. 서로 다른 출처의 정보는 같은 행에 놓되 P·E·C·Z·ψ 블록으로 구분합니다." : "Build one numeric row per candidate article. Different sources share a row while retaining distinct P, E, C, Z, and ψ blocks."}</p></div>
+        <div className="ca-heading"><span>CANDIDATE FEATURES</span><h2>{isKo ? "원자료에서 후보별 25개 특성까지" : "From source records to 25 candidate features"}</h2><p>{isKo ? "후보 기사 하나마다 숫자 행 하나를 만듭니다. 서로 다른 출처의 정보는 같은 행에 놓되 P·E·C·Z·ψ 블록으로 구분합니다." : "Build one numeric row per candidate article. Different sources share a row while retaining distinct P, E, C, Z, and ψ blocks."}</p></div>
         <div className="ca-provenance">
           <div className="ca-source-card"><span>{isKo ? "원자료" : "Observed"}</span><b>{isKo ? "프로필 · 추천 기록 · 이전 클릭 · 기사" : "Profile · trace · clicks · article"}</b><p>{isKo ? "저장된 기록에서 특성을 계산하고, 당일 클릭은 정답 라벨로 따로 둡니다." : "Features come from stored records; target-day clicks remain separate labels."}</p></div>
           <div className="ca-process">→<small>{isKo ? "frozen encoder + 고정 수식" : "frozen encoder + fixed formulas"}</small></div>
@@ -316,7 +316,7 @@ export function ComparisonAtlas({ lang, chapter }: { lang: Lang; chapter: "data"
 
       {chapter === "models" &&
       <section className="ca-section" id="learn">
-        <div className="ca-heading"><span>04 / WHAT IS LEARNED</span><h2>{isKo ? "고정값, 계산값, 학습값을 분리해서 읽기" : "Separate fixed, computed, and learned quantities"}</h2></div>
+        <div className="ca-heading"><span>LEARNING CONTRACT</span><h2>{isKo ? "고정값, 계산값, 학습값을 분리해서 읽기" : "Separate fixed, computed, and learned quantities"}</h2></div>
         <div className="ca-learning-line">
           <div><span>{isKo ? "고정" : "FIXED"}</span><b>BGE-M3 encoder</b><p>{isKo ? "기사와 프로필을 임베딩하지만, 이 연구 데이터로 가중치를 업데이트하지 않습니다." : "Creates article/profile embeddings but is not updated on this study data."}</p></div>
           <div><span>{isKo ? "계산" : "COMPUTED"}</span><b>P · E · C · Z · ψ</b><p>{isKo ? "관측 기록과 고정 수식으로 질의–후보마다 다시 계산합니다." : "Computed per query–candidate from observed records and fixed formulas."}</p></div>
@@ -339,7 +339,7 @@ export function ComparisonAtlas({ lang, chapter }: { lang: Lang; chapter: "data"
 
       {chapter === "experiments" && <>
       <section className="ca-section ca-atlas-section" id="atlas">
-        <div className="ca-heading"><span>05 / INTERACTIVE COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "비교 목록이나 선택 메뉴에서 질문을 고른 뒤, 내용을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a question from the comparison list or selection menu, then read from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
+        <div className="ca-heading"><span>COMPARISON ATLAS</span><h2>{isKo ? "실험에서 무엇을 같게 두고 무엇을 바꿨는가" : "What stays fixed, and what changes in each experiment"}</h2><p>{isKo ? "비교 목록이나 선택 메뉴에서 질문을 고른 뒤, 내용을 위에서 아래로 읽으세요. 먼저 입력 구조를 비교하고, 이어서 관측 점수와 불확실성, 후보 한 행의 세부값, 실험 조건을 확인합니다." : "Choose a question from the comparison list or selection menu, then read from top to bottom: input structure first, followed by observed scores and uncertainty, one candidate row, and the experimental conditions."}</p></div>
         <details className="tutorial-disclosure reader-comparison-guide"><summary>{isKo ? "비교를 읽는 방법" : "How to read these comparisons"}</summary><ComparisonReadingGuide lang={lang} /></details>
         <label className="reader-comparison-select">{isKo ? "비교 선택" : "Choose a comparison"}<select value={active.id} onChange={event => setActiveId(event.target.value)}>{comparisons.map(item => <option key={item.id} value={item.id}>{item.number} · {item.title}</option>)}</select></label>
         <div className="ca-atlas-layout">

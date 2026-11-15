@@ -1,24 +1,8 @@
 import { useState } from "react";
+import { candidates, history, mean, norm, names, computeValues, display4 as f } from "./mind-example-fixture";
 import "../mind-worked-example.css";
 
 type Lang = "ko" | "en";
-type Vec = readonly [number, number];
-type Article = { id: string; title: string; abstract: string; category: string; sub: string; vector: Vec; member: number; label: number; counts: readonly [number, number, number, number, number, number] };
-const history = [
-  { id: "H1", title: "New AI chips", category: "technology", sub: "ai", vector: [1, 0] as Vec },
-  { id: "H2", title: "Laptop battery test", category: "technology", sub: "devices", vector: [0.6, 0.8] as Vec },
-  { id: "H3", title: "Weekend football", category: "sports", sub: "football", vector: [0, 1] as Vec },
-];
-const candidates: Article[] = [
-  { id: "A", title: "AI tools for news", abstract: "A newsroom tests an AI tool.", category: "technology", sub: "ai", vector: [0.8, 0.6], member: 1, label: 1, counts: [3,18,17,98,7,48] },
-  { id: "B", title: "Football final", abstract: "A late goal decides the final.", category: "sports", sub: "football", vector: [0,1], member: 1, label: 0, counts: [1,8,11,98,4,48] },
-  { id: "C", title: "Market update", abstract: "Markets close after a busy session.", category: "business", sub: "markets", vector: [1,0], member: 0, label: 0, counts: [0,8,7,98,2,48] },
-];
-const f = (n: number) => n.toFixed(4);
-const dot = (a: Vec, b: Vec) => a[0]*b[0]+a[1]*b[1];
-const mean: Vec = [1.6/3,1.8/3];
-const norm = Math.hypot(...mean);
-const names = ["article_ctr","log_article_impressions","category_ctr","subcategory_ctr","log_history_length","log_title_characters","log_abstract_characters","P_mean_vector_cosine","P_category_share","P_subcategory_share","C_mean","C_max","C_top3","C_attention","E_slate_member","P_sem_x_E","C_mean_x_E","C_max_x_E","C_attention_x_E","P_sem_x_C_mean","P_sem_x_C_attention"];
 const groups = names.map((_,i)=>i<7?"control":i<10?"p":i<14?"c":i===14?"e":"product");
 const labels = ["Article CTR","Log impressions","Category CTR","Subcategory CTR","Log history size","Log title length","Log abstract length","p","Category share","Subcategory share","C mean","C max","C top-3","C attention","E","p × E","C mean × E","C max × E","C attention × E","p × C mean","p × C attention"];
 const records = [
@@ -38,17 +22,24 @@ export function MindWorkedExample({lang,step,candidate,onCandidate}:{lang:Lang;s
   const [contrast,setContrast]=useState(2);
   const [encoder,setEncoder]=useState(0);
   const [scores,setScores]=useState([.64,.38,.52]);
+  const [cutoff,setCutoff]=useState(10);
+  const ranked=candidates.map((c,i)=>({...c,score:scores[i],index:i})).sort((x,y)=>y.score-x.score||x.index-y.index);
+  const top=ranked.slice(0,cutoff);
+  const ideal=candidates.map(c=>c.label).sort((x,y)=>y-x).slice(0,cutoff);
+  const dcg=top.reduce((sum,c,i)=>sum+c.label/Math.log2(i+2),0);
+  const idcg=ideal.reduce((sum,label,i)=>sum+label/Math.log2(i+2),0);
+  const positives=candidates.reduce((sum,c)=>sum+c.label,0);
+  const hits=top.reduce((sum,c)=>sum+c.label,0);
+  const firstRelevant=ranked.findIndex(c=>c.label>0);
+  const ndcg=idcg>0?dcg/idcg:0;
+  const recall=positives>0?hits/positives:0;
+  const reciprocalRank=firstRelevant<0?0:1/(firstRelevant+1);
   const a=candidates[candidate];
-  const sim=history.map(h=>dot(a.vector,h.vector));
-  const p=dot(a.vector,mean)/norm;
-  const cm=sim.reduce((s,x)=>s+x,0)/3;
-  const ex=sim.map(x=>Math.exp((x-Math.max(...sim))/.18));
-  const weights=ex.map(x=>x/ex.reduce((s,y)=>s+y,0));
-  const ca=sim.reduce((s,x,i)=>s+x*weights[i],0);
+  const { similarities: sim, weights, values, fields }=computeValues(a);
+  const p=fields.P_mean_vector_cosine;
+  const cm=fields.C_mean;
+  const ca=fields.C_attention;
   const [ac,ai,cc,ci,sc,si]=a.counts;
-  const categoryShare=history.filter(h=>h.category===a.category).length/3;
-  const subShare=history.filter(h=>h.sub===a.sub).length/3;
-  const values=[(ac+1)/(ai+2),Math.log1p(ai),(cc+1)/(ci+2),(sc+1)/(si+2),Math.log1p(3),Math.log1p(a.title.length),Math.log1p(a.abstract.length),p,categoryShare,subShare,cm,Math.max(...sim),cm,ca,a.member,p*a.member,cm*a.member,Math.max(...sim)*a.member,ca*a.member,p*cm,p*ca];
   const formulas=[`(${ac}+1)/(${ai}+2)`,`ln(1+${ai})`,`(${cc}+1)/(${ci}+2)`,`(${sc}+1)/(${si}+2)`,"ln(1+3)",`ln(1+${a.title.length})`,`ln(1+${a.abstract.length})`,`(${a.vector[0]} × ${f(mean[0])} + ${a.vector[1]} × ${f(mean[1])}) / ${f(norm)}`,`${history.filter(h=>h.category===a.category).length}/3`,`${history.filter(h=>h.sub===a.sub).length}/3`,`(${sim.map(f).join(" + ")})/3`,`max(${sim.map(f).join(", ")})`,t("이력 3개뿐이므로 C mean과 동일", "Only three history items: identical to C mean"),weights.map((w,i)=>`${f(w)} × ${f(sim[i])}`).join(" + "),a.member?t("원래 후보 목록에 있음 → 1","In the original slate → 1"):t("추가한 후보 → 0","Added candidate → 0"),`${f(p)} × ${a.member}`,`${f(cm)} × ${a.member}`,`${f(Math.max(...sim))} × ${a.member}`,`${f(ca)} × ${a.member}`,`${f(p)} × ${f(cm)}`,`${f(p)} × ${f(ca)}`];
   const why=[t("학습 측 기사 클릭 통계", "Training-side article click statistics"),t("학습 측 기사 등장 횟수", "Training-side article impressions"),t("학습 측 카테고리 클릭 통계", "Training-side category click statistics"),t("학습 측 세부 카테고리 클릭 통계", "Training-side subcategory click statistics"),t("현재 후보보다 앞선 클릭 이력 길이", "Length of prior click history"),t("영문 예시 제목의 문자 수", "Character count of the English example title"),t("영문 예시 초록의 문자 수", "Character count of the English example abstract"),t("이력의 평균 방향과 후보를 비교", "Compare the candidate with the mean-history direction"),t("후보와 카테고리가 같은 이력의 비율", "Share of history matching the candidate category"),t("후보와 세부 카테고리가 같은 이력의 비율", "Share of history matching the candidate subcategory"),t("각 이력과의 유사도를 평균", "Average the individual similarities"),t("가장 유사한 이력 하나", "The most similar history item"),t("유사도 상위 최대 3개를 평균", "Average up to the three largest similarities"),t("softmax(유사도 / 0.18) 가중 평균", "Weighted mean using softmax(similarity / 0.18)"),t("출처를 나타내는 입력이며 클릭 정답이 아님", "An origin feature, not the click label"),...Array(6).fill(t("이미 계산한 두 입력의 곱. 새 출처나 예측 점수가 아님", "Product of two existing inputs; not a new source or prediction"))];
   const chosen=contrasts[contrast];
@@ -71,7 +62,6 @@ export function MindWorkedExample({lang,step,candidate,onCandidate}:{lang:Lang;s
   ];
   return <div className="mw-workshop" lang={lang}>
     <div className="mw-orientation">
-      <nav className="mw-route" aria-label={t("데이터에서 결과까지", "From data to results")}>{chapters.map((chapter,i)=><a key={chapter.id} href={`#${chapter.id}`} aria-current={step===i?"step":undefined}><span>{String(i+1).padStart(2,"0")}</span><strong>{t(chapter.ko,chapter.en)}</strong></a>)}</nav>
       <div className="mw-question"><span>{t("이 단계에서 이해할 한 가지", "ONE QUESTION FOR THIS STEP")}</span><h4>{chapters[step].question}</h4><p>{chapters[step].answer}</p></div>
     </div>
     <div className={`mw-status ${step===4?"mw-real":""}`}><b>{step===4?t("이제 실제 논문 결과", "NOW: REPORTED EXPERIMENT"):t("계산을 따라가는 합성 실습", "SYNTHETIC WORKED EXAMPLE")}</b><span>{step===4?t("앞 단계의 가상 기사·벡터·점수와 별개입니다.","Separate from the toy articles, vectors, and scores in steps 1–4."):t("실제 MIND 행이 아닙니다. 2차원 단위 벡터로 계산을 단순화했으며, 실제 실험은 캐시된 BGE 벡터를 씁니다.","Not real MIND rows. Two-dimensional unit vectors make the arithmetic visible; the experiment uses cached BGE vectors.")}</span></div>
@@ -103,12 +93,24 @@ export function MindWorkedExample({lang,step,candidate,onCandidate}:{lang:Lang;s
     </>}
     {step===3&&<>
       <div className="mw-pipeline"><article><span>01 · {t("고정", "FIXED")}</span><h4>BGE</h4><p>{t("기사 텍스트 → 벡터", "Article text → vector")}</p><small>{t("앞 실습의 2차원 벡터에 해당", "Corresponds to our toy 2D vectors")}</small></article><article><span>02 · {t("계산", "COMPUTED")}</span><h4>{t("피처 기록", "Feature record")}</h4><p>8 / 14 / 15 / 21</p><small>{t("Cosine·비율·E·control·곱", "Cosines · shares · E · controls · products")}</small></article><article><span>03 · {t("학습", "LEARNED")}</span><h4>ExtraTrees</h4><p>{t("후보별 예측 점수", "One predicted score per candidate")}</p><small>{t("점수 내림차순으로 후보 정렬", "Sort candidates by descending score")}</small></article></div>
-      <p className="mw-lead">{t("p나 C mean 자체가 최종 순위 점수는 아닙니다. ExtraTrees는 학습 데이터의 피처와 y로 학습하고, 평가할 때는 후보 피처만 받아 점수를 냅니다.","Neither p nor C mean is the final ranking score. ExtraTrees learns from training features and y; at evaluation it receives candidate features, not the answers.")}</p>
-      <div className="mw-score-demo"><div><h4>{t("점수와 정답은 다릅니다", "Scores are not the answers")}</h4><p>{t("아래는 정렬 원리를 보여주는 조작용 가상 점수입니다. BGE나 ExtraTrees의 출력이 아닙니다. 점수를 움직이면 순위만 바뀌고 y는 그대로입니다.","These adjustable toy scores illustrate sorting; they are not BGE or ExtraTrees outputs. Move a score: the rank changes, but y does not.")}</p>{candidates.map((c,i)=><label key={c.id}>{c.id} · {c.title}<div><input aria-label={t(`기사 ${c.id}의 가상 점수`,`Toy score for article ${c.id}`)} type="range" min="0" max="1" step="0.01" value={scores[i]} onChange={e=>setScores(scores.map((s,j)=>j===i?Number(e.target.value):s))}/><output>{scores[i].toFixed(2)}</output></div></label>)}</div><ol aria-live="polite">{candidates.map((c,i)=>({...c,score:scores[i]})).sort((x,y)=>y.score-x.score).map(c=><li key={c.id}><b>{c.id}</b><span>{c.title}</span><strong>{c.score.toFixed(2)}</strong><small>y={c.label}</small></li>)}</ol></div>
+      <p className="mw-lead">{t("p나 C mean 자체가 최종 순위 점수는 아닙니다. ExtraTrees는 학습 데이터의 피처와 y로 학습하고, 평가할 때는 후보 피처만 받아 class 1의 predict_proba 점수를 냅니다. 같은 query 안에서 이 점수의 내림차순으로 정렬합니다.","Neither p nor C mean is the final ranking score. ExtraTrees learns from training features and y; at evaluation it receives only candidate features and returns the class-1 predict_proba score. Candidates are sorted by that score within each query.")}</p>
+      <div className="mw-score-demo"><div><h4>{t("점수와 정답은 다릅니다", "Scores are not the answers")}</h4><p>{t("아래는 정렬 원리를 보여주는 조작용 가상 점수입니다. BGE나 ExtraTrees의 출력이 아닙니다. 점수를 움직이면 순위만 바뀌고 y는 그대로입니다.","These adjustable toy scores illustrate sorting; they are not BGE or ExtraTrees outputs. Move a score: the rank changes, but y does not.")}</p>{candidates.map((c,i)=><label key={c.id}>{c.id} · {c.title}<div><input aria-label={t(`기사 ${c.id}의 가상 점수`,`Toy score for article ${c.id}`)} type="range" min="0" max="1" step="0.01" value={scores[i]} onChange={e=>setScores(scores.map((s,j)=>j===i?Number(e.target.value):s))}/><output>{scores[i].toFixed(2)}</output></div></label>)}</div><ol aria-live="polite">{ranked.map(c=><li key={c.id}><b>{c.id}</b><span>{c.title}</span><strong>{c.score.toFixed(2)}</strong><small>y={c.label}</small></li>)}</ol></div>
+      <section className="mw-record" aria-label={t("가상 점수의 평가 지표", "Toy-score metrics")}>
+        <h4>{t("가상 점수 → DCG / IDCG → NDCG", "Toy scores → DCG / IDCG → NDCG")}</h4>
+        <label>{t("평가 깊이 k", "Cutoff k")} <select value={cutoff} onChange={e=>setCutoff(Number(e.target.value))}>{[1,2,3,10].map(k=><option key={k} value={k}>{k}</option>)}</select></label>
+        <div aria-live="polite">
+          <p>{ranked.map(c=>`${c.id} (${c.score.toFixed(2)}, y=${c.label})`).join(" → ")}</p>
+          <p>DCG@{cutoff} = {top.map((c,i)=>`${c.label}/log₂(${i+2})`).join(" + ")} = <b>{f(dcg)}</b><br/>IDCG@{cutoff} = {ideal.map((label,i)=>`${label}/log₂(${i+2})`).join(" + ")} = <b>{f(idcg)}</b><br/>NDCG@{cutoff} = {f(dcg)} / {f(idcg)} = <b>{f(ndcg)}</b></p>
+          <p>Recall@{cutoff} = {hits}/{positives} = <b>{f(recall)}</b> · {t("이 query의 RR", "This query's RR")} = {firstRelevant<0?"0":`1/${firstRelevant+1}`} = <b>{f(reciprocalRank)}</b></p>
+        </div>
+        <p>{t("이진 라벨에서는 gain=y입니다. IDCG는 정답 라벨을 이상적인 순서로 정렬한 DCG입니다. 동점은 A·B·C 순서로 처리합니다. 후보가 3개뿐이므로 k=10에서는 Recall이 항상 1이며, 더 작은 k에서는 클릭 후보의 순위에 따라 달라집니다. RR은 k와 무관하게 전체 순위의 첫 클릭 위치를 사용합니다.", "For binary labels, gain=y. IDCG is DCG with labels in ideal order. Toy score ties use A/B/C order. With only three candidates, Recall at k=10 is always 1; at smaller k it depends on the clicked candidate's rank. RR uses the first clicked position in the full ranking, independently of k.")}</p>
+        <p>{t("합성 query 한 건의 계산이며 논문 결과가 아닙니다. 실제 NDCG와 Recall은 query별 계산 후 평균하고, MRR은 query별 RR의 평균입니다. 이 한 건만 평균하면 MRR=RR입니다.", "These calculations describe one synthetic query, not reported results. Actual NDCG and Recall are averaged across queries; MRR is the mean of query-level RR. For this single-query demonstration, MRR=RR.")} <a href="#equations">{t("평가 지표 수식", "Metric equations")}</a></p>
+      </section>
       <div className="mw-takeaway"><b>{t("학습 → 선택 → 평가를 분리합니다.","Keep fitting, selection, and evaluation separate.")}</b><p>{t("실제 실험: 51,000개 fitting + 9,000개 validation으로 설정 선택 → train 60,000개로 재학습 → 별도 development 30,000개 평가. 위 가상 순위에서 논문 성능을 계산하지 않습니다.","Experiment: select settings using 51,000 fitting + 9,000 validation impressions, refit on 60,000 training impressions, then evaluate 30,000 development impressions. The paper's metrics do not come from the toy ranking above.")}</p></div>
     </>}
     {step===4&&<>
       <p className="mw-lead">{t("여기부터는 논문에 보고된 30,000개 development impression의 결과입니다. 먼저 ‘어떤 입력을 더했는가’를 고르고 점수 차이를 읽습니다.","These are reported results over 30,000 development impressions. Choose the input change first, then read the corresponding score difference.")}</p>
+      <p className="mw-footnote">{t("Direct ExtraTrees도 이미 트리 분기로 피처 간 상호작용을 학습합니다. Direct와 Full의 비교는 ‘상호작용 없음 대 있음’이 아니라, 같은 학습기에 명시적 곱 6개를 추가하는 효과를 봅니다.", "Direct ExtraTrees already learns feature interactions through tree splits. Direct versus Full is not 'no interactions versus interactions'; it tests adding six explicit product fields to the same learner family.")}</p>
       {contrastPicker}<div className="mw-subnav" role="group" aria-label={t("실제 결과 인코더", "Reported-result encoder")}>{["BGE-M3","BGE-base"].map((x,i)=><button key={x} type="button" aria-pressed={encoder===i} onClick={()=>setEncoder(i)}>{x}</button>)}</div>
       <div className="mw-result-rows">{records.map((r,i)=><div key={r.size} className={i===chosen.from||i===chosen.to?"mw-relevant":""}><span>{r.title}<small>{r.size} {t("개 입력", "fields")}</small></span><div aria-hidden="true"><i style={{width:`${results[encoder][i]/.45*100}%`}}/></div><b>{f(results[encoder][i])}</b></div>)}</div>
       <div className="mw-result-reading" aria-live="polite"><span>NDCG@10 · {records[chosen.to].title} − {records[chosen.from].title}</span><strong>+{f(differences[encoder][contrast])}</strong><p>{t("같은 고정 후보군, 입력 구성별로 독립 선택한 모델의 차이입니다. 단일 피처의 독립적·인과적 기여량은 아닙니다.","A contrast between independently selected models on the same fixed candidate pool, not an independent or causal contribution of an individual feature.")}</p>{contrast===2&&<p>{t("명목 사용자 군집 95% 구간", "Nominal user-clustered 95% interval")}: {encoder===0?"[0.0019, 0.0043]":"[0.0096, 0.0122]"}</p>}</div>

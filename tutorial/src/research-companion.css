@@ -137,7 +137,7 @@ html[data-view="tutorial"] body {
 .research-boundaries h3 { margin:12px 0 10px; font-size:18px; }
 .research-boundaries p { margin:0; color:var(--research-copy); font-size:13px; line-height:1.7; }
 
-.research-chapter-header { max-width:1180px; margin:0 auto; padding:64px 32px 36px; border-bottom:1px solid var(--research-rule); }
+.research-chapter-header { max-width:1180px; margin:0 auto; padding:40px 32px 28px; border-bottom:1px solid var(--research-rule); }
 .research-chapter-header:focus { outline:none; }
 .research-chapter-header h1 { max-width:850px; }
 .research-chapter-header nav { display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:28px; }
@@ -146,7 +146,7 @@ html[data-view="tutorial"] body {
 
 .research-companion .comparison-atlas { min-height:0; background:transparent; color:var(--research-ink); }
 .research-companion .comparison-atlas .ca-shell { max-width:1180px; margin:auto; padding:0 32px 80px; background:transparent; box-shadow:none; }
-.research-companion .comparison-atlas .ca-section { padding:56px 0 20px; border:0; }
+.research-companion .comparison-atlas .ca-section { padding:36px 0 20px; border:0; }
 .research-companion .comparison-atlas .ca-heading { max-width:820px; margin:0 0 32px; }
 .research-companion .comparison-atlas .ca-heading>span { color:var(--research-accent); font:650 10px/1.5 monospace; letter-spacing:.08em; }
 .research-companion .comparison-atlas .ca-heading h2 { margin:10px 0 12px; font:500 clamp(28px,3vw,40px)/1.25 "Iowan Old Style","Noto Serif KR",Georgia,serif; letter-spacing:0; }
@@ -159,9 +159,9 @@ html[data-view="tutorial"] body {
 .research-companion .ca-selector { top:135px; }
 .research-companion .ca-footer { padding:35px 0 0; border-top:1px solid var(--research-rule); }
 .research-companion .mind-journey { --mj-a:var(--research-accent); }
-.research-companion .mj-heading { max-width:840px; padding-top:52px; }
+.research-companion .mj-heading { max-width:840px; padding-top:20px; }
 .research-companion .mj-heading>span { color:var(--research-accent); font:650 10px/1.5 monospace; letter-spacing:.08em; }
-.research-companion .mj-heading h2 { margin:11px 0 13px; font:500 clamp(29px,3vw,40px)/1.25 "Iowan Old Style","Noto Serif KR",Georgia,serif; }
+.research-companion .mj-heading h2 { margin:11px 0 13px; font:500 28px/1.25 "Iowan Old Style","Noto Serif KR",Georgia,serif; }
 .research-companion .mj-heading>p { color:var(--research-copy); font-size:15px; line-height:1.75; }
 .research-companion .mj-contrast { display:grid; grid-template-columns:1fr 1fr; margin-top:26px; border-block:1px solid var(--research-rule); }
 .research-companion .mj-contrast>div { display:grid; grid-template-columns:70px minmax(0,1fr); gap:14px; padding:16px 0; font-size:12px; }
@@ -235,6 +235,9 @@ html[data-view="tutorial"] body {
 }
 
 @media (max-width:620px) {
+  .research-companion .prd-output>header { grid-template-columns:minmax(0,1fr); gap:18px; }
+  .research-companion .prd-output-summary { padding:16px 0 0; border-left:0; border-top:1px solid var(--research-rule); }
+  .research-companion .prd-phone-preview { flex:0 0 84px; }
   .research-brand>small { display:none; }
   .research-header-actions { gap:8px; }
   .research-chapter-nav { gap:22px; }
