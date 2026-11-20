@@ -345,21 +345,6 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .preview-score { padding-left: 14px; border-left: 1px solid #d5d0c9; text-align: right; white-space: nowrap; }
 .preview-score strong { color: #35322f; font-size: 10px; font-weight: 700; letter-spacing: .02em; }
 .demo-preview figcaption { margin: 0; padding: 9px 14px; border-top: 1px solid #dedcd7; color: #747774; font-size: 10px; line-height: 1.45; }
-
-.manuscript-section { max-width: 1120px; padding-top: 38px; padding-bottom: 38px; }
-.manuscript-heading { display: grid; grid-template-columns: 1fr 1.15fr auto; gap: 26px; align-items: end; max-width: none; }
-.manuscript-heading p { margin: 0; color: var(--muted); font-size: 13px; }
-.paper-preview { display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: center; gap: 36px; max-width: 800px; margin: 0 auto; padding: 22px 30px; border: 1px solid var(--line); background: #f8f8f5; text-decoration: none; }
-.paper-preview img { width: 210px; height: auto; border: 1px solid #d9d9d4; box-shadow: 0 3px 12px rgb(0 0 0 / 7%); }
-.paper-preview-copy { display: grid; gap: 12px; }
-.paper-preview-copy small { color: var(--muted); font-size: 12px; }
-.paper-preview-copy strong { font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: 25px; font-weight: 500; line-height: 1.2; }
-.paper-preview-copy > span { color: var(--muted); font-size: 14px; line-height: 1.6; }
-.paper-preview-copy b { justify-self: start; border-bottom: 1px solid currentColor; font-size: 13px; }
-.paper-preview:hover, .paper-preview:focus-visible { outline: 2px solid #1d6077; outline-offset: 3px; }
-
-.citation-section { display: grid; grid-template-columns: .75fr 1.25fr; gap: 38px; align-items: start; }
-.citation-section pre { overflow-x: auto; margin: 0; padding: 20px 22px; border: 1px solid #d9d5ce; border-top: 2px solid var(--ku-crimson); background: #fff; box-shadow: none; color: #252729; font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; line-height: 1.55; white-space: pre-wrap; }
 .project-footer { display: flex; justify-content: space-between; gap: 24px; max-width: 1180px; margin: 0 auto; padding: 28px 30px 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
 .footer-identity { display: grid; max-width: 620px; }
 .project-footer strong { color: var(--ink); font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif; font-size: 15px; line-height: 1.45; }
@@ -376,11 +361,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
   .project-nav nav>a { display:none; }
   .abstract-section { grid-template-columns: 1fr; gap: 10px; }
   .abstract-section .section-heading { padding-left: 0; }
-  .citation-section { grid-template-columns: 1fr; gap: 20px; }
   .demo-section { width: calc(100% - 60px); padding: 38px 0; }
   .demo-heading { grid-template-columns: 1fr; gap: 16px; }
   .demo-link { justify-self: start; }
-  .manuscript-heading { grid-template-columns: 1fr; gap: 12px; }
   .takeaway-grid { grid-template-columns: 1fr; }
   .takeaway-grid article + article { border-top: 1px solid var(--line); border-left: 0; }
   .record-preview-heading { grid-template-columns: 1fr; gap: 8px; }
@@ -432,12 +415,6 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
   .preview-context { align-items: flex-start; }
   .preview-evidence { grid-template-columns: 1fr; gap: 9px; }
   .preview-score { padding-top: 8px; padding-left: 0; border-top: 1px solid #d5d0c9; border-left: 0; text-align: left; }
-  .paper-preview { grid-template-columns: 100px minmax(0, 1fr); gap: 16px; padding: 16px; }
-  .paper-preview img { width: 100px; }
-  .paper-preview-copy { gap: 8px; }
-  .paper-preview-copy strong { font-size: 20px; }
-  .paper-preview-copy > span { font-size: 13px; }
-  .citation-section pre { padding: 18px; }
   .project-footer { display: grid; padding: 34px 20px 45px; }
   .footer-links { justify-content: flex-start; }
 }
@@ -796,9 +773,7 @@ img[alt*="algorithm" i] {
 }
 
 .project-page main > .paper-section,
-.project-page main > .takeaways-section,
-.project-page main > .manuscript-section,
-.project-page main > .citation-section {
+.project-page main > .takeaways-section {
   border-top: 1px solid var(--page-rule, #d8d8d2);
 }
 
