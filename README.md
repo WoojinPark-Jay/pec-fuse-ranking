@@ -1,22 +1,18 @@
 # PEC-Fuse
 
-Code and accompanying materials for **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**, an IEEE Access manuscript.
+Code, interactive explanations, and reproducibility materials for **PEC-Fuse: Source-Preserving Evidence Fusion for News Ranking with Partial Recommendation Traces**.
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Paper](https://woojinpark-jay.github.io/pec-fuse-ranking/PEC-Fuse-manuscript-v92.pdf) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
 
-> [!TIP]
-> **Try PEC-Fuse interactively in the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo).**
-> Select a reader and scoring model, inspect the resulting news ranking, and trace a candidate score back to its profile, retained-trace, prior-consumption, and control signals. No installation or data upload is required.
-
-**Repository guide:** [Method](README.md#method-at-a-glance) | [Results](README.md#results-and-paper-mapping) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
-
-**Versioned reproducibility artifact:** [Browse or download the manuscript-aligned snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/). The release corresponds to IEEE Access manuscript revision **v92**; this GitHub repository is the canonical source for the same code and aggregate records.
+**Repository guide:** [Method](README.md#method-at-a-glance) | [Quick start](README.md#quick-start) | [Results](README.md#results-and-evaluation-scope) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
 ## Interactive tutorial: start here
 
-The public [PEC-Fuse project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) is the canonical entry point for the paper, code, tutorial, live demo, and reproducibility artifact. The [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects the paper's notation to concrete candidate rows, works through the main equations, distinguishes computed features from learned quantities, and explains what changes in each model comparison. Readers who want to begin with an example can jump directly to the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo). Sliders and scenario controls run entirely in the browser; they neither upload data nor retrain the manuscript models. The tutorial source is versioned under [`tutorial/`](tutorial/).
+The English [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects notation to concrete candidate rows, works through feature calculations, and explains the model comparisons. It includes column-level MIND examples and distinguishes public history-derived proxies from the private evidence sources.
+
+In the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo), select a reader and scoring model, inspect the ranking, and examine each candidate's evidence. The controls run entirely in the browser: no installation or data upload is required, and they do not retrain the research models. Source files are under [`tutorial/`](tutorial/).
 
 ## Method at a glance
 
@@ -91,9 +87,9 @@ python scripts/check_access_aggregates.py
 
 This checks release-file SHA-256 hashes, feature order, and selected aggregate arithmetic. It reports `status: passed` only when those checks pass; it does not re-run private experiments. See the [walkthrough](docs/GETTING_STARTED.md) for inputs, outputs, and file roles.
 
-## Results and paper mapping
+## Results and evaluation scope
 
-This release is aligned with manuscript revision **v92**. Appendix C-B includes a trace-only diagnostic: on the same-day pool, an E-only logistic score reaches 0.5007 NDCG@10, well below the operational control (0.7499) and Complete PEC (0.7717), both tested restricted trace-only scores remain well below those models on the same pool. The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
+The headline improvements below are Complete PEC minus the operational control, in NDCG@10 units, not percentage changes:
 
 | Candidate regime | NDCG@10 improvement |
 | --- | ---: |
@@ -101,6 +97,8 @@ This release is aligned with manuscript revision **v92**. Appendix C-B includes 
 | Same-day | +0.0218 |
 
 Both paired 95% intervals exclude zero; the full scores and intervals are in [core metrics](access/data/core_test_metrics.csv) and [paired comparisons](access/data/core_user_bootstrap.csv). These results concern the manuscript's retrospective candidate-pool evaluation.
+
+A separate trace-only diagnostic reaches 0.5007 NDCG@10 with an E-only logistic scorer on the same-day pool, below the operational control (0.7499) and Complete PEC (0.7717). Trace membership alone does not account for the full models' performance in this comparison.
 
 The compact 19-D Direct alternative is competitive with Complete PEC. The equal-width Direct versus learned 5-D comparison favors Direct in recent-window, while the same-day interval includes zero. This supports the tested source-preserving representation, not universal superiority over learned fusion. See the [current comparison table](access/tables/direct_complete.tex).
 
@@ -149,7 +147,7 @@ This regenerates the protocol, aggregate plots, and synthetic feature example un
 | `scripts/` | ExtraTrees and neural synthetic demos, fixed-protocol MIND runner, aggregate checker, and result summary |
 | `examples/synthetic/` | Non-private example rows |
 | `configs/` | Demo settings and documented audit/proxy configurations |
-| `tutorial/` | Source for the bilingual interactive paper tutorial |
+| `tutorial/` | Source for the English interactive tutorial and live demo |
 | `access/data/` | Manuscript aggregate records |
 | `access/tables/` | Current manuscript table fragments |
 | `access/tools/` | Figure generators and restricted-input calculation utility |

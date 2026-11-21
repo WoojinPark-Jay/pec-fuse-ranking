@@ -90,14 +90,7 @@ function Resources({ lang }: { lang: Lang }) {
       <nav className="research-resource-links" aria-label={t("재현 문서", "Reproducibility documents")}><a href={`${artifact}/docs/GETTING_STARTED.md`}>{t("전체 실행 절차", "Quick start")}</a><a href={`${artifact}/docs/REPRODUCIBILITY.md`}>{t("재현 가능 범위", "Reproducibility scope")}</a><a href={`${artifact}/docs/DATA_AVAILABILITY.md`}>{t("데이터 제공 범위", "Data availability")}</a></nav>
     </section>
     <section id="cite" className="research-cite">
-      <div><span>CITATION</span><h2>{t("논문과 사용한 소프트웨어 버전을 함께 인용해 주세요", "Cite the manuscript and the software version used")}</h2><p>{t("현재 논문은 미출판 원고 v92입니다. DOI와 게재 정보는 출판 후 추가합니다.", "The paper is currently an unpublished manuscript, revision v92. Publication metadata and a DOI will be added after publication.")}</p></div>
-      <pre><code>{`@unpublished{park2026pecfuse,
-  title  = {PEC-Fuse: Source-Preserving Evidence Fusion for
-            News Ranking with Partial Recommendation Traces},
-  author = {Park, Woojin and Cheong, Taesu},
-  note   = {Unpublished manuscript, revision v92},
-  year   = {2026}
-}`}</code></pre>
+      <div><span>CITATION</span><h2>{t("사용한 소프트웨어 버전을 명시해 주세요", "Reference the software version used")}</h2><p>{t("소프트웨어를 사용할 때는 저장소 URL과 커밋을 명시해 주세요. 논문의 최종 서지정보는 공개가 확정되면 추가합니다.", "When referring to this software, identify the repository URL and commit. A publication-specific citation will be added when final bibliographic details are available.")}</p></div>
       <a href={repository}>{t("소스 저장소", "Source repository")}</a>
     </section>
   </main>;
