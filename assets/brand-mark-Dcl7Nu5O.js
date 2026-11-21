@@ -1,0 +1,1 @@
+import{j as s}from"./index-S4Jw6ftk.js";function e(){return s.jsxs("span",{className:"pec-header-mark","aria-hidden":"true",children:[s.jsx("i",{className:"p",children:"P"}),s.jsx("i",{className:"e",children:"E"}),s.jsx("i",{className:"c",children:"C"}),s.jsx("i",{className:"z",children:"Z"}),s.jsx("i",{className:"psi",children:"ψ"})]})}export{e as B};
