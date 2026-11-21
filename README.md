@@ -71,7 +71,7 @@ python scripts/run_synthetic_neural.py
 
 This command trains matched neural-control and neural-PEC variants from scratch on synthetic embeddings and side features. It exercises history self-attention, candidate-conditioned pooling, the candidate/user interaction record, listwise loss, backpropagation, gradient clipping, scoring, and within-query evaluation. It does **not** download BGE-M3, expose operational rows, load a manuscript checkpoint, or reproduce the reported private-platform scores. See the [neural audit guide](docs/PRIVATE_CANDIDATE_AWARE_NEURAL_AUDIT.md).
 
-The learned early-fusion MLP is separately executable so its representation-learning step is not hidden inside an unpublished pipeline:
+The multidimensional learned-fusion MLP is separately executable so its representation-learning step can be inspected directly:
 
 ```bash
 python scripts/run_synthetic_fusion.py
@@ -166,7 +166,7 @@ For questions or reproducibility issues, use the repository's Issues tab and inc
 
 ## Release identity and graphics preflight
 
-`RELEASE_INFO.json` identifies the current manuscript and artifact revisions. The software version (0.2.0), historical experiment dates, checkpoint identifiers, and provenance source hashes are separate identifiers; they are not rewritten to match the manuscript number. `access/RUNNER_PROVENANCE.json` distinguishes the containing release from the first packaging of runner metadata.
+`RELEASE_INFO.json` identifies the manuscript snapshot and artifact revision associated with the archived experiments, not the latest submitted Overleaf document. Administrative notes in that file describe the archived snapshot. The software version (0.2.0), historical experiment dates, checkpoint identifiers, and provenance source hashes are separate identifiers; they are not rewritten to match later submission edits. `access/RUNNER_PROVENANCE.json` distinguishes the containing release from the first packaging of runner metadata.
 
 After regenerating Figure 1 or the protocol figure, run `python access/tools/clean_unused_pdf_fonts.py input.pdf output.pdf` with pypdf installed. This removes only non-embedded font resources that never paint text, and refuses to remove a font used by a text-show operator. The published v92 figures have passed this cleanup and before/after raster comparison.
 

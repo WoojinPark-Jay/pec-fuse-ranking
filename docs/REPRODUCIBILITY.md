@@ -1,6 +1,6 @@
 # Reproducibility Boundaries
 
-The artifact separates three reproducibility levels.
+The artifact separates the following executable examples and evidence records.
 
 | Level | Included material | What can be checked |
 |---|---|---|
