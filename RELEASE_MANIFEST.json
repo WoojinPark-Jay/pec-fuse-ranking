@@ -1,6 +1,6 @@
 {
   "revision": "ieee-access-v92-public-artifact-v48",
-  "file_count": 183,
+  "file_count": 185,
   "files": {
     ".gitignore": "c54d8b8293d2c8f73cae3fa032d2eddedad2b902a1cfce2d99a895aadf0df908",
     "CITATION.cff": "7f01e2df57e907a8ab8572529bd75f2f88929ef4aaa1590455f28ec647d93aea",
@@ -176,14 +176,16 @@
     "tutorial/src/components/model-role-map.css": "e3b42026c759edd8663bb1cc1d0ce2826e537c17244b733843bb3b57062e36c9",
     "tutorial/src/main.tsx": "cf0c0fa2f5d461f9c15404e531bd5df84e70690c926838d42a68e4b0a590fa8e",
     "tutorial/src/mind-worked-example.css": "88b8f29845a33c09d60d5a464d9468c9f47aae8f02bd13377c72d8bf391c0725",
-    "tutorial/src/project-home.css": "cf485b67af0423857bb0c72a39e38ecddc1c2e8039d1cb943ec3718f5f80291d",
-    "tutorial/src/project-home.tsx": "7e5134b9c50e4cb468414a1a3d04da0cdfc1cc669fa9ca919f488dce930002e0",
-    "tutorial/src/public-tutorial.tsx": "40388de5820da9d228cd8c9374cf2e3493a7bb22e21155d6e9c67584d2a0c473",
+    "tutorial/src/project-home.css": "46a76904b04b75d2be14997577d82b397ea9aa0bafc1eecc06189c9c7d5d43da",
+    "tutorial/src/project-home.tsx": "6bb3e2aab026f0dfad27678cd858be4321a413107c3591dcfb35160c6df222bc",
+    "tutorial/src/public-tutorial.tsx": "d03929bfe527d3133e45a8c83e4ef649b01717267d7e9931b85716d3649f4225",
     "tutorial/src/public.css": "ea50840a6c38a7a5dab1beae49e8aef7ede63fc6d136964ce562796170ac816f",
-    "tutorial/src/research-companion.css": "52e4e3fc8d20d43bfbe1049faaa8b5c7250e66e4ec74ba3060166f5f5a4db384",
+    "tutorial/src/research-companion.css": "b43ac87d92366d6cc68bd316dae74ffe16604cf8e6d0d4706aa5226952457ae9",
     "tutorial/src/tutorial-refinement.css": "ca012be7e91c0f3a5bda079eef435b58b7c6f50af18a418c6929f0b74bde600b",
     "tutorial/src/tutorial-routes.ts": "f05e2d531ef79620aa0b46bf02942074786dc52cbc16ec5fdd69b9bce3794bf3",
     "tutorial/tsconfig.json": "83efc1798334967d5a907f26b8cba31fa213f16b5ac0ed5c02fd38e7cf0ceb66",
-    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d"
+    "tutorial/vite.config.ts": "b23daab7b8745fd6fda706c21a1e5577325a5a93f0ef49efb47931f1ad480a9d",
+    "tutorial/src/components/brand-mark.tsx": "5f1f4938724155219e1d4313a392ebf2d83c71365ca3c8132ce0f5bfffe2400a",
+    "tutorial/src/components/brand-mark.css": "74f73e5aa16986e7250d482f15c824f2404981b5ce281bb675b86829f0976c8a"
   }
 }

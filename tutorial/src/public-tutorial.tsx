@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { BrandMark } from "./components/brand-mark";
 import { chapterForHash, chapters, type ChapterId, type TutorialChapter } from "./tutorial-routes";
 
 type Lang = "ko" | "en";
@@ -131,7 +132,7 @@ export function PublicTutorial({ lang }: { lang: Lang }) {
     <a className="public-skip" href={`#${chapter.root}`}>{t("본문으로 건너뛰기", "Skip to content")}</a>
     <header className="research-header" id="top">
       <div className="research-header-bar">
-        <a className="research-brand" href={`?view=tutorial&lang=${lang}#tutorial`} aria-label={t("PEC-Fuse 연구 가이드 개요", "PEC-Fuse research companion overview")}><span aria-hidden="true"><i>P</i><i>E</i><i>C</i></span><b>PEC-Fuse</b><small>{t("연구 가이드", "Research companion")}</small></a>
+        <a className="research-brand" href={`?view=tutorial&lang=${lang}#tutorial`} aria-label={t("PEC-Fuse 연구 가이드 개요", "PEC-Fuse research companion overview")}><BrandMark /><b>PEC-Fuse</b><small>{t("연구 가이드", "Research companion")}</small></a>
         <div className="research-header-actions"><a href="?lang=en">Project</a><a href={repository}>GitHub</a></div>
       </div>
       <nav className="research-chapter-nav" aria-label={t("연구 가이드 목차", "Research companion chapters")}>

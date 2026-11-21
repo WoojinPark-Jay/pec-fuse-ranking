@@ -41,6 +41,9 @@ body { margin: 0; background: var(--paper); color: var(--ink); }
 .project-wordmark {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
+  display: inline-flex;
+  align-items: center;
   width: max-content;
   font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   font-size: 21px;

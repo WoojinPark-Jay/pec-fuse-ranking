@@ -56,11 +56,6 @@ html[data-view="tutorial"] body {
   max-width:1240px; min-height:64px; margin:auto; padding:10px 32px;
 }
 .research-brand { display:flex; align-items:center; gap:10px; text-decoration:none; white-space:nowrap; }
-.research-brand>span { display:flex; gap:2px; }
-.research-brand>span i { display:grid; width:22px; height:22px; place-items:center; font:700 10px/1 "SFMono-Regular",Consolas,monospace; font-style:normal; color:var(--research-ink); }
-.research-brand>span i:nth-child(1) { background:var(--research-p); }
-.research-brand>span i:nth-child(2) { background:var(--research-e); }
-.research-brand>span i:nth-child(3) { background:var(--research-c); }
 .research-brand>b { font-size:17px; }
 .research-brand>small { padding-left:10px; border-left:1px solid var(--research-rule); color:var(--research-copy); font-size:12px; }
 .research-header-actions { display:flex; align-items:center; gap:19px; color:var(--research-copy); font-size:12px; }

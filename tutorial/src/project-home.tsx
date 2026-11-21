@@ -1,4 +1,5 @@
 import "./project-home.css";
+import { BrandMark } from "./components/brand-mark";
 
 const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
 const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
@@ -25,6 +26,7 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
       <a className="project-skip" href="#abstract">{t("본문으로 건너뛰기", "Skip to content")}</a>
       <header className="project-nav">
         <a className="project-wordmark" href="#top" aria-label="PEC-Fuse home">
+          <BrandMark />
           <span>PEC-Fuse</span>
         </a>
         <nav aria-label={t("프로젝트 페이지 탐색", "Project page navigation")}>
