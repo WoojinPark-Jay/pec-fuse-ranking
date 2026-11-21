@@ -34,7 +34,6 @@ export function ProjectHome({ lang }: { lang: "en" | "ko" }) {
 
       <main id="top">
         <section className="project-hero">
-          <p className="venue-line">{t("IEEE Access 투고 원고 · 인터랙티브 프로젝트 페이지", "IEEE Access manuscript · Interactive project page")}</p>
           <div className="hero-title-lockup">
             <div className="pec-block-mark" role="img" aria-label="PEC-Fuse feature blocks: P, E, C, Z, and psi">
               <span className="mark-p">P</span><span className="mark-e">E</span><span className="mark-c">C</span><span className="mark-z">Z</span><span className="mark-psi">ψ</span>
