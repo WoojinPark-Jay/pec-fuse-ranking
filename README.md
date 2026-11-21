@@ -4,15 +4,15 @@ Code, interactive explanations, and reproducibility materials for **PEC-Fuse: So
 
 PEC-Fuse keeps stated-profile evidence (P), retained recommendation traces (E), and prior consumption (C) as separate inputs to a news-ranking model. Instead of reducing these sources to one score first, it constructs a feature vector for each user-query-candidate combination and learns to score that vector.
 
-**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/)
+**Explore PEC-Fuse:** [Project page](https://woojinpark-jay.github.io/pec-fuse-ranking/) | [Interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) | [Live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo) | [Versioned reproducibility artifact](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/README.md)
 
-**Repository guide:** [Method](README.md#method-at-a-glance) | [Quick start](README.md#quick-start) | [Results](README.md#results-and-evaluation-scope) | [MIND example](README.md#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
+**Repository guide:** [Method](#method-at-a-glance) | [Quick start](#quick-start) | [Results](#results-and-evaluation-scope) | [MIND example](#public-data-example) | [Data availability](docs/DATA_AVAILABILITY.md)
 
 ## Interactive tutorial: start here
 
 The English [interactive tutorial](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en) connects notation to concrete candidate rows, works through feature calculations, and explains the model comparisons. It includes column-level MIND examples and distinguishes public history-derived proxies from the private evidence sources.
 
-In the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo), select a reader and scoring model, inspect the ranking, and examine each candidate's evidence. The controls run entirely in the browser: no installation or data upload is required, and they do not retrain the research models. Source files are under [`tutorial/`](tutorial/).
+In the [live ranking demo](https://woojinpark-jay.github.io/pec-fuse-ranking/?view=tutorial&lang=en#live-demo), select a reader and scoring model, inspect the ranking, and examine each candidate's evidence. The controls run entirely in the browser: no installation or data upload is required, and they do not retrain the research models. See the [tutorial source guide](tutorial/README.md).
 
 ## Method at a glance
 
@@ -39,7 +39,7 @@ Python 3.10 or newer is required. The synthetic example runs on CPU and needs no
 **Download using the route you are viewing.**
 
 - **GitHub:** clone the repository with the command below, or use GitHub's Code > Download ZIP.
-- **Versioned review artifact:** [open the 4open snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/), then use the file viewer's **Download full repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub.
+- **Versioned review artifact:** [open the 4open snapshot](https://anonymous.4open.science/r/pec-fuse-ranking-9F34/README.md), then use the file viewer's **Download repository as ZIP** button. Extract the archive and open a terminal in the folder containing `pyproject.toml`, `README.md`, and `src/`. The artifact can be used directly without cloning GitHub. If the viewer says "Please select a file", select `README.md` in its file tree or reopen this explicit file link.
 
 GitHub download only:
 

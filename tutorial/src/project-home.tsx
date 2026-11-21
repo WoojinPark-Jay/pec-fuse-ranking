@@ -2,7 +2,7 @@ import "./project-home.css";
 import { BrandMark } from "./components/brand-mark";
 
 const REPOSITORY_URL = "https://github.com/WoojinPark-Jay/pec-fuse-ranking";
-const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/";
+const ARTIFACT_URL = "https://anonymous.4open.science/r/pec-fuse-ranking-9F34/README.md";
 const LINKEDIN_URL = "https://www.linkedin.com/in/woojinjaypark/";
 const PROFESSOR_SCHOLAR_URL = "https://scholar.google.com/citations?user=M0PUKeYAAAAJ&hl=en";
 

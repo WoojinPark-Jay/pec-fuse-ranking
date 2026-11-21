@@ -2,7 +2,7 @@
 
 ## 1. Run the synthetic example first
 
-Follow the root [installation instructions](../README.md#quick-start), then run `python scripts/run_synthetic_demo.py` from the repository root.
+Follow the Quick start section in the root [README](../README.md), then run `python scripts/run_synthetic_demo.py` from the repository root.
 
 On GitHub, clone the repository or download its ZIP. In the versioned review artifact, choose **Download full repository as ZIP** in the file viewer, extract it, and open a terminal in the directory containing `pyproject.toml`, `README.md`, and `src/`. The archive's top-level folder name may differ from the GitHub repository name. The artifact can be used directly without cloning GitHub.
 
