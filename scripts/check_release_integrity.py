@@ -34,9 +34,14 @@ def validate():
         path = ROOT / name
         if not path.is_file() or digest(path) != expected:
             errors.append('Missing or changed historical file: ' + name)
-    pdf = ROOT / info['manuscript_pdf']
-    if not pdf.is_file() or digest(pdf) != info['manuscript_pdf_sha256']:
-        errors.append('Current manuscript PDF does not match release hash')
+    if info.get('manuscript_pdf'):
+        pdf = ROOT / info['manuscript_pdf']
+        if not pdf.is_file() or digest(pdf) != info['manuscript_pdf_sha256']:
+            errors.append('Current manuscript PDF does not match release hash')
+    if not info.get('manuscript_pdf'):
+        for pattern in ('PEC-Fuse-manuscript-v*.pdf', 'paper-first-page-v*.png'):
+            for path in (ROOT / 'tutorial/public').glob(pattern):
+                errors.append('Unpublished manuscript asset in public directory: ' + path.name)
 
     provenance = json.loads((ROOT / 'access/RUNNER_PROVENANCE.json').read_text())
     for field, expected in [('manuscript_revision', current), ('artifact_revision', artifact)]:

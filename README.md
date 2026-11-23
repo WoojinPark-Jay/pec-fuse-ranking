@@ -170,4 +170,6 @@ For questions or reproducibility issues, use the repository's Issues tab and inc
 
 After regenerating Figure 1 or the protocol figure, run `python access/tools/clean_unused_pdf_fonts.py input.pdf output.pdf` with pypdf installed. This removes only non-embedded font resources that never paint text, and refuses to remove a font used by a text-show operator. The published v92 figures have passed this cleanup and before/after raster comparison.
 
-Run `python scripts/check_release_integrity.py` to check manifest hashes, release-version fields, active manuscript links, and the historical-file allowlist. Historical SVG/generator filenames retain their original revision identifiers intentionally.
+Manuscript PDFs and revision-preview images are not distributed in the current artifact. Experimental provenance and results remain available; historical SVG/generator filenames retain their original revision identifiers intentionally.
+
+Run `python scripts/check_release_integrity.py` to check manifest hashes, release-version fields, and the exclusion of manuscript assets from the public directory.
